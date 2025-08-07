@@ -41,6 +41,14 @@ interface AIFilter {
   reasoning: string;
 }
 
+interface OpenAIResponse {
+  choices: Array<{
+    message: {
+      content: string;
+    };
+  }>;
+}
+
 class AISearchService {
   private apiKey: string | null = null;
   private baseUrl: string = 'https://api.openai.com/v1/chat/completions';
@@ -283,7 +291,8 @@ class AISearchService {
   // Парсинг ответа от OpenAI
   private async parseOpenAIResponse(data: unknown, request: AISearchRequest): Promise<AISearchResponse> {
     try {
-      const content = (data as any).choices[0].message.content;
+      const openAIResponse = data as OpenAIResponse;
+      const content = openAIResponse.choices[0].message.content;
       const parsed = JSON.parse(content);
       
       return {

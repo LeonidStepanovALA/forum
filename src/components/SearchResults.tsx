@@ -940,11 +940,12 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
                               
                               {tour.guide && (
                                 <div className="flex items-center gap-2 text-sm text-gray-600 mb-3">
-                                  <img 
-                                    src={tour.guide.avatar} 
-                                    alt={tour.guide.name}
-                                    className="w-6 h-6 rounded-full"
-                                  />
+                                  <div 
+                                    className="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center text-xs font-medium"
+                                    style={{ backgroundColor: '#f3f4f6' }}
+                                  >
+                                    {tour.guide.name.charAt(0)}
+                                  </div>
                                   <span>Гид: {tour.guide.name}</span>
                                   <span>⭐ {tour.guide.rating}</span>
                                 </div>
@@ -1202,10 +1203,9 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
                   
                   {qrCode ? (
                     <div className="flex flex-col items-center">
-                      <img 
-                        src={qrCode} 
-                        alt="QR-код для заселения" 
-                        className="w-48 h-48 border-2 border-gray-200 rounded-lg"
+                      <div 
+                        className="w-48 h-48 border-2 border-gray-200 rounded-lg bg-white flex items-center justify-center"
+                        style={{ backgroundImage: `url(${qrCode})`, backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}
                       />
                       <p className="text-xs text-gray-500 mt-2">
                         Сгенерирован: {new Date().toLocaleString('ru-RU')}
