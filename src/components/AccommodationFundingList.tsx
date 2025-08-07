@@ -2,15 +2,12 @@
 
 import React, { useState } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
-import { translations } from '@/translations';
+// import { translations } from '@/translations';
 import { 
   BuildingOfficeIcon, 
   HomeIcon, 
   MapPinIcon, 
-  StarIcon,
-  CurrencyDollarIcon,
   CheckCircleIcon,
-  ExclamationTriangleIcon,
   LightBulbIcon,
   CloudIcon,
   TrashIcon,
@@ -43,16 +40,15 @@ interface Accommodation {
 }
 
 interface AccommodationFundingListProps {
-  allocations: any[];
+  allocations: unknown[];
   onAccommodationSelect?: (accommodation: Accommodation) => void;
 }
 
 export default function AccommodationFundingList({ 
-  allocations, 
   onAccommodationSelect 
 }: AccommodationFundingListProps) {
   const { language } = useLanguage();
-  const t = translations[language];
+  // const t = translations[language];
 
   const [selectedType, setSelectedType] = useState<string>('all');
   const [selectedRegion, setSelectedRegion] = useState<string>('all');

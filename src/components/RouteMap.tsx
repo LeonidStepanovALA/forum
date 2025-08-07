@@ -128,7 +128,7 @@ export default function RouteMap({
           </div>
 
           {/* Промежуточные точки */}
-          {waypoints.map((point, index) => (
+          {waypoints.map((point) => (
             <div 
               key={point.id}
               className={`flex items-center gap-3 p-3 rounded-lg border-2 cursor-pointer transition-colors ${getPointColor(point.type)} ${selectedPoint === point.id ? 'ring-2 ring-blue-300' : ''}`}

@@ -1,18 +1,16 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
-import { translations } from '@/translations';
+// import { translations } from '@/translations';
 import { 
   ChartBarIcon, 
-  CurrencyDollarIcon, 
   LightBulbIcon, 
   CloudIcon, 
   TrashIcon, 
   TruckIcon,
   CalculatorIcon,
-  CheckCircleIcon,
-  ExclamationTriangleIcon
+  CheckCircleIcon
 } from '@heroicons/react/24/outline';
 import FundingMapVisualization from './FundingMapVisualization';
 import AccommodationFundingList from './AccommodationFundingList';
@@ -60,7 +58,7 @@ export default function AutoFundingDistribution({
   onAllocationComplete 
 }: AutoFundingDistributionProps) {
   const { language } = useLanguage();
-  const t = translations[language];
+  // const t = translations[language];
 
   const [allocations, setAllocations] = useState<FundingAllocation[]>([]);
   const [isCalculating, setIsCalculating] = useState(false);
@@ -163,13 +161,13 @@ export default function AutoFundingDistribution({
     transport: language === 'ru' ? 'Транспорт' : 'Transport'
   };
 
-  const categoryColors = {
-    energy: 'bg-yellow-100 text-yellow-800',
-    water: 'bg-blue-100 text-blue-800',
-    waste: 'bg-red-100 text-red-800',
-    food: 'bg-green-100 text-green-800',
-    transport: 'bg-purple-100 text-purple-800'
-  };
+  // const categoryColors = {
+  //   energy: 'bg-yellow-100 text-yellow-800',
+  //   water: 'bg-blue-100 text-blue-800',
+  //   waste: 'bg-red-100 text-red-800',
+  //   food: 'bg-green-100 text-green-800',
+  //   transport: 'bg-purple-100 text-purple-800'
+  // };
 
   // Алгоритм автоматического распределения финансирования
   const calculateFundingAllocation = () => {
@@ -244,12 +242,12 @@ export default function AutoFundingDistribution({
     }).format(amount);
   };
 
-  const getPriorityColor = (priority: number) => {
-    if (priority >= 9) return 'text-red-600';
-    if (priority >= 7) return 'text-orange-600';
-    if (priority >= 5) return 'text-yellow-600';
-    return 'text-green-600';
-  };
+  // const getPriorityColor = (priority: number) => {
+  //   if (priority >= 9) return 'text-red-600';
+  //   if (priority >= 7) return 'text-orange-600';
+  //   if (priority >= 5) return 'text-yellow-600';
+  //   return 'text-green-600';
+  // };
 
   return (
     <div className="space-y-6">

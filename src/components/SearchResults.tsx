@@ -1,11 +1,9 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
 import QRCode from 'qrcode';
-import { StarIcon, MapPinIcon, CalendarIcon, ClockIcon, CurrencyDollarIcon, EyeIcon } from '@heroicons/react/24/solid';
 import { useLanguage } from '@/hooks/useLanguage';
-import { translations } from '@/translations';
+// import { translations } from '@/translations';
 import RouteMap from './RouteMap';
 
 interface SearchResult {
@@ -48,18 +46,18 @@ interface SearchResultsProps {
 
 export default function SearchResults({ results, searchQuery }: SearchResultsProps) {
   const { language } = useLanguage();
-  const t = translations[language];
-  const [selectedTour, setSelectedTour] = useState<number | null>(null);
+  // const t = translations[language];
+  // const [selectedTour, setSelectedTour] = useState<number | null>(null);
   const [confirmedTours, setConfirmedTours] = useState<Set<number>>(new Set([1, 4])); // Туры 1 и 4 уже подтверждены
-  const [pendingConfirmations, setPendingConfirmations] = useState<Set<number>>(new Set([2, 5])); // Туры 2 и 5 ожидают подтверждения
-  const [bookedTours, setBookedTours] = useState<Set<number>>(new Set()); // Забронированные туры
+  const [pendingConfirmations] = useState<Set<number>>(new Set([2, 5])); // Туры 2 и 5 ожидают подтверждения
+  // const [bookedTours, setBookedTours] = useState<Set<number>>(new Set()); // Забронированные туры
   const [selectedCompetingTours, setSelectedCompetingTours] = useState<Set<number>>(new Set()); // Выбранные конкурирующие туры
   const [timelineFilter, setTimelineFilter] = useState<'all' | 'confirmed' | 'pending' | 'available' | 'booked'>('all');
 
   console.log('🎯 SearchResults рендерится:', { 
     results: results.length, 
     searchQuery, 
-    selectedTour,
+    // selectedTour,
     resultsIds: results.map(r => r.id),
     confirmedTours: Array.from(confirmedTours),
     pendingConfirmations: Array.from(pendingConfirmations),
@@ -302,7 +300,7 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
   const mockHotels = [
     {
       id: 101,
-      name: 'Эко-отель "Зеленые горы"',
+      name: 'Эко-отель &quot;Зеленые горы&quot;',
       location: 'Чолпон-Ата, ул. Озерная, 15',
       description: 'Современный эко-отель с видом на озеро Иссык-Куль. Все номера оборудованы экологичными материалами.',
       priceRange: '15 000 - 25 000 ₸',
@@ -313,7 +311,7 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
     },
     {
       id: 102,
-      name: 'Гостиница "Озерный берег"',
+      name: 'Гостиница &quot;Озерный берег&quot;',
       location: 'Чолпон-Ата, ул. Пляжная, 8',
       description: 'Уютная гостиница в центре города с собственным пляжем и рестораном местной кухни.',
       priceRange: '12 000 - 20 000 ₸',
@@ -325,7 +323,7 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
   ];
 
   // Состояние для выбранных отелей
-  const [selectedHotels, setSelectedHotels] = useState<Set<number>>(new Set());
+  // const [selectedHotels, setSelectedHotels] = useState<Set<number>>(new Set());
   const [fadingHotels, setFadingHotels] = useState<Set<number>>(new Set());
   
   // Добавляем состояние для отслеживания выбранных отелей по датам
@@ -418,15 +416,15 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
     });
   };
 
-  const handleGuideConfirmation = (tourId: number) => {
-    console.log('✅ Гид подтвердил тур:', tourId);
-    setConfirmedTours(prev => new Set([...prev, tourId]));
-    setPendingConfirmations(prev => {
-      const newSet = new Set(prev);
-      newSet.delete(tourId);
-      return newSet;
-    });
-  };
+  // const handleGuideConfirmation = (tourId: number) => {
+  //   console.log('✅ Гид подтвердил тур:', tourId);
+  //   setConfirmedTours(prev => new Set([...prev, tourId]));
+  //   setPendingConfirmations(prev => {
+  //     const newSet = new Set(prev);
+  //     newSet.delete(tourId);
+  //     return newSet;
+  //   });
+  // };
 
   const handleStartTour = (tourId: number) => {
     console.log('🚀 Начинаем тур:', tourId);
@@ -613,61 +611,61 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
       return 'confirmed';
     } else if (pendingConfirmations.has(tourId)) {
       return 'pending';
-    } else if (bookedTours.has(tourId)) {
-      return 'booked';
+    // } else if (bookedTours.has(tourId)) {
+      return 'available';
     } else {
       return 'available';
     }
   };
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'confirmed':
-        return 'text-green-600 bg-green-50 border-green-200';
-      case 'pending':
-        return 'text-yellow-600 bg-yellow-50 border-yellow-200';
-      case 'available':
-        return 'text-blue-600 bg-blue-50 border-blue-200';
-      case 'booked':
-        return 'text-purple-600 bg-purple-50 border-purple-200';
-      default:
-        return 'text-gray-600 bg-gray-50 border-gray-200';
-    }
-  };
+  // const getStatusColor = (status: string) => {
+  //   switch (status) {
+  //     case 'confirmed':
+  //       return 'text-green-600 bg-green-50 border-green-200';
+  //     case 'pending':
+  //       return 'text-yellow-600 bg-yellow-50 border-yellow-200';
+  //     case 'available':
+  //       return 'text-blue-600 bg-blue-50 border-blue-200';
+  //     case 'booked':
+  //       return 'text-purple-600 bg-purple-50 border-purple-200';
+  //     default:
+  //       return 'text-gray-600 bg-gray-50 border-gray-200';
+  //   }
+  // };
 
-  const getDifficultyColor = (difficulty: string) => {
-    switch (difficulty.toLowerCase()) {
-      case 'легкая':
-      case 'easy':
-        return 'bg-green-100 text-green-800';
-      case 'средняя':
-      case 'medium':
-        return 'bg-yellow-100 text-yellow-800';
-      case 'сложная':
-      case 'hard':
-        return 'bg-orange-100 text-orange-800';
-      case 'эксперт':
-      case 'expert':
-        return 'bg-red-100 text-red-800';
-      default:
-        return 'bg-gray-100 text-gray-800';
-    }
-  };
+  // const getDifficultyColor = (difficulty: string) => {
+  //   switch (difficulty.toLowerCase()) {
+  //     case 'легкая':
+  //     case 'easy':
+  //       return 'bg-green-100 text-green-800';
+  //     case 'средняя':
+  //     case 'medium':
+  //       return 'bg-yellow-100 text-yellow-800';
+  //     case 'сложная':
+  //     case 'hard':
+  //       return 'bg-orange-100 text-orange-800';
+  //     case 'эксперт':
+  //     case 'expert':
+  //       return 'bg-red-100 text-red-800';
+  //     default:
+  //       return 'bg-gray-100 text-gray-800';
+  //   }
+  // };
 
-  const getStatusText = (status: string) => {
-    switch (status) {
-      case 'confirmed':
-        return '✅ Подтвержден гидом';
-      case 'pending':
-        return '⏳ Ожидает подтверждения';
-      case 'available':
-        return '📋 Доступен для бронирования';
-      case 'booked':
-        return '🎫 Забронирован';
-      default:
-        return '❓ Неизвестный статус';
-    }
-  };
+  // const getStatusText = (status: string) => {
+  //   switch (status) {
+  //     case 'confirmed':
+  //       return '✅ Подтвержден гидом';
+  //     case 'pending':
+  //       return '⏳ Ожидает подтверждения';
+  //     case 'available':
+  //       return '📋 Доступен для бронирования';
+  //     case 'booked':
+  //       return '🎫 Забронирован';
+  //     default:
+  //       return '❓ Неизвестный статус';
+  //   }
+  // };
 
   // Компонент таймлайна
   const TimelineView = ({ tours }: { tours: SearchResult[] }) => {
@@ -702,7 +700,7 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
     const getHotelDates = (tourDates: string[]) => {
       const hotelDates: { [key: string]: string } = {};
       
-      tourDates.forEach((tourDate, index) => {
+      tourDates.forEach((tourDate) => {
         const currentDate = new Date(tourDate);
         const previousDate = new Date(currentDate);
         previousDate.setDate(previousDate.getDate() - 1);
@@ -734,7 +732,7 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
             ].map(filter => (
               <button
                 key={filter.key}
-                onClick={() => setTimelineFilter(filter.key as any)}
+                onClick={() => setTimelineFilter(filter.key as 'all' | 'confirmed' | 'pending' | 'available' | 'booked')}
                 className={`px-3 py-1 text-xs rounded-full border transition-colors ${
                   timelineFilter === filter.key
                     ? `bg-${filter.color}-100 text-${filter.color}-700 border-${filter.color}-300`
@@ -897,7 +895,7 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
                   
                   {/* Конкурирующие туры в горизонтальном расположении */}
                   <div className="ml-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {filteredToursForDate.map((tour, tourIndex) => (
+                    {filteredToursForDate.map((tour) => (
                       <div key={tour.id} className="relative">
                         {/* Галочка посередине напротив карточки */}
                         {bookingStatus[tour.id] === 'confirmed' && (
@@ -1080,11 +1078,11 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
               });
               
               // Бронируем все выбранные отели с задержкой
-              const selectedHotels = Object.entries(selectedHotelsByDate).filter(([date, hotelId]) => 
+              const selectedHotels = Object.entries(selectedHotelsByDate).filter(([, hotelId]) => 
                 !hotelBookingStatus[hotelId] || hotelBookingStatus[hotelId] === 'available'
               );
               
-              selectedHotels.forEach(([date, hotelId], index) => {
+              selectedHotels.forEach(([, hotelId], index) => {
                 setTimeout(() => {
                   console.log(`🏨 Бронируем отель ${hotelId} (${index + 1}/${selectedHotels.length})`);
                   handleBookHotel(hotelId);
@@ -1120,7 +1118,7 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
         </h3>
         {searchQuery && (
           <div className="text-sm text-gray-600">
-            По запросу: "{searchQuery}"
+            По запросу: &quot;{searchQuery}&quot;
           </div>
         )}
       </div>
@@ -1129,13 +1127,13 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {/* Отладочная информация о состоянии */}
         <div className="col-span-full p-2 bg-gray-100 rounded text-xs">
-          🔍 Состояние: selectedTour = {selectedTour}, результатов = {displayResults.length}
+          🔍 Состояние: результатов = {displayResults.length}
           <br />
           ✅ Подтвержденные туры: {Array.from(confirmedTours).join(', ')}
           <br />
           ⏳ Ожидающие подтверждения: {Array.from(pendingConfirmations).join(', ')}
           <br />
-          🎫 Забронированные туры: {Array.from(bookedTours).join(', ')}
+          🎫 Забронированные туры: []
           <br />
           🏆 Выбранные конкурирующие туры: {Array.from(selectedCompetingTours).join(', ')}
           <br />
@@ -1148,7 +1146,7 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
         <TimelineView tours={displayResults} />
         
         {/* Карта маршрута */}
-        {selectedTour && (
+        {/* {selectedTour && ( */}
           <div className="col-span-full">
             <RouteMap 
               startPoint="Алматы"
@@ -1162,14 +1160,14 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
               duration="5 дней"
             />
           </div>
-        )}
+        {/* )} */}
         
         {/* Отладочная информация */}
-        {selectedTour !== null && (
-          <div className="col-span-full border-t border-gray-200 p-2 bg-red-50 text-xs text-red-700">
-            🔍 Отладка: selectedTour = {selectedTour}
-          </div>
-        )}
+        {/* {selectedTour !== null && ( */}
+                      {/* <div className="col-span-full border-t border-gray-200 p-2 bg-red-50 text-xs text-red-700">
+              🔍 Отладка: selectedTour = {selectedTour}
+            </div> */}
+          {/* )} */}
       </div>
 
       {/* Модальные окна для QR-кодов отелей */}

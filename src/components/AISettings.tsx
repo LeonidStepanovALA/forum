@@ -5,7 +5,7 @@ import { CogIcon, SparklesIcon, ServerIcon, CloudIcon } from '@heroicons/react/2
 import { aiSearchService } from '@/services/aiSearchService';
 
 interface AISettingsProps {
-  onSettingsChange?: (settings: any) => void;
+  onSettingsChange?: (settings: unknown) => void;
 }
 
 export default function AISettings({ onSettingsChange }: AISettingsProps) {
@@ -18,16 +18,16 @@ export default function AISettings({ onSettingsChange }: AISettingsProps) {
     confidenceThreshold: 0.7
   });
 
-  const handleSettingChange = (key: string, value: any) => {
+  const handleSettingChange = (key: string, value: unknown) => {
     const newSettings = { ...settings, [key]: value };
     setSettings(newSettings);
     
     // Применяем настройки к сервису
     if (key === 'useInternalAPI') {
-      aiSearchService.setUseInternalAPI(value);
+      aiSearchService.setUseInternalAPI(value as boolean);
     }
     if (key === 'useFallback') {
-      aiSearchService.setFallbackMode(value);
+      aiSearchService.setFallbackMode(value as boolean);
     }
     
     onSettingsChange?.(newSettings);
@@ -46,7 +46,7 @@ export default function AISettings({ onSettingsChange }: AISettingsProps) {
       } else {
         alert('❌ Ошибка AI-соединения');
       }
-    } catch (error) {
+    } catch {
       alert('❌ Ошибка подключения к AI API');
     }
   };

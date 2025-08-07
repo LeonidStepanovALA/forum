@@ -4,11 +4,11 @@ import React from 'react';
 
 interface AIAnalyticsProps {
   searchQuery?: string;
-  searchResults?: any[];
+  searchResults?: unknown[];
   onInsightClick?: (insight: string) => void;
 }
 
-export default function AIAnalytics({ searchQuery, searchResults, onInsightClick }: AIAnalyticsProps) {
+export default function AIAnalytics({ searchQuery, onInsightClick }: AIAnalyticsProps) {
   const [isAnalyzing, setIsAnalyzing] = React.useState(false);
 
   // Имитация AI-анализа поискового запроса

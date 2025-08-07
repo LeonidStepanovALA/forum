@@ -8,7 +8,7 @@ export default function EmergencyContact() {
   const [description, setDescription] = useState('');
   const [photo, setPhoto] = useState<File | null>(null);
   const [photoPreview, setPhotoPreview] = useState<string | null>(null);
-  const [location, setLocation] = useState<{lat: number, lng: number} | null>(null);
+  // const [location, setLocation] = useState<{lat: number, lng: number} | null>(null);
   const [isGettingLocation, setIsGettingLocation] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -81,7 +81,7 @@ export default function EmergencyContact() {
     try {
       // Получаем координаты
       const coords = await getCurrentLocation();
-      setLocation(coords);
+      // setLocation(coords);
       
       // Формируем сообщение
       const message = `🚨 SOS СИГНАЛ!
@@ -96,7 +96,7 @@ export default function EmergencyContact() {
 
       alert(message);
       
-    } catch (error) {
+    } catch {
       // Если не удалось получить координаты, отправляем без них
       const message = `🚨 SOS СИГНАЛ!
       
@@ -116,7 +116,7 @@ export default function EmergencyContact() {
       setDescription('');
       setPhoto(null);
       setPhotoPreview(null);
-      setLocation(null);
+      // setLocation(null);
       setIsModalOpen(false);
     }
   };
@@ -125,7 +125,7 @@ export default function EmergencyContact() {
     setDescription('');
     setPhoto(null);
     setPhotoPreview(null);
-    setLocation(null);
+    // setLocation(null);
     setIsModalOpen(false);
   };
 
@@ -234,11 +234,11 @@ export default function EmergencyContact() {
                 </div>
                 {photoPreview && (
                   <div className="mt-3">
-                    <img
+                    {/* <img
                       src={photoPreview}
                       alt="Preview"
                       className="w-full h-32 object-cover rounded-lg border"
-                    />
+                    /> */}
                   </div>
                 )}
               </div>

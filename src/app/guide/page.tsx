@@ -6,6 +6,18 @@ import { useLanguage } from '@/hooks/useLanguage';
 import { translations } from '@/translations';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
 
+interface Course {
+  id: number;
+  title: string;
+  description: string;
+  duration: string;
+  level: string;
+  instructor: string;
+  status: 'enrolled' | 'completed' | 'available';
+  progress: number;
+  completionDate: string | null;
+}
+
 export default function GuideDashboard() {
   const { language, changeLanguage } = useLanguage();
   const t = translations[language];
@@ -165,11 +177,11 @@ export default function GuideDashboard() {
   const [activeSection, setActiveSection] = useState('profile');
   const [selectedAction, setSelectedAction] = useState<string | null>(null);
   const [showModal, setShowModal] = useState(false);
-  const [showStatModal, setShowStatModal] = useState(false);
+  // const [showStatModal, setShowStatModal] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Моковые данные курсов для гидов
-  const mockCourses = [
+  const mockCourses: Course[] = [
     {
       id: 1,
       title: t.courseBasicEcoTourism,
@@ -261,9 +273,9 @@ export default function GuideDashboard() {
   ];
   
   // Состояние для управления курсами
-  const [courses, setCourses] = useState(mockCourses);
+  const [courses, setCourses] = useState<Course[]>(mockCourses);
   const [showCourseModal, setShowCourseModal] = useState(false);
-  const [selectedCourse, setSelectedCourse] = useState<any>(null);
+  const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
   const [modalType, setModalType] = useState<'enroll' | 'continue' | 'certificate' | 'view' | null>(null);
 
   const handleAction = (action: string) => {
@@ -277,7 +289,7 @@ export default function GuideDashboard() {
   };
 
   // Функции для работы с курсами
-  const handleCourseAction = (course: any, action: 'enroll' | 'continue' | 'certificate' | 'view') => {
+  const handleCourseAction = (course: Course, action: 'enroll' | 'continue' | 'certificate' | 'view') => {
     setSelectedCourse(course);
     setModalType(action);
     setShowCourseModal(true);
@@ -293,7 +305,7 @@ export default function GuideDashboard() {
     if (selectedCourse) {
       const updatedCourses = courses.map(course => 
         course.id === selectedCourse.id 
-          ? { ...course, status: 'enrolled', progress: 0 }
+          ? { ...course, status: 'enrolled' as const, progress: 0 }
           : course
       );
       setCourses(updatedCourses);
@@ -310,7 +322,7 @@ export default function GuideDashboard() {
           ? { 
               ...course, 
               progress: newProgress,
-              status: newProgress === 100 ? 'completed' : 'enrolled',
+              status: newProgress === 100 ? 'completed' as const : 'enrolled' as const,
               completionDate: newProgress === 100 ? new Date().toISOString().split('T')[0] : course.completionDate
             }
           : course

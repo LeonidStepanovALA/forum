@@ -1745,15 +1745,15 @@ export default function AdminDashboard() {
 
   const handleSaveCourse = () => {
     if (courseForm.title && courseForm.description && courseForm.duration) {
-      const newCourse: Course = {
-        id: mockCourses.length + 1,
-        title: courseForm.title,
-        description: courseForm.description,
-        duration: courseForm.duration + ' часов',
-        level: courseForm.level,
-        instructor: courseForm.instructor,
-        status: courseForm.status
-      };
+      // const newCourse: Course = {
+      //   id: mockCourses.length + 1,
+      //   title: courseForm.title,
+      //   description: courseForm.description,
+      //   duration: courseForm.duration + ' часов',
+      //   level: courseForm.level,
+      //   instructor: courseForm.instructor,
+      //   status: courseForm.status
+      // };
       
       // В реальном приложении здесь был бы API вызов
       // mockCourses.push(newCourse);
@@ -1768,15 +1768,15 @@ export default function AdminDashboard() {
 
   const handleSaveEvent = () => {
     if (eventForm.title && eventForm.description && eventForm.date) {
-      const newEvent: CalendarEvent = {
-        id: (mockEvents.length + 1).toString(),
-        title: eventForm.title,
-        description: eventForm.description,
-        date: eventForm.date,
-        type: eventForm.type,
-        region: eventForm.region,
-        status: eventForm.status
-      };
+      // const newEvent: CalendarEvent = {
+      //   id: (mockEvents.length + 1).toString(),
+      //   title: eventForm.title,
+      //   description: eventForm.description,
+      //   date: eventForm.date,
+      //   type: eventForm.type,
+      //   region: eventForm.region,
+      //   status: eventForm.status
+      // };
       
       // В реальном приложении здесь был бы API вызов
       // mockEvents.push(newEvent);

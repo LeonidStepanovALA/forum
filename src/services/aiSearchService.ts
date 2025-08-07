@@ -3,7 +3,7 @@
 interface AISearchRequest {
   query: string;
   context?: string;
-  filters?: any;
+  filters?: unknown;
   language?: string;
 }
 
@@ -36,7 +36,7 @@ interface AIRecommendation {
 interface AIFilter {
   id: string;
   name: string;
-  value: any;
+  value: unknown;
   confidence: number;
   reasoning: string;
 }
@@ -281,9 +281,9 @@ class AISearchService {
   }
 
   // Парсинг ответа от OpenAI
-  private async parseOpenAIResponse(data: any, request: AISearchRequest): Promise<AISearchResponse> {
+  private async parseOpenAIResponse(data: unknown, request: AISearchRequest): Promise<AISearchResponse> {
     try {
-      const content = data.choices[0].message.content;
+      const content = (data as any).choices[0].message.content;
       const parsed = JSON.parse(content);
       
       return {
@@ -300,7 +300,7 @@ class AISearchService {
   }
 
   // Анализ трендов поиска
-  async analyzeTrends(queries: string[]): Promise<any> {
+  async analyzeTrends(queries: string[]): Promise<unknown> {
     // Здесь можно добавить анализ трендов
     return {
       popularQueries: queries.slice(0, 5),
@@ -310,7 +310,7 @@ class AISearchService {
   }
 
   // Персонализированные рекомендации
-  async getPersonalizedRecommendations(userProfile: any): Promise<AIRecommendation[]> {
+  async getPersonalizedRecommendations(): Promise<AIRecommendation[]> {
     // Здесь можно добавить персонализацию на основе профиля пользователя
     return [
       {

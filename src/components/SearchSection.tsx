@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
-import { MagnifyingGlassIcon, SparklesIcon, CalendarIcon, MapPinIcon, ClockIcon } from '@heroicons/react/24/outline';
+import { SparklesIcon, CalendarIcon, MapPinIcon, ClockIcon } from '@heroicons/react/24/outline';
 import { useLanguage } from '@/hooks/useLanguage';
-import { translations } from '@/translations';
+// import { translations } from '@/translations';
 import AISearch from './AISearch';
 import SearchResults from './SearchResults';
 
@@ -38,7 +38,7 @@ interface SearchResult {
 
 export default function SearchSection() {
   const { language } = useLanguage();
-  const t = translations[language];
+  // const t = translations[language];
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -54,7 +54,7 @@ export default function SearchSection() {
     difficulty: ''
   });
 
-  const handleSearch = async (query: string, additionalFilters?: any) => {
+  const handleSearch = async (query: string, additionalFilters?: unknown) => {
     console.log('🔍 Поиск запущен:', { query, additionalFilters });
     setIsLoading(true);
     setSearchQuery(query);
@@ -109,11 +109,11 @@ export default function SearchSection() {
     setIsLoading(false);
   };
 
-  const handleSuggestionSelect = (suggestion: any) => {
+  const handleSuggestionSelect = () => {
     // Применяем фильтры на основе AI-предложения
-    if (suggestion.category) {
-      setFilters(prev => ({ ...prev, category: suggestion.category }));
-    }
+    // if (suggestion.category) {
+    //   setFilters(prev => ({ ...prev, category: suggestion.category }));
+    // }
   };
 
   const handleFilterChange = (key: string, value: string) => {

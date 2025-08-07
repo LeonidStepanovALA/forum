@@ -3,7 +3,7 @@
 import React from 'react';
 import { StarIcon, MapPinIcon, UserGroupIcon } from '@heroicons/react/24/outline';
 import { useLanguage } from '@/hooks/useLanguage';
-import { translations } from '@/translations';
+// import { translations } from '@/translations';
 
 interface Recommendation {
   id: number;
@@ -87,7 +87,7 @@ const PlaceholderImage = ({ type }: { type: string }) => {
 
 export default function PersonalizedRecommendations() {
   const { language } = useLanguage();
-  const t = translations[language];
+  // const t = translations[language];
 
   // Mock recommendations with bilingual support
   const mockRecommendations: Recommendation[] = [

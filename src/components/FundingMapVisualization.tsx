@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
-import { translations } from '@/translations';
+// import { translations } from '@/translations';
 import { 
   MapIcon, 
   LightBulbIcon, 
@@ -39,7 +39,7 @@ export default function FundingMapVisualization({
   onRegionClick 
 }: FundingMapVisualizationProps) {
   const { language } = useLanguage();
-  const t = translations[language];
+  // const t = translations[language];
 
   const categoryIcons = {
     energy: LightBulbIcon,

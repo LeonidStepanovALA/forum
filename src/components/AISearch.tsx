@@ -1,20 +1,20 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { MagnifyingGlassIcon, SparklesIcon, LightBulbIcon, XMarkIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
+import { MagnifyingGlassIcon, SparklesIcon, LightBulbIcon } from '@heroicons/react/24/outline';
 import { useLanguage } from '@/hooks/useLanguage';
-import { translations } from '@/translations';
+// import { translations } from '@/translations';
 import { aiSearchService, type AISearchRequest, type AISearchResponse, type AISuggestion } from '@/services/aiSearchService';
 
 interface AISearchProps {
-  onSearch: (query: string, filters?: any) => void;
+  onSearch: (query: string, filters?: unknown) => void;
   onSuggestionSelect: (suggestion: AISuggestion) => void;
   isLoading?: boolean;
 }
 
 export default function AISearch({ onSearch, onSuggestionSelect, isLoading = false }: AISearchProps) {
   const { language } = useLanguage();
-  const t = translations[language];
+  // const t = translations[language];
   const [query, setQuery] = useState('');
   const [suggestions, setSuggestions] = useState<AISuggestion[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -204,7 +204,7 @@ export default function AISearch({ onSearch, onSuggestionSelect, isLoading = fal
             <span className="text-sm font-medium text-blue-700">AI-анализ запроса</span>
           </div>
           <div className="text-xs text-blue-600 space-y-1">
-            <div>🔍 Поисковый запрос: "{query}"</div>
+            <div>🔍 Поисковый запрос: &quot;{query}&quot;</div>
             <div>📊 Найдено подсказок: {suggestions.length}</div>
             <div>🤖 AI-рекомендаций: {aiResponse.recommendations.length}</div>
             <div>🔧 Умных фильтров: {aiResponse.filters.length}</div>
