@@ -1,0 +1,92 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR-код для Eco Tourism App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h1 {
+            color: #2c5aa0;
+            margin-bottom: 1rem;
+        }
+        .qr-code {
+            margin: 1rem 0;
+        }
+        .instructions {
+            margin-top: 1rem;
+            color: #666;
+            max-width: 400px;
+        }
+        .url {
+            background: #f0f0f0;
+            padding: 0.5rem;
+            border-radius: 5px;
+            font-family: monospace;
+            margin: 1rem 0;
+            word-break: break-all;
+        }
+        .note {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 1rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+            color: #856404;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌿 Eco Tourism App</h1>
+        <p>Отсканируйте QR-код в приложении Expo Go</p>
+        
+        <div class="qr-code">
+            <img src="data:image/png;base64,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" alt="QR Code for Expo Go" />
+        </div>
+        
+        <div class="url">
+            exp://172.20.10.2:3000
+        </div>
+        
+        <div class="note">
+            <strong>Важно:</strong> Убедитесь, что ваш телефон и компьютер находятся в одной сети Wi-Fi
+        </div>
+        
+        <div class="instructions">
+            <h3>Инструкции:</h3>
+            <ol style="text-align: left;">
+                <li>Установите приложение Expo Go на ваш телефон</li>
+                <li>Откройте Expo Go</li>
+                <li>Нажмите "Scan QR Code"</li>
+                <li>Отсканируйте QR-код выше</li>
+                <li>Приложение загрузится автоматически</li>
+            </ol>
+            
+            <h3>Альтернативные URL:</h3>
+            <ul style="text-align: left;">
+                <li>exp://localhost:3000</li>
+                <li>exp://127.0.0.1:3000</li>
+                <li>exp://172.20.10.2:3001 (если порт 3000 занят)</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
