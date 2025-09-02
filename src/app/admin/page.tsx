@@ -505,6 +505,16 @@ export default function AdminDashboard() {
             { name: t.compensationComparisonSubmenu, action: 'compensation-comparison' },
             { name: t.compensationForecastSubmenu, action: 'compensation-forecast' }
           ]
+        },
+        { 
+          name: 'Отчет портрет туриста', 
+          action: 'tourist-portrait',
+          subItems: [
+            { name: 'Демографический анализ', action: 'demographic-analysis' },
+            { name: 'Поведенческие паттерны', action: 'behavioral-patterns' },
+            { name: 'Предпочтения в турах', action: 'tour-preferences' },
+            { name: 'Экологические интересы', action: 'eco-interests' }
+          ]
         }
       ]
     },
@@ -988,6 +998,344 @@ export default function AdminDashboard() {
                     <span className="text-xs font-semibold text-green-600">{forecast.value}%</span>
                   </div>
                 ))}
+              </div>
+            </div>
+          </div>
+        );
+        
+            case 'tourist-portrait':
+      case 'demographic-analysis':
+      case 'behavioral-patterns':
+      case 'tour-preferences':
+      case 'eco-interests':
+        return (
+          <div className="space-y-6">
+            <div className="bg-white p-6 rounded-lg shadow-md">
+              <h4 className="text-lg font-semibold text-gray-800 mb-4">Отчет портрет туриста</h4>
+              
+              {/* Демографический анализ */}
+              <div className="mb-8">
+                <h5 className="text-lg font-semibold text-blue-800 mb-4">Демографический анализ</h5>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                  <div className="bg-blue-50 p-4 rounded-lg">
+                    <h6 className="font-semibold text-blue-800 mb-2">Возрастные группы</h6>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex justify-between">
+                        <span>18-25 лет</span>
+                        <span className="font-bold text-blue-600">25%</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>26-35 лет</span>
+                        <span className="font-bold text-blue-600">35%</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>36-45 лет</span>
+                        <span className="font-bold text-blue-600">28%</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>46+ лет</span>
+                        <span className="font-bold text-blue-600">12%</span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-green-50 p-4 rounded-lg">
+                    <h6 className="font-semibold text-green-800 mb-2">Пол</h6>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex justify-between">
+                        <span>Женщины</span>
+                        <span className="font-bold text-green-600">58%</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Мужчины</span>
+                        <span className="font-bold text-green-600">42%</span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-purple-50 p-4 rounded-lg">
+                    <h6 className="font-semibold text-purple-800 mb-2">Образование</h6>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex justify-between">
+                        <span>Высшее</span>
+                        <span className="font-bold text-purple-600">65%</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Среднее</span>
+                        <span className="font-bold text-purple-600">25%</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Другое</span>
+                        <span className="font-bold text-purple-600">10%</span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-orange-50 p-4 rounded-lg">
+                    <h6 className="font-semibold text-orange-800 mb-2">Доход</h6>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex justify-between">
+                        <span>Высокий</span>
+                        <span className="font-bold text-orange-600">45%</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Средний</span>
+                        <span className="font-bold text-orange-600">40%</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Низкий</span>
+                        <span className="font-bold text-orange-600">15%</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Поведенческие паттерны */}
+              <div className="mb-8">
+                <h5 className="text-lg font-semibold text-green-800 mb-4">Поведенческие паттерны</h5>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="bg-gray-50 p-4 rounded-lg">
+                    <h6 className="font-semibold text-gray-800 mb-3">Частота путешествий</h6>
+                    <div className="space-y-3">
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm text-gray-600">1-2 раза в год</span>
+                        <div className="flex items-center space-x-3">
+                          <div className="w-32 bg-gray-200 rounded-full h-2">
+                            <div className="bg-blue-500 h-2 rounded-full" style={{ width: '45%' }}></div>
+                          </div>
+                          <span className="font-bold text-blue-600">45%</span>
+                        </div>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm text-gray-600">3-5 раз в год</span>
+                        <div className="flex items-center space-x-3">
+                          <div className="w-32 bg-gray-200 rounded-full h-2">
+                            <div className="bg-green-500 h-2 rounded-full" style={{ width: '35%' }}></div>
+                          </div>
+                          <span className="font-bold text-green-600">35%</span>
+                        </div>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm text-gray-600">6+ раз в год</span>
+                        <div className="flex items-center space-x-3">
+                          <div className="w-32 bg-gray-200 rounded-full h-2">
+                            <div className="bg-purple-500 h-2 rounded-full" style={{ width: '20%' }}></div>
+                          </div>
+                          <span className="font-bold text-purple-600">20%</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-gray-50 p-4 rounded-lg">
+                    <h6 className="font-semibold text-gray-800 mb-3">Сезонность</h6>
+                    <div className="space-y-3">
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm text-gray-600">Лето</span>
+                        <div className="flex items-center space-x-3">
+                          <div className="w-32 bg-gray-200 rounded-full h-2">
+                            <div className="bg-orange-500 h-2 rounded-full" style={{ width: '40%' }}></div>
+                          </div>
+                          <span className="font-bold text-orange-600">40%</span>
+                        </div>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm text-gray-600">Весна</span>
+                        <div className="flex items-center space-x-3">
+                          <div className="w-32 bg-gray-200 rounded-full h-2">
+                            <div className="bg-green-500 h-2 rounded-full" style={{ width: '25%' }}></div>
+                          </div>
+                          <span className="font-bold text-green-600">25%</span>
+                        </div>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm text-gray-600">Осень</span>
+                        <div className="flex items-center space-x-3">
+                          <div className="w-32 bg-gray-200 rounded-full h-2">
+                            <div className="bg-yellow-500 h-2 rounded-full" style={{ width: '20%' }}></div>
+                          </div>
+                          <span className="font-bold text-yellow-600">20%</span>
+                        </div>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm text-gray-600">Зима</span>
+                        <div className="flex items-center space-x-3">
+                          <div className="w-32 bg-gray-200 rounded-full h-2">
+                            <div className="bg-blue-500 h-2 rounded-full" style={{ width: '15%' }}></div>
+                          </div>
+                          <span className="font-bold text-blue-600">15%</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Предпочтения в турах */}
+              <div className="mb-8">
+                <h5 className="text-lg font-semibold text-purple-800 mb-4">Предпочтения в турах</h5>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <div className="bg-blue-50 p-4 rounded-lg">
+                    <h6 className="font-semibold text-blue-800 mb-2">Типы туров</h6>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex justify-between">
+                        <span>Эко-туры</span>
+                        <span className="font-bold text-blue-600">35%</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Горные походы</span>
+                        <span className="font-bold text-blue-600">28%</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Культурные туры</span>
+                        <span className="font-bold text-blue-600">22%</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Приключенческие</span>
+                        <span className="font-bold text-blue-600">15%</span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-green-50 p-4 rounded-lg">
+                    <h6 className="font-semibold text-green-800 mb-2">Продолжительность</h6>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex justify-between">
+                        <span>1-3 дня</span>
+                        <span className="font-bold text-green-600">30%</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>4-7 дней</span>
+                        <span className="font-bold text-green-600">45%</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>8-14 дней</span>
+                        <span className="font-bold text-green-600">20%</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>15+ дней</span>
+                        <span className="font-bold text-green-600">5%</span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-purple-50 p-4 rounded-lg">
+                    <h6 className="font-semibold text-purple-800 mb-2">Бюджет</h6>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex justify-between">
+                        <span>До 50,000 ₸</span>
+                        <span className="font-bold text-purple-600">25%</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>50,000-100,000 ₸</span>
+                        <span className="font-bold text-purple-600">40%</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>100,000-200,000 ₸</span>
+                        <span className="font-bold text-purple-600">25%</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>200,000+ ₸</span>
+                        <span className="font-bold text-purple-600">10%</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Экологические интересы */}
+              <div className="mb-8">
+                <h5 className="text-lg font-semibold text-green-800 mb-4">Экологические интересы</h5>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="bg-gray-50 p-4 rounded-lg">
+                    <h6 className="font-semibold text-gray-800 mb-3">Уровень экосознания</h6>
+                    <div className="space-y-3">
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm text-gray-600">Высокий</span>
+                        <div className="flex items-center space-x-3">
+                          <div className="w-32 bg-gray-200 rounded-full h-2">
+                            <div className="bg-green-500 h-2 rounded-full" style={{ width: '45%' }}></div>
+                          </div>
+                          <span className="font-bold text-green-600">45%</span>
+                        </div>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm text-gray-600">Средний</span>
+                        <div className="flex items-center space-x-3">
+                          <div className="w-32 bg-gray-200 rounded-full h-2">
+                            <div className="bg-blue-500 h-2 rounded-full" style={{ width: '35%' }}></div>
+                          </div>
+                          <span className="font-bold text-blue-600">35%</span>
+                        </div>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm text-gray-600">Низкий</span>
+                        <div className="flex items-center space-x-3">
+                          <div className="w-32 bg-gray-200 rounded-full h-2">
+                            <div className="bg-yellow-500 h-2 rounded-full" style={{ width: '20%' }}></div>
+                          </div>
+                          <span className="font-bold text-yellow-600">20%</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-gray-50 p-4 rounded-lg">
+                    <h6 className="font-semibold text-gray-800 mb-3">Эко-активности</h6>
+                    <div className="space-y-3">
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm text-gray-600">Посадка деревьев</span>
+                        <div className="flex items-center space-x-3">
+                          <div className="w-32 bg-gray-200 rounded-full h-2">
+                            <div className="bg-green-500 h-2 rounded-full" style={{ width: '60%' }}></div>
+                          </div>
+                          <span className="font-bold text-green-600">60%</span>
+                        </div>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm text-gray-600">Уборка мусора</span>
+                        <div className="flex items-center space-x-3">
+                          <div className="w-32 bg-gray-200 rounded-full h-2">
+                            <div className="bg-blue-500 h-2 rounded-full" style={{ width: '45%' }}></div>
+                          </div>
+                          <span className="font-bold text-blue-600">45%</span>
+                        </div>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm text-gray-600">Эко-образование</span>
+                        <div className="flex items-center space-x-3">
+                          <div className="w-32 bg-gray-200 rounded-full h-2">
+                            <div className="bg-purple-500 h-2 rounded-full" style={{ width: '35%' }}></div>
+                          </div>
+                          <span className="font-bold text-purple-600">35%</span>
+                        </div>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm text-gray-600">Эко-волонтерство</span>
+                        <div className="flex items-center space-x-3">
+                          <div className="w-32 bg-gray-200 rounded-full h-2">
+                            <div className="bg-orange-500 h-2 rounded-full" style={{ width: '25%' }}></div>
+                          </div>
+                          <span className="font-bold text-orange-600">25%</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Кнопка генерации отчета */}
+              <div className="mt-8 flex justify-center">
+                <button
+                  onClick={() => {
+                                         alert('📊 Отчет &quot;Портрет туриста&quot; сгенерирован!\n\nОтчет включает:\n• Демографический анализ\n• Поведенческие паттерны\n• Предпочтения в турах\n• Экологические интересы\n\nОтчет сохранен в системе и доступен для скачивания.');
+                  }}
+                  className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition-colors duration-200 flex items-center space-x-2"
+                >
+                  <ChartBarIcon className="w-5 h-5" />
+                  <span>Сгенерировать отчет &quot;Портрет туриста&quot;</span>
+                </button>
               </div>
             </div>
           </div>
@@ -2136,7 +2484,12 @@ export default function AdminDashboard() {
               selectedStatAction?.includes('carbon-trends') ||
               selectedStatAction?.includes('compensation-effectiveness') ||
               selectedStatAction?.includes('compensation-comparison') ||
-              selectedStatAction?.includes('compensation-forecast')) && (
+              selectedStatAction?.includes('compensation-forecast') ||
+              selectedStatAction?.includes('tourist-portrait') ||
+              selectedStatAction?.includes('demographic-analysis') ||
+              selectedStatAction?.includes('behavioral-patterns') ||
+              selectedStatAction?.includes('tour-preferences') ||
+              selectedStatAction?.includes('eco-interests')) && (
               renderDashboard(selectedStatAction)
             )}
             
@@ -2233,7 +2586,12 @@ export default function AdminDashboard() {
              !selectedStatAction?.includes('training-progress') &&
              !selectedStatAction?.includes('tours-count') &&
              !selectedStatAction?.includes('average-rating') &&
-             !selectedStatAction?.includes('specializations') && (
+             !selectedStatAction?.includes('specializations') &&
+             !selectedStatAction?.includes('tourist-portrait') &&
+             !selectedStatAction?.includes('demographic-analysis') &&
+             !selectedStatAction?.includes('behavioral-patterns') &&
+             !selectedStatAction?.includes('tour-preferences') &&
+             !selectedStatAction?.includes('eco-interests') && (
               <div className="text-green-600 mb-4">
                 {t.functionInDevelopment}
               </div>

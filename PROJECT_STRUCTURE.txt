@@ -1,0 +1,362 @@
+TRAVEL COMPANION - ПОЛНАЯ СТРУКТУРА ПРОЕКТА
+============================================
+
+ОБЩАЯ ИНФОРМАЦИЯ
+----------------
+Название проекта: Travel Companion - Эко-туристическая платформа
+Технологии: Next.js 15.3.3, React, TypeScript, Tailwind CSS, Turbopack
+Языки: Русский, Английский (i18n)
+Архитектура: App Router, Client Components
+
+КОРНЕВАЯ СТРУКТУРА
+------------------
+TRAVELCOMPANION/
+├── .next/                          # Next.js build files
+├── .git/                           # Git repository
+├── node_modules/                   # Dependencies
+├── public/                         # Static files
+│   ├── file.svg
+│   ├── globe.svg
+│   ├── next.svg
+│   ├── vercel.svg
+│   └── window.svg
+├── src/                            # Source code
+│   ├── app/                        # App Router pages
+│   ├── components/                 # React components
+│   ├── services/                   # API services
+│   ├── translations/               # i18n translations
+│   └── hooks/                      # Custom hooks
+├── LICENSE                         # Project license
+├── README.md                       # Project documentation
+├── .gitignore                      # Git ignore rules
+├── package.json                    # Dependencies and scripts
+├── package-lock.json              # Locked dependencies
+├── tsconfig.json                  # TypeScript configuration
+├── next.config.ts                 # Next.js configuration
+├── postcss.config.mjs             # PostCSS configuration
+├── eslint.config.mjs              # ESLint configuration
+├── next-env.d.ts                  # Next.js types
+├── app.json                       # App configuration
+├── qr-code.html                   # QR code template
+├── generate-qr.js                 # QR code generator
+├── start-server.ps1               # PowerShell server start script
+├── stop-server.ps1                # PowerShell server stop script
+├── view-logs.ps1                  # PowerShell logs viewer
+├── start-server-permanent.ps1     # Permanent server script
+├── MOBILE_RESPONSIVENESS_REPORT.md # Mobile responsiveness report
+└── PROJECT_STRUCTURE_BY_ROLES.md  # Roles structure documentation
+
+СТРУКТУРА SRC/
+--------------
+src/
+├── app/                           # App Router pages
+│   ├── globals.css               # Global styles
+│   ├── layout.tsx                # Root layout
+│   ├── page.tsx                  # Home page
+│   ├── favicon.ico              # Favicon
+│   ├── api/                      # API routes
+│   ├── tourist/                  # Tourist role pages
+│   ├── guide/                    # Guide role pages
+│   ├── admin/                    # Admin role pages
+│   ├── analyst/                  # Analyst role pages
+│   ├── accommodation/            # Accommodation role pages
+│   └── settings/                 # Settings pages
+├── components/                    # React components
+│   ├── SearchSection.tsx         # Search interface
+│   ├── SearchResults.tsx         # Search results display
+│   ├── AISearch.tsx             # AI-powered search
+│   ├── AISettings.tsx           # AI search settings
+│   ├── PersonalizedRecommendations.tsx # User recommendations
+│   ├── EmergencyContact.tsx      # Emergency contact system
+│   ├── RouteMap.tsx             # Route mapping
+│   ├── NewsAndPromotions.tsx    # News and promotions
+│   ├── AutoFundingDistribution.tsx # Funding distribution
+│   ├── AccommodationFundingList.tsx # Hotel funding list
+│   ├── FundingMapVisualization.tsx # Funding map
+│   ├── TouristStats.tsx         # Tourist statistics
+│   ├── EcoProjectsReport.tsx    # Eco projects reports
+│   ├── FinancingStatusReport.tsx # Financing reports
+│   ├── AIAnalytics.tsx          # AI analytics
+│   └── LanguageSwitcher.tsx     # Language switcher
+├── services/                      # API services
+│   └── aiSearchService.ts        # AI search service
+├── translations/                  # Internationalization
+│   └── index.ts                  # Translation files
+└── hooks/                         # Custom hooks
+    └── useLanguage.ts            # Language hook
+
+СТРУКТУРА ПО РОЛЯМ
+------------------
+
+1. ТУРИСТ (Tourist)
+-------------------
+src/app/tourist/
+├── page.tsx                      # Main tourist dashboard
+├── search/
+│   └── page.tsx                 # Tour search page
+├── route-management/
+│   └── page.tsx                 # Route management
+├── recommendations/
+│   └── page.tsx                 # Personalized recommendations
+├── news/
+│   └── page.tsx                 # News and promotions
+├── emergency/
+│   └── page.tsx                 # Emergency contacts
+├── carbon-report/
+│   └── page.tsx                 # Carbon footprint report
+└── booking-calendar/
+    └── page.tsx                 # Booking calendar
+
+Компоненты для туриста:
+- SearchSection.tsx
+- SearchResults.tsx
+- AISearch.tsx
+- PersonalizedRecommendations.tsx
+- EmergencyContact.tsx
+- RouteMap.tsx
+- NewsAndPromotions.tsx
+- LanguageSwitcher.tsx
+
+Функциональность:
+- Поиск туров с AI-подсказками
+- Бронирование туров и отелей
+- Календарь путешествий
+- Карты маршрутов
+- Отчеты по углеродному следу
+- Экстренные контакты
+- Эко-рейтинги
+- Мобильная адаптивность
+
+2. ГИД (Guide)
+---------------
+src/app/guide/
+└── page.tsx                      # Guide dashboard
+
+Компоненты для гида:
+- RouteMap.tsx
+- EmergencyContact.tsx
+- LanguageSwitcher.tsx
+
+Функциональность:
+- Управление турами
+- Взаимодействие с туристами
+- Маршруты и точки интереса
+- Статистика туров
+- Экстренная поддержка
+- Мобильная адаптивность
+
+3. АДМИНИСТРАТОР (Admin)
+------------------------
+src/app/admin/
+└── page.tsx                      # Admin dashboard
+
+Компоненты для администратора:
+- AutoFundingDistribution.tsx
+- AccommodationFundingList.tsx
+- FundingMapVisualization.tsx
+- TouristStats.tsx
+- EcoProjectsReport.tsx
+- FinancingStatusReport.tsx
+- AIAnalytics.tsx
+- LanguageSwitcher.tsx
+
+Функциональность:
+- Статистика и аналитика
+  * Демографический анализ туристов
+  * Поведенческие паттерны
+  * Предпочтения в турах
+  * Экологические интересы
+- Автоматическое финансирование
+  * Распределение по категориям
+  * Тепловая карта регионов
+  * Список отелей для финансирования
+- Управление отелями
+- Отчеты и аналитика
+- Настройки платформы
+
+4. АНАЛИТИК (Analyst)
+---------------------
+src/app/analyst/
+└── page.tsx                      # Analyst dashboard
+
+Компоненты для аналитика:
+- AIAnalytics.tsx
+- TouristStats.tsx
+- EcoProjectsReport.tsx
+- FinancingStatusReport.tsx
+- LanguageSwitcher.tsx
+
+Функциональность:
+- Аналитика данных
+- Генерация отчетов
+- AI-анализ трендов
+- Исследования туристических паттернов
+- Эко-аналитика
+
+5. РАЗМЕЩЕНИЕ (Accommodation)
+-----------------------------
+src/app/accommodation/
+└── page.tsx                      # Accommodation dashboard
+
+Функциональность:
+- Управление отелями
+- Статистика размещения
+- Финансирование эко-мероприятий
+- Отчеты по отелям
+
+ТЕХНИЧЕСКАЯ АРХИТЕКТУРА
+-----------------------
+
+Зависимости:
+- Next.js 15.3.3
+- React
+- TypeScript
+- Tailwind CSS
+- Turbopack
+- Heroicons
+
+Структура:
+- App Router
+- Client Components
+- Server Components
+- API Routes
+
+Интернационализация:
+- i18n
+- useLanguage hook
+- translations files
+
+Утилиты:
+- PowerShell scripts для управления сервером
+- ESLint
+- PostCSS
+- TypeScript
+
+МОБИЛЬНАЯ АДАПТИВНОСТЬ
+----------------------
+
+Breakpoints:
+- Mobile: < 640px
+- Tablet: 640px - 1024px
+- Desktop: > 1024px
+
+Адаптивные элементы:
+- Grid системы с responsive классами
+- Flexbox для гибкой компоновки
+- Медиа-запросы в CSS
+- Touch-friendly интерфейс
+
+БЕЗОПАСНОСТЬ И ПРОИЗВОДИТЕЛЬНОСТЬ
+---------------------------------
+
+Безопасность:
+- TypeScript типобезопасность
+- ESLint проверка кода
+- Next.js встроенная безопасность
+
+Производительность:
+- Turbopack быстрая сборка
+- Code splitting разделение кода
+- Image optimization оптимизация изображений
+- Lazy loading ленивая загрузка
+
+МОНИТОРИНГ И ЛОГИРОВАНИЕ
+------------------------
+
+Логи:
+- Console.log отладочные сообщения
+- Error handling обработка ошибок
+- Performance monitoring мониторинг производительности
+
+Отладка:
+- Development mode режим разработки
+- Hot reload горячая перезагрузка
+- Source maps карты исходного кода
+
+РАЗВЕРТЫВАНИЕ
+-------------
+
+Платформы:
+- Vercel основная платформа
+- Local development локальная разработка
+- GitHub система контроля версий
+
+Процесс:
+1. npm run dev - локальная разработка
+2. npm run build - сборка для продакшена
+3. npm run start - запуск продакшен сервера
+4. Vercel deploy - автоматическое развертывание
+
+ДОКУМЕНТАЦИЯ
+------------
+
+Файлы:
+- README.md - основная документация
+- LICENSE - лицензия проекта
+- MOBILE_RESPONSIVENESS_REPORT.md - отчет по мобильности
+- PROJECT_STRUCTURE_BY_ROLES.md - структура по ролям
+
+Скрипты:
+- start-server.ps1 - запуск сервера
+- stop-server.ps1 - остановка сервера
+- view-logs.ps1 - просмотр логов
+
+API ENDPOINTS
+-------------
+src/app/api/
+└── [различные API endpoints]
+
+КОМПОНЕНТЫ ПО КАТЕГОРИЯМ
+------------------------
+
+Поиск и фильтрация:
+- SearchSection.tsx - основная поисковая секция
+- SearchResults.tsx - результаты поиска с карточками
+- AISearch.tsx - AI-поиск с подсказками
+- AISettings.tsx - настройки AI-поиска
+
+Аналитика и отчеты:
+- TouristStats.tsx - статистика туристов
+- EcoProjectsReport.tsx - отчеты по эко-проектам
+- FinancingStatusReport.tsx - отчеты по финансированию
+- AIAnalytics.tsx - AI-аналитика
+
+Финансирование:
+- AutoFundingDistribution.tsx - автоматическое распределение
+- AccommodationFundingList.tsx - список отелей
+- FundingMapVisualization.tsx - визуализация на карте
+
+Карты и маршруты:
+- RouteMap.tsx - карта маршрутов
+
+Дополнительные:
+- EmergencyContact.tsx - экстренные контакты
+- NewsAndPromotions.tsx - новости и акции
+- PersonalizedRecommendations.tsx - рекомендации
+- LanguageSwitcher.tsx - переключение языков
+
+ФИЛЬТРЫ ПОИСКА
+--------------
+Категории туров:
+- Все категории
+- Треккинг
+- Велотуры
+- Водные туры
+- Культурные туры
+- Культурное наследие
+- Наблюдение за дикой природой
+
+Дополнительные фильтры:
+- Дата начала
+- Дата окончания
+- Начальная точка
+- Конечная точка
+- Продолжительность
+- Ценовой диапазон
+- Сложность
+
+ПОСЛЕДНЕЕ ОБНОВЛЕНИЕ
+--------------------
+Дата: Декабрь 2024
+Версия проекта: 0.1.0
+Статус: Активная разработка

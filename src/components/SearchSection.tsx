@@ -42,7 +42,7 @@ export default function SearchSection() {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [showFilters, setShowFilters] = useState(false);
+  const [showFilters, setShowFilters] = useState(true);
   const [filters, setFilters] = useState<SearchFilters>({
     category: '',
     startDate: '',
@@ -171,172 +171,169 @@ export default function SearchSection() {
           >
             {showFilters ? 'Скрыть' : 'Показать'} фильтры
           </button>
-        </div>
+          </div>
 
+        {/* Фильтры */}
         {showFilters && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {/* Категория */}
+          <div className="mt-4 p-4 bg-gray-50 rounded-lg">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {/* Категория */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Категория
               </label>
               <select
-                value={filters.category}
-                onChange={(e) => handleFilterChange('category', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-              >
-                <option value="">Все категории</option>
-                <option value="tour">Туры</option>
-                <option value="accommodation">Размещение</option>
-                <option value="transport">Транспорт</option>
-                <option value="guide">Гиды</option>
-                <option value="equipment">Снаряжение</option>
+                  value={filters.category}
+                  onChange={(e) => handleFilterChange('category', e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent text-sm"
+                >
+                  <option value="">Все категории</option>
+                  <option value="trekking">Треккинг</option>
+                  <option value="cycling">Велотуры</option>
+                  <option value="water">Водные туры</option>
+                  <option value="cultural">Культурные туры</option>
+                  <option value="heritage">Культурное наследие</option>
+                  <option value="wildlife">Наблюдение за дикой природой</option>
               </select>
             </div>
 
-            {/* Дата начала */}
+              {/* Дата начала */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <CalendarIcon className="inline w-4 h-4 mr-1" />
+                  Дата начала
+                </label>
+                <input
+                  type="date"
+                  value={filters.startDate}
+                  onChange={(e) => handleDateChange('start', e.target.value)}
+                  min={new Date().toISOString().split('T')[0]}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent text-sm"
+                />
+              </div>
+
+              {/* Дата окончания */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <CalendarIcon className="inline w-4 h-4 mr-1" />
+                  Дата окончания
+                </label>
+                <input
+                  type="date"
+                  value={filters.endDate}
+                  onChange={(e) => handleDateChange('end', e.target.value)}
+                  min={filters.startDate || new Date().toISOString().split('T')[0]}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent text-sm"
+                />
+              </div>
+
+              {/* Начальная точка */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <MapPinIcon className="inline w-4 h-4 mr-1" />
+                  Начальная точка
+                </label>
+                <input
+                  type="text"
+                  value={filters.startPoint}
+                  onChange={(e) => handleFilterChange('startPoint', e.target.value)}
+                  placeholder="Например: Алматы"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent text-sm"
+                />
+              </div>
+
+              {/* Конечная точка */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                <CalendarIcon className="inline w-4 h-4 mr-1" />
-                Дата начала
+                  <MapPinIcon className="inline w-4 h-4 mr-1" />
+                  Конечная точка
               </label>
-              <input
-                type="date"
-                value={filters.startDate}
-                onChange={(e) => handleDateChange('start', e.target.value)}
-                min={new Date().toISOString().split('T')[0]}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-              />
+                <input
+                  type="text"
+                  value={filters.endPoint}
+                  onChange={(e) => handleFilterChange('endPoint', e.target.value)}
+                  placeholder="Например: Астана"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent text-sm"
+                />
             </div>
 
-            {/* Дата окончания */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                <CalendarIcon className="inline w-4 h-4 mr-1" />
-                Дата окончания
-              </label>
-              <input
-                type="date"
-                value={filters.endDate}
-                onChange={(e) => handleDateChange('end', e.target.value)}
-                min={filters.startDate || new Date().toISOString().split('T')[0]}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-              />
-            </div>
+              {/* Продолжительность */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <ClockIcon className="inline w-4 h-4 mr-1" />
+                  Продолжительность
+                </label>
+                <select
+                  value={filters.duration}
+                  onChange={(e) => handleFilterChange('duration', e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent text-sm"
+                >
+                  <option value="">Любая</option>
+                  <option value="1">1 день</option>
+                  <option value="2">2 дня</option>
+                  <option value="3">3 дня</option>
+                  <option value="4">4 дня</option>
+                  <option value="5">5 дней</option>
+                  <option value="6">6 дней</option>
+                  <option value="7">7 дней</option>
+                  <option value="8+">8+ дней</option>
+                </select>
+              </div>
 
-            {/* Начальная точка */}
+              {/* Ценовой диапазон */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                <MapPinIcon className="inline w-4 h-4 mr-1" />
-                Начальная точка
-              </label>
-              <input
-                type="text"
-                value={filters.startPoint}
-                onChange={(e) => handleFilterChange('startPoint', e.target.value)}
-                placeholder="Например: Алматы"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-              />
-            </div>
-
-            {/* Конечная точка */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                <MapPinIcon className="inline w-4 h-4 mr-1" />
-                Конечная точка
-              </label>
-              <input
-                type="text"
-                value={filters.endPoint}
-                onChange={(e) => handleFilterChange('endPoint', e.target.value)}
-                placeholder="Например: Астана"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-              />
-            </div>
-
-            {/* Продолжительность */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                <ClockIcon className="inline w-4 h-4 mr-1" />
-                Продолжительность
+                  Ценовой диапазон
               </label>
               <select
-                value={filters.duration}
-                onChange={(e) => handleFilterChange('duration', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-              >
-                <option value="">Любая</option>
-                <option value="1">1 день</option>
-                <option value="2">2 дня</option>
-                <option value="3">3 дня</option>
-                <option value="4">4 дня</option>
-                <option value="5">5 дней</option>
-                <option value="6">6 дней</option>
-                <option value="7">7 дней</option>
-                <option value="8+">8+ дней</option>
+                  value={filters.priceRange}
+                  onChange={(e) => handleFilterChange('priceRange', e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent text-sm"
+                >
+                  <option value="">Любая цена</option>
+                  <option value="0-25000">До 25,000 ₸</option>
+                  <option value="25000-50000">25,000 - 50,000 ₸</option>
+                  <option value="50000-100000">50,000 - 100,000 ₸</option>
+                  <option value="100000-200000">100,000 - 200,000 ₸</option>
+                  <option value="200000+">От 200,000 ₸</option>
               </select>
             </div>
 
-            {/* Ценовой диапазон */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Ценовой диапазон
-              </label>
-              <select
-                value={filters.priceRange}
-                onChange={(e) => handleFilterChange('priceRange', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-              >
-                <option value="">Любая цена</option>
-                <option value="0-25000">До 25,000 ₸</option>
-                <option value="25000-50000">25,000 - 50,000 ₸</option>
-                <option value="50000-100000">50,000 - 100,000 ₸</option>
-                <option value="100000-200000">100,000 - 200,000 ₸</option>
-                <option value="200000+">От 200,000 ₸</option>
-              </select>
-            </div>
-
-            {/* Сложность */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Сложность
-              </label>
-              <select
-                value={filters.difficulty}
-                onChange={(e) => handleFilterChange('difficulty', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-              >
-                <option value="">Любая</option>
-                <option value="easy">Легкая</option>
-                <option value="medium">Средняя</option>
-                <option value="hard">Сложная</option>
-                <option value="expert">Эксперт</option>
+              {/* Сложность */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Сложность
+                </label>
+                <select
+                  value={filters.difficulty}
+                  onChange={(e) => handleFilterChange('difficulty', e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent text-sm"
+                >
+                  <option value="">Любая</option>
+                  <option value="easy">Легкая</option>
+                  <option value="medium">Средняя</option>
+                  <option value="hard">Сложная</option>
+                  <option value="expert">Эксперт</option>
               </select>
             </div>
           </div>
+        </div>
         )}
 
         {/* Кнопки действий */}
-        <div className="flex items-center gap-3 mt-6 pt-4 border-t border-gray-200">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 mt-6 pt-4 border-t border-gray-200">
           <button
             onClick={() => handleSearch(searchQuery || 'туры', filters)}
             disabled={isLoading}
-            className="flex items-center gap-2 px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="flex items-center justify-center gap-2 px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
           >
             <SparklesIcon className="w-4 h-4" />
             {isLoading ? 'Поиск...' : 'Найти туры'}
           </button>
-          
-          <button
-            onClick={() => handleSearch('тест', filters)}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
-          >
-            Тест результатов
-          </button>
-          
-          <button
+
+          <button 
             onClick={clearFilters}
-            className="px-4 py-2 text-gray-600 hover:text-gray-800 border border-gray-300 rounded-lg hover:bg-gray-50"
+            className="px-4 py-3 text-gray-600 hover:text-gray-800 border border-gray-300 rounded-lg hover:bg-gray-50 text-sm"
           >
             Очистить
           </button>

@@ -24,3 +24,47 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Улучшения для мобильной адаптивности */
+@media (max-width: 640px) {
+  /* Увеличиваем размеры кнопок для лучшего касания */
+  button {
+    min-height: 44px;
+  }
+  
+  /* Улучшаем отступы для мобильных устройств */
+  .mobile-padding {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  /* Оптимизируем размеры текста */
+  .mobile-text {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+}
+
+/* Улучшения для планшетов */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .tablet-padding {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+/* Плавные переходы для всех интерактивных элементов */
+* {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Улучшения для форм на мобильных устройствах */
+input, select, textarea {
+  font-size: 16px; /* Предотвращает зум на iOS */
+}
+
+/* Улучшения для скролла на мобильных устройствах */
+html {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}

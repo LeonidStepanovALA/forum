@@ -1,7 +1,9 @@
+'use client';
+
 import React from 'react';
 import { CloudIcon, StarIcon, ChartBarIcon } from '@heroicons/react/24/outline';
 import { useLanguage } from '@/hooks/useLanguage';
-import { translations } from '@/translations';
+import { translations } from '@/translations/index';
 
 interface TouristStatsProps {
   className?: string;
@@ -38,7 +40,27 @@ const mockTouristData = {
 };
 
 export default function TouristStats({ className = '' }: TouristStatsProps) {
-  const { language } = useLanguage();
+  const { language, isInitialized } = useLanguage();
+  
+  // Показываем загрузку, пока хук не инициализирован
+  if (!isInitialized) {
+    return (
+      <div className={`p-4 bg-blue-50 border border-blue-200 rounded-lg ${className}`}>
+        <p className="text-blue-800">Загрузка...</p>
+      </div>
+    );
+  }
+  
+  // Проверяем, что переводы доступны
+  if (!translations || !translations[language]) {
+    console.warn('Переводы недоступны для языка:', language);
+    return (
+      <div className={`p-4 bg-yellow-50 border border-yellow-200 rounded-lg ${className}`}>
+        <p className="text-yellow-800">Загрузка переводов...</p>
+      </div>
+    );
+  }
+  
   const t = translations[language];
 
   const getTrendIcon = (trend: string) => {

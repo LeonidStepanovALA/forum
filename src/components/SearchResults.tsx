@@ -49,10 +49,10 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
   // const t = translations[language];
   // const [selectedTour, setSelectedTour] = useState<number | null>(null);
   const [confirmedTours, setConfirmedTours] = useState<Set<number>>(new Set([1, 4])); // Туры 1 и 4 уже подтверждены
-  const [pendingConfirmations] = useState<Set<number>>(new Set([2, 5])); // Туры 2 и 5 ожидают подтверждения
   // const [bookedTours, setBookedTours] = useState<Set<number>>(new Set()); // Забронированные туры
   const [selectedCompetingTours, setSelectedCompetingTours] = useState<Set<number>>(new Set()); // Выбранные конкурирующие туры
   const [timelineFilter, setTimelineFilter] = useState<'all' | 'confirmed' | 'pending' | 'available' | 'booked'>('all');
+  const [pendingConfirmations, setPendingConfirmations] = useState<Set<number>>(new Set([2, 5])); // Туры 2 и 5 ожидают подтверждения
 
   console.log('🎯 SearchResults рендерится:', { 
     results: results.length, 
@@ -416,6 +416,20 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
     });
   };
 
+  // Функция для получения статуса тура
+  const getTourStatus = (tourId: number): 'confirmed' | 'pending' | 'available' | 'booked' => {
+    if (confirmedTours.has(tourId)) {
+      return 'confirmed';
+    }
+    if (pendingConfirmations.has(tourId)) {
+      return 'pending';
+    }
+    if (bookingStatus[tourId] === 'confirmed') {
+      return 'booked';
+    }
+    return 'available';
+  };
+
   // const handleGuideConfirmation = (tourId: number) => {
   //   console.log('✅ Гид подтвердил тур:', tourId);
   //   setConfirmedTours(prev => new Set([...prev, tourId]));
@@ -433,68 +447,132 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
 
   // Функция для бронирования тура
   const handleBookTour = (tourId: number) => {
-    if (bookingStatus[tourId] === 'waiting' || bookingStatus[tourId] === 'confirmed') {
-      return;
-    }
-    
-    console.log('🎫 Бронируем тур:', tourId);
-    
-    setBookingStatus(prev => ({
-      ...prev,
-      [tourId]: 'booking'
-    }));
-    
-    // Через 1 секунду меняем на "Ждем подтверждения"
-    setTimeout(() => {
-      console.log('⏳ Ждем подтверждения для тура:', tourId);
+    try {
+      if (bookingStatus[tourId] === 'waiting' || bookingStatus[tourId] === 'confirmed') {
+        console.log('⚠️ Тур уже забронирован или ожидает подтверждения:', tourId);
+        return;
+      }
+      
+      console.log('🎫 Бронируем тур:', tourId);
+      
       setBookingStatus(prev => ({
         ...prev,
-        [tourId]: 'waiting'
+        [tourId]: 'booking'
       }));
       
-      // Через 4 секунды подтверждаем тур
-      const timer = setTimeout(() => {
-        console.log('✅ Подтверждаем тур:', tourId);
-        setBookingStatus(prev => ({
-          ...prev,
-          [tourId]: 'confirmed'
-        }));
-        setConfirmedTours(prev => new Set([...prev, tourId]));
-        
-        // Очищаем таймер
-        setBookingTimers(prev => {
-          const newTimers = { ...prev };
-          delete newTimers[tourId];
-          return newTimers;
-        });
-      }, 4000); // 4 секунды для подтверждения
+      // Через 1 секунду меняем на "Ждем подтверждения"
+      const bookingTimer = setTimeout(() => {
+        try {
+          console.log('⏳ Ждем подтверждения для тура:', tourId);
+          setBookingStatus(prev => ({
+            ...prev,
+            [tourId]: 'waiting'
+          }));
+          
+          // Через 4 секунды подтверждаем тур
+          const confirmationTimer = setTimeout(() => {
+            try {
+              console.log('✅ Подтверждаем тур:', tourId);
+              setBookingStatus(prev => ({
+                ...prev,
+                [tourId]: 'confirmed'
+              }));
+              setConfirmedTours(prev => new Set([...prev, tourId]));
+              setPendingConfirmations(prev => {
+                const newSet = new Set(prev);
+                newSet.delete(tourId);
+                return newSet;
+              });
+              
+              // Очищаем таймер
+              setBookingTimers(prev => {
+                const newTimers = { ...prev };
+                delete newTimers[tourId];
+                return newTimers;
+              });
+            } catch (error) {
+              console.error('❌ Ошибка при подтверждении тура:', tourId, error);
+              setBookingStatus(prev => ({
+                ...prev,
+                [tourId]: 'available'
+              }));
+            }
+          }, 4000); // 4 секунды для подтверждения
+          
+          setBookingTimers(prev => ({
+            ...prev,
+            [tourId]: confirmationTimer
+          }));
+        } catch (error) {
+          console.error('❌ Ошибка при ожидании подтверждения тура:', tourId, error);
+          setBookingStatus(prev => ({
+            ...prev,
+            [tourId]: 'available'
+          }));
+        }
+      }, 1000); // 1 секунда для "Бронируем..."
       
       setBookingTimers(prev => ({
         ...prev,
-        [tourId]: timer
+        [tourId]: bookingTimer
       }));
-    }, 1000); // 1 секунда для "Бронируем..."
+    } catch (error) {
+      console.error('❌ Ошибка при бронировании тура:', tourId, error);
+      setBookingStatus(prev => ({
+        ...prev,
+        [tourId]: 'available'
+      }));
+    }
   };
 
   const handleBookHotel = (hotelId: number) => {
-    if (hotelBookingStatus[hotelId] === 'checkin') {
-      return;
-    }
-    setHotelBookingStatus(prev => ({
-      ...prev,
-      [hotelId]: 'booking'
-    }));
-    setTimeout(() => {
+    try {
+      if (hotelBookingStatus[hotelId] === 'checkin') {
+        console.log('⚠️ Отель уже забронирован:', hotelId);
+        return;
+      }
+      
+      console.log('🏨 Бронируем отель:', hotelId);
+      
       setHotelBookingStatus(prev => ({
         ...prev,
-        [hotelId]: 'checkin'
+        [hotelId]: 'booking'
       }));
-      setHotelBookingTimers(prev => {
-        const newTimers = { ...prev };
-        delete newTimers[hotelId];
-        return newTimers;
-      });
-    }, 3000); // 3 seconds for check-in
+      
+      const timer = setTimeout(() => {
+        try {
+          console.log('✅ Отель забронирован:', hotelId);
+          setHotelBookingStatus(prev => ({
+            ...prev,
+            [hotelId]: 'checkin'
+          }));
+          
+          // Очищаем таймер
+          setHotelBookingTimers(prev => {
+            const newTimers = { ...prev };
+            delete newTimers[hotelId];
+            return newTimers;
+          });
+        } catch (error) {
+          console.error('❌ Ошибка при бронировании отеля:', hotelId, error);
+          setHotelBookingStatus(prev => ({
+            ...prev,
+            [hotelId]: 'available'
+          }));
+        }
+      }, 3000); // 3 секунды для бронирования
+      
+      setHotelBookingTimers(prev => ({
+        ...prev,
+        [hotelId]: timer
+      }));
+    } catch (error) {
+      console.error('❌ Ошибка при начале бронирования отеля:', hotelId, error);
+      setHotelBookingStatus(prev => ({
+        ...prev,
+        [hotelId]: 'available'
+      }));
+    }
   };
 
   const generateHotelQR = async (hotelId: number) => {
@@ -606,17 +684,7 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
     }, 300); // 300ms для плавной анимации
   };
 
-  const getTourStatus = (tourId: number) => {
-    if (confirmedTours.has(tourId)) {
-      return 'confirmed';
-    } else if (pendingConfirmations.has(tourId)) {
-      return 'pending';
-    // } else if (bookedTours.has(tourId)) {
-      return 'available';
-    } else {
-      return 'available';
-    }
-  };
+
 
   // const getStatusColor = (status: string) => {
   //   switch (status) {
@@ -718,11 +786,11 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
     
     return (
       <div className="col-span-full mb-6">
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 gap-4">
           <h3 className="text-lg font-semibold text-gray-800">🗓️ Таймлайн туров и отелей по маршруту Алматы → Чолпон-Ата</h3>
           
           {/* Фильтры */}
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
             {[
               { key: 'all', label: 'Все', color: 'gray' },
               { key: 'confirmed', label: 'Подтвержденные', color: 'green' },
@@ -733,7 +801,7 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
               <button
                 key={filter.key}
                 onClick={() => setTimelineFilter(filter.key as 'all' | 'confirmed' | 'pending' | 'available' | 'booked')}
-                className={`px-3 py-1 text-xs rounded-full border transition-colors ${
+                className={`px-3 py-2 text-xs rounded-full border transition-colors ${
                   timelineFilter === filter.key
                     ? `bg-${filter.color}-100 text-${filter.color}-700 border-${filter.color}-300`
                     : `bg-white text-gray-600 border-gray-300 hover:bg-gray-50`
@@ -742,14 +810,14 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
                 {filter.label}
               </button>
             ))}
-          </div>
+      </div>
         </div>
-        
+
         <div className="relative">
           {/* Временная линия */}
           <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-blue-200"></div>
           
-          <div className="space-y-6">
+    <div className="space-y-6">
             {timelineDates.map((date, dateIndex) => {
               const toursForDate = groupedTours[date];
               const filteredToursForDate = toursForDate.filter(tour => {
@@ -771,17 +839,17 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
                         {selectedHotelsByDate[hotelDate] && (
                           <span className="text-white text-xs">✅</span>
                         )}
-                      </div>
-                      
+      </div>
+
                       {/* Дата отелей */}
                       <div className="ml-8 mb-3">
                         <div className="text-sm font-medium text-gray-700">
                           🏨 Размещение для {formatDate(hotelDate)}
-                        </div>
+        </div>
                       </div>
                       
                       {/* Отели */}
-                      <div className="ml-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                      <div className="ml-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                         {mockHotels.filter(hotel => shouldShowHotel(hotel.id, hotelDate)).map((hotel) => (
                           <div 
                             key={hotel.id} 
@@ -795,7 +863,7 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
                               <div className="flex-1">
                                 <div className="flex items-center gap-2 mb-2">
                                   <h4 className="font-semibold text-gray-900">{hotel.name}</h4>
-                                </div>
+                </div>
                                 
                                 <div className="grid grid-cols-2 gap-4 text-sm text-gray-600 mb-3">
                                   <div>
@@ -813,9 +881,9 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
                                   <div>
                                     <span className="font-medium">Отзывы:</span>
                                     <div>{hotel.reviews}</div>
-                                  </div>
-                                </div>
-                                
+                </div>
+              </div>
+
                                 <div className="text-sm text-gray-600 mb-3">
                                   <div className="font-medium mb-1">📍 {hotel.location}</div>
                                   <div className="text-gray-500">{hotel.description}</div>
@@ -825,11 +893,11 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
                                   {hotel.amenities.map((amenity, index) => (
                                     <span key={index} className="px-2 py-1 text-xs bg-gray-100 text-gray-600 rounded">
                                       {amenity}
-                                    </span>
+                  </span>
                                   ))}
-                                </div>
-                              </div>
-                              
+                </div>
+                </div>
+
                               <div className="flex flex-col gap-2">
                                 {/* Кнопка выбора в верхнем правом углу */}
                                 {[101, 102].includes(hotel.id) && (
@@ -883,9 +951,9 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
                           </div>
                         ))}
                       </div>
-                    </div>
-                  )}
-                  
+                  </div>
+                )}
+
                   {/* Дата туров */}
                   <div className="ml-8 mb-3">
                     <div className="text-sm font-medium text-gray-700">
@@ -894,7 +962,7 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
                   </div>
                   
                   {/* Конкурирующие туры в горизонтальном расположении */}
-                  <div className="ml-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <div className="ml-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     {filteredToursForDate.map((tour) => (
                       <div key={tour.id} className="relative">
                         {/* Галочка посередине напротив карточки */}
@@ -903,8 +971,8 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
                             <div className="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center shadow-lg">
                               <span className="text-white text-xs">✅</span>
                             </div>
-                          </div>
-                        )}
+                    </div>
+                  )}
                         
                         <div 
                           className={`bg-white rounded-lg border border-gray-200 p-4 hover:shadow-md transition-all duration-300 ease-in-out ${
@@ -917,24 +985,24 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
                             <div className="flex-1 pr-6">
                               <div className="flex items-center gap-2 mb-2">
                                 <h4 className="font-semibold text-gray-900">{tour.title}</h4>
-                              </div>
-                              
-                              <div className="grid grid-cols-2 gap-x-6 gap-y-4 text-sm text-gray-600 mb-4">
-                                <div className="space-y-1">
-                                  <div className="font-medium text-xs text-gray-500">Продолжительность:</div>
-                                  <div className="text-sm">{tour.duration}</div>
+                </div>
+
+                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2 text-sm text-gray-600 mb-4">
+                                <div className="flex justify-between sm:block">
+                                  <span className="font-medium text-xs text-gray-500 sm:block">Продолжительность:</span>
+                                  <span className="text-sm">{tour.duration}</span>
+                  </div>
+                                <div className="flex justify-between sm:block">
+                                  <span className="font-medium text-xs text-gray-500 sm:block">Цена:</span>
+                                  <span className="text-sm text-green-600 font-semibold">{formatPrice(tour.price)} ₸</span>
                                 </div>
-                                <div className="space-y-1">
-                                  <div className="font-medium text-xs text-gray-500">Цена:</div>
-                                  <div className="text-sm text-green-600 font-semibold">{formatPrice(tour.price)} ₸</div>
+                                <div className="flex justify-between sm:block">
+                                  <span className="font-medium text-xs text-gray-500 sm:block">Участники:</span>
+                                  <span className="text-sm">{tour.currentParticipants}/{tour.maxParticipants}</span>
                                 </div>
-                                <div className="space-y-1">
-                                  <div className="font-medium text-xs text-gray-500">Участники:</div>
-                                  <div className="text-sm">{tour.currentParticipants}/{tour.maxParticipants}</div>
-                                </div>
-                                <div className="space-y-1">
-                                  <div className="font-medium text-xs text-gray-500">Рейтинг:</div>
-                                  <div className="text-sm">⭐ {tour.rating}</div>
+                                <div className="flex justify-between sm:block">
+                                  <span className="font-medium text-xs text-gray-500 sm:block">Рейтинг:</span>
+                                  <span className="text-sm">⭐ {tour.rating}</span>
                                 </div>
                               </div>
                               
@@ -952,7 +1020,7 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
                               )}
                             </div>
                             
-                            <div className="flex flex-col gap-3 min-w-fit">
+                            <div className="flex flex-col gap-2 min-w-fit">
                               {/* Кнопка выбора в верхнем правом углу */}
                               {[1, 2].includes(tour.id) && (
                                 <button 
@@ -964,7 +1032,7 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
                                   }`}
                                 >
                                   {selectedCompetingTours.has(tour.id) ? '✅ Выбрано' : '🎯 Выбрать'}
-                                </button>
+                  </button>
                               )}
                               {[3, 4].includes(tour.id) && (
                                 <button 
@@ -1003,7 +1071,7 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
                               
                               {bookingStatus[tour.id] === 'booking' && (
                                 <button 
-                                  className="px-3 py-1 text-xs font-medium bg-yellow-500 text-white rounded transition-colors duration-200"
+                                  className="px-3 py-2 text-xs font-medium bg-yellow-500 text-white rounded transition-colors duration-200"
                                   disabled
                                 >
                                   ⏳ Бронируем...
@@ -1012,7 +1080,7 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
                               
                               {bookingStatus[tour.id] === 'waiting' && (
                                 <button 
-                                  className="px-3 py-1 text-xs font-medium bg-purple-600 text-white rounded transition-colors duration-200"
+                                  className="px-3 py-2 text-xs font-medium bg-purple-600 text-white rounded transition-colors duration-200"
                                   disabled
                                 >
                                   🎫 Ждем подтверждения
@@ -1022,7 +1090,7 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
                               {bookingStatus[tour.id] === 'confirmed' && (
                                 <button 
                                   onClick={() => handleStartTour(tour.id)}
-                                  className="px-3 py-1 text-xs font-medium bg-green-600 text-white rounded hover:bg-green-700 transition-colors duration-200"
+                                  className="px-3 py-2 text-xs font-medium bg-green-600 text-white rounded hover:bg-green-700 transition-colors duration-200"
                                 >
                                   🚀 Начать тур
                                 </button>
@@ -1036,10 +1104,10 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
                                 </div>
                               </div>
                             </div>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
+                </div>
+              </div>
+            </div>
+          ))}
                   </div>
                 </div>
               );
@@ -1056,54 +1124,169 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
           }) && (
             <div className="ml-8 p-4 text-center text-gray-500">
               Нет туров для отображения с выбранным фильтром
-            </div>
-          )}
+        </div>
+      )}
         </div>
         
         {/* Кнопка "Забронировать все" */}
         <div className="mt-8 text-center">
           <button 
+            className="px-6 py-3 bg-gradient-to-r from-green-600 to-blue-600 text-white rounded-lg hover:from-green-700 hover:to-blue-700 transition-all duration-200 shadow-lg hover:shadow-xl text-sm sm:text-base font-medium"
             onClick={() => {
-              console.log('🎯 Начинаем массовое бронирование...');
-              
-              // Бронируем все доступные туры с задержкой
-              const availableTours = displayResults.filter(tour => 
-                !bookingStatus[tour.id] || bookingStatus[tour.id] === 'available'
-              );
-              
-              availableTours.forEach((tour, index) => {
+              try {
+                console.log('🎯 Начинаем умное массовое бронирование...');
+                
+                // Функция для автоматического выбора лучших туров в конкурирующих группах
+                const selectBestTours = () => {
+                  const tourGroups = [
+                    [1, 2], // Экспедиции
+                    [3, 4], // Культурные туры  
+                    [5, 6]  // Эко-туры
+                  ];
+                  
+                  tourGroups.forEach(group => {
+                    // Проверяем, не выбран ли уже тур из этой группы
+                    const alreadySelectedFromGroup = group.some(tourId => selectedCompetingTours.has(tourId));
+                    if (alreadySelectedFromGroup) {
+                      console.log(`🏆 Тур уже выбран из группы ${group}`);
+                      return;
+                    }
+                    
+                    const availableInGroup = group.filter(tourId => {
+                      const tour = displayResults.find(t => t.id === tourId);
+                      return tour && (!bookingStatus[tourId] || bookingStatus[tourId] === 'available');
+                    });
+                    
+                    if (availableInGroup.length > 0) {
+                      // Выбираем тур с наивысшим рейтингом
+                      const bestTour = availableInGroup.reduce((best, tourId) => {
+                        const tour = displayResults.find(t => t.id === tourId);
+                        const bestTourData = displayResults.find(t => t.id === best);
+                        
+                        if (!tour || !bestTourData) return best;
+                        
+                        // Приоритет: эко-рейтинг > общий рейтинг > количество отзывов
+                        if (tour.ecoRating > bestTourData.ecoRating) return tourId;
+                        if (tour.ecoRating < bestTourData.ecoRating) return best;
+                        if (tour.rating > bestTourData.rating) return tourId;
+                        if (tour.rating < bestTourData.rating) return best;
+                        if (tour.reviews > bestTourData.reviews) return tourId;
+                        return best;
+                      });
+                      
+                      console.log(`🏆 Автоматически выбран лучший тур в группе ${group}: ${bestTour}`);
+                      handleSelectCompetingTourWithAnimation(bestTour);
+                    }
+                  });
+                };
+                
+                // Функция для автоматического выбора лучших отелей
+                const selectBestHotels = () => {
+                  const hotelDates = Object.keys(groupedTours).map(date => {
+                    const currentDate = new Date(date);
+                    const previousDate = new Date(currentDate);
+                    previousDate.setDate(previousDate.getDate() - 1);
+                    return previousDate.toISOString().split('T')[0];
+                  });
+                  
+                  hotelDates.forEach(hotelDate => {
+                    // Проверяем, не выбран ли уже отель для этой даты
+                    if (selectedHotelsByDate[hotelDate]) {
+                      console.log(`🏨 Отель уже выбран для ${hotelDate}: ${selectedHotelsByDate[hotelDate]}`);
+                      return;
+                    }
+                    
+                    const availableHotels = mockHotels.filter(hotel => 
+                      shouldShowHotel(hotel.id, hotelDate) && 
+                      (!hotelBookingStatus[hotel.id] || hotelBookingStatus[hotel.id] === 'available')
+                    );
+                    
+                    if (availableHotels.length > 0) {
+                      // Выбираем отель с наивысшим эко-рейтингом
+                      const bestHotel = availableHotels.reduce((best, hotel) => {
+                        if (hotel.ecoRating > best.ecoRating) return hotel;
+                        if (hotel.ecoRating < best.ecoRating) return best;
+                        if (hotel.rating > best.rating) return hotel;
+                        if (hotel.rating < best.rating) return best;
+                        if (hotel.reviews > best.reviews) return hotel;
+                        return best;
+                      });
+                      
+                      console.log(`🏨 Автоматически выбран лучший отель для ${hotelDate}: ${bestHotel.name} (⭐${bestHotel.ecoRating})`);
+                      handleSelectHotelWithAnimation(bestHotel.id, hotelDate);
+                    }
+                  });
+                };
+                
+                // Сначала выбираем лучшие туры и отели
+                selectBestTours();
+                selectBestHotels();
+                
+                // Ждем немного для завершения анимаций выбора
                 setTimeout(() => {
-                  console.log(`🎫 Бронируем тур ${tour.id} (${index + 1}/${availableTours.length})`);
-                  handleBookTour(tour.id);
-                }, index * 500); // Задержка 500мс между каждым туром
-              });
-              
-              // Бронируем все выбранные отели с задержкой
-              const selectedHotels = Object.entries(selectedHotelsByDate).filter(([, hotelId]) => 
-                !hotelBookingStatus[hotelId] || hotelBookingStatus[hotelId] === 'available'
-              );
-              
-              selectedHotels.forEach(([, hotelId], index) => {
-                setTimeout(() => {
-                  console.log(`🏨 Бронируем отель ${hotelId} (${index + 1}/${selectedHotels.length})`);
-                  handleBookHotel(hotelId);
-                }, (availableTours.length + index) * 500); // Задержка после всех туров
-              });
-              
-              const totalItems = availableTours.length + selectedHotels.length;
-              console.log(`📊 Всего элементов для бронирования: ${totalItems}`);
-              
-              // Показываем уведомление через некоторое время
-              setTimeout(() => {
-                alert(`🎉 Бронирование запущено!\n\nТуры: ${availableTours.length}\nОтели: ${selectedHotels.length}\n\nПроверьте статус бронирования через несколько секунд.`);
-              }, 1000);
+                  // Бронируем выбранные туры (только те, которые еще не забронированы)
+                  const selectedTours = Array.from(selectedCompetingTours).filter(tourId => 
+                    !bookingStatus[tourId] || bookingStatus[tourId] === 'available'
+                  );
+                  
+                  console.log(`📋 Найдено выбранных туров для бронирования: ${selectedTours.length}`);
+                  
+                  if (selectedTours.length > 0) {
+                    selectedTours.forEach((tourId, index) => {
+                      setTimeout(() => {
+                        try {
+                          console.log(`🎫 Бронируем выбранный тур ${tourId} (${index + 1}/${selectedTours.length})`);
+                          handleBookTour(tourId);
+                        } catch (error) {
+                          console.error(`❌ Ошибка при бронировании тура ${tourId}:`, error);
+                        }
+                      }, index * 500);
+                    });
+                  }
+                  
+                  // Бронируем выбранные отели (только те, которые еще не забронированы)
+                  const selectedHotels = Object.entries(selectedHotelsByDate).filter(([, hotelId]) => 
+                    !hotelBookingStatus[hotelId] || hotelBookingStatus[hotelId] === 'available'
+                  );
+                  
+                  console.log(`📋 Найдено выбранных отелей для бронирования: ${selectedHotels.length}`);
+                  
+                  if (selectedHotels.length > 0) {
+                    selectedHotels.forEach(([, hotelId], index) => {
+                      setTimeout(() => {
+                        try {
+                          console.log(`🏨 Бронируем выбранный отель ${hotelId} (${index + 1}/${selectedHotels.length})`);
+                          handleBookHotel(hotelId);
+                        } catch (error) {
+                          console.error(`❌ Ошибка при бронировании отеля ${hotelId}:`, error);
+                        }
+                      }, (selectedTours.length * 500) + (index * 500));
+                    });
+                  }
+                  
+                  const totalItems = selectedTours.length + selectedHotels.length;
+                  console.log(`📊 Всего элементов для бронирования: ${totalItems}`);
+                  
+                  // Показываем уведомление
+                  setTimeout(() => {
+                    try {
+                      alert(`🎉 Умное бронирование запущено!\n\n✅ Автоматически выбраны лучшие туры и отели\n🎫 Туры: ${selectedTours.length}\n🏨 Отели: ${selectedHotels.length}\n\nПроверьте статус бронирования через несколько секунд.`);
+                    } catch (error) {
+                      console.error('❌ Ошибка при показе уведомления:', error);
+                    }
+                  }, 1000);
+                }, 1000); // Ждем 1 секунду для завершения анимаций
+                
+              } catch (error) {
+                console.error('❌ Ошибка при умном массовом бронировании:', error);
+                alert('❌ Произошла ошибка при запуске умного бронирования. Попробуйте еще раз.');
+              }
             }}
-            className="px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-lg shadow-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105"
           >
-            🎯 Забронировать все туры и отели
+            🎯 Умное бронирование лучших туров и отелей
           </button>
           <p className="text-sm text-gray-500 mt-2">
-            Бронирует все доступные туры и выбранные отели с задержкой
+            Автоматически выбирает и бронирует туры и отели с наивысшим рейтингом
           </p>
         </div>
       </div>
@@ -1113,8 +1296,8 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
   return (
     <div className="space-y-6">
       {/* Заголовок результатов */}
-      <div className="flex items-center justify-between">
-        <h3 className="text-xl font-semibold text-gray-800">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+        <h3 className="text-lg sm:text-xl font-semibold text-gray-800">
           Найдено туров: {displayResults.length}
         </h3>
         {searchQuery && (
@@ -1125,7 +1308,7 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
       </div>
 
       {/* Список результатов */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
         {/* Отладочная информация о состоянии */}
         <div className="col-span-full p-2 bg-gray-100 rounded text-xs">
           🔍 Состояние: результатов = {displayResults.length}
@@ -1159,6 +1342,20 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
               startDate="2024-08-15"
               endDate="2024-08-20"
               duration="5 дней"
+              selectedHotels={Object.entries(selectedHotelsByDate)
+                .map(([date, hotelId]) => {
+                  const hotel = mockHotels.find(h => h.id === hotelId);
+                  return hotel ? {
+                    id: hotel.id,
+                    name: hotel.name,
+                    ecoRating: hotel.ecoRating,
+                    location: hotel.location
+                  } : null;
+                })
+                .filter((hotel): hotel is NonNullable<typeof hotel> => hotel !== null)
+                .filter((hotel, index, self) => 
+                  index === self.findIndex(h => h && h.id === hotel.id)
+                )}
             />
           </div>
         {/* )} */}
@@ -1178,8 +1375,8 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
         const qrCode = hotelQRCodes[parseInt(hotelId)];
         
         return (
-          <div key={hotelId} className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4">
+          <div key={hotelId} className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+            <div className="bg-white rounded-lg p-4 sm:p-6 max-w-md w-full">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-semibold text-gray-900">
                   QR-код для заселения

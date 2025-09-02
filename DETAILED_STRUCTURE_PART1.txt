@@ -1,0 +1,225 @@
+TRAVEL COMPANION - ДЕТАЛЬНАЯ СТРУКТУРА ПРОЕКТА (ЧАСТЬ 1)
+==========================================================
+
+ОБЩАЯ ИНФОРМАЦИЯ
+----------------
+Название проекта: Travel Companion - Эко-туристическая платформа
+Технологии: Next.js 15.3.3, React, TypeScript, Tailwind CSS, Turbopack
+Языки: Русский, Английский (i18n)
+Архитектура: App Router, Client Components
+Версия: 0.1.0
+Статус: Активная разработка
+
+ПОЛНАЯ СТРУКТУРА ФАЙЛОВ
+-----------------------
+
+TRAVELCOMPANION/
+├── .next/                          # Next.js build files
+│   ├── cache/                     # Build cache
+│   ├── server/                    # Server build
+│   ├── static/                    # Static assets
+│   └── trace                      # Build traces
+├── .git/                          # Git repository
+│   ├── hooks/                     # Git hooks
+│   ├── info/                      # Repository info
+│   ├── logs/                      # Commit logs
+│   ├── objects/                   # Git objects
+│   └── refs/                      # References
+├── node_modules/                  # Dependencies
+│   ├── @heroicons/               # Heroicons library
+│   ├── @next/                    # Next.js packages
+│   ├── @types/                   # TypeScript types
+│   ├── react/                    # React library
+│   ├── typescript/               # TypeScript compiler
+│   └── [другие зависимости]
+├── public/                        # Static files
+│   ├── file.svg                  # File icon
+│   ├── globe.svg                 # Globe icon
+│   ├── next.svg                  # Next.js logo
+│   ├── vercel.svg                # Vercel logo
+│   └── window.svg                # Window icon
+├── src/                           # Source code
+│   ├── app/                      # App Router pages
+│   │   ├── globals.css           # Global styles
+│   │   ├── layout.tsx            # Root layout
+│   │   ├── page.tsx              # Home page
+│   │   ├── favicon.ico           # Favicon
+│   │   ├── api/                  # API routes
+│   │   │   └── [различные API endpoints]
+│   │   ├── tourist/              # Tourist role pages
+│   │   │   ├── page.tsx          # Main tourist dashboard
+│   │   │   ├── search/           # Search functionality
+│   │   │   │   └── page.tsx      # Tour search page
+│   │   │   ├── route-management/ # Route management
+│   │   │   │   └── page.tsx      # Route management page
+│   │   │   ├── recommendations/  # Recommendations
+│   │   │   │   └── page.tsx      # Personalized recommendations
+│   │   │   ├── news/             # News and promotions
+│   │   │   │   └── page.tsx      # News page
+│   │   │   ├── emergency/        # Emergency contacts
+│   │   │   │   └── page.tsx      # Emergency page
+│   │   │   ├── carbon-report/    # Carbon footprint
+│   │   │   │   └── page.tsx      # Carbon report page
+│   │   │   └── booking-calendar/ # Booking calendar
+│   │   │       └── page.tsx      # Calendar page
+│   │   ├── guide/                # Guide role pages
+│   │   │   └── page.tsx          # Guide dashboard
+│   │   ├── admin/                # Admin role pages
+│   │   │   └── page.tsx          # Admin dashboard
+│   │   ├── analyst/              # Analyst role pages
+│   │   │   └── page.tsx          # Analyst dashboard
+│   │   ├── accommodation/        # Accommodation role pages
+│   │   │   └── page.tsx          # Accommodation dashboard
+│   │   └── settings/             # Settings pages
+│   │       └── page.tsx          # Settings page
+│   ├── components/               # React components
+│   │   ├── SearchSection.tsx     # Search interface
+│   │   ├── SearchResults.tsx     # Search results display
+│   │   ├── AISearch.tsx          # AI-powered search
+│   │   ├── AISettings.tsx        # AI search settings
+│   │   ├── PersonalizedRecommendations.tsx # User recommendations
+│   │   ├── EmergencyContact.tsx  # Emergency contact system
+│   │   ├── RouteMap.tsx          # Route mapping
+│   │   ├── NewsAndPromotions.tsx # News and promotions
+│   │   ├── AutoFundingDistribution.tsx # Funding distribution
+│   │   ├── AccommodationFundingList.tsx # Hotel funding list
+│   │   ├── FundingMapVisualization.tsx # Funding map
+│   │   ├── TouristStats.tsx      # Tourist statistics
+│   │   ├── EcoProjectsReport.tsx # Eco projects reports
+│   │   ├── FinancingStatusReport.tsx # Financing reports
+│   │   ├── AIAnalytics.tsx       # AI analytics
+│   │   └── LanguageSwitcher.tsx  # Language switcher
+│   ├── services/                 # API services
+│   │   └── aiSearchService.ts    # AI search service
+│   ├── translations/             # Internationalization
+│   │   └── index.ts              # Translation files
+│   └── hooks/                    # Custom hooks
+│       └── useLanguage.ts        # Language hook
+├── LICENSE                        # Project license
+├── README.md                      # Project documentation
+├── .gitignore                     # Git ignore rules
+├── package.json                   # Dependencies and scripts
+├── package-lock.json             # Locked dependencies
+├── tsconfig.json                 # TypeScript configuration
+├── next.config.ts                # Next.js configuration
+├── postcss.config.mjs            # PostCSS configuration
+├── eslint.config.mjs             # ESLint configuration
+├── next-env.d.ts                 # Next.js types
+├── app.json                      # App configuration
+├── qr-code.html                  # QR code template
+├── generate-qr.js                # QR code generator
+├── start-server.ps1              # PowerShell server start script
+├── stop-server.ps1               # PowerShell server stop script
+├── view-logs.ps1                 # PowerShell logs viewer
+├── start-server-permanent.ps1    # Permanent server script
+├── MOBILE_RESPONSIVENESS_REPORT.md # Mobile responsiveness report
+├── PROJECT_STRUCTURE_BY_ROLES.md # Roles structure documentation
+├── PROJECT_STRUCTURE.txt         # Basic project structure
+└── DETAILED_STRUCTURE_PART1.txt  # This file
+
+ДЕТАЛЬНАЯ СТРУКТУРА ПО РОЛЯМ
+----------------------------
+
+1. ТУРИСТ (Tourist) - ПОЛНАЯ СТРУКТУРА
+======================================
+
+ОСНОВНАЯ РОЛЬ: Поиск и бронирование туров, управление путешествиями
+
+ФАЙЛОВАЯ СТРУКТУРА:
+src/app/tourist/
+├── page.tsx                      # Главная панель туриста
+├── search/
+│   └── page.tsx                 # Страница поиска туров
+├── route-management/
+│   └── page.tsx                 # Управление маршрутами
+├── recommendations/
+│   └── page.tsx                 # Персонализированные рекомендации
+├── news/
+│   └── page.tsx                 # Новости и акции
+├── emergency/
+│   └── page.tsx                 # Экстренные контакты
+├── carbon-report/
+│   └── page.tsx                 # Отчет по углеродному следу
+└── booking-calendar/
+    └── page.tsx                 # Календарь бронирований
+
+ИСПОЛЬЗУЕМЫЕ КОМПОНЕНТЫ:
+src/components/
+├── SearchSection.tsx             # Поисковая секция с фильтрами
+├── SearchResults.tsx             # Результаты поиска (туры/отели)
+├── AISearch.tsx                 # AI-поиск с подсказками
+├── PersonalizedRecommendations.tsx # Персонализированные рекомендации
+├── EmergencyContact.tsx          # Экстренные контакты
+├── RouteMap.tsx                 # Карта маршрутов
+├── NewsAndPromotions.tsx        # Новости и акции
+└── LanguageSwitcher.tsx         # Переключение языков
+
+ПОДРАЗДЕЛЫ И ФУНКЦИОНАЛЬНОСТЬ:
+
+1.1. ГЛАВНАЯ ПАНЕЛЬ ТУРИСТА (page.tsx)
+- Обзор активных туров
+- Быстрый доступ к функциям
+- Статистика путешествий
+- Уведомления и сообщения
+
+1.2. ПОИСК ТУРОВ (search/page.tsx)
+- AI-поиск с подсказками
+- Фильтрация по категориям:
+  * Все категории
+  * Треккинг
+  * Велотуры
+  * Водные туры
+  * Культурные туры
+  * Культурное наследие
+  * Наблюдение за дикой природой
+- Дополнительные фильтры:
+  * Дата начала и окончания
+  * Начальная и конечная точка
+  * Продолжительность
+  * Ценовой диапазон
+  * Сложность
+- Результаты поиска с карточками туров
+- Сравнение туров
+- Сохранение в избранное
+
+1.3. УПРАВЛЕНИЕ МАРШРУТАМИ (route-management/page.tsx)
+- Просмотр маршрутов на карте
+- Детальная информация о точках интереса
+- Планирование маршрута
+- Сохранение маршрутов
+- Поделиться маршрутом
+
+1.4. ПЕРСОНАЛИЗИРОВАННЫЕ РЕКОМЕНДАЦИИ (recommendations/page.tsx)
+- AI-рекомендации на основе предпочтений
+- Популярные направления
+- Сезонные предложения
+- Персональные скидки
+- Рекомендации друзей
+
+1.5. НОВОСТИ И АКЦИИ (news/page.tsx)
+- Новости туристической отрасли
+- Специальные предложения
+- Акции и скидки
+- События и фестивали
+- Эко-новости
+
+1.6. ЭКСТРЕННЫЕ КОНТАКТЫ (emergency/page.tsx)
+- Экстренные номера телефонов
+- Ближайшие больницы
+- Полиция и службы спасения
+- Консульства и посольства
+- Форма экстренного обращения
+
+1.7. ОТЧЕТ ПО УГЛЕРОДНОМУ СЛЕДУ (carbon-report/page.tsx)
+- Расчет углеродного следа путешествия
+- Сравнение с альтернативными вариантами
+- Рекомендации по снижению воздействия
+- Компенсация углеродного следа
+- История расчетов
+
+1.8. КАЛЕНДАРЬ БРОНИРОВАНИЙ (booking-calendar/page.tsx)
+- Календарь забронированных туров
+- Управление бронированиями
+- Напоминания о поездках
+- История путешествий
+- Планирование будущих поездок

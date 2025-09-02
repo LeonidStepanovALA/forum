@@ -15,7 +15,7 @@ import {
 
 import TouristStats from '@/components/TouristStats';
 import { useLanguage } from '@/hooks/useLanguage';
-import { translations } from '@/translations';
+import { translations } from '@/translations/index';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
 
 interface NavigationButton {
@@ -27,7 +27,31 @@ interface NavigationButton {
 }
 
 export default function TouristPage() {
-  const { language, changeLanguage } = useLanguage();
+  const { language, changeLanguage, isInitialized } = useLanguage();
+  
+  // Показываем загрузку, пока хук не инициализирован
+  if (!isInitialized) {
+    return (
+      <div className="container mx-auto px-4 py-6 md:py-8">
+        <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+          <p className="text-blue-800">Загрузка...</p>
+        </div>
+      </div>
+    );
+  }
+  
+  // Проверяем, что переводы доступны
+  if (!translations || !translations[language]) {
+    console.warn('Переводы недоступны для языка:', language);
+    return (
+      <div className="container mx-auto px-4 py-6 md:py-8">
+        <div className="p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+          <p className="text-yellow-800">Загрузка переводов...</p>
+        </div>
+      </div>
+    );
+  }
+  
   const t = translations[language];
 
   const navigationButtons: NavigationButton[] = [
