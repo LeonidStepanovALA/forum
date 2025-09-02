@@ -1343,7 +1343,7 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
               endDate="2024-08-20"
               duration="5 дней"
               selectedHotels={Object.entries(selectedHotelsByDate)
-                .map(([date, hotelId]) => {
+                .map(([, hotelId]) => {
                   const hotel = mockHotels.find(h => h.id === hotelId);
                   return hotel ? {
                     id: hotel.id,
