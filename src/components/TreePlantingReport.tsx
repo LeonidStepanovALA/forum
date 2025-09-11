@@ -176,57 +176,57 @@ export default function TreePlantingReport() {
       </div>
 
       {/* Summary Statistics */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-        <div className="bg-green-50 p-4 rounded-lg border border-green-200">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mb-6">
+        <div className="bg-green-50 p-3 md:p-4 rounded-lg border border-green-200">
           <div className="flex items-center justify-between mb-2">
-            <h4 className="text-sm font-medium text-green-800">
+            <h4 className="text-xs md:text-sm font-medium text-green-800 truncate pr-2">
               {language === 'ru' ? 'Высажено деревьев' : 'Trees Planted'}
             </h4>
-            <CheckCircleIcon className="w-5 h-5 text-green-600" />
+            <CheckCircleIcon className="w-4 h-4 md:w-5 md:h-5 text-green-600 flex-shrink-0" />
           </div>
-          <p className="text-2xl font-bold text-green-600">{treeData.summary.totalPlanted}</p>
-          <p className="text-xs text-green-600">
+          <p className="text-xl md:text-2xl font-bold text-green-600">{treeData.summary.totalPlanted}</p>
+          <p className="text-xs text-green-600 line-clamp-2">
             {language === 'ru' ? 'Компенсировано' : 'Compensated'} {treeData.summary.totalCO2Compensated} т CO₂
           </p>
         </div>
 
-        <div className="bg-yellow-50 p-4 rounded-lg border border-yellow-200">
+        <div className="bg-yellow-50 p-3 md:p-4 rounded-lg border border-yellow-200">
           <div className="flex items-center justify-between mb-2">
-            <h4 className="text-sm font-medium text-yellow-800">
+            <h4 className="text-xs md:text-sm font-medium text-yellow-800 truncate pr-2">
               {language === 'ru' ? 'Ожидают высадки' : 'Pending Planting'}
             </h4>
-            <ClockIcon className="w-5 h-5 text-yellow-600" />
+            <ClockIcon className="w-4 h-4 md:w-5 md:h-5 text-yellow-600 flex-shrink-0" />
           </div>
-          <p className="text-2xl font-bold text-yellow-600">{treeData.summary.totalPending}</p>
-          <p className="text-xs text-yellow-600">
+          <p className="text-xl md:text-2xl font-bold text-yellow-600">{treeData.summary.totalPending}</p>
+          <p className="text-xs text-yellow-600 line-clamp-2">
             {language === 'ru' ? 'Будет компенсировано' : 'Will compensate'} {treeData.summary.totalCO2Pending} т CO₂
           </p>
         </div>
 
-        <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
+        <div className="bg-blue-50 p-3 md:p-4 rounded-lg border border-blue-200">
           <div className="flex items-center justify-between mb-2">
-            <h4 className="text-sm font-medium text-blue-800">
+            <h4 className="text-xs md:text-sm font-medium text-blue-800 truncate pr-2">
               {language === 'ru' ? 'Потрачено AirCoin' : 'AirCoin Spent'}
             </h4>
-            <CurrencyDollarIcon className="w-5 h-5 text-blue-600" />
+            <CurrencyDollarIcon className="w-4 h-4 md:w-5 md:h-5 text-blue-600 flex-shrink-0" />
           </div>
-          <p className="text-2xl font-bold text-blue-600">{treeData.summary.totalAirCoinSpent}</p>
-          <p className="text-xs text-blue-600">
+          <p className="text-xl md:text-2xl font-bold text-blue-600">{treeData.summary.totalAirCoinSpent}</p>
+          <p className="text-xs text-blue-600 line-clamp-2">
             {language === 'ru' ? 'За все время' : 'Total spent'}
           </p>
         </div>
 
-        <div className="bg-purple-50 p-4 rounded-lg border border-purple-200">
+        <div className="bg-purple-50 p-3 md:p-4 rounded-lg border border-purple-200">
           <div className="flex items-center justify-between mb-2">
-            <h4 className="text-sm font-medium text-purple-800">
+            <h4 className="text-xs md:text-sm font-medium text-purple-800 truncate pr-2">
               {language === 'ru' ? 'Общая компенсация' : 'Total Compensation'}
             </h4>
-            <HeartIcon className="w-5 h-5 text-purple-600" />
+            <HeartIcon className="w-4 h-4 md:w-5 md:h-5 text-purple-600 flex-shrink-0" />
           </div>
-          <p className="text-2xl font-bold text-purple-600">
+          <p className="text-xl md:text-2xl font-bold text-purple-600">
             {treeData.summary.totalCO2Compensated + treeData.summary.totalCO2Pending} т CO₂
           </p>
-          <p className="text-xs text-purple-600">
+          <p className="text-xs text-purple-600 line-clamp-2">
             {language === 'ru' ? 'Включая ожидающие' : 'Including pending'}
           </p>
         </div>
@@ -236,28 +236,28 @@ export default function TreePlantingReport() {
       <div className="flex space-x-1 mb-6 bg-gray-100 p-1 rounded-lg">
         <button
           onClick={() => setSelectedTab('planted')}
-          className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-colors ${
+          className={`flex-1 py-2 px-2 md:px-4 rounded-md text-xs md:text-sm font-medium transition-colors ${
             selectedTab === 'planted'
               ? 'bg-white text-green-600 shadow-sm'
               : 'text-gray-600 hover:text-gray-800'
           }`}
         >
-          <div className="flex items-center justify-center gap-2">
-            <CheckCircleIcon className="w-4 h-4" />
-            {language === 'ru' ? 'Высаженные' : 'Planted'}
+          <div className="flex items-center justify-center gap-1 md:gap-2">
+            <CheckCircleIcon className="w-3 h-3 md:w-4 md:h-4 flex-shrink-0" />
+            <span className="truncate">{language === 'ru' ? 'Высаженные' : 'Planted'}</span>
           </div>
         </button>
         <button
           onClick={() => setSelectedTab('pending')}
-          className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-colors ${
+          className={`flex-1 py-2 px-2 md:px-4 rounded-md text-xs md:text-sm font-medium transition-colors ${
             selectedTab === 'pending'
               ? 'bg-white text-yellow-600 shadow-sm'
               : 'text-gray-600 hover:text-gray-800'
           }`}
         >
-          <div className="flex items-center justify-center gap-2">
-            <ClockIcon className="w-4 h-4" />
-            {language === 'ru' ? 'Ожидающие' : 'Pending'}
+          <div className="flex items-center justify-center gap-1 md:gap-2">
+            <ClockIcon className="w-3 h-3 md:w-4 md:h-4 flex-shrink-0" />
+            <span className="truncate">{language === 'ru' ? 'Ожидающие' : 'Pending'}</span>
           </div>
         </button>
       </div>
@@ -265,13 +265,15 @@ export default function TreePlantingReport() {
       {/* Tree List */}
       <div className="space-y-4">
         {(selectedTab === 'planted' ? treeData.plantedTrees : treeData.pendingTrees).map((tree) => (
-          <div key={tree.id} className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
-            <div className="flex items-start justify-between">
-              <div className="flex-1">
-                <div className="flex items-center gap-2 mb-2">
-                  <HomeIcon className="w-5 h-5 text-green-600" />
-                  <h4 className="font-semibold text-gray-800">{tree.species}</h4>
-                  <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+          <div key={tree.id} className="border border-gray-200 rounded-lg p-3 md:p-4 hover:shadow-md transition-shadow">
+            <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
+              <div className="flex-1 min-w-0">
+                <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-3">
+                  <div className="flex items-center gap-2">
+                    <HomeIcon className="w-4 h-4 md:w-5 md:h-5 text-green-600 flex-shrink-0" />
+                    <h4 className="font-semibold text-gray-800 truncate">{tree.species}</h4>
+                  </div>
+                  <span className={`px-2 py-1 rounded-full text-xs font-medium w-fit ${
                     tree.status === 'planted' 
                       ? 'bg-green-100 text-green-800' 
                       : 'bg-yellow-100 text-yellow-800'
@@ -283,37 +285,37 @@ export default function TreePlantingReport() {
                   </span>
                 </div>
                 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-600">
-                  <div className="flex items-center gap-2">
-                    <MapPinIcon className="w-4 h-4" />
-                    <span>{tree.location}</span>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-gray-600">
+                  <div className="flex items-start gap-2 min-w-0">
+                    <MapPinIcon className="w-4 h-4 text-gray-400 flex-shrink-0 mt-0.5" />
+                    <span className="truncate">{tree.location}</span>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <GlobeAltIcon className="w-4 h-4" />
-                    <span>{tree.coordinates}</span>
+                  <div className="flex items-start gap-2 min-w-0">
+                    <GlobeAltIcon className="w-4 h-4 text-gray-400 flex-shrink-0 mt-0.5" />
+                    <span className="truncate">{tree.coordinates}</span>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <CalendarIcon className="w-4 h-4" />
-                    <span>
+                  <div className="flex items-start gap-2 min-w-0">
+                    <CalendarIcon className="w-4 h-4 text-gray-400 flex-shrink-0 mt-0.5" />
+                    <span className="truncate">
                       {tree.status === 'planted' 
                         ? `${language === 'ru' ? 'Высажено' : 'Planted'}: ${formatDate((tree as PlantedTree).plantingDate)}`
                         : `${language === 'ru' ? 'Ожидается' : 'Expected'}: ${formatDate((tree as PendingTree).expectedDate)}`
                       }
                     </span>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <CurrencyDollarIcon className="w-4 h-4" />
-                    <span>{tree.airCoinCost} AirCoin</span>
+                  <div className="flex items-start gap-2 min-w-0">
+                    <CurrencyDollarIcon className="w-4 h-4 text-gray-400 flex-shrink-0 mt-0.5" />
+                    <span className="truncate">{tree.airCoinCost} AirCoin</span>
                   </div>
                 </div>
               </div>
               
-              <div className="text-right ml-4">
-                <div className="bg-green-50 p-3 rounded-lg">
-                  <p className="text-sm text-green-600 font-medium">
+              <div className="flex-shrink-0 w-full sm:w-auto">
+                <div className="bg-green-50 p-3 rounded-lg text-center sm:text-right">
+                  <p className="text-xs md:text-sm text-green-600 font-medium mb-1">
                     {language === 'ru' ? 'Компенсация CO₂' : 'CO₂ Compensation'}
                   </p>
-                  <p className="text-lg font-bold text-green-700">
+                  <p className="text-lg md:text-xl font-bold text-green-700">
                     {tree.co2Compensation} т
                   </p>
                 </div>
@@ -324,25 +326,25 @@ export default function TreePlantingReport() {
       </div>
 
       {/* Statistics Section */}
-      <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="mt-6 md:mt-8 grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
         {/* Species Distribution */}
-        <div className="bg-gray-50 p-4 rounded-lg">
-          <h4 className="font-semibold text-gray-800 mb-4 flex items-center gap-2">
-            <ChartBarIcon className="w-5 h-5 text-green-600" />
-            {language === 'ru' ? 'Распределение по видам' : 'Distribution by Species'}
+        <div className="bg-gray-50 p-3 md:p-4 rounded-lg">
+          <h4 className="font-semibold text-gray-800 mb-3 md:mb-4 flex items-center gap-2">
+            <ChartBarIcon className="w-4 h-4 md:w-5 md:h-5 text-green-600 flex-shrink-0" />
+            <span className="truncate">{language === 'ru' ? 'Распределение по видам' : 'Distribution by Species'}</span>
           </h4>
-          <div className="space-y-3">
+          <div className="space-y-2 md:space-y-3">
             {treeData.statistics.bySpecies.map((item, index) => (
-              <div key={index} className="flex items-center justify-between">
-                <span className="text-sm text-gray-600">{item.species}</span>
-                <div className="flex items-center gap-2">
-                  <div className="w-20 bg-gray-200 rounded-full h-2">
+              <div key={index} className="flex items-center justify-between min-w-0">
+                <span className="text-xs md:text-sm text-gray-600 truncate pr-2">{item.species}</span>
+                <div className="flex items-center gap-2 flex-shrink-0">
+                  <div className="w-16 md:w-20 bg-gray-200 rounded-full h-2">
                     <div 
                       className="bg-green-500 h-2 rounded-full" 
                       style={{ width: `${item.percentage}%` }}
                     ></div>
                   </div>
-                  <span className="text-sm font-medium text-gray-800 w-12 text-right">
+                  <span className="text-xs md:text-sm font-medium text-gray-800 w-8 md:w-12 text-right">
                     {item.count}
                   </span>
                 </div>
@@ -352,23 +354,23 @@ export default function TreePlantingReport() {
         </div>
 
         {/* Location Distribution */}
-        <div className="bg-gray-50 p-4 rounded-lg">
-          <h4 className="font-semibold text-gray-800 mb-4 flex items-center gap-2">
-            <MapPinIcon className="w-5 h-5 text-green-600" />
-            {language === 'ru' ? 'Распределение по локациям' : 'Distribution by Locations'}
+        <div className="bg-gray-50 p-3 md:p-4 rounded-lg">
+          <h4 className="font-semibold text-gray-800 mb-3 md:mb-4 flex items-center gap-2">
+            <MapPinIcon className="w-4 h-4 md:w-5 md:h-5 text-green-600 flex-shrink-0" />
+            <span className="truncate">{language === 'ru' ? 'Распределение по локациям' : 'Distribution by Locations'}</span>
           </h4>
-          <div className="space-y-3">
+          <div className="space-y-2 md:space-y-3">
             {treeData.statistics.byLocation.map((item, index) => (
-              <div key={index} className="flex items-center justify-between">
-                <span className="text-sm text-gray-600">{item.location}</span>
-                <div className="flex items-center gap-2">
-                  <div className="w-20 bg-gray-200 rounded-full h-2">
+              <div key={index} className="flex items-center justify-between min-w-0">
+                <span className="text-xs md:text-sm text-gray-600 truncate pr-2">{item.location}</span>
+                <div className="flex items-center gap-2 flex-shrink-0">
+                  <div className="w-16 md:w-20 bg-gray-200 rounded-full h-2">
                     <div 
                       className="bg-blue-500 h-2 rounded-full" 
                       style={{ width: `${item.percentage}%` }}
                     ></div>
                   </div>
-                  <span className="text-sm font-medium text-gray-800 w-12 text-right">
+                  <span className="text-xs md:text-sm font-medium text-gray-800 w-8 md:w-12 text-right">
                     {item.count}
                   </span>
                 </div>
@@ -379,35 +381,35 @@ export default function TreePlantingReport() {
       </div>
 
       {/* Impact Summary */}
-      <div className="mt-6 p-4 bg-gradient-to-r from-green-50 to-blue-50 rounded-lg border border-green-200">
+      <div className="mt-4 md:mt-6 p-3 md:p-4 bg-gradient-to-r from-green-50 to-blue-50 rounded-lg border border-green-200">
         <div className="flex items-center gap-2 mb-3">
-          <SparklesIcon className="w-5 h-5 text-green-600" />
-          <h4 className="font-semibold text-green-800">
+          <SparklesIcon className="w-4 h-4 md:w-5 md:h-5 text-green-600 flex-shrink-0" />
+          <h4 className="font-semibold text-green-800 truncate">
             {language === 'ru' ? 'Ваш экологический вклад' : 'Your Environmental Impact'}
           </h4>
         </div>
-        <p className="text-sm text-gray-700 mb-3">
+        <p className="text-xs md:text-sm text-gray-700 mb-3 line-clamp-4">
           {language === 'ru' 
             ? 'Благодаря вашим инвестициям в AirCoin, вы помогли высадить деревья, которые компенсируют углеродный след от ваших путешествий. Каждое дерево поглощает в среднем 0.2 тонны CO₂ в год и продолжает расти десятилетиями.'
             : 'Thanks to your AirCoin investments, you have helped plant trees that compensate for the carbon footprint of your travels. Each tree absorbs an average of 0.2 tons of CO₂ per year and continues to grow for decades.'
           }
         </p>
-        <div className="flex items-center gap-4 text-sm">
+        <div className="flex flex-wrap items-center gap-3 md:gap-4 text-xs md:text-sm">
           <div className="flex items-center gap-1">
             <span className="text-green-600">🌱</span>
-            <span className="text-gray-600">
+            <span className="text-gray-600 truncate">
               {language === 'ru' ? 'Деревья растут' : 'Trees growing'}
             </span>
           </div>
           <div className="flex items-center gap-1">
             <span className="text-blue-600">💰</span>
-            <span className="text-gray-600">
+            <span className="text-gray-600 truncate">
               {language === 'ru' ? 'AirCoin инвестиции' : 'AirCoin investments'}
             </span>
           </div>
           <div className="flex items-center gap-1">
             <span className="text-purple-600">🌍</span>
-            <span className="text-gray-600">
+            <span className="text-gray-600 truncate">
               {language === 'ru' ? 'Планета защищена' : 'Planet protected'}
             </span>
           </div>
