@@ -2,14 +2,11 @@
 
 import React, { useState } from 'react';
 import { 
-  WalletIcon, 
   CurrencyDollarIcon, 
   GiftIcon, 
   HeartIcon,
   PlusIcon,
   ArrowPathIcon,
-  CreditCardIcon,
-  BanknotesIcon,
   SparklesIcon,
   XMarkIcon
 } from '@heroicons/react/24/outline';
@@ -17,7 +14,6 @@ import { useLanguage } from '@/hooks/useLanguage';
 
 export default function TouristWallet() {
   const { language } = useLanguage();
-  const [activeTab, setActiveTab] = useState<'balance' | 'buy' | 'exchange' | 'donate'>('balance');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalType, setModalType] = useState<'buy' | 'exchange' | 'donate'>('buy');
   const [amount, setAmount] = useState('');
