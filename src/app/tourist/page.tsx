@@ -11,7 +11,8 @@ import {
   CalendarIcon,
   MapIcon,
   WalletIcon,
-  XMarkIcon
+  XMarkIcon,
+  PhotoIcon
 } from '@heroicons/react/24/outline';
 
 import TouristStats from '@/components/TouristStats';
@@ -115,6 +116,13 @@ export default function TouristPage() {
       title: t.routeManagement,
       description: t.routeManagementDesc,
       color: 'bg-indigo-500 hover:bg-indigo-600'
+    },
+    {
+      href: '/tourist/photo-gallery',
+      icon: PhotoIcon,
+      title: language === 'ru' ? 'Фотогалерея' : 'Photo Gallery',
+      description: language === 'ru' ? 'Загружайте и делитесь фото из путешествий' : 'Upload and share travel photos',
+      color: 'bg-pink-500 hover:bg-pink-600'
     }
   ];
 
@@ -142,7 +150,7 @@ export default function TouristPage() {
         <TouristStats />
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 md:gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
         {navigationButtons.map((button) => {
           if (button.href === '#wallet') {
             return (
