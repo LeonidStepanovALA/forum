@@ -62,6 +62,13 @@ export default function TouristPage() {
 
   const navigationButtons: NavigationButton[] = [
     {
+      href: '#wallet',
+      icon: WalletIcon,
+      title: language === 'ru' ? 'Мой кошелек' : 'My Wallet',
+      description: language === 'ru' ? 'Управление AirCoin и донаты' : 'Manage AirCoin and donations',
+      color: 'bg-emerald-500 hover:bg-emerald-600'
+    },
+    {
       href: '/tourist/recommendations',
       icon: StarIcon,
       title: t.personalizedRecommendations,
@@ -95,13 +102,6 @@ export default function TouristPage() {
       title: t.carbonReport,
       description: t.carbonReportDesc,
       color: 'bg-teal-500 hover:bg-teal-600'
-    },
-    {
-      href: '#wallet',
-      icon: WalletIcon,
-      title: language === 'ru' ? 'Мой кошелек' : 'My Wallet',
-      description: language === 'ru' ? 'Управление AirCoin и донаты' : 'Manage AirCoin and donations',
-      color: 'bg-emerald-500 hover:bg-emerald-600'
     },
     {
       href: '/tourist/booking-calendar',
