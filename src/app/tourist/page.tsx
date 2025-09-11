@@ -8,7 +8,6 @@ import {
   MagnifyingGlassIcon, 
   PhoneIcon,
   CloudIcon,
-  Cog6ToothIcon,
   CalendarIcon,
   MapIcon,
   WalletIcon,
@@ -17,6 +16,7 @@ import {
 
 import TouristStats from '@/components/TouristStats';
 import TouristWallet from '@/components/TouristWallet';
+import UserAvatar from '@/components/UserAvatar';
 import { useLanguage } from '@/hooks/useLanguage';
 import { translations } from '@/translations/index';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
@@ -115,13 +115,6 @@ export default function TouristPage() {
       title: t.routeManagement,
       description: t.routeManagementDesc,
       color: 'bg-indigo-500 hover:bg-indigo-600'
-    },
-    {
-      href: '/settings',
-      icon: Cog6ToothIcon,
-      title: t.settings,
-      description: t.settingsDesc,
-      color: 'bg-gray-500 hover:bg-gray-600'
     }
   ];
 
@@ -138,6 +131,11 @@ export default function TouristPage() {
       <h1 className="text-2xl md:text-3xl font-bold text-green-800 mb-6 md:mb-8">
         {t.touristDashboard}
       </h1>
+
+      {/* Аватарка пользователя */}
+      <div className="mb-6">
+        <UserAvatar />
+      </div>
 
       {/* Статистика туриста */}
       <div className="mb-8">
@@ -190,14 +188,6 @@ export default function TouristPage() {
         })}
       </div>
 
-      <div className="mt-8 md:mt-12 p-4 md:p-6 bg-green-50 rounded-lg">
-        <h3 className="text-lg md:text-xl font-semibold text-green-800 mb-3 md:mb-4">
-          {t.welcomeMessage}
-        </h3>
-        <p className="text-sm md:text-base text-green-700">
-          {t.welcomeDesc}
-        </p>
-      </div>
 
       {/* Wallet Modal */}
       {isWalletOpen && (

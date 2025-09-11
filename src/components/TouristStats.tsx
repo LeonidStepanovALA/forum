@@ -92,23 +92,7 @@ export default function TouristStats({ className = '' }: TouristStatsProps) {
   return (
     <div className={`space-y-6 ${className}`}>
       {/* Основная статистика */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white p-4 rounded-lg shadow-md border-2 border-green-100">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm text-gray-500">{t.carbonFootprint}</p>
-              <p className="text-2xl font-bold text-green-600">{mockTouristData.carbonFootprint.total} т</p>
-            </div>
-            <CloudIcon className="w-8 h-8 text-green-500" />
-          </div>
-          <div className="mt-2 flex items-center space-x-2">
-            {getTrendIcon(mockTouristData.carbonFootprint.trend)}
-            <span className="text-sm text-green-600">
-              {t.reducedBy} {mockTouristData.carbonFootprint.reduction}%
-            </span>
-          </div>
-        </div>
-
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <div className="bg-white p-4 rounded-lg shadow-md border-2 border-green-100">
           <div className="flex items-center justify-between">
             <div>
@@ -125,17 +109,46 @@ export default function TouristStats({ className = '' }: TouristStatsProps) {
         </div>
 
         <div className="bg-white p-4 rounded-lg shadow-md border-2 border-green-100">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between mb-3">
             <div>
               <p className="text-sm text-gray-500">{t.ecoPoints}</p>
               <p className="text-2xl font-bold text-green-600">{mockTouristData.ecoRating.points}</p>
             </div>
-            <StarIcon className="w-8 h-8 text-green-500" />
+            <div className="text-center">
+              <div className="relative">
+                <StarIcon className="w-8 h-8 text-yellow-500" />
+                <div className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
+                  {mockTouristData.ecoRating.badges}
+                </div>
+              </div>
+            </div>
           </div>
-          <div className="mt-2">
-            <span className="text-sm text-green-600">
-              {mockTouristData.ecoRating.badges} {t.badges}
-            </span>
+          
+          {/* Прогресс-бар до следующего уровня */}
+          <div className="space-y-2">
+            <div className="flex justify-between text-xs text-gray-600">
+              <span>Gold</span>
+              <span>Platinum (1500)</span>
+            </div>
+            <div className="w-full bg-gray-200 rounded-full h-2">
+              <div 
+                className="bg-gradient-to-r from-yellow-400 to-yellow-600 h-2 rounded-full transition-all duration-500"
+                style={{ width: `${(mockTouristData.ecoRating.points / 1500) * 100}%` }}
+              ></div>
+            </div>
+            <p className="text-xs text-gray-600">
+              {250} {language === 'ru' ? 'баллов до Platinum' : 'points to Platinum'}
+            </p>
+          </div>
+          
+          {/* Рейтинг звездами */}
+          <div className="flex items-center justify-center mt-3 space-x-1">
+            {[...Array(5)].map((_, i) => (
+              <StarIcon 
+                key={i} 
+                className={`w-4 h-4 ${i < 4 ? 'text-yellow-500 fill-current' : 'text-gray-300'}`} 
+              />
+            ))}
           </div>
         </div>
 
@@ -155,126 +168,6 @@ export default function TouristStats({ className = '' }: TouristStatsProps) {
         </div>
       </div>
 
-      {/* Детальная статистика углеродного следа */}
-      <div className="bg-white rounded-lg shadow-md p-6">
-        <h3 className="text-lg font-semibold text-green-800 mb-4 flex items-center">
-          <CloudIcon className="w-5 h-5 mr-2" />
-          {t.carbonReportTitle}
-        </h3>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div className="text-center">
-            <div className="text-3xl font-bold text-green-600 mb-2">
-              {mockTouristData.carbonFootprint.saved} т
-            </div>
-            <p className="text-sm text-gray-600">{t.savedCO2}</p>
-          </div>
-          
-          <div className="text-center">
-            <div className="text-3xl font-bold text-green-600 mb-2">
-              {mockTouristData.carbonFootprint.equivalent}
-            </div>
-            <p className="text-sm text-gray-600">{t.treeEquivalent}</p>
-          </div>
-          
-          <div className="text-center">
-            <div className="text-3xl font-bold text-green-600 mb-2">
-              {mockTouristData.carbonFootprint.monthly} т
-            </div>
-            <p className="text-sm text-gray-600">{t.perMonth}</p>
-          </div>
-        </div>
-
-        <div className="mt-6 p-4 bg-green-50 rounded-lg">
-          <h4 className="font-semibold text-green-800 mb-2">{t.yourEcoActions}</h4>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-            <div className="flex items-center space-x-2">
-              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-              <span className="text-sm text-green-700">{t.ecoTransport}</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-              <span className="text-sm text-green-700">{t.ecoHotels}</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-              <span className="text-sm text-green-700">{t.ecoToursParticipation}</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-              <span className="text-sm text-green-700">{t.wasteSorting}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Достижения и бейджи */}
-      <div className="bg-white rounded-lg shadow-md p-6">
-        <h3 className="text-lg font-semibold text-green-800 mb-4 flex items-center">
-          <StarIcon className="w-5 h-5 mr-2" />
-          {t.achievements}
-        </h3>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <h4 className="font-medium text-green-800 mb-3">{t.yourAchievements}</h4>
-            <div className="space-y-2">
-              {mockTouristData.ecoRating.achievements.map((achievement, index) => (
-                <div key={index} className="flex items-center space-x-2 p-2 bg-green-50 rounded-lg">
-                  <StarIcon className="w-4 h-4 text-yellow-500" />
-                  <span className="text-sm text-green-700">{t[achievement as keyof typeof t]}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-          
-          <div>
-            <h4 className="font-medium text-green-800 mb-3">{t.statistics}</h4>
-            <div className="space-y-2">
-              <div className="flex justify-between items-center p-2 bg-gray-50 rounded-lg">
-                <span className="text-sm text-gray-600">{t.ecoActionsCompleted}</span>
-                <span className="font-semibold text-green-600">{mockTouristData.stats.ecoActions}</span>
-              </div>
-              <div className="flex justify-between items-center p-2 bg-gray-50 rounded-lg">
-                <span className="text-sm text-gray-600">{t.badgesReceived}</span>
-                <span className="font-semibold text-green-600">{mockTouristData.ecoRating.badges}</span>
-              </div>
-              <div className="flex justify-between items-center p-2 bg-gray-50 rounded-lg">
-                <span className="text-sm text-gray-600">{t.treesPlanted}</span>
-                <span className="font-semibold text-green-600">{mockTouristData.stats.treesPlanted}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Рекомендации */}
-      <div className="bg-white rounded-lg shadow-md p-6">
-        <h3 className="text-lg font-semibold text-green-800 mb-4">{t.recommendations}</h3>
-        <div className="space-y-3">
-          <div className="flex items-start space-x-3 p-3 bg-blue-50 rounded-lg">
-            <span className="text-blue-500 mt-0.5 text-lg">↗</span>
-            <div>
-              <p className="font-medium text-blue-800">{t.tryBikeTours}</p>
-              <p className="text-sm text-blue-600">{t.bikeToursDesc}</p>
-            </div>
-          </div>
-          <div className="flex items-start space-x-3 p-3 bg-green-50 rounded-lg">
-            <StarIcon className="w-5 h-5 text-green-500 mt-0.5" />
-            <div>
-              <p className="font-medium text-green-800">{t.ecoVolunteering}</p>
-              <p className="text-sm text-green-600">{t.ecoVolunteeringDesc}</p>
-            </div>
-          </div>
-          <div className="flex items-start space-x-3 p-3 bg-yellow-50 rounded-lg">
-            <StarIcon className="w-5 h-5 text-yellow-500 mt-0.5" />
-            <div>
-              <p className="font-medium text-yellow-800">{t.reachPlatinum}</p>
-              <p className="text-sm text-yellow-600">{t.reachPlatinumDesc}</p>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   );
 } 
