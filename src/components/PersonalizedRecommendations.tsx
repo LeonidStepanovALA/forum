@@ -141,10 +141,13 @@ export default function PersonalizedRecommendations() {
     <div className="space-y-6">
       <div className="bg-green-50 p-4 md:p-6 rounded-lg">
         <h3 className="text-lg md:text-xl font-semibold text-green-800 mb-3 md:mb-4">
-          Ваши интересы
+          {language === 'ru' ? 'Ваши интересы' : 'Your Interests'}
         </h3>
         <div className="flex flex-wrap gap-2 md:gap-3">
-          {['Экотуризм', 'Пешие прогулки', 'Фотография', 'Наблюдение за птицами', 'Высадка деревьев'].map((interest) => (
+          {(language === 'ru' 
+            ? ['Экотуризм', 'Пешие прогулки', 'Фотография', 'Наблюдение за птицами', 'Высадка деревьев']
+            : ['Ecotourism', 'Hiking', 'Photography', 'Bird Watching', 'Tree Planting']
+          ).map((interest) => (
             <span
               key={interest}
               className="px-3 py-1 md:px-4 md:py-2 bg-green-100 text-green-700 rounded-full text-sm md:text-base"
@@ -185,7 +188,9 @@ export default function PersonalizedRecommendations() {
               </div>
               <div className="pt-3 border-t">
                 <div className="flex items-center justify-between">
-                  <span className="text-sm md:text-base text-gray-500">Эко-рейтинг</span>
+                  <span className="text-sm md:text-base text-gray-500">
+                    {language === 'ru' ? 'Эко-рейтинг' : 'Eco-Rating'}
+                  </span>
                   <div className="flex items-center">
                     {[...Array(5)].map((_, i) => (
                       <div

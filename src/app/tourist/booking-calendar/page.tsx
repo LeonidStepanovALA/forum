@@ -83,13 +83,13 @@ export default function BookingCalendarPage() {
   const getStatusText = (status: string) => {
     switch (status) {
       case 'confirmed':
-        return 'Подтверждено';
+        return language === 'ru' ? 'Подтверждено' : 'Confirmed';
       case 'pending':
-        return 'Ожидает';
+        return language === 'ru' ? 'Ожидает' : 'Pending';
       case 'cancelled':
-        return 'Отменено';
+        return language === 'ru' ? 'Отменено' : 'Cancelled';
       default:
-        return 'Неизвестно';
+        return language === 'ru' ? 'Неизвестно' : 'Unknown';
     }
   };
 
@@ -129,7 +129,7 @@ export default function BookingCalendarPage() {
             {t.bookingCalendar}
           </h1>
           <p className="text-gray-600 mt-1">
-            Управление вашими бронированиями и планирование поездок
+            {language === 'ru' ? 'Управление вашими бронированиями и планирование поездок' : 'Manage your bookings and plan your trips'}
           </p>
         </div>
       </div>
@@ -141,7 +141,7 @@ export default function BookingCalendarPage() {
           className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
         >
           <PlusIcon className="w-5 h-5" />
-          Добавить бронирование
+{language === 'ru' ? 'Добавить бронирование' : 'Add booking'}
         </button>
       </div>
 
@@ -209,16 +209,16 @@ export default function BookingCalendarPage() {
         <div className="text-center py-12">
           <CalendarIcon className="w-16 h-16 text-gray-400 mx-auto mb-4" />
           <h3 className="text-lg font-semibold text-gray-600 mb-2">
-            Нет бронирований
+            {language === 'ru' ? 'Нет бронирований' : 'No bookings'}
           </h3>
           <p className="text-gray-500 mb-4">
-            У вас пока нет забронированных туров или размещений
+            {language === 'ru' ? 'У вас пока нет забронированных туров или размещений' : "You don't have any booked tours or accommodations yet"}
           </p>
           <button
             onClick={() => setShowAddModal(true)}
             className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg"
           >
-            Добавить первое бронирование
+{language === 'ru' ? 'Добавить первое бронирование' : 'Add first booking'}
           </button>
         </div>
       )}
@@ -228,24 +228,24 @@ export default function BookingCalendarPage() {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-lg p-6 w-full max-w-md">
             <h3 className="text-lg font-semibold mb-4">
-              {selectedBooking ? 'Редактировать бронирование' : 'Добавить бронирование'}
+              {selectedBooking ? (language === 'ru' ? 'Редактировать бронирование' : 'Edit booking') : (language === 'ru' ? 'Добавить бронирование' : 'Add booking')}
             </h3>
             <form className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Название
+{language === 'ru' ? 'Название' : 'Title'}
                 </label>
                 <input
                   type="text"
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                  placeholder="Введите название"
+                  placeholder={language === 'ru' ? 'Введите название' : 'Enter title'}
                   defaultValue={selectedBooking?.title || ''}
                 />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Дата
+{language === 'ru' ? 'Дата' : 'Date'}
                   </label>
                   <input
                     type="date"
@@ -255,7 +255,7 @@ export default function BookingCalendarPage() {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Время
+{language === 'ru' ? 'Время' : 'Time'}
                   </label>
                   <input
                     type="time"
@@ -266,12 +266,12 @@ export default function BookingCalendarPage() {
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Место
+{language === 'ru' ? 'Место' : 'Location'}
                 </label>
                 <input
                   type="text"
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                  placeholder="Введите место"
+                  placeholder={language === 'ru' ? 'Введите место' : 'Enter location'}
                   defaultValue={selectedBooking?.location || ''}
                 />
               </div>
@@ -284,13 +284,13 @@ export default function BookingCalendarPage() {
                   }}
                   className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
                 >
-                  Отмена
+{language === 'ru' ? 'Отмена' : 'Cancel'}
                 </button>
                 <button
                   type="submit"
                   className="flex-1 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"
                 >
-                  {selectedBooking ? 'Сохранить' : 'Добавить'}
+                  {selectedBooking ? (language === 'ru' ? 'Сохранить' : 'Save') : (language === 'ru' ? 'Добавить' : 'Add')}
                 </button>
               </div>
             </form>

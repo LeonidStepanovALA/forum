@@ -31,31 +31,31 @@ export default function SettingsPage() {
     {
       icon: BellIcon,
       title: t.notifications,
-      description: 'Управление уведомлениями',
+      description: language === 'ru' ? 'Управление уведомлениями' : 'Manage notifications',
       href: '/settings/notifications'
     },
     {
       icon: ShieldCheckIcon,
       title: t.privacy,
-      description: 'Настройки конфиденциальности',
+      description: language === 'ru' ? 'Настройки конфиденциальности' : 'Privacy settings',
       href: '/settings/privacy'
     },
     {
       icon: UserIcon,
       title: t.account,
-      description: 'Управление аккаунтом',
+      description: language === 'ru' ? 'Управление аккаунтом' : 'Account management',
       href: '/settings/account'
     },
     {
       icon: QuestionMarkCircleIcon,
       title: t.help,
-      description: 'Помощь и поддержка',
+      description: language === 'ru' ? 'Помощь и поддержка' : 'Help and support',
       href: '/settings/help'
     },
     {
       icon: InformationCircleIcon,
       title: t.about,
-      description: 'О приложении',
+      description: language === 'ru' ? 'О приложении' : 'About the app',
       href: '/settings/about'
     }
   ];
@@ -89,7 +89,7 @@ export default function SettingsPage() {
             {t.language}
           </h2>
           <p className="text-gray-600 mb-4">
-            Выберите предпочитаемый язык интерфейса
+            {language === 'ru' ? 'Выберите предпочитаемый язык интерфейса' : 'Choose your preferred interface language'}
           </p>
           <div className="flex justify-start">
             <LanguageSwitcher 

@@ -57,7 +57,7 @@ export default function AdminDashboard() {
     description: '',
     duration: '',
     level: 'beginner',
-    instructor: 'Айгуль Садыкова',
+    instructor: language === 'ru' ? 'Айгуль Садыкова' : 'Aigul Sadykova',
     status: 'active' as 'active' | 'inactive'
   });
   
@@ -67,7 +67,7 @@ export default function AdminDashboard() {
     description: '',
     date: '',
     type: 'eco-event' as 'holiday' | 'eco-event' | 'promotion' | 'news',
-    region: 'Все регионы',
+    region: language === 'ru' ? 'Все регионы' : 'All regions',
     status: 'active' as 'active' | 'inactive'
   });
 
@@ -654,7 +654,7 @@ export default function AdminDashboard() {
       description: '',
       duration: '',
       level: 'beginner',
-      instructor: 'Айгуль Садыкова',
+      instructor: language === 'ru' ? 'Айгуль Садыкова' : 'Aigul Sadykova',
       status: 'active'
     });
     setEventForm({
@@ -662,7 +662,7 @@ export default function AdminDashboard() {
       description: '',
       date: '',
       type: 'eco-event',
-      region: 'Все регионы',
+      region: language === 'ru' ? 'Все регионы' : 'All regions',
       status: 'active'
     });
   };

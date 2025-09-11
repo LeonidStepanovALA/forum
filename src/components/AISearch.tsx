@@ -50,8 +50,8 @@ export default function AISearch({ onSearch, onSuggestionSelect, isLoading = fal
         console.error('AI Search Error:', error);
         // Fallback к базовым подсказкам
         setSuggestions([
-          { id: 'fallback-1', text: 'Эко-туры в горы', type: 'search', confidence: 0.8, category: 'tour', relevance: 0.7 },
-          { id: 'fallback-2', text: 'Органические фермы', type: 'search', confidence: 0.8, category: 'food', relevance: 0.7 }
+          { id: 'fallback-1', text: language === 'ru' ? 'Эко-туры в горы' : 'Eco-tours in mountains', type: 'search', confidence: 0.8, category: 'tour', relevance: 0.7 },
+          { id: 'fallback-2', text: language === 'ru' ? 'Органические фермы' : 'Organic farms', type: 'search', confidence: 0.8, category: 'food', relevance: 0.7 }
         ]);
       } finally {
         setAiThinking(false);
