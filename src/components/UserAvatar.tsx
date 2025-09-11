@@ -33,11 +33,11 @@ export default function UserAvatar({ className = '' }: UserAvatarProps) {
   };
 
   return (
-    <div className={`bg-white rounded-lg shadow-md p-6 border-2 border-green-100 ${className}`}>
-      <div className="flex items-center space-x-4">
+    <div className={`bg-white rounded-lg shadow-md p-4 md:p-6 border-2 border-green-100 ${className}`}>
+      <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-4">
         {/* Аватарка */}
-        <div className="relative group">
-          <div className="w-20 h-20 rounded-full overflow-hidden bg-gradient-to-br from-green-400 to-emerald-500 flex items-center justify-center">
+        <div className="relative group flex-shrink-0">
+          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden bg-gradient-to-br from-green-400 to-emerald-500 flex items-center justify-center">
             {avatar ? (
               <Image 
                 src={avatar} 
@@ -47,30 +47,30 @@ export default function UserAvatar({ className = '' }: UserAvatarProps) {
                 className="w-full h-full object-cover"
               />
             ) : (
-              <UserIcon className="w-10 h-10 text-white" />
+              <UserIcon className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
             )}
           </div>
           
           {/* Кнопка изменения фото */}
           <button
             onClick={() => setIsEditing(!isEditing)}
-            className="absolute -bottom-1 -right-1 bg-green-500 hover:bg-green-600 text-white rounded-full p-2 shadow-lg transition-all duration-200 opacity-0 group-hover:opacity-100"
+            className="absolute -bottom-1 -right-1 bg-green-500 hover:bg-green-600 text-white rounded-full p-1.5 sm:p-2 shadow-lg transition-all duration-200 opacity-0 group-hover:opacity-100"
           >
-            <CameraIcon className="w-4 h-4" />
+            <CameraIcon className="w-3 h-3 sm:w-4 sm:h-4" />
           </button>
           
           {/* Индикатор уровня */}
-          <div className="absolute -top-1 -left-1 bg-yellow-500 text-white text-xs rounded-full w-6 h-6 flex items-center justify-center font-bold border-2 border-white">
+          <div className="absolute -top-1 -left-1 bg-yellow-500 text-white text-xs rounded-full w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center font-bold border-2 border-white">
             {mockUserData.level.charAt(0)}
           </div>
         </div>
 
         {/* Информация о пользователе */}
-        <div className="flex-1">
-          <h2 className="text-xl font-bold text-gray-800 mb-1">
+        <div className="flex-1 min-w-0">
+          <h2 className="text-lg sm:text-xl font-bold text-gray-800 mb-1 truncate">
             {mockUserData.name}
           </h2>
-          <div className="flex items-center space-x-4 text-sm text-gray-600">
+          <div className="flex flex-col sm:flex-row sm:items-center space-y-1 sm:space-y-0 sm:space-x-4 text-sm text-gray-600">
             <div className="flex items-center space-x-1">
               <span className="font-semibold text-yellow-600">{mockUserData.level}</span>
               <span>•</span>
@@ -82,7 +82,7 @@ export default function UserAvatar({ className = '' }: UserAvatarProps) {
               {[...Array(5)].map((_, i) => (
                 <div
                   key={i}
-                  className={`w-3 h-3 rounded-full ${
+                  className={`w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full ${
                     i < 4 ? 'bg-yellow-400' : 'bg-gray-300'
                   }`}
                 />
@@ -95,27 +95,26 @@ export default function UserAvatar({ className = '' }: UserAvatarProps) {
         </div>
 
         {/* Статус онлайн и кнопка настроек */}
-        <div className="text-right">
-          <div className="flex items-center justify-end space-x-3 mb-2">
-            <div className="flex items-center space-x-2 text-green-600">
-              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-              <span className="text-sm font-medium">
-                {language === 'ru' ? 'Онлайн' : 'Online'}
-              </span>
-            </div>
-            <button
-              onClick={() => window.location.href = '/settings/account'}
-              className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-full transition-colors duration-200"
-              title={language === 'ru' ? 'Настройки' : 'Settings'}
-            >
-              <Cog6ToothIcon className="w-5 h-5" />
-            </button>
+        <div className="flex items-center justify-between w-full sm:w-auto sm:text-right">
+          <div className="flex items-center space-x-2 text-green-600">
+            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+            <span className="text-sm font-medium">
+              {language === 'ru' ? 'Онлайн' : 'Online'}
+            </span>
           </div>
-          <p className="text-xs text-gray-500">
-            {language === 'ru' ? 'Активен 2 часа назад' : 'Active 2 hours ago'}
-          </p>
+          <button
+            onClick={() => window.location.href = '/settings/account'}
+            className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-full transition-colors duration-200"
+            title={language === 'ru' ? 'Настройки' : 'Settings'}
+          >
+            <Cog6ToothIcon className="w-5 h-5" />
+          </button>
         </div>
       </div>
+      
+      <p className="text-xs text-gray-500 mt-2 sm:hidden">
+        {language === 'ru' ? 'Активен 2 часа назад' : 'Active 2 hours ago'}
+      </p>
 
       {/* Скрытый input для загрузки фото */}
       {isEditing && (

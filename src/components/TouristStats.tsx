@@ -108,16 +108,16 @@ export default function TouristStats({ className = '' }: TouristStatsProps) {
           </div>
         </div>
 
-        <div className="bg-white p-4 rounded-lg shadow-md border-2 border-green-100">
+        <div className="bg-white p-3 sm:p-4 rounded-lg shadow-md border-2 border-green-100">
           <div className="flex items-center justify-between mb-3">
-            <div>
-              <p className="text-sm text-gray-500">{t.ecoPoints}</p>
-              <p className="text-2xl font-bold text-green-600">{mockTouristData.ecoRating.points}</p>
+            <div className="min-w-0 flex-1">
+              <p className="text-xs sm:text-sm text-gray-500 truncate">{t.ecoPoints}</p>
+              <p className="text-xl sm:text-2xl font-bold text-green-600">{mockTouristData.ecoRating.points}</p>
             </div>
-            <div className="text-center">
+            <div className="text-center flex-shrink-0 ml-2">
               <div className="relative">
-                <StarIcon className="w-8 h-8 text-yellow-500" />
-                <div className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
+                <StarIcon className="w-6 h-6 sm:w-8 sm:h-8 text-yellow-500" />
+                <div className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-4 h-4 sm:w-5 sm:h-5 flex items-center justify-center font-bold">
                   {mockTouristData.ecoRating.badges}
                 </div>
               </div>
@@ -127,8 +127,8 @@ export default function TouristStats({ className = '' }: TouristStatsProps) {
           {/* Прогресс-бар до следующего уровня */}
           <div className="space-y-2">
             <div className="flex justify-between text-xs text-gray-600">
-              <span>Gold</span>
-              <span>Platinum (1500)</span>
+              <span className="truncate">Gold</span>
+              <span className="truncate ml-2">Platinum (1500)</span>
             </div>
             <div className="w-full bg-gray-200 rounded-full h-2">
               <div 
@@ -136,7 +136,7 @@ export default function TouristStats({ className = '' }: TouristStatsProps) {
                 style={{ width: `${(mockTouristData.ecoRating.points / 1500) * 100}%` }}
               ></div>
             </div>
-            <p className="text-xs text-gray-600">
+            <p className="text-xs text-gray-600 truncate">
               {250} {language === 'ru' ? 'баллов до Platinum' : 'points to Platinum'}
             </p>
           </div>
@@ -146,7 +146,7 @@ export default function TouristStats({ className = '' }: TouristStatsProps) {
             {[...Array(5)].map((_, i) => (
               <StarIcon 
                 key={i} 
-                className={`w-4 h-4 ${i < 4 ? 'text-yellow-500 fill-current' : 'text-gray-300'}`} 
+                className={`w-3 h-3 sm:w-4 sm:h-4 ${i < 4 ? 'text-yellow-500 fill-current' : 'text-gray-300'}`} 
               />
             ))}
           </div>

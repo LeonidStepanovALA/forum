@@ -142,22 +142,22 @@ export default function TouristPage() {
         <TouristStats />
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 md:gap-6">
         {navigationButtons.map((button) => {
           if (button.href === '#wallet') {
             return (
               <button
                 key={button.href}
                 onClick={() => setIsWalletOpen(true)}
-                className={`${button.color} text-white rounded-lg p-4 md:p-6 transition-transform transform hover:scale-105 hover:shadow-lg`}
+                className={`${button.color} text-white rounded-lg p-3 sm:p-4 md:p-6 transition-transform transform hover:scale-105 hover:shadow-lg`}
               >
-                <div className="flex items-start gap-3 md:gap-4">
-                  <button.icon className="w-6 h-6 md:w-8 md:h-8 flex-shrink-0" />
-                  <div>
-                    <h2 className="text-lg md:text-xl font-semibold mb-2">
+                <div className="flex items-start gap-2 sm:gap-3 md:gap-4">
+                  <button.icon className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 flex-shrink-0" />
+                  <div className="min-w-0 flex-1">
+                    <h2 className="text-base sm:text-lg md:text-xl font-semibold mb-1 sm:mb-2 truncate">
                       {button.title}
                     </h2>
-                    <p className="text-sm md:text-base text-white/90">
+                    <p className="text-xs sm:text-sm md:text-base text-white/90 line-clamp-2">
                       {button.description}
                     </p>
                   </div>
@@ -170,15 +170,15 @@ export default function TouristPage() {
             <Link 
               key={button.href} 
               href={button.href}
-              className={`${button.color} text-white rounded-lg p-4 md:p-6 transition-transform transform hover:scale-105 hover:shadow-lg`}
+              className={`${button.color} text-white rounded-lg p-3 sm:p-4 md:p-6 transition-transform transform hover:scale-105 hover:shadow-lg`}
             >
-              <div className="flex items-start gap-3 md:gap-4">
-                <button.icon className="w-6 h-6 md:w-8 md:h-8 flex-shrink-0" />
-                <div>
-                  <h2 className="text-lg md:text-xl font-semibold mb-2">
+              <div className="flex items-start gap-2 sm:gap-3 md:gap-4">
+                <button.icon className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 flex-shrink-0" />
+                <div className="min-w-0 flex-1">
+                  <h2 className="text-base sm:text-lg md:text-xl font-semibold mb-1 sm:mb-2 truncate">
                     {button.title}
                   </h2>
-                  <p className="text-sm md:text-base text-white/90">
+                  <p className="text-xs sm:text-sm md:text-base text-white/90 line-clamp-2">
                     {button.description}
                   </p>
                 </div>
@@ -191,20 +191,20 @@ export default function TouristPage() {
 
       {/* Wallet Modal */}
       {isWalletOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="flex items-center justify-between p-6 border-b">
-              <h3 className="text-lg font-semibold text-gray-900">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-2 sm:p-4">
+          <div className="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[95vh] sm:max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between p-4 sm:p-6 border-b">
+              <h3 className="text-base sm:text-lg font-semibold text-gray-900">
                 {language === 'ru' ? 'Мой кошелек' : 'My Wallet'}
               </h3>
               <button
                 onClick={() => setIsWalletOpen(false)}
-                className="text-gray-400 hover:text-gray-600"
+                className="text-gray-400 hover:text-gray-600 p-1"
               >
-                <XMarkIcon className="w-6 h-6" />
+                <XMarkIcon className="w-5 h-5 sm:w-6 sm:h-6" />
               </button>
             </div>
-            <div className="p-6">
+            <div className="p-4 sm:p-6">
               <TouristWallet />
             </div>
           </div>
