@@ -41,6 +41,11 @@ export default function NewsAndPromotions() {
   const [activeTasks, setActiveTasks] = useState<EcoTask[]>([]);
   const [showTaskModal, setShowTaskModal] = useState(false);
   const [currentTask, setCurrentTask] = useState<EcoTask | null>(null);
+  
+  // Состояние для новости "Новый эко-маршрут"
+  const [ecoRouteProgress, setEcoRouteProgress] = useState(3); // Текущий прогресс
+  const [ecoRouteMax, setEcoRouteMax] = useState(5); // Максимальный прогресс
+  const [isEcoRouteClaimed, setIsEcoRouteClaimed] = useState(false);
 
   // Массив возможных эко-заданий
   const availableTasks: Omit<EcoTask, 'id' | 'completed' | 'createdAt'>[] = [
@@ -120,7 +125,11 @@ export default function NewsAndPromotions() {
       description: language === 'ru'
         ? 'В заповеднике открылся новый маршрут для наблюдения за птицами'
         : 'A new route for bird watching opened in the nature reserve',
-      date: '2024-03-10'
+      date: '2024-03-10',
+      isActive: true,
+      pointsReward: 30,
+      progress: ecoRouteProgress,
+      maxProgress: ecoRouteMax
     },
     {
       id: 3,
@@ -145,6 +154,26 @@ export default function NewsAndPromotions() {
       alert(language === 'ru' 
         ? `🎉 Поздравляем! Вы получили ${mockNews[2].pointsReward} эко-баллов за активность!`
         : `🎉 Congratulations! You earned ${mockNews[2].pointsReward} eco-points for activity!`
+      );
+    }
+  };
+
+  const handleClaimEcoRouteBonus = () => {
+    if (ecoRouteProgress >= ecoRouteMax && !isEcoRouteClaimed) {
+      setIsEcoRouteClaimed(true);
+      alert(language === 'ru' 
+        ? `🎉 Поздравляем! Вы получили ${mockNews[1].pointsReward} эко-баллов за исследование нового маршрута!`
+        : `🎉 Congratulations! You earned ${mockNews[1].pointsReward} eco-points for exploring the new route!`
+      );
+    }
+  };
+
+  const handleContinueEcoRoute = () => {
+    if (ecoRouteProgress < ecoRouteMax) {
+      setEcoRouteProgress(prev => Math.min(prev + 1, ecoRouteMax));
+      alert(language === 'ru' 
+        ? `✅ Отлично! Вы исследовали еще один участок маршрута! (+1 к прогрессу)`
+        : `✅ Great! You explored another section of the route! (+1 to progress)`
       );
     }
   };
@@ -316,40 +345,60 @@ export default function NewsAndPromotions() {
                     </div>
                     
                     {/* Кнопка активности */}
-                    {isEcoActivityClaimed ? (
-                      <button
-                        disabled
-                        className="w-full py-2 px-4 rounded-lg font-medium bg-gray-100 text-gray-500 cursor-not-allowed"
-                      >
-                        <span className="flex items-center justify-center gap-2">
-                          <TrophyIcon className="w-4 h-4" />
-                          {language === 'ru' ? 'Награда получена!' : 'Reward claimed!'}
-                        </span>
-                      </button>
-                    ) : item.progress! >= item.maxProgress! ? (
-                      <button
-                        onClick={handleClaimEcoBonus}
-                        className="w-full py-2 px-4 rounded-lg font-medium bg-gradient-to-r from-green-500 to-emerald-600 text-white hover:from-green-600 hover:to-emerald-700 transform hover:scale-105 shadow-lg transition-all duration-200"
-                      >
-                        <span className="flex items-center justify-center gap-2">
-                          <GiftIcon className="w-4 h-4" />
-                          {language === 'ru' ? 'Получить награду' : 'Claim reward'}
-                        </span>
-                      </button>
-                    ) : (
-                      <button
-                        onClick={handleContinueActivity}
-                        className="w-full py-2 px-4 rounded-lg font-medium bg-gradient-to-r from-blue-500 to-cyan-600 text-white hover:from-blue-600 hover:to-cyan-700 transform hover:scale-105 shadow-lg transition-all duration-200"
-                      >
-                        <span className="flex items-center justify-center gap-2">
-                          <SparklesIcon className="w-4 h-4" />
-                          <span>{language === 'ru' ? 'Выполнить эко-действие' : 'Complete eco-action'}</span>
-                          <span className="text-xs bg-white bg-opacity-20 px-2 py-1 rounded-full">
-                            +1
-                          </span>
-                        </span>
-                      </button>
-                    )}
+                    {(() => {
+                      // Определяем, какая это новость и её состояние
+                      const isEcoActivity = item.id === 3; // Бонусы за эко-активность
+                      const isEcoRoute = item.id === 2; // Новый эко-маршрут
+                      
+                      const isClaimed = isEcoActivity ? isEcoActivityClaimed : isEcoRoute ? isEcoRouteClaimed : false;
+                      const handleClaim = isEcoActivity ? handleClaimEcoBonus : isEcoRoute ? handleClaimEcoRouteBonus : () => {};
+                      const handleContinue = isEcoActivity ? handleContinueActivity : isEcoRoute ? handleContinueEcoRoute : () => {};
+                      
+                      const buttonText = isEcoActivity 
+                        ? (language === 'ru' ? 'Выполнить эко-действие' : 'Complete eco-action')
+                        : (language === 'ru' ? 'Исследовать маршрут' : 'Explore route');
+                      
+                      if (isClaimed) {
+                        return (
+                          <button
+                            disabled
+                            className="w-full py-2 px-4 rounded-lg font-medium bg-gray-100 text-gray-500 cursor-not-allowed"
+                          >
+                            <span className="flex items-center justify-center gap-2">
+                              <TrophyIcon className="w-4 h-4" />
+                              {language === 'ru' ? 'Награда получена!' : 'Reward claimed!'}
+                            </span>
+                          </button>
+                        );
+                      } else if (item.progress! >= item.maxProgress!) {
+                        return (
+                          <button
+                            onClick={handleClaim}
+                            className="w-full py-2 px-4 rounded-lg font-medium bg-gradient-to-r from-green-500 to-emerald-600 text-white hover:from-green-600 hover:to-emerald-700 transform hover:scale-105 shadow-lg transition-all duration-200"
+                          >
+                            <span className="flex items-center justify-center gap-2">
+                              <GiftIcon className="w-4 h-4" />
+                              {language === 'ru' ? 'Получить награду' : 'Claim reward'}
+                            </span>
+                          </button>
+                        );
+                      } else {
+                        return (
+                          <button
+                            onClick={handleContinue}
+                            className="w-full py-2 px-4 rounded-lg font-medium bg-gradient-to-r from-blue-500 to-cyan-600 text-white hover:from-blue-600 hover:to-cyan-700 transform hover:scale-105 shadow-lg transition-all duration-200"
+                          >
+                            <span className="flex items-center justify-center gap-2">
+                              <SparklesIcon className="w-4 h-4" />
+                              <span>{buttonText}</span>
+                              <span className="text-xs bg-white bg-opacity-20 px-2 py-1 rounded-full">
+                                +1
+                              </span>
+                            </span>
+                          </button>
+                        );
+                      }
+                    })()}
                   </div>
                 )}
                 
