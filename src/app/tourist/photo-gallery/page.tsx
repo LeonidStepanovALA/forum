@@ -31,7 +31,7 @@ export default function PhotoGalleryPage() {
     );
   }
 
-  const t = translations[language];
+  // const t = translations[language];
 
   return (
     <div className="container mx-auto px-4 py-6 md:py-8">
