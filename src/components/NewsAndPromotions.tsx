@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { TagIcon, NewspaperIcon, SparklesIcon, GiftIcon, TrophyIcon, CheckCircleIcon, ClockIcon, LightBulbIcon, ExclamationTriangleIcon } from '@heroicons/react/24/outline';
+import { TagIcon, NewspaperIcon, SparklesIcon, GiftIcon, TrophyIcon, CheckCircleIcon, ClockIcon, LightBulbIcon } from '@heroicons/react/24/outline';
 import { useLanguage } from '@/hooks/useLanguage';
 import { translations } from '@/translations';
 
@@ -36,15 +36,14 @@ export default function NewsAndPromotions() {
   const { language } = useLanguage();
   const t = translations[language];
   const [ecoActivityProgress, setEcoActivityProgress] = useState(7); // Текущий прогресс
-  const [ecoActivityMax, setEcoActivityMax] = useState(10); // Максимальный прогресс
+  const [ecoActivityMax] = useState(10); // Максимальный прогресс
   const [isEcoActivityClaimed, setIsEcoActivityClaimed] = useState(false);
-  const [activeTasks, setActiveTasks] = useState<EcoTask[]>([]);
   const [showTaskModal, setShowTaskModal] = useState(false);
   const [currentTask, setCurrentTask] = useState<EcoTask | null>(null);
   
   // Состояние для новости "Новый эко-маршрут"
   const [ecoRouteProgress, setEcoRouteProgress] = useState(3); // Текущий прогресс
-  const [ecoRouteMax, setEcoRouteMax] = useState(5); // Максимальный прогресс
+  const [ecoRouteMax] = useState(5); // Максимальный прогресс
   const [isEcoRouteClaimed, setIsEcoRouteClaimed] = useState(false);
 
   // Массив возможных эко-заданий
@@ -196,9 +195,6 @@ export default function NewsAndPromotions() {
 
   const handleCompleteTask = () => {
     if (currentTask) {
-      // Добавляем задание в список активных
-      setActiveTasks(prev => [...prev, { ...currentTask, completed: true }]);
-      
       // Увеличиваем прогресс
       setEcoActivityProgress(prev => Math.min(prev + 1, ecoActivityMax));
       
