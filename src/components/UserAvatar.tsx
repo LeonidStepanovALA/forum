@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { CameraIcon, UserIcon, Cog6ToothIcon } from '@heroicons/react/24/outline';
+import { CameraIcon, UserIcon, Cog6ToothIcon, EnvelopeIcon } from '@heroicons/react/24/outline';
 import { useLanguage } from '@/hooks/useLanguage';
 
 interface UserAvatarProps {
@@ -94,7 +94,7 @@ export default function UserAvatar({ className = '' }: UserAvatarProps) {
           </div>
         </div>
 
-        {/* Статус онлайн и кнопка настроек */}
+        {/* Статус онлайн и кнопки */}
         <div className="flex items-center justify-between w-full sm:w-auto sm:text-right">
           <div className="flex items-center space-x-2 text-green-600">
             <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
@@ -102,13 +102,26 @@ export default function UserAvatar({ className = '' }: UserAvatarProps) {
               {language === 'ru' ? 'Онлайн' : 'Online'}
             </span>
           </div>
-          <button
-            onClick={() => window.location.href = '/settings/account'}
-            className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-full transition-colors duration-200"
-            title={language === 'ru' ? 'Настройки' : 'Settings'}
-          >
-            <Cog6ToothIcon className="w-5 h-5" />
-          </button>
+          <div className="flex items-center space-x-1">
+            <button
+              onClick={() => window.location.href = '/tourist/news'}
+              className="p-2 text-blue-500 hover:text-blue-700 hover:bg-blue-50 rounded-full transition-colors duration-200 relative"
+              title={language === 'ru' ? 'Акции и новости' : 'News and Promotions'}
+            >
+              <EnvelopeIcon className="w-5 h-5" />
+              {/* Индикатор новых уведомлений */}
+              <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full flex items-center justify-center">
+                <span className="text-xs text-white font-bold">3</span>
+              </div>
+            </button>
+            <button
+              onClick={() => window.location.href = '/settings/account'}
+              className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-full transition-colors duration-200"
+              title={language === 'ru' ? 'Настройки' : 'Settings'}
+            >
+              <Cog6ToothIcon className="w-5 h-5" />
+            </button>
+          </div>
         </div>
       </div>
       

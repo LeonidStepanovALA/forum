@@ -3,7 +3,6 @@
 import React from 'react';
 import Link from 'next/link';
 import { 
-  NewspaperIcon, 
   MagnifyingGlassIcon, 
   PhoneIcon,
   CalendarIcon,
@@ -93,13 +92,6 @@ export default function TouristPage() {
       title: t.bookingCalendar,
       description: t.bookingCalendarDesc,
       color: 'bg-orange-500 hover:bg-orange-600'
-    },
-    {
-      href: '/tourist/news',
-      icon: NewspaperIcon,
-      title: t.news,
-      description: t.newsDesc,
-      color: 'bg-blue-500 hover:bg-blue-600'
     },
     {
       href: '/tourist/photo-gallery',
