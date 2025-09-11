@@ -138,11 +138,11 @@ export default function TouristPage() {
               >
                 <div className="flex items-start gap-2 sm:gap-3 md:gap-4">
                   <IconComponent className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 flex-shrink-0" />
-                  <div className="min-w-0 flex-1">
-                    <h2 className="text-base sm:text-lg md:text-xl font-semibold mb-1 sm:mb-2 truncate">
+                  <div className="min-w-0 flex-1 text-left">
+                    <h2 className="text-base sm:text-lg md:text-xl font-semibold mb-1 sm:mb-2 truncate text-left">
                       {button.title}
                     </h2>
-                    <p className="text-xs sm:text-sm md:text-base text-white/90 line-clamp-2">
+                    <p className="text-xs sm:text-sm md:text-base text-white/90 line-clamp-2 text-left">
                       {button.description}
                     </p>
                   </div>
@@ -158,17 +158,17 @@ export default function TouristPage() {
               href={button.href}
               className={`${button.color} text-white rounded-lg p-3 sm:p-4 md:p-6 transition-transform transform hover:scale-105 hover:shadow-lg`}
             >
-              <div className="flex items-start gap-2 sm:gap-3 md:gap-4">
-                <IconComponent className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 flex-shrink-0" />
-                <div className="min-w-0 flex-1">
-                  <h2 className="text-base sm:text-lg md:text-xl font-semibold mb-1 sm:mb-2 truncate">
-                    {button.title}
-                  </h2>
-                  <p className="text-xs sm:text-sm md:text-base text-white/90 line-clamp-2">
-                    {button.description}
-                  </p>
+                <div className="flex items-start gap-2 sm:gap-3 md:gap-4">
+                  <IconComponent className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 flex-shrink-0" />
+                  <div className="min-w-0 flex-1 text-left">
+                    <h2 className="text-base sm:text-lg md:text-xl font-semibold mb-1 sm:mb-2 truncate text-left">
+                      {button.title}
+                    </h2>
+                    <p className="text-xs sm:text-sm md:text-base text-white/90 line-clamp-2 text-left">
+                      {button.description}
+                    </p>
+                  </div>
                 </div>
-              </div>
             </Link>
           );
         })}
