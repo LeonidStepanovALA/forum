@@ -3,11 +3,9 @@
 import React from 'react';
 import Link from 'next/link';
 import { 
-  StarIcon, 
   NewspaperIcon, 
   MagnifyingGlassIcon, 
   PhoneIcon,
-  CloudIcon,
   CalendarIcon,
   MapIcon,
   WalletIcon,
@@ -69,18 +67,11 @@ export default function TouristPage() {
       color: 'bg-emerald-500 hover:bg-emerald-600'
     },
     {
-      href: '/tourist/recommendations',
-      icon: StarIcon,
-      title: t.personalizedRecommendations,
-      description: t.personalizedRecommendationsDesc,
-      color: 'bg-green-500 hover:bg-green-600'
-    },
-    {
-      href: '/tourist/news',
-      icon: NewspaperIcon,
-      title: t.news,
-      description: t.newsDesc,
-      color: 'bg-blue-500 hover:bg-blue-600'
+      href: '/tourist/emergency',
+      icon: PhoneIcon,
+      title: t.emergency,
+      description: t.emergencyDesc,
+      color: 'bg-red-500 hover:bg-red-600'
     },
     {
       href: '/tourist/search',
@@ -90,18 +81,11 @@ export default function TouristPage() {
       color: 'bg-purple-500 hover:bg-purple-600'
     },
     {
-      href: '/tourist/emergency',
-      icon: PhoneIcon,
-      title: t.emergency,
-      description: t.emergencyDesc,
-      color: 'bg-red-500 hover:bg-red-600'
-    },
-    {
-      href: '/tourist/carbon-report',
-      icon: CloudIcon,
-      title: t.carbonReport,
-      description: t.carbonReportDesc,
-      color: 'bg-teal-500 hover:bg-teal-600'
+      href: '/tourist/route-management',
+      icon: MapIcon,
+      title: t.routeManagement,
+      description: t.routeManagementDesc,
+      color: 'bg-indigo-500 hover:bg-indigo-600'
     },
     {
       href: '/tourist/booking-calendar',
@@ -111,11 +95,11 @@ export default function TouristPage() {
       color: 'bg-orange-500 hover:bg-orange-600'
     },
     {
-      href: '/tourist/route-management',
-      icon: MapIcon,
-      title: t.routeManagement,
-      description: t.routeManagementDesc,
-      color: 'bg-indigo-500 hover:bg-indigo-600'
+      href: '/tourist/news',
+      icon: NewspaperIcon,
+      title: t.news,
+      description: t.newsDesc,
+      color: 'bg-blue-500 hover:bg-blue-600'
     },
     {
       href: '/tourist/photo-gallery',
