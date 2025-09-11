@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { TagIcon, NewspaperIcon, SparklesIcon, GiftIcon, TrophyIcon, CheckCircleIcon, ClockIcon } from '@heroicons/react/24/outline';
+import { TagIcon, NewspaperIcon, SparklesIcon, GiftIcon, TrophyIcon, CheckCircleIcon, ClockIcon, LightBulbIcon, ExclamationTriangleIcon } from '@heroicons/react/24/outline';
 import { useLanguage } from '@/hooks/useLanguage';
 import { translations } from '@/translations';
 
@@ -19,6 +19,17 @@ interface NewsItem {
   maxProgress?: number;
 }
 
+interface EcoTask {
+  id: number;
+  title: string;
+  description: string;
+  type: 'daily' | 'weekly' | 'special';
+  difficulty: 'easy' | 'medium' | 'hard';
+  points: number;
+  completed: boolean;
+  createdAt: Date;
+}
+
 
 
 export default function NewsAndPromotions() {
@@ -27,6 +38,67 @@ export default function NewsAndPromotions() {
   const [ecoActivityProgress, setEcoActivityProgress] = useState(7); // Текущий прогресс
   const [ecoActivityMax, setEcoActivityMax] = useState(10); // Максимальный прогресс
   const [isEcoActivityClaimed, setIsEcoActivityClaimed] = useState(false);
+  const [activeTasks, setActiveTasks] = useState<EcoTask[]>([]);
+  const [showTaskModal, setShowTaskModal] = useState(false);
+  const [currentTask, setCurrentTask] = useState<EcoTask | null>(null);
+
+  // Массив возможных эко-заданий
+  const availableTasks: Omit<EcoTask, 'id' | 'completed' | 'createdAt'>[] = [
+    {
+      title: language === 'ru' ? 'Используйте многоразовую бутылку' : 'Use a reusable water bottle',
+      description: language === 'ru' 
+        ? 'В течение дня используйте только многоразовую бутылку для воды вместо одноразовых пластиковых бутылок'
+        : 'Use only a reusable water bottle throughout the day instead of disposable plastic bottles',
+      type: 'daily',
+      difficulty: 'easy',
+      points: 5
+    },
+    {
+      title: language === 'ru' ? 'Сортируйте мусор' : 'Sort your waste',
+      description: language === 'ru'
+        ? 'Разделите мусор на перерабатываемые и неперерабатываемые отходы'
+        : 'Separate waste into recyclable and non-recyclable materials',
+      type: 'daily',
+      difficulty: 'easy',
+      points: 8
+    },
+    {
+      title: language === 'ru' ? 'Поездка на велосипеде' : 'Bike ride',
+      description: language === 'ru'
+        ? 'Замените поездку на автомобиле на поездку на велосипеде или пешком'
+        : 'Replace a car trip with a bike ride or walking',
+      type: 'daily',
+      difficulty: 'medium',
+      points: 12
+    },
+    {
+      title: language === 'ru' ? 'Экономия электроэнергии' : 'Save electricity',
+      description: language === 'ru'
+        ? 'Выключите все неиспользуемые электроприборы и свет в доме'
+        : 'Turn off all unused electrical appliances and lights in the house',
+      type: 'daily',
+      difficulty: 'easy',
+      points: 6
+    },
+    {
+      title: language === 'ru' ? 'Посадка дерева' : 'Plant a tree',
+      description: language === 'ru'
+        ? 'Посадите дерево в парке или на своем участке'
+        : 'Plant a tree in a park or on your property',
+      type: 'special',
+      difficulty: 'hard',
+      points: 25
+    },
+    {
+      title: language === 'ru' ? 'Уборка пляжа' : 'Beach cleanup',
+      description: language === 'ru'
+        ? 'Проведите уборку мусора на пляже или в парке'
+        : 'Clean up trash at a beach or park',
+      type: 'weekly',
+      difficulty: 'medium',
+      points: 20
+    }
+  ];
 
   // Mock news with bilingual support
   const mockNews: NewsItem[] = [
@@ -79,12 +151,42 @@ export default function NewsAndPromotions() {
 
   const handleContinueActivity = () => {
     if (ecoActivityProgress < ecoActivityMax) {
+      // Создаем случайное задание
+      const randomTask = availableTasks[Math.floor(Math.random() * availableTasks.length)];
+      const newTask: EcoTask = {
+        ...randomTask,
+        id: Date.now(),
+        completed: false,
+        createdAt: new Date()
+      };
+      
+      setCurrentTask(newTask);
+      setShowTaskModal(true);
+    }
+  };
+
+  const handleCompleteTask = () => {
+    if (currentTask) {
+      // Добавляем задание в список активных
+      setActiveTasks(prev => [...prev, { ...currentTask, completed: true }]);
+      
+      // Увеличиваем прогресс
       setEcoActivityProgress(prev => Math.min(prev + 1, ecoActivityMax));
+      
+      // Закрываем модальное окно
+      setShowTaskModal(false);
+      setCurrentTask(null);
+      
       alert(language === 'ru' 
-        ? `✅ Отлично! Вы выполнили еще одно эко-действие! (+1 к прогрессу)`
-        : `✅ Great! You completed another eco-action! (+1 to progress)`
+        ? `🎉 Задание выполнено! Вы получили ${currentTask.points} эко-баллов! (+1 к прогрессу)`
+        : `🎉 Task completed! You earned ${currentTask.points} eco-points! (+1 to progress)`
       );
     }
+  };
+
+  const handleSkipTask = () => {
+    setShowTaskModal(false);
+    setCurrentTask(null);
   };
 
   return (
@@ -270,6 +372,84 @@ export default function NewsAndPromotions() {
           </div>
         ))}
       </div>
+
+      {/* Модальное окно для задания */}
+      {showTaskModal && currentTask && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold text-gray-800 flex items-center gap-2">
+                <LightBulbIcon className="w-5 h-5 text-yellow-500" />
+                {language === 'ru' ? 'Новое эко-задание!' : 'New eco-task!'}
+              </h3>
+              <button
+                onClick={handleSkipTask}
+                className="text-gray-400 hover:text-gray-600"
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="mb-4">
+              <div className="flex items-center gap-2 mb-2">
+                <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                  currentTask.difficulty === 'easy' 
+                    ? 'bg-green-100 text-green-800'
+                    : currentTask.difficulty === 'medium'
+                    ? 'bg-yellow-100 text-yellow-800'
+                    : 'bg-red-100 text-red-800'
+                }`}>
+                  {language === 'ru' 
+                    ? currentTask.difficulty === 'easy' ? 'Легко' : currentTask.difficulty === 'medium' ? 'Средне' : 'Сложно'
+                    : currentTask.difficulty.charAt(0).toUpperCase() + currentTask.difficulty.slice(1)
+                  }
+                </span>
+                <span className="px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                  {currentTask.points} {language === 'ru' ? 'баллов' : 'points'}
+                </span>
+                <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                  currentTask.type === 'daily' 
+                    ? 'bg-purple-100 text-purple-800'
+                    : currentTask.type === 'weekly'
+                    ? 'bg-indigo-100 text-indigo-800'
+                    : 'bg-pink-100 text-pink-800'
+                }`}>
+                  {language === 'ru' 
+                    ? currentTask.type === 'daily' ? 'Ежедневно' : currentTask.type === 'weekly' ? 'Еженедельно' : 'Особое'
+                    : currentTask.type.charAt(0).toUpperCase() + currentTask.type.slice(1)
+                  }
+                </span>
+              </div>
+              
+              <h4 className="text-lg font-semibold text-gray-800 mb-2">
+                {currentTask.title}
+              </h4>
+              
+              <p className="text-gray-600 text-sm">
+                {currentTask.description}
+              </p>
+            </div>
+
+            <div className="flex gap-3">
+              <button
+                onClick={handleSkipTask}
+                className="flex-1 py-2 px-4 rounded-lg font-medium bg-gray-200 text-gray-700 hover:bg-gray-300 transition-colors duration-200"
+              >
+                {language === 'ru' ? 'Пропустить' : 'Skip'}
+              </button>
+              <button
+                onClick={handleCompleteTask}
+                className="flex-1 py-2 px-4 rounded-lg font-medium bg-gradient-to-r from-green-500 to-emerald-600 text-white hover:from-green-600 hover:to-emerald-700 transform hover:scale-105 shadow-lg transition-all duration-200"
+              >
+                <span className="flex items-center justify-center gap-2">
+                  <CheckCircleIcon className="w-4 h-4" />
+                  {language === 'ru' ? 'Выполнить' : 'Complete'}
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 } 
