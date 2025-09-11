@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { TagIcon, NewspaperIcon, SparklesIcon, GiftIcon, TrophyIcon } from '@heroicons/react/24/outline';
+import { TagIcon, NewspaperIcon, SparklesIcon, GiftIcon, TrophyIcon, CheckCircleIcon, ClockIcon } from '@heroicons/react/24/outline';
 import { useLanguage } from '@/hooks/useLanguage';
 import { translations } from '@/translations';
 
@@ -77,6 +77,16 @@ export default function NewsAndPromotions() {
     }
   };
 
+  const handleContinueActivity = () => {
+    if (ecoActivityProgress < ecoActivityMax) {
+      setEcoActivityProgress(prev => Math.min(prev + 1, ecoActivityMax));
+      alert(language === 'ru' 
+        ? `✅ Отлично! Вы выполнили еще одно эко-действие! (+1 к прогрессу)`
+        : `✅ Great! You completed another eco-action! (+1 to progress)`
+      );
+    }
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center mb-4">
@@ -140,49 +150,104 @@ export default function NewsAndPromotions() {
                       <TrophyIcon className="w-5 h-5 text-yellow-500" />
                     </div>
                     
-                    {/* Прогресс-бар */}
+                    {/* Прогресс-бар с достижениями */}
                     <div className="mb-3">
-                      <div className="flex justify-between text-xs text-gray-600 mb-1">
+                      <div className="flex justify-between text-xs text-gray-600 mb-2">
                         <span>{language === 'ru' ? 'Прогресс' : 'Progress'}</span>
                         <span>{item.progress}/{item.maxProgress}</span>
                       </div>
-                      <div className="w-full bg-gray-200 rounded-full h-2">
+                      
+                      {/* Полоска прогресса с маркерами достижений */}
+                      <div className="relative w-full bg-gray-200 rounded-full h-3 mb-2">
                         <div 
-                          className="bg-gradient-to-r from-green-400 to-emerald-500 h-2 rounded-full transition-all duration-500"
+                          className="bg-gradient-to-r from-green-400 to-emerald-500 h-3 rounded-full transition-all duration-500"
                           style={{ width: `${(item.progress! / item.maxProgress!) * 100}%` }}
                         ></div>
+                        
+                        {/* Маркеры достижений */}
+                        {Array.from({ length: item.maxProgress! }, (_, index) => {
+                          const position = (index + 1) / item.maxProgress! * 100;
+                          const isCompleted = index < item.progress!;
+                          const isCurrent = index === item.progress! - 1;
+                          
+                          return (
+                            <div
+                              key={index}
+                              className={`absolute top-1/2 transform -translate-y-1/2 w-4 h-4 rounded-full border-2 ${
+                                isCompleted
+                                  ? 'bg-green-500 border-green-600'
+                                  : isCurrent
+                                  ? 'bg-yellow-400 border-yellow-500 animate-pulse'
+                                  : 'bg-white border-gray-300'
+                              }`}
+                              style={{ left: `calc(${position}% - 8px)` }}
+                            >
+                              {isCompleted && (
+                                <CheckCircleIcon className="w-3 h-3 text-white absolute top-0.5 left-0.5" />
+                              )}
+                              {isCurrent && !isCompleted && (
+                                <ClockIcon className="w-3 h-3 text-yellow-600 absolute top-0.5 left-0.5" />
+                              )}
+                            </div>
+                          );
+                        })}
+                      </div>
+                      
+                      {/* Описание достижений */}
+                      <div className="text-xs text-gray-600">
+                        {language === 'ru' ? (
+                          <>
+                            <span className="text-green-600">✅ {item.progress} выполнено</span>
+                            {item.progress! < item.maxProgress! && (
+                              <span className="text-gray-500"> • {item.maxProgress! - item.progress!} осталось</span>
+                            )}
+                          </>
+                        ) : (
+                          <>
+                            <span className="text-green-600">✅ {item.progress} completed</span>
+                            {item.progress! < item.maxProgress! && (
+                              <span className="text-gray-500"> • {item.maxProgress! - item.progress!} remaining</span>
+                            )}
+                          </>
+                        )}
                       </div>
                     </div>
                     
-                    {/* Кнопка получения награды */}
-                    <button
-                      onClick={handleClaimEcoBonus}
-                      disabled={item.progress! < item.maxProgress! || isEcoActivityClaimed}
-                      className={`w-full py-2 px-4 rounded-lg font-medium transition-all duration-200 ${
-                        item.progress! >= item.maxProgress! && !isEcoActivityClaimed
-                          ? 'bg-gradient-to-r from-green-500 to-emerald-600 text-white hover:from-green-600 hover:to-emerald-700 transform hover:scale-105 shadow-lg'
-                          : isEcoActivityClaimed
-                          ? 'bg-gray-100 text-gray-500 cursor-not-allowed'
-                          : 'bg-gray-200 text-gray-400 cursor-not-allowed'
-                      }`}
-                    >
-                      {isEcoActivityClaimed ? (
+                    {/* Кнопка активности */}
+                    {isEcoActivityClaimed ? (
+                      <button
+                        disabled
+                        className="w-full py-2 px-4 rounded-lg font-medium bg-gray-100 text-gray-500 cursor-not-allowed"
+                      >
                         <span className="flex items-center justify-center gap-2">
                           <TrophyIcon className="w-4 h-4" />
                           {language === 'ru' ? 'Награда получена!' : 'Reward claimed!'}
                         </span>
-                      ) : item.progress! >= item.maxProgress! ? (
+                      </button>
+                    ) : item.progress! >= item.maxProgress! ? (
+                      <button
+                        onClick={handleClaimEcoBonus}
+                        className="w-full py-2 px-4 rounded-lg font-medium bg-gradient-to-r from-green-500 to-emerald-600 text-white hover:from-green-600 hover:to-emerald-700 transform hover:scale-105 shadow-lg transition-all duration-200"
+                      >
                         <span className="flex items-center justify-center gap-2">
                           <GiftIcon className="w-4 h-4" />
                           {language === 'ru' ? 'Получить награду' : 'Claim reward'}
                         </span>
-                      ) : (
+                      </button>
+                    ) : (
+                      <button
+                        onClick={handleContinueActivity}
+                        className="w-full py-2 px-4 rounded-lg font-medium bg-gradient-to-r from-blue-500 to-cyan-600 text-white hover:from-blue-600 hover:to-cyan-700 transform hover:scale-105 shadow-lg transition-all duration-200"
+                      >
                         <span className="flex items-center justify-center gap-2">
-                          <span>{language === 'ru' ? 'Продолжайте активность' : 'Keep being active'}</span>
-                          <span className="text-xs">({item.maxProgress! - item.progress!} {language === 'ru' ? 'осталось' : 'left'})</span>
+                          <SparklesIcon className="w-4 h-4" />
+                          <span>{language === 'ru' ? 'Выполнить эко-действие' : 'Complete eco-action'}</span>
+                          <span className="text-xs bg-white bg-opacity-20 px-2 py-1 rounded-full">
+                            +1
+                          </span>
                         </span>
-                      )}
-                    </button>
+                      </button>
+                    )}
                   </div>
                 )}
                 
