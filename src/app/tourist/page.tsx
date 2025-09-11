@@ -129,6 +129,7 @@ export default function TouristPage() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
         {navigationButtons.map((button) => {
           if (button.href === '#wallet') {
+            const IconComponent = button.icon;
             return (
               <button
                 key={button.href}
@@ -136,7 +137,7 @@ export default function TouristPage() {
                 className={`${button.color} text-white rounded-lg p-3 sm:p-4 md:p-6 transition-transform transform hover:scale-105 hover:shadow-lg`}
               >
                 <div className="flex items-start gap-2 sm:gap-3 md:gap-4">
-                  <button.icon className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 flex-shrink-0" />
+                  <IconComponent className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 flex-shrink-0" />
                   <div className="min-w-0 flex-1">
                     <h2 className="text-base sm:text-lg md:text-xl font-semibold mb-1 sm:mb-2 truncate">
                       {button.title}
@@ -150,6 +151,7 @@ export default function TouristPage() {
             );
           }
           
+          const IconComponent = button.icon;
           return (
             <Link 
               key={button.href} 
@@ -157,7 +159,7 @@ export default function TouristPage() {
               className={`${button.color} text-white rounded-lg p-3 sm:p-4 md:p-6 transition-transform transform hover:scale-105 hover:shadow-lg`}
             >
               <div className="flex items-start gap-2 sm:gap-3 md:gap-4">
-                <button.icon className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 flex-shrink-0" />
+                <IconComponent className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 flex-shrink-0" />
                 <div className="min-w-0 flex-1">
                   <h2 className="text-base sm:text-lg md:text-xl font-semibold mb-1 sm:mb-2 truncate">
                     {button.title}
