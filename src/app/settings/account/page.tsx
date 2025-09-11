@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { 
   UserIcon, 
   EnvelopeIcon, 
@@ -50,7 +51,7 @@ export default function AccountSettingsPage() {
     );
   }
 
-  const t = translations[language];
+  // const t = translations[language]; // Пока не используется
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({
@@ -110,9 +111,11 @@ export default function AccountSettingsPage() {
               <div className="relative group">
                 <div className="w-24 h-24 rounded-full overflow-hidden bg-gradient-to-br from-green-400 to-emerald-500 flex items-center justify-center">
                   {avatar ? (
-                    <img 
+                    <Image 
                       src={avatar} 
                       alt="User Avatar" 
+                      width={96}
+                      height={96}
                       className="w-full h-full object-cover"
                     />
                   ) : (

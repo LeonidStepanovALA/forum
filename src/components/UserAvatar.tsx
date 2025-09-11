@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { CameraIcon, UserIcon, Cog6ToothIcon } from '@heroicons/react/24/outline';
 import { useLanguage } from '@/hooks/useLanguage';
 
@@ -38,9 +39,11 @@ export default function UserAvatar({ className = '' }: UserAvatarProps) {
         <div className="relative group">
           <div className="w-20 h-20 rounded-full overflow-hidden bg-gradient-to-br from-green-400 to-emerald-500 flex items-center justify-center">
             {avatar ? (
-              <img 
+              <Image 
                 src={avatar} 
                 alt="User Avatar" 
+                width={80}
+                height={80}
                 className="w-full h-full object-cover"
               />
             ) : (

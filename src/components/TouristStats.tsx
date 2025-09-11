@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { CloudIcon, StarIcon, ChartBarIcon } from '@heroicons/react/24/outline';
+import { StarIcon, ChartBarIcon } from '@heroicons/react/24/outline';
 import { useLanguage } from '@/hooks/useLanguage';
 import { translations } from '@/translations/index';
 
@@ -63,16 +63,16 @@ export default function TouristStats({ className = '' }: TouristStatsProps) {
   
   const t = translations[language];
 
-  const getTrendIcon = (trend: string) => {
-    switch (trend) {
-      case 'up':
-        return <span className="text-red-500 text-lg">↗</span>;
-      case 'down':
-        return <span className="text-green-500 text-lg">↘</span>;
-      default:
-        return <ChartBarIcon className="w-5 h-5 text-blue-500" />;
-    }
-  };
+  // const getTrendIcon = (trend: string) => {
+  //   switch (trend) {
+  //     case 'up':
+  //       return <span className="text-red-500 text-lg">↗</span>;
+  //     case 'down':
+  //       return <span className="text-green-500 text-lg">↘</span>;
+  //     default:
+  //       return <ChartBarIcon className="w-5 h-5 text-blue-500" />;
+  //   }
+  // };
 
   const getLevelColor = (level: string) => {
     switch (level) {
