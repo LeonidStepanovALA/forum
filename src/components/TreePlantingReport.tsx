@@ -15,6 +15,29 @@ import {
 } from '@heroicons/react/24/outline';
 import { useLanguage } from '@/hooks/useLanguage';
 
+interface PlantedTree {
+  id: number;
+  species: string;
+  location: string;
+  coordinates: string;
+  plantingDate: string;
+  airCoinCost: number;
+  co2Compensation: number;
+  status: 'planted';
+  image?: string;
+}
+
+interface PendingTree {
+  id: number;
+  species: string;
+  location: string;
+  coordinates: string;
+  expectedDate: string;
+  airCoinCost: number;
+  co2Compensation: number;
+  status: 'pending';
+}
+
 export default function TreePlantingReport() {
   const { language } = useLanguage();
   const [selectedTab, setSelectedTab] = useState<'planted' | 'pending'>('planted');
@@ -273,8 +296,8 @@ export default function TreePlantingReport() {
                     <CalendarIcon className="w-4 h-4" />
                     <span>
                       {tree.status === 'planted' 
-                        ? `${language === 'ru' ? 'Высажено' : 'Planted'}: ${formatDate(tree.plantingDate!)}`
-                        : `${language === 'ru' ? 'Ожидается' : 'Expected'}: ${formatDate(tree.expectedDate!)}`
+                        ? `${language === 'ru' ? 'Высажено' : 'Planted'}: ${formatDate((tree as PlantedTree).plantingDate)}`
+                        : `${language === 'ru' ? 'Ожидается' : 'Expected'}: ${formatDate((tree as PendingTree).expectedDate)}`
                       }
                     </span>
                   </div>
