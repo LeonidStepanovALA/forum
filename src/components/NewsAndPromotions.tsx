@@ -216,14 +216,6 @@ export default function NewsAndPromotions() {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center mb-4">
-        <h3 className="text-xl font-semibold text-green-800">
-          {language === 'ru' ? 'Сообщения' : 'Messages'}
-        </h3>
-        <button className="text-green-600 hover:text-green-700 text-sm font-medium">
-          {t.showAll}
-        </button>
-      </div>
 
       <div className="space-y-4">
         {mockNews.map((item) => (
