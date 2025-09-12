@@ -30,9 +30,9 @@ export default function UserAvatar({ className = '' }: UserAvatarProps) {
     level: 'Gold',
     points: 1250,
     badges: 8,
-    ecoRating: 4.8,
-    ecoPoints: 3420,
-    ecoTours: 12
+    ecoRating: 4.7,
+    ecoPoints: 1250,
+    ecoTours: 8
   };
 
   return (
