@@ -109,7 +109,7 @@ export default function UserAvatar({ className = '' }: UserAvatarProps) {
             <button
               onClick={() => window.location.href = '/tourist/news'}
               className="p-2 text-blue-500 hover:text-blue-700 hover:bg-blue-50 rounded-full transition-colors duration-200 relative"
-              title={language === 'ru' ? 'Акции и новости' : 'News and Promotions'}
+              title={language === 'ru' ? 'Сообщения' : 'Messages'}
             >
               <EnvelopeIcon className="w-5 h-5" />
               {/* Индикатор новых уведомлений */}

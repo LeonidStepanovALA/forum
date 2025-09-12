@@ -109,15 +109,6 @@ export default function NewsAndPromotions() {
     {
       id: 1,
       type: 'news',
-      title: language === 'ru' ? 'Добро пожаловать в TravelCompanion!' : 'Welcome to TravelCompanion!',
-      description: language === 'ru'
-        ? 'Спасибо за регистрацию! Теперь вы можете пользоваться всеми функциями приложения для экотуризма.'
-        : 'Thank you for registration! Now you can use all features of the ecotourism application.',
-      date: '2024-03-15'
-    },
-    {
-      id: 2,
-      type: 'news',
       title: language === 'ru' ? 'Новый эко-маршрут открыт' : 'New eco-route opened',
       description: language === 'ru'
         ? 'В заповеднике открылся новый маршрут для наблюдения за птицами'
@@ -129,7 +120,7 @@ export default function NewsAndPromotions() {
       maxProgress: ecoRouteMax
     },
     {
-      id: 3,
+      id: 2,
       type: 'promotion',
       title: language === 'ru' ? 'Бонусы за эко-активность' : 'Bonuses for eco-activity',
       description: language === 'ru'
@@ -143,7 +134,7 @@ export default function NewsAndPromotions() {
       maxProgress: ecoActivityMax
     },
     {
-      id: 4,
+      id: 3,
       type: 'news',
       title: language === 'ru' ? 'Обновление приложения' : 'App Update',
       description: language === 'ru'
@@ -152,7 +143,7 @@ export default function NewsAndPromotions() {
       date: '2024-03-05'
     },
     {
-      id: 5,
+      id: 4,
       type: 'news',
       title: language === 'ru' ? 'Советы по экотуризму' : 'Ecotourism Tips',
       description: language === 'ru'
@@ -351,8 +342,8 @@ export default function NewsAndPromotions() {
                     {/* Кнопка активности */}
                     {(() => {
                       // Определяем, какая это новость и её состояние
-                      const isEcoActivity = item.id === 3; // Бонусы за эко-активность
-                      const isEcoRoute = item.id === 2; // Новый эко-маршрут
+                      const isEcoActivity = item.id === 2; // Бонусы за эко-активность
+                      const isEcoRoute = item.id === 1; // Новый эко-маршрут
                       
                       const isClaimed = isEcoActivity ? isEcoActivityClaimed : isEcoRoute ? isEcoRouteClaimed : false;
                       const handleClaim = isEcoActivity ? handleClaimEcoBonus : isEcoRoute ? handleClaimEcoRouteBonus : () => {};

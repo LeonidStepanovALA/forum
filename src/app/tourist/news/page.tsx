@@ -10,7 +10,7 @@ export default function NewsPage() {
   return (
     <div className="container mx-auto px-4 py-8">
       <h2 className="text-2xl font-bold text-green-800 mb-6">
-        {language === 'ru' ? 'Акции и новости' : 'Promotions and News'}
+        {language === 'ru' ? 'Сообщения' : 'Messages'}
       </h2>
       <NewsAndPromotions />
     </div>
