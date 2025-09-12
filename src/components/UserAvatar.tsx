@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { CameraIcon, UserIcon, Cog6ToothIcon, EnvelopeIcon } from '@heroicons/react/24/outline';
+import { CameraIcon, UserIcon, Cog6ToothIcon, EnvelopeIcon, StarIcon, TrophyIcon, MapIcon } from '@heroicons/react/24/outline';
 import { useLanguage } from '@/hooks/useLanguage';
 
 interface UserAvatarProps {
@@ -29,7 +29,10 @@ export default function UserAvatar({ className = '' }: UserAvatarProps) {
     name: language === 'ru' ? 'Анна Петрова' : 'Anna Petrova',
     level: 'Gold',
     points: 1250,
-    badges: 8
+    badges: 8,
+    ecoRating: 4.8,
+    ecoPoints: 3420,
+    ecoTours: 12
   };
 
   return (
@@ -121,6 +124,56 @@ export default function UserAvatar({ className = '' }: UserAvatarProps) {
             >
               <Cog6ToothIcon className="w-5 h-5" />
             </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Эко-статистика */}
+      <div className="mt-4 pt-4 border-t border-gray-100">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+          {/* Эко-рейтинг */}
+          <div className="flex items-center space-x-2 bg-green-50 rounded-lg p-2 sm:p-3">
+            <div className="flex-shrink-0">
+              <StarIcon className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-500" />
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="text-xs text-gray-600 truncate">
+                {language === 'ru' ? 'Эко-рейтинг' : 'Eco Rating'}
+              </p>
+              <p className="text-sm font-semibold text-green-700 truncate">
+                {mockUserData.ecoRating}/5.0
+              </p>
+            </div>
+          </div>
+
+          {/* Эко-баллы */}
+          <div className="flex items-center space-x-2 bg-blue-50 rounded-lg p-2 sm:p-3">
+            <div className="flex-shrink-0">
+              <TrophyIcon className="w-4 h-4 sm:w-5 sm:h-5 text-blue-500" />
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="text-xs text-gray-600 truncate">
+                {language === 'ru' ? 'Эко-баллы' : 'Eco Points'}
+              </p>
+              <p className="text-sm font-semibold text-blue-700 truncate">
+                {mockUserData.ecoPoints.toLocaleString()}
+              </p>
+            </div>
+          </div>
+
+          {/* Эко-туры */}
+          <div className="flex items-center space-x-2 bg-purple-50 rounded-lg p-2 sm:p-3">
+            <div className="flex-shrink-0">
+              <MapIcon className="w-4 h-4 sm:w-5 sm:h-5 text-purple-500" />
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="text-xs text-gray-600 truncate">
+                {language === 'ru' ? 'Эко-туры' : 'Eco Tours'}
+              </p>
+              <p className="text-sm font-semibold text-purple-700 truncate">
+                {mockUserData.ecoTours}
+              </p>
+            </div>
           </div>
         </div>
       </div>
