@@ -91,54 +91,7 @@ export default function TouristStats({ className = '' }: TouristStatsProps) {
 
   return (
     <div className={`space-y-6 ${className}`}>
-      {/* Дополнительная статистика */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <div className="bg-white p-4 rounded-lg shadow-md border-2 border-green-100">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm text-gray-500">{language === 'ru' ? 'Всего туров' : 'Total Tours'}</p>
-              <p className="text-2xl font-bold text-green-600">{mockTouristData.stats.toursCompleted}</p>
-            </div>
-            <ChartBarIcon className="w-8 h-8 text-blue-500" />
-          </div>
-          <div className="mt-2">
-            <span className="text-sm text-green-600">
-              {t.fromTours} {mockTouristData.stats.toursCompleted} {t.tourist}
-            </span>
-          </div>
-        </div>
-
-        <div className="bg-white p-4 rounded-lg shadow-md border-2 border-green-100">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm text-gray-500">{language === 'ru' ? 'Сэкономлено CO₂' : 'CO₂ Saved'}</p>
-              <p className="text-2xl font-bold text-green-600">{mockTouristData.stats.carbonSaved}т</p>
-            </div>
-            <ChartBarIcon className="w-8 h-8 text-green-500" />
-          </div>
-          <div className="mt-2">
-            <span className="text-sm text-green-600">
-              {language === 'ru' ? 'Эквивалент' : 'Equivalent'} {mockTouristData.carbonFootprint.equivalent} {language === 'ru' ? 'деревьев' : 'trees'}
-            </span>
-          </div>
-        </div>
-
-        <div className="bg-white p-4 rounded-lg shadow-md border-2 border-green-100">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm text-gray-500">{language === 'ru' ? 'Эко-действия' : 'Eco Actions'}</p>
-              <p className="text-2xl font-bold text-green-600">{mockTouristData.stats.ecoActions}</p>
-            </div>
-            <StarIcon className="w-8 h-8 text-yellow-500" />
-          </div>
-          <div className="mt-2">
-            <span className="text-sm text-green-600">
-              {language === 'ru' ? 'Выполнено в этом месяце' : 'Completed this month'}
-            </span>
-          </div>
-        </div>
-      </div>
-
+      {/* Компонент пуст - вся статистика перенесена в UserAvatar */}
     </div>
   );
 } 
