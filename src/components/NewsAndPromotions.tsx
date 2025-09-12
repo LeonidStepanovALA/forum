@@ -104,18 +104,16 @@ export default function NewsAndPromotions() {
     }
   ];
 
-  // Mock news with bilingual support
+  // Mock messages with bilingual support
   const mockNews: NewsItem[] = [
     {
       id: 1,
-      type: 'promotion',
-      title: language === 'ru' ? 'Скидка 20% на эко-туры в горы' : '20% discount on eco-tours in mountains',
+      type: 'news',
+      title: language === 'ru' ? 'Добро пожаловать в TravelCompanion!' : 'Welcome to TravelCompanion!',
       description: language === 'ru'
-        ? 'Забронируйте тур в горы с проживанием в эко-отеле и получите скидку 20%'
-        : 'Book a mountain tour with accommodation in eco-hotel and get 20% discount',
-      date: '2024-03-15',
-      discount: '20%',
-      validUntil: '2024-04-15'
+        ? 'Спасибо за регистрацию! Теперь вы можете пользоваться всеми функциями приложения для экотуризма.'
+        : 'Thank you for registration! Now you can use all features of the ecotourism application.',
+      date: '2024-03-15'
     },
     {
       id: 2,
@@ -143,6 +141,24 @@ export default function NewsAndPromotions() {
       pointsReward: 50,
       progress: ecoActivityProgress,
       maxProgress: ecoActivityMax
+    },
+    {
+      id: 4,
+      type: 'news',
+      title: language === 'ru' ? 'Обновление приложения' : 'App Update',
+      description: language === 'ru'
+        ? 'Добавлены новые функции: фотогалерея, улучшенная навигация и система уведомлений.'
+        : 'New features added: photo gallery, improved navigation and notification system.',
+      date: '2024-03-05'
+    },
+    {
+      id: 5,
+      type: 'news',
+      title: language === 'ru' ? 'Советы по экотуризму' : 'Ecotourism Tips',
+      description: language === 'ru'
+        ? 'Помните: всегда убирайте за собой мусор, не кормите диких животных и следуйте тропам.'
+        : 'Remember: always clean up after yourself, don\'t feed wild animals and stay on trails.',
+      date: '2024-03-01'
     }
   ];
 
