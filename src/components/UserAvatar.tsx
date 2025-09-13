@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { CameraIcon, UserIcon, Cog6ToothIcon, EnvelopeIcon, StarIcon, TrophyIcon, MapIcon } from '@heroicons/react/24/outline';
 import { useLanguage } from '@/hooks/useLanguage';
 
@@ -13,6 +14,7 @@ export default function UserAvatar({ className = '' }: UserAvatarProps) {
   const { language } = useLanguage();
   const [avatar, setAvatar] = useState<string | null>(null);
   const [isEditing, setIsEditing] = useState(false);
+  const [showEcoToursStats, setShowEcoToursStats] = useState(false);
 
   const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -33,6 +35,44 @@ export default function UserAvatar({ className = '' }: UserAvatarProps) {
     ecoRating: 4.7,
     ecoPoints: 1250,
     ecoTours: 8
+  };
+
+  const ecoToursStats = {
+    totalTours: 8,
+    completedTours: 6,
+    favoriteTours: 3,
+    totalDistance: 156,
+    totalDuration: 42,
+    averageRating: 4.8,
+    categories: {
+      hiking: 3,
+      cycling: 2,
+      cultural: 2,
+      nature: 1
+    },
+    recentTours: [
+      {
+        name: language === 'ru' ? 'Горный поход в Алматы' : 'Mountain Hiking in Almaty',
+        date: '2024-01-15',
+        rating: 5.0,
+        distance: 12,
+        duration: 6
+      },
+      {
+        name: language === 'ru' ? 'Велосипедный тур по Астане' : 'Cycling Tour in Astana',
+        date: '2024-01-10',
+        rating: 4.5,
+        distance: 25,
+        duration: 4
+      },
+      {
+        name: language === 'ru' ? 'Культурный тур по Шымкенту' : 'Cultural Tour in Shymkent',
+        date: '2024-01-05',
+        rating: 4.8,
+        distance: 8,
+        duration: 5
+      }
+    ]
   };
 
   return (
@@ -106,8 +146,8 @@ export default function UserAvatar({ className = '' }: UserAvatarProps) {
             </span>
           </div>
           <div className="flex items-center space-x-1">
-            <button
-              onClick={() => window.location.href = '/tourist/news'}
+            <Link
+              href="/tourist/news"
               className="p-2 text-blue-500 hover:text-blue-700 hover:bg-blue-50 rounded-full transition-colors duration-200 relative"
               title={language === 'ru' ? 'Сообщения' : 'Messages'}
             >
@@ -116,14 +156,14 @@ export default function UserAvatar({ className = '' }: UserAvatarProps) {
               <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full flex items-center justify-center">
                 <span className="text-xs text-white font-bold">3</span>
               </div>
-            </button>
-            <button
-              onClick={() => window.location.href = '/settings/account'}
+            </Link>
+            <Link
+              href="/settings/account"
               className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-full transition-colors duration-200"
               title={language === 'ru' ? 'Настройки' : 'Settings'}
             >
               <Cog6ToothIcon className="w-5 h-5" />
-            </button>
+            </Link>
           </div>
         </div>
       </div>
@@ -132,7 +172,10 @@ export default function UserAvatar({ className = '' }: UserAvatarProps) {
       <div className="mt-4 pt-4 border-t border-gray-100">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
           {/* Эко-рейтинг */}
-          <div className="flex items-center space-x-2 bg-green-50 rounded-lg p-2 sm:p-3">
+          <Link
+            href="/tourist/carbon-report"
+            className="flex items-center space-x-2 bg-green-50 hover:bg-green-100 rounded-lg p-2 sm:p-3 transition-colors duration-200 cursor-pointer w-full text-left"
+          >
             <div className="flex-shrink-0">
               <StarIcon className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-500" />
             </div>
@@ -144,10 +187,13 @@ export default function UserAvatar({ className = '' }: UserAvatarProps) {
                 {mockUserData.ecoRating}/5.0
               </p>
             </div>
-          </div>
+          </Link>
 
           {/* Эко-баллы */}
-          <div className="flex items-center space-x-2 bg-blue-50 rounded-lg p-2 sm:p-3">
+          <Link
+            href="/tourist/eco-points-history"
+            className="flex items-center space-x-2 bg-blue-50 hover:bg-blue-100 rounded-lg p-2 sm:p-3 transition-colors duration-200 cursor-pointer w-full text-left"
+          >
             <div className="flex-shrink-0">
               <TrophyIcon className="w-4 h-4 sm:w-5 sm:h-5 text-blue-500" />
             </div>
@@ -159,10 +205,13 @@ export default function UserAvatar({ className = '' }: UserAvatarProps) {
                 {mockUserData.ecoPoints.toLocaleString()}
               </p>
             </div>
-          </div>
+          </Link>
 
           {/* Эко-туры */}
-          <div className="flex items-center space-x-2 bg-purple-50 rounded-lg p-2 sm:p-3">
+          <button
+            onClick={() => setShowEcoToursStats(true)}
+            className="flex items-center space-x-2 bg-purple-50 hover:bg-purple-100 rounded-lg p-2 sm:p-3 transition-colors duration-200 cursor-pointer w-full text-left"
+          >
             <div className="flex-shrink-0">
               <MapIcon className="w-4 h-4 sm:w-5 sm:h-5 text-purple-500" />
             </div>
@@ -174,7 +223,7 @@ export default function UserAvatar({ className = '' }: UserAvatarProps) {
                 {mockUserData.ecoTours}
               </p>
             </div>
-          </div>
+          </button>
         </div>
       </div>
       
@@ -197,6 +246,132 @@ export default function UserAvatar({ className = '' }: UserAvatarProps) {
               : 'Choose avatar photo (JPG, PNG up to 5MB)'
             }
           </p>
+        </div>
+      )}
+
+      {/* Модальное окно статистики эко-туров */}
+      {showEcoToursStats && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between p-6 border-b">
+              <h3 className="text-xl font-semibold text-gray-900">
+                {language === 'ru' ? 'Статистика эко-туров' : 'Eco Tours Statistics'}
+              </h3>
+              <button
+                onClick={() => setShowEcoToursStats(false)}
+                className="text-gray-400 hover:text-gray-600 p-1"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            
+            <div className="p-6">
+              {/* Общая статистика */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                <div className="bg-purple-50 rounded-lg p-4 text-center">
+                  <div className="text-2xl font-bold text-purple-700">{ecoToursStats.totalTours}</div>
+                  <div className="text-sm text-gray-600">
+                    {language === 'ru' ? 'Всего туров' : 'Total Tours'}
+                  </div>
+                </div>
+                <div className="bg-green-50 rounded-lg p-4 text-center">
+                  <div className="text-2xl font-bold text-green-700">{ecoToursStats.completedTours}</div>
+                  <div className="text-sm text-gray-600">
+                    {language === 'ru' ? 'Завершено' : 'Completed'}
+                  </div>
+                </div>
+                <div className="bg-yellow-50 rounded-lg p-4 text-center">
+                  <div className="text-2xl font-bold text-yellow-700">{ecoToursStats.favoriteTours}</div>
+                  <div className="text-sm text-gray-600">
+                    {language === 'ru' ? 'Избранные' : 'Favorites'}
+                  </div>
+                </div>
+                <div className="bg-blue-50 rounded-lg p-4 text-center">
+                  <div className="text-2xl font-bold text-blue-700">{ecoToursStats.averageRating}</div>
+                  <div className="text-sm text-gray-600">
+                    {language === 'ru' ? 'Средний рейтинг' : 'Avg Rating'}
+                  </div>
+                </div>
+              </div>
+
+              {/* Детальная статистика */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div className="bg-gray-50 rounded-lg p-4">
+                  <h4 className="font-semibold text-gray-800 mb-3">
+                    {language === 'ru' ? 'Общие показатели' : 'Overall Metrics'}
+                  </h4>
+                  <div className="space-y-2">
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">
+                        {language === 'ru' ? 'Общее расстояние:' : 'Total Distance:'}
+                      </span>
+                      <span className="font-semibold">{ecoToursStats.totalDistance} км</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">
+                        {language === 'ru' ? 'Общее время:' : 'Total Duration:'}
+                      </span>
+                      <span className="font-semibold">{ecoToursStats.totalDuration} ч</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-gray-50 rounded-lg p-4">
+                  <h4 className="font-semibold text-gray-800 mb-3">
+                    {language === 'ru' ? 'По категориям' : 'By Categories'}
+                  </h4>
+                  <div className="space-y-2">
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">🏔️ {language === 'ru' ? 'Походы:' : 'Hiking:'}</span>
+                      <span className="font-semibold">{ecoToursStats.categories.hiking}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">🚴 {language === 'ru' ? 'Велосипед:' : 'Cycling:'}</span>
+                      <span className="font-semibold">{ecoToursStats.categories.cycling}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">🏛️ {language === 'ru' ? 'Культурные:' : 'Cultural:'}</span>
+                      <span className="font-semibold">{ecoToursStats.categories.cultural}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">🌿 {language === 'ru' ? 'Природа:' : 'Nature:'}</span>
+                      <span className="font-semibold">{ecoToursStats.categories.nature}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Последние туры */}
+              <div>
+                <h4 className="font-semibold text-gray-800 mb-3">
+                  {language === 'ru' ? 'Последние туры' : 'Recent Tours'}
+                </h4>
+                <div className="space-y-3">
+                  {ecoToursStats.recentTours.map((tour, index) => (
+                    <div key={index} className="bg-white border border-gray-200 rounded-lg p-4">
+                      <div className="flex justify-between items-start">
+                        <div>
+                          <h5 className="font-medium text-gray-900">{tour.name}</h5>
+                          <p className="text-sm text-gray-500">{tour.date}</p>
+                        </div>
+                        <div className="text-right">
+                          <div className="flex items-center space-x-1 mb-1">
+                            <StarIcon className="w-4 h-4 text-yellow-500 fill-current" />
+                            <span className="text-sm font-semibold">{tour.rating}</span>
+                          </div>
+                          <div className="text-xs text-gray-500">
+                            {tour.distance} км • {tour.duration} ч
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       )}
     </div>

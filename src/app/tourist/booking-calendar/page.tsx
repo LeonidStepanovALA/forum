@@ -37,31 +37,31 @@ export default function BookingCalendarPage() {
   const mockBookings: Booking[] = [
     {
       id: '1',
-      title: 'Эко-тур по Алматы',
+      title: t.ecoTourAlmaty,
       date: '2024-08-15',
       time: '09:00',
-      location: 'Алматы, Казахстан',
-      guide: 'Айгуль Сатпаева',
+      location: t.almatyKazakhstan,
+      guide: t.aigulSatpaeva,
       status: 'confirmed',
       type: 'tour'
     },
     {
       id: '2',
-      title: 'Эко-отель "Зеленые горы"',
+      title: t.ecoHotelGreenMountains,
       date: '2024-08-20',
       time: '14:00',
-      location: 'Алматинская область',
+      location: t.almatyRegion,
       guide: '',
       status: 'pending',
       type: 'accommodation'
     },
     {
       id: '3',
-      title: 'Велосипедный тур',
+      title: t.bicycleTour,
       date: '2024-08-25',
       time: '10:30',
-      location: 'Астана, Казахстан',
-      guide: 'Марат Жумабаев',
+      location: t.astanaKazakhstan,
+      guide: t.maratZhumabaev,
       status: 'confirmed',
       type: 'tour'
     }
@@ -83,13 +83,13 @@ export default function BookingCalendarPage() {
   const getStatusText = (status: string) => {
     switch (status) {
       case 'confirmed':
-        return language === 'ru' ? 'Подтверждено' : 'Confirmed';
+        return t.bookingConfirmed;
       case 'pending':
-        return language === 'ru' ? 'Ожидает' : 'Pending';
+        return t.bookingPending;
       case 'cancelled':
-        return language === 'ru' ? 'Отменено' : 'Cancelled';
+        return t.bookingCancelled;
       default:
-        return language === 'ru' ? 'Неизвестно' : 'Unknown';
+        return t.bookingUnknown;
     }
   };
 
@@ -129,7 +129,7 @@ export default function BookingCalendarPage() {
             {t.bookingCalendar}
           </h1>
           <p className="text-gray-600 mt-1">
-            {language === 'ru' ? 'Управление вашими бронированиями и планирование поездок' : 'Manage your bookings and plan your trips'}
+            {t.manageBookings}
           </p>
         </div>
       </div>
@@ -141,7 +141,7 @@ export default function BookingCalendarPage() {
           className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
         >
           <PlusIcon className="w-5 h-5" />
-{language === 'ru' ? 'Добавить бронирование' : 'Add booking'}
+          {t.addBooking}
         </button>
       </div>
 
@@ -209,16 +209,16 @@ export default function BookingCalendarPage() {
         <div className="text-center py-12">
           <CalendarIcon className="w-16 h-16 text-gray-400 mx-auto mb-4" />
           <h3 className="text-lg font-semibold text-gray-600 mb-2">
-            {language === 'ru' ? 'Нет бронирований' : 'No bookings'}
+            {t.noBookings}
           </h3>
           <p className="text-gray-500 mb-4">
-            {language === 'ru' ? 'У вас пока нет забронированных туров или размещений' : "You don't have any booked tours or accommodations yet"}
+            {t.noBookingsYet}
           </p>
           <button
             onClick={() => setShowAddModal(true)}
             className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg"
           >
-{language === 'ru' ? 'Добавить первое бронирование' : 'Add first booking'}
+            {t.addFirstBooking}
           </button>
         </div>
       )}
@@ -228,24 +228,24 @@ export default function BookingCalendarPage() {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-lg p-6 w-full max-w-md">
             <h3 className="text-lg font-semibold mb-4">
-              {selectedBooking ? (language === 'ru' ? 'Редактировать бронирование' : 'Edit booking') : (language === 'ru' ? 'Добавить бронирование' : 'Add booking')}
+              {selectedBooking ? t.editBooking : t.addBooking}
             </h3>
             <form className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-{language === 'ru' ? 'Название' : 'Title'}
+                  {t.title}
                 </label>
                 <input
                   type="text"
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                  placeholder={language === 'ru' ? 'Введите название' : 'Enter title'}
+                  placeholder={t.enterTitle}
                   defaultValue={selectedBooking?.title || ''}
                 />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-{language === 'ru' ? 'Дата' : 'Date'}
+                    {t.date}
                   </label>
                   <input
                     type="date"
@@ -255,7 +255,7 @@ export default function BookingCalendarPage() {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-{language === 'ru' ? 'Время' : 'Time'}
+                    {t.time}
                   </label>
                   <input
                     type="time"
@@ -266,12 +266,12 @@ export default function BookingCalendarPage() {
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-{language === 'ru' ? 'Место' : 'Location'}
+                  {t.bookingLocation}
                 </label>
                 <input
                   type="text"
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                  placeholder={language === 'ru' ? 'Введите место' : 'Enter location'}
+                  placeholder={t.enterLocation}
                   defaultValue={selectedBooking?.location || ''}
                 />
               </div>
@@ -284,13 +284,13 @@ export default function BookingCalendarPage() {
                   }}
                   className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
                 >
-{language === 'ru' ? 'Отмена' : 'Cancel'}
+                  {t.cancelBooking}
                 </button>
                 <button
                   type="submit"
                   className="flex-1 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"
                 >
-                  {selectedBooking ? (language === 'ru' ? 'Сохранить' : 'Save') : (language === 'ru' ? 'Добавить' : 'Add')}
+                  {selectedBooking ? t.saveBooking : t.addBookingAction}
                 </button>
               </div>
             </form>

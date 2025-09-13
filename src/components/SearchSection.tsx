@@ -175,8 +175,8 @@ export default function SearchSection() {
 
         {/* Фильтры */}
         {showFilters && (
-          <div className="mt-4 p-4 bg-gray-50 rounded-lg">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="mt-4 p-3 sm:p-4 bg-gray-50 rounded-lg">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
               {/* Категория */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -188,12 +188,17 @@ export default function SearchSection() {
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent text-sm"
                 >
                   <option value="">{language === 'ru' ? 'Все категории' : 'All categories'}</option>
-                  <option value="trekking">{language === 'ru' ? 'Треккинг' : 'Trekking'}</option>
-                  <option value="cycling">{language === 'ru' ? 'Велотуры' : 'Cycling Tours'}</option>
-                  <option value="water">{language === 'ru' ? 'Водные туры' : 'Water Tours'}</option>
-                  <option value="cultural">{language === 'ru' ? 'Культурные туры' : 'Cultural Tours'}</option>
-                  <option value="heritage">{language === 'ru' ? 'Культурное наследие' : 'Cultural Heritage'}</option>
-                  <option value="wildlife">{language === 'ru' ? 'Наблюдение за дикой природой' : 'Wildlife Watching'}</option>
+                  <option value="archaeological">{language === 'ru' ? 'Археологические, древние памятники' : 'Archaeological, Ancient Monuments'}</option>
+                  <option value="cultural">{language === 'ru' ? 'Культурные, фестивали' : 'Cultural, Festivals'}</option>
+                  <option value="entertainment">{language === 'ru' ? 'Развлечения' : 'Entertainment'}</option>
+                  <option value="heritage">{language === 'ru' ? 'Исторический туризм' : 'Heritage tourism'}</option>
+                  <option value="monuments">{language === 'ru' ? 'Памятники, музеи' : 'Monuments, Museums'}</option>
+                  <option value="nature">{language === 'ru' ? 'Природа, эко-туризм' : 'Nature, Eco-tourism'}</option>
+                  <option value="shopping">{language === 'ru' ? 'Шопинг, рынки, базары' : 'Shopping, Market, Bazaar'}</option>
+                  <option value="ski">{language === 'ru' ? 'Лыжи, походы, курорты' : 'Ski, Hiking, Resorts'}</option>
+                  <option value="villages">{language === 'ru' ? 'Деревни, культура' : 'Villages, Culture'}</option>
+                  <option value="national-park">{language === 'ru' ? 'Национальный парк' : 'National Park'}</option>
+                  <option value="world-heritage">{language === 'ru' ? 'Объект всемирного наследия' : 'World Heritage Site'}</option>
               </select>
             </div>
 

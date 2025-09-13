@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { TagIcon, NewspaperIcon, SparklesIcon, GiftIcon, TrophyIcon, CheckCircleIcon, ClockIcon, LightBulbIcon } from '@heroicons/react/24/outline';
 import { useLanguage } from '@/hooks/useLanguage';
-import { translations } from '@/translations';
+// import { translations } from '@/translations';
 
 interface NewsItem {
   id: number;
@@ -34,7 +34,7 @@ interface EcoTask {
 
 export default function NewsAndPromotions() {
   const { language } = useLanguage();
-  const t = translations[language];
+  // const t = translations[language];
   const [ecoActivityProgress, setEcoActivityProgress] = useState(7); // Текущий прогресс
   const [ecoActivityMax] = useState(10); // Максимальный прогресс
   const [isEcoActivityClaimed, setIsEcoActivityClaimed] = useState(false);
@@ -158,8 +158,8 @@ export default function NewsAndPromotions() {
       setIsEcoActivityClaimed(true);
       // Здесь можно добавить логику начисления баллов
       alert(language === 'ru' 
-        ? `🎉 Поздравляем! Вы получили ${mockNews[2].pointsReward} эко-баллов за активность!`
-        : `🎉 Congratulations! You earned ${mockNews[2].pointsReward} eco-points for activity!`
+        ? `🎉 Поздравляем! Вы получили ${mockNews[1].pointsReward} эко-баллов за активность!`
+        : `🎉 Congratulations! You earned ${mockNews[1].pointsReward} eco-points for activity!`
       );
     }
   };
@@ -168,8 +168,8 @@ export default function NewsAndPromotions() {
     if (ecoRouteProgress >= ecoRouteMax && !isEcoRouteClaimed) {
       setIsEcoRouteClaimed(true);
       alert(language === 'ru' 
-        ? `🎉 Поздравляем! Вы получили ${mockNews[1].pointsReward} эко-баллов за исследование нового маршрута!`
-        : `🎉 Congratulations! You earned ${mockNews[1].pointsReward} eco-points for exploring the new route!`
+        ? `🎉 Поздравляем! Вы получили ${mockNews[0].pointsReward} эко-баллов за исследование нового маршрута!`
+        : `🎉 Congratulations! You earned ${mockNews[0].pointsReward} eco-points for exploring the new route!`
       );
     }
   };

@@ -64,7 +64,7 @@ export default function AISettings({ onSettingsChange }: AISettingsProps) {
 
       {/* Панель настроек */}
       {isOpen && (
-        <div className="absolute top-full right-0 mt-2 bg-white rounded-lg shadow-lg border border-gray-200 z-50 p-4 min-w-80">
+        <div className="absolute top-full right-0 mt-2 bg-white rounded-lg shadow-lg border border-gray-200 z-50 p-3 sm:p-4 min-w-72 sm:min-w-80 max-w-[90vw] sm:max-w-none">
           <div className="flex items-center gap-2 mb-4">
             <SparklesIcon className="w-5 h-5 text-blue-500" />
             <h3 className="text-lg font-semibold text-gray-800">AI-настройки поиска</h3>

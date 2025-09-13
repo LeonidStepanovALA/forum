@@ -120,7 +120,7 @@ export default function AISearch({ onSearch, onSuggestionSelect, isLoading = fal
 
         {/* AI-подсказки */}
         {showSuggestions && (suggestions.length > 0 || aiResponse?.recommendations.length) && (
-          <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-lg shadow-lg border border-gray-200 z-50 max-h-96 overflow-y-auto">
+          <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-lg shadow-lg border border-gray-200 z-50 max-h-80 sm:max-h-96 overflow-y-auto">
             {/* AI-подсказки */}
             {suggestions.length > 0 && (
               <div className="p-3 border-b border-gray-100">

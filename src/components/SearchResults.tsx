@@ -80,12 +80,12 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
       endPoint: language === 'ru' ? 'Чолпон-Ата' : 'Cholpon-Ata',
       startDate: '2024-08-15',
       endDate: '2024-08-19',
-      duration: '5 дней',
+      duration: language === 'ru' ? '5 дней' : '5 days',
       difficulty: language === 'ru' ? 'Средняя' : 'Medium',
       guide: {
         name: language === 'ru' ? 'Алексей Петров' : 'Alexey Petrov',
         rating: 4.8,
-        experience: '8 лет',
+        experience: language === 'ru' ? '8 лет' : '8 years',
         languages: language === 'ru' ? ['Русский', 'Английский'] : ['Russian', 'English'],
         avatar: '/next.svg'
       },
@@ -95,13 +95,19 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
       currentParticipants: 8,
       transport: language === 'ru' ? 'Микроавтобус' : 'Minibus',
       accommodation: language === 'ru' ? 'Отели и гостевые дома' : 'Hotels and guesthouses',
-      meals: 'Полупансион',
-      highlights: [
+      meals: language === 'ru' ? 'Полупансион' : 'Half Board',
+      highlights: language === 'ru' ? [
         'Перевал Тюе-Ашуу',
         'Озеро Иссык-Куль',
         'Петроглифы Чолпон-Ата',
         'Горячие источники',
         'Этнографический музей'
+      ] : [
+        'Tüe-Ashuu Pass',
+        'Issyk-Kul Lake',
+        'Cholpon-Ata Petroglyphs',
+        'Hot Springs',
+        'Ethnographic Museum'
       ]
     },
     {
@@ -118,13 +124,13 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
       endPoint: language === 'ru' ? 'Чолпон-Ата' : 'Cholpon-Ata',
       startDate: '2024-08-15',
       endDate: '2024-08-19',
-      duration: '5 дней',
-      difficulty: 'Сложная',
+      duration: language === 'ru' ? '5 дней' : '5 days',
+      difficulty: language === 'ru' ? 'Сложная' : 'Hard',
       guide: {
         name: 'Дмитрий Волков',
         rating: 4.7,
-        experience: '12 лет',
-        languages: ['Русский', 'Английский', 'Немецкий'],
+        experience: language === 'ru' ? '12 лет' : '12 years',
+        languages: language === 'ru' ? ['Русский', 'Английский', 'Немецкий'] : ['Russian', 'English', 'German'],
         avatar: '/next.svg'
       },
       status: 'pending',
@@ -156,13 +162,13 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
       endPoint: language === 'ru' ? 'Чолпон-Ата' : 'Cholpon-Ata',
       startDate: '2024-08-20',
       endDate: '2024-08-22',
-      duration: '3 дня',
-      difficulty: 'Легкая',
+      duration: language === 'ru' ? '3 дня' : '3 days',
+      difficulty: language === 'ru' ? 'Легкая' : 'Easy',
       guide: {
         name: 'Мария Козлова',
         rating: 4.9,
-        experience: '5 лет',
-        languages: ['Русский', 'Кыргызский', 'Английский'],
+        experience: language === 'ru' ? '5 лет' : '5 years',
+        languages: language === 'ru' ? ['Русский', 'Кыргызский', 'Английский'] : ['Russian', 'Kyrgyz', 'English'],
         avatar: '/next.svg'
       },
       status: 'pending',
@@ -194,13 +200,13 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
       endPoint: language === 'ru' ? 'Чолпон-Ата' : 'Cholpon-Ata',
       startDate: '2024-08-20',
       endDate: '2024-08-22',
-      duration: '3 дня',
-      difficulty: 'Легкая',
+      duration: language === 'ru' ? '3 дня' : '3 days',
+      difficulty: language === 'ru' ? 'Легкая' : 'Easy',
       guide: {
         name: 'Елена Соколова',
         rating: 4.8,
-        experience: '6 лет',
-        languages: ['Русский', 'Английский', 'Французский'],
+        experience: language === 'ru' ? '6 лет' : '6 years',
+        languages: language === 'ru' ? ['Русский', 'Английский', 'Французский'] : ['Russian', 'English', 'French'],
         avatar: '/next.svg'
       },
       status: 'available',
@@ -232,13 +238,13 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
       endPoint: language === 'ru' ? 'Чолпон-Ата' : 'Cholpon-Ata',
       startDate: '2024-09-05',
       endDate: '2024-09-08',
-      duration: '4 дня',
-      difficulty: 'Легкая',
+      duration: language === 'ru' ? '4 дня' : '4 days',
+      difficulty: language === 'ru' ? 'Легкая' : 'Easy',
       guide: {
         name: 'Археолог Иван Медведев',
         rating: 4.9,
-        experience: '15 лет',
-        languages: ['Русский', 'Английский', 'Китайский'],
+        experience: language === 'ru' ? '15 лет' : '15 years',
+        languages: language === 'ru' ? ['Русский', 'Английский', 'Китайский'] : ['Russian', 'English', 'Chinese'],
         avatar: '/next.svg'
       },
       status: 'confirmed',
@@ -270,13 +276,13 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
       endPoint: language === 'ru' ? 'Чолпон-Ата' : 'Cholpon-Ata',
       startDate: '2024-09-05',
       endDate: '2024-09-08',
-      duration: '4 дня',
+      duration: language === 'ru' ? '4 дня' : '4 days',
       difficulty: language === 'ru' ? 'Средняя' : 'Medium',
       guide: {
         name: 'Фотограф Анна Климова',
         rating: 4.8,
-        experience: '10 лет',
-        languages: ['Русский', 'Английский', 'Испанский'],
+        experience: language === 'ru' ? '10 лет' : '10 years',
+        languages: language === 'ru' ? ['Русский', 'Английский', 'Испанский'] : ['Russian', 'English', 'Spanish'],
         avatar: '/next.svg'
       },
       status: 'available',
@@ -787,7 +793,7 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
     return (
       <div className="col-span-full mb-6">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 gap-4">
-          <h3 className="text-lg font-semibold text-gray-800">🗓️ Таймлайн туров и отелей по маршруту Алматы → Чолпон-Ата</h3>
+          <h3 className="text-base sm:text-lg font-semibold text-gray-800">🗓️ Таймлайн туров и отелей по маршруту Алматы → Чолпон-Ата</h3>
           
           {/* Фильтры */}
           <div className="flex flex-wrap gap-2">
@@ -849,7 +855,7 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
                       </div>
                       
                       {/* Отели */}
-                      <div className="ml-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                      <div className="ml-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
                         {mockHotels.filter(hotel => shouldShowHotel(hotel.id, hotelDate)).map((hotel) => (
                           <div 
                             key={hotel.id} 
@@ -962,7 +968,7 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
                   </div>
                   
                   {/* Конкурирующие туры в горизонтальном расположении */}
-                  <div className="ml-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <div className="ml-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
                     {filteredToursForDate.map((tour) => (
                       <div key={tour.id} className="relative">
                         {/* Галочка посередине напротив карточки */}
@@ -981,13 +987,13 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
                               : 'opacity-100 transform scale-100 translate-y-0'
                           }`}
                         >
-                          <div className="flex items-start justify-between">
-                            <div className="flex-1 pr-6">
+                          <div className="flex flex-col sm:flex-row items-start justify-between gap-3">
+                            <div className="flex-1 min-w-0">
                               <div className="flex items-center gap-2 mb-2">
-                                <h4 className="font-semibold text-gray-900">{tour.title}</h4>
+                                <h4 className="font-semibold text-gray-900 text-sm sm:text-base truncate">{tour.title}</h4>
                 </div>
 
-                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2 text-sm text-gray-600 mb-4">
+                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-3 gap-y-2 text-xs sm:text-sm text-gray-600 mb-3">
                                 <div className="flex justify-between sm:block">
                                   <span className="font-medium text-xs text-gray-500 sm:block">Продолжительность:</span>
                                   <span className="text-sm">{tour.duration}</span>
@@ -1020,7 +1026,7 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
                               )}
                             </div>
                             
-                            <div className="flex flex-col gap-2 min-w-fit">
+                            <div className="flex flex-col gap-2 min-w-fit w-full sm:w-auto">
                               {/* Кнопка выбора в верхнем правом углу */}
                               {[1, 2].includes(tour.id) && (
                                 <button 
@@ -1063,7 +1069,7 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
                               {(!bookingStatus[tour.id] || bookingStatus[tour.id] === 'available') && (
                                 <button 
                                   onClick={() => handleBookTour(tour.id)}
-                                  className="px-3 py-1 text-xs font-medium bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors duration-200"
+                                  className="px-3 py-2 text-xs sm:text-sm font-medium bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors duration-200 w-full sm:w-auto"
                                 >
                                   📅 Забронировать
                                 </button>
@@ -1131,7 +1137,7 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
         {/* Кнопка "Забронировать все" */}
         <div className="mt-8 text-center">
           <button 
-            className="px-6 py-3 bg-gradient-to-r from-green-600 to-blue-600 text-white rounded-lg hover:from-green-700 hover:to-blue-700 transition-all duration-200 shadow-lg hover:shadow-xl text-sm sm:text-base font-medium"
+            className="px-4 sm:px-6 py-3 bg-gradient-to-r from-green-600 to-blue-600 text-white rounded-lg hover:from-green-700 hover:to-blue-700 transition-all duration-200 shadow-lg hover:shadow-xl text-xs sm:text-sm md:text-base font-medium w-full sm:w-auto"
             onClick={() => {
               try {
                 console.log('🎯 Начинаем умное массовое бронирование...');
@@ -1341,7 +1347,7 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
               ]}
               startDate="2024-08-15"
               endDate="2024-08-20"
-              duration="5 дней"
+              duration={language === 'ru' ? '5 дней' : '5 days'}
               selectedHotels={Object.entries(selectedHotelsByDate)
                 .map(([, hotelId]) => {
                   const hotel = mockHotels.find(h => h.id === hotelId);
@@ -1376,7 +1382,7 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
         
         return (
           <div key={hotelId} className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-            <div className="bg-white rounded-lg p-4 sm:p-6 max-w-md w-full">
+            <div className="bg-white rounded-lg p-4 sm:p-6 max-w-sm sm:max-w-md w-full max-h-[90vh] overflow-y-auto">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-semibold text-gray-900">
                   QR-код для заселения
@@ -1401,7 +1407,7 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
                   {qrCode ? (
                     <div className="flex flex-col items-center">
                       <div 
-                        className="w-48 h-48 border-2 border-gray-200 rounded-lg bg-white flex items-center justify-center"
+                        className="w-40 h-40 sm:w-48 sm:h-48 border-2 border-gray-200 rounded-lg bg-white flex items-center justify-center"
                         style={{ backgroundImage: `url(${qrCode})`, backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}
                       />
                       <p className="text-xs text-gray-500 mt-2">

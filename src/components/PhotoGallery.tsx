@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import { 
   CameraIcon, 
@@ -38,32 +38,65 @@ interface PhotoGalleryProps {
 
 export default function PhotoGallery({ className = '' }: PhotoGalleryProps) {
   const { language } = useLanguage();
-  const [photos, setPhotos] = useState<Photo[]>([
+  
+  // Функция для получения переведенных фотографий
+  const getTranslatedPhotos = (lang: string): Photo[] => [
     {
       id: '1',
-      url: '/api/placeholder/400/300',
-      caption: language === 'ru' ? 'Красивый закат в горах' : 'Beautiful sunset in the mountains',
+      url: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop&crop=center',
+      caption: lang === 'ru' ? 'Красивый закат в горах' : 'Beautiful sunset in the mountains',
       likes: 24,
       comments: 8,
       shares: 3,
       isLiked: false,
       isShared: false,
-      timestamp: '2 часа назад',
-      location: 'Алтай, Россия'
+      timestamp: lang === 'ru' ? '2 часа назад' : '2 hours ago',
+      location: lang === 'ru' ? 'Алтай, Россия' : 'Altai, Russia'
     },
     {
       id: '2',
-      url: '/api/placeholder/400/300',
-      caption: language === 'ru' ? 'Эко-тур по лесу' : 'Eco-tour through the forest',
+      url: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&h=300&fit=crop&crop=center',
+      caption: lang === 'ru' ? 'Эко-тур по лесу' : 'Eco-tour through the forest',
       likes: 18,
       comments: 5,
       shares: 2,
       isLiked: true,
       isShared: false,
-      timestamp: '1 день назад',
-      location: 'Тайга, Сибирь'
+      timestamp: lang === 'ru' ? '1 день назад' : '1 day ago',
+      location: lang === 'ru' ? 'Тайга, Сибирь' : 'Taiga, Siberia'
+    },
+    {
+      id: '3',
+      url: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop&crop=center',
+      caption: lang === 'ru' ? 'Величественный каньон' : 'Majestic canyon',
+      likes: 32,
+      comments: 12,
+      shares: 5,
+      isLiked: false,
+      isShared: false,
+      timestamp: lang === 'ru' ? '3 дня назад' : '3 days ago',
+      location: lang === 'ru' ? 'Гранд-Каньон' : 'Grand Canyon'
+    },
+    {
+      id: '4',
+      url: 'https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=400&h=300&fit=crop&crop=center',
+      caption: lang === 'ru' ? 'Экологичный велосипедный тур' : 'Eco-friendly bike tour',
+      likes: 15,
+      comments: 6,
+      shares: 2,
+      isLiked: true,
+      isShared: false,
+      timestamp: lang === 'ru' ? '1 неделя назад' : '1 week ago',
+      location: lang === 'ru' ? 'Горный маршрут' : 'Mountain route'
     }
-  ]);
+  ];
+
+  const [photos, setPhotos] = useState<Photo[]>(getTranslatedPhotos(language));
+  
+  // Обновляем переводы при изменении языка
+  useEffect(() => {
+    setPhotos(getTranslatedPhotos(language));
+  }, [language]);
   
   const [isUploading, setIsUploading] = useState(false);
   const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null);
@@ -104,7 +137,7 @@ export default function PhotoGallery({ className = '' }: PhotoGalleryProps) {
       shares: 0,
       isLiked: false,
       isShared: false,
-      timestamp: 'только что',
+      timestamp: language === 'ru' ? 'только что' : 'just now',
       location: newPhoto.location
     };
     

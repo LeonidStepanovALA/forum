@@ -5,33 +5,10 @@ import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import PhotoGallery from '@/components/PhotoGallery';
 import { useLanguage } from '@/hooks/useLanguage';
-import { translations } from '@/translations/index';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
 
 export default function PhotoGalleryPage() {
-  const { language, changeLanguage, isInitialized } = useLanguage();
-
-  if (!isInitialized) {
-    return (
-      <div className="container mx-auto px-4 py-6 md:py-8">
-        <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
-          <p className="text-blue-800">Загрузка...</p>
-        </div>
-      </div>
-    );
-  }
-
-  if (!translations || !translations[language]) {
-    return (
-      <div className="container mx-auto px-4 py-6 md:py-8">
-        <div className="p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
-          <p className="text-yellow-800">Загрузка переводов...</p>
-        </div>
-      </div>
-    );
-  }
-
-  // const t = translations[language];
+  const { language, changeLanguage } = useLanguage();
 
   return (
     <div className="container mx-auto px-4 py-6 md:py-8">
