@@ -57,50 +57,7 @@ export default function TouristPage() {
   
   const t = translations[language];
 
-  const navigationButtons: NavigationButton[] = [
-    {
-      href: '#wallet',
-      icon: WalletIcon,
-      title: language === 'ru' ? 'Мой кошелек' : 'My Wallet',
-      description: language === 'ru' ? 'Управление AirCoin и донаты' : 'Manage AirCoin and donations',
-      color: 'bg-emerald-500 hover:bg-emerald-600'
-    },
-    {
-      href: '/tourist/emergency',
-      icon: PhoneIcon,
-      title: t.emergency,
-      description: t.emergencyDesc,
-      color: 'bg-red-500 hover:bg-red-600'
-    },
-    {
-      href: '/tourist/search',
-      icon: MagnifyingGlassIcon,
-      title: t.search,
-      description: t.searchDesc,
-      color: 'bg-purple-500 hover:bg-purple-600'
-    },
-    {
-      href: '/tourist/route-management',
-      icon: MapIcon,
-      title: t.routeManagement,
-      description: t.routeManagementDesc,
-      color: 'bg-indigo-500 hover:bg-indigo-600'
-    },
-    {
-      href: '/tourist/booking-calendar',
-      icon: CalendarIcon,
-      title: t.bookingCalendar,
-      description: t.bookingCalendarDesc,
-      color: 'bg-orange-500 hover:bg-orange-600'
-    },
-    {
-      href: '/tourist/photo-gallery',
-      icon: PhotoIcon,
-      title: language === 'ru' ? 'Фотогалерея' : 'Photo Gallery',
-      description: language === 'ru' ? 'Загружайте и делитесь фото из путешествий' : 'Upload and share travel photos',
-      color: 'bg-pink-500 hover:bg-pink-600'
-    }
-  ];
+  const navigationButtons: NavigationButton[] = [];
 
   return (
     <div className="container mx-auto px-4 py-6 md:py-8">
@@ -118,7 +75,14 @@ export default function TouristPage() {
 
       {/* Аватарка пользователя */}
       <div className="mb-6">
-        <UserAvatar />
+        <UserAvatar 
+          onWalletClick={() => setIsWalletOpen(true)}
+          onSearchClick={() => window.location.href = '/tourist/search'}
+          onRouteManagementClick={() => window.location.href = '/tourist/route-management'}
+          onBookingCalendarClick={() => window.location.href = '/tourist/booking-calendar'}
+          onPhotoGalleryClick={() => window.location.href = '/tourist/photo-gallery'}
+          onEmergencyClick={() => window.location.href = '/tourist/emergency'}
+        />
       </div>
 
       {/* Статистика туриста */}
@@ -128,29 +92,6 @@ export default function TouristPage() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
         {navigationButtons.map((button) => {
-          if (button.href === '#wallet') {
-            const IconComponent = button.icon;
-            return (
-              <button
-                key={button.href}
-                onClick={() => setIsWalletOpen(true)}
-                className={`${button.color} text-white rounded-lg p-3 sm:p-4 md:p-6 transition-transform transform hover:scale-105 hover:shadow-lg`}
-              >
-                <div className="flex items-start gap-2 sm:gap-3 md:gap-4">
-                  <IconComponent className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 flex-shrink-0" />
-                  <div className="min-w-0 flex-1 text-left">
-                    <h2 className="text-base sm:text-lg md:text-xl font-semibold mb-1 sm:mb-2 truncate text-left">
-                      {button.title}
-                    </h2>
-                    <p className="text-xs sm:text-sm md:text-base text-white/90 line-clamp-2 text-left">
-                      {button.description}
-                    </p>
-                  </div>
-                </div>
-              </button>
-            );
-          }
-          
           const IconComponent = button.icon;
           return (
             <Link 

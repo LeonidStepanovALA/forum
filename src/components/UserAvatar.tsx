@@ -3,14 +3,20 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { CameraIcon, UserIcon, Cog6ToothIcon, EnvelopeIcon, StarIcon, TrophyIcon, MapIcon } from '@heroicons/react/24/outline';
+import { CameraIcon, UserIcon, Cog6ToothIcon, EnvelopeIcon, StarIcon, TrophyIcon, MapIcon, WalletIcon, MagnifyingGlassIcon, CalendarIcon, PhotoIcon, PhoneIcon } from '@heroicons/react/24/outline';
 import { useLanguage } from '@/hooks/useLanguage';
 
 interface UserAvatarProps {
   className?: string;
+  onWalletClick?: () => void;
+  onSearchClick?: () => void;
+  onRouteManagementClick?: () => void;
+  onBookingCalendarClick?: () => void;
+  onPhotoGalleryClick?: () => void;
+  onEmergencyClick?: () => void;
 }
 
-export default function UserAvatar({ className = '' }: UserAvatarProps) {
+export default function UserAvatar({ className = '', onWalletClick, onSearchClick, onRouteManagementClick, onBookingCalendarClick, onPhotoGalleryClick, onEmergencyClick }: UserAvatarProps) {
   const { language } = useLanguage();
   const [avatar, setAvatar] = useState<string | null>(null);
   const [isEditing, setIsEditing] = useState(false);
@@ -145,7 +151,7 @@ export default function UserAvatar({ className = '' }: UserAvatarProps) {
               {language === 'ru' ? 'Онлайн' : 'Online'}
             </span>
           </div>
-          <div className="flex items-center space-x-1">
+          <div className="flex items-center space-x-1 flex-wrap gap-1">
             <Link
               href="/tourist/news"
               className="p-2 text-blue-500 hover:text-blue-700 hover:bg-blue-50 rounded-full transition-colors duration-200 relative"
@@ -157,6 +163,45 @@ export default function UserAvatar({ className = '' }: UserAvatarProps) {
                 <span className="text-xs text-white font-bold">3</span>
               </div>
             </Link>
+            <button
+              onClick={onSearchClick}
+              className="p-2 text-purple-500 hover:text-purple-700 hover:bg-purple-50 rounded-full transition-colors duration-200"
+              title={language === 'ru' ? 'Поиск' : 'Search'}
+            >
+              <MagnifyingGlassIcon className="w-5 h-5" />
+            </button>
+            <button
+              onClick={onRouteManagementClick}
+              className="p-2 text-indigo-500 hover:text-indigo-700 hover:bg-indigo-50 rounded-full transition-colors duration-200"
+              title={language === 'ru' ? 'Управление маршрутами' : 'Route Management'}
+            >
+              <MapIcon className="w-5 h-5" />
+            </button>
+            <button
+              onClick={onBookingCalendarClick}
+              className="p-2 text-orange-500 hover:text-orange-700 hover:bg-orange-50 rounded-full transition-colors duration-200"
+              title={language === 'ru' ? 'Календарь бронирования' : 'Booking Calendar'}
+            >
+              <CalendarIcon className="w-5 h-5" />
+            </button>
+            <button
+              onClick={onPhotoGalleryClick}
+              className="p-2 text-pink-500 hover:text-pink-700 hover:bg-pink-50 rounded-full transition-colors duration-200"
+              title={language === 'ru' ? 'Фотогалерея' : 'Photo Gallery'}
+            >
+              <PhotoIcon className="w-5 h-5" />
+            </button>
+            <button
+              onClick={onWalletClick}
+              className="p-2 text-emerald-500 hover:text-emerald-700 hover:bg-emerald-50 rounded-full transition-colors duration-200 relative"
+              title={language === 'ru' ? 'Мой кошелек' : 'My Wallet'}
+            >
+              <WalletIcon className="w-5 h-5" />
+              {/* Индикатор AirCoin */}
+              <div className="absolute -top-1 -right-1 w-3 h-3 bg-emerald-500 rounded-full flex items-center justify-center">
+                <span className="text-xs text-white font-bold">🌱</span>
+              </div>
+            </button>
             <Link
               href="/settings/account"
               className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-full transition-colors duration-200"
@@ -166,6 +211,19 @@ export default function UserAvatar({ className = '' }: UserAvatarProps) {
             </Link>
           </div>
         </div>
+      </div>
+
+      {/* Кнопка экстренной связи */}
+      <div className="mt-4 pt-4 border-t border-gray-100">
+        <button
+          onClick={onEmergencyClick}
+          className="w-full bg-red-500 hover:bg-red-600 text-white rounded-lg p-3 transition-colors duration-200 flex items-center justify-center space-x-2"
+        >
+          <PhoneIcon className="w-5 h-5" />
+          <span className="font-semibold">
+            {language === 'ru' ? '🚨 Экстренная связь' : '🚨 Emergency Contact'}
+          </span>
+        </button>
       </div>
 
       {/* Эко-статистика */}
