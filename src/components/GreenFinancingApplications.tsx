@@ -8,7 +8,6 @@ import {
   XCircleIcon,
   EyeIcon,
   PencilIcon,
-  TrashIcon,
   CurrencyDollarIcon,
   CalendarIcon,
   BuildingOfficeIcon
