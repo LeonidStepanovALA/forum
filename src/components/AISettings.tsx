@@ -82,9 +82,9 @@ export default function AISettings({ onSettingsChange }: AISettingsProps) {
                   className="text-blue-500"
                 />
                 <ServerIcon className="w-4 h-4 text-green-500" />
-                <span className="text-sm font-medium">Внутренний API</span>
+                <span className="text-sm font-medium">{language === 'ru' ? 'Внутренний API' : 'Internal API'}</span>
               </label>
-              <p className="text-xs text-gray-500 ml-6">Быстрая обработка на сервере</p>
+              <p className="text-xs text-gray-500 ml-6">{language === 'ru' ? 'Быстрая обработка на сервере' : 'Fast server processing'}</p>
             </div>
 
             <div>
@@ -99,7 +99,7 @@ export default function AISettings({ onSettingsChange }: AISettingsProps) {
                 <CloudIcon className="w-4 h-4 text-purple-500" />
                 <span className="text-sm font-medium">OpenAI API</span>
               </label>
-              <p className="text-xs text-gray-500 ml-6">Продвинутый AI-анализ</p>
+              <p className="text-xs text-gray-500 ml-6">{language === 'ru' ? 'Продвинутый AI-анализ' : 'Advanced AI analysis'}</p>
             </div>
 
             {/* Fallback режим */}
@@ -113,7 +113,7 @@ export default function AISettings({ onSettingsChange }: AISettingsProps) {
                 />
                 <span className="text-sm font-medium">Fallback режим</span>
               </label>
-              <p className="text-xs text-gray-500 ml-6">Резервная обработка при ошибках</p>
+              <p className="text-xs text-gray-500 ml-6">{language === 'ru' ? 'Резервная обработка при ошибках' : 'Fallback processing on errors'}</p>
             </div>
 
             {/* Задержка обработки */}
@@ -162,7 +162,7 @@ export default function AISettings({ onSettingsChange }: AISettingsProps) {
 
             {/* Статистика */}
             <div className="pt-4 border-t border-gray-200">
-              <h4 className="text-sm font-medium text-gray-700 mb-2">Статистика AI</h4>
+              <h4 className="text-sm font-medium text-gray-700 mb-2">{language === 'ru' ? 'Статистика AI' : 'AI Statistics'}</h4>
               <div className="text-xs text-gray-600 space-y-1">
                 <div>✅ API доступен</div>
                 <div>⚡ Быстрая обработка</div>

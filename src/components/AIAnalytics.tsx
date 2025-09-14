@@ -67,7 +67,7 @@ export default function AIAnalytics({ searchQuery, onInsightClick }: AIAnalytics
           {isAnalyzing && (
             <div className="flex items-center gap-2">
               <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-500"></div>
-              <span className="text-sm text-blue-600">Анализ...</span>
+              <span className="text-sm text-blue-600">{language === 'ru' ? 'Анализ...' : 'Analyzing...'}</span>
             </div>
           )}
         </div>
@@ -76,11 +76,11 @@ export default function AIAnalytics({ searchQuery, onInsightClick }: AIAnalytics
         <div className="grid grid-cols-2 gap-4 mb-6">
           <div className="bg-white p-3 rounded-lg text-center">
             <div className="text-2xl font-bold text-blue-600">1247</div>
-            <div className="text-xs text-gray-600">Всего поисков</div>
+            <div className="text-xs text-gray-600">{language === 'ru' ? 'Всего поисков' : 'Total Searches'}</div>
           </div>
           <div className="bg-white p-3 rounded-lg text-center">
             <div className="text-2xl font-bold text-green-600">94%</div>
-            <div className="text-xs text-gray-600">Точность AI</div>
+            <div className="text-xs text-gray-600">{language === 'ru' ? 'Точность AI' : 'AI Accuracy'}</div>
           </div>
         </div>
 
@@ -112,7 +112,7 @@ export default function AIAnalytics({ searchQuery, onInsightClick }: AIAnalytics
         <div>
           <div className="flex items-center gap-2 mb-3">
             <span className="text-xl">📈</span>
-            <span className="font-medium text-gray-700">Популярные запросы</span>
+            <span className="font-medium text-gray-700">{language === 'ru' ? 'Популярные запросы' : 'Popular Queries'}</span>
           </div>
           <div className="flex flex-wrap gap-2">
             {['Эко-туры в горы', 'Органические фермы', 'Электровелосипеды', 'Гид-натуралист'].map((query, index) => (

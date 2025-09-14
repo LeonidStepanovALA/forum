@@ -35,7 +35,7 @@ export default function AccountSettingsPage() {
     return (
       <div className="container mx-auto px-4 py-6 md:py-8">
         <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
-          <p className="text-blue-800">Загрузка...</p>
+          <p className="text-blue-800">{language === 'ru' ? 'Загрузка...' : 'Loading...'}</p>
         </div>
       </div>
     );
@@ -45,7 +45,7 @@ export default function AccountSettingsPage() {
     return (
       <div className="container mx-auto px-4 py-6 md:py-8">
         <div className="p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
-          <p className="text-yellow-800">Загрузка переводов...</p>
+          <p className="text-yellow-800">{language === 'ru' ? 'Загрузка переводов...' : 'Loading translations...'}</p>
         </div>
       </div>
     );

@@ -72,7 +72,7 @@ const PlaceholderImage = ({ type }: { type: string }) => {
         return (
           <svg width="100%" height="100%" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
             <rect width="400" height="300" fill="#f3f4f6"/>
-            <text x="200" y="150" textAnchor="middle" fontFamily="Arial" fontSize="16" fill="#6b7280">Изображение</text>
+            <text x="200" y="150" textAnchor="middle" fontFamily="Arial" fontSize="16" fill="#6b7280">{language === 'ru' ? 'Изображение' : 'Image'}</text>
           </svg>
         );
     }

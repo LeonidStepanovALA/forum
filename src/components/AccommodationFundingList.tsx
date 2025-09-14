@@ -260,7 +260,7 @@ export default function AccommodationFundingList({
             🏨 Список точек размещения для финансирования
           </h3>
           <div className="text-right">
-            <div className="text-sm text-gray-600">Общая потребность в финансировании</div>
+            <div className="text-sm text-gray-600">{language === 'ru' ? 'Общая потребность в финансировании' : 'Total Funding Need'}</div>
             <div className="text-2xl font-bold text-green-600">
               {formatCurrency(totalFundingNeeded)}
             </div>
@@ -270,47 +270,47 @@ export default function AccommodationFundingList({
         {/* Фильтры */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Тип размещения</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">{language === 'ru' ? 'Тип размещения' : 'Accommodation Type'}</label>
             <select
               value={selectedType}
               onChange={(e) => setSelectedType(e.target.value)}
               className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
             >
-              <option value="all">Все типы</option>
-              <option value="hotel">Гостиницы</option>
-              <option value="eco-lodge">Эко-лоджи</option>
-              <option value="guesthouse">Гостевые дома</option>
-              <option value="camping">Кемпинги</option>
-              <option value="resort">Курорты</option>
+              <option value="all">{language === 'ru' ? 'Все типы' : 'All Types'}</option>
+              <option value="hotel">{language === 'ru' ? 'Гостиницы' : 'Hotels'}</option>
+              <option value="eco-lodge">{language === 'ru' ? 'Эко-лоджи' : 'Eco-lodges'}</option>
+              <option value="guesthouse">{language === 'ru' ? 'Гостевые дома' : 'Guesthouses'}</option>
+              <option value="camping">{language === 'ru' ? 'Кемпинги' : 'Camping'}</option>
+              <option value="resort">{language === 'ru' ? 'Курорты' : 'Resorts'}</option>
             </select>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Регион</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">{language === 'ru' ? 'Регион' : 'Region'}</label>
             <select
               value={selectedRegion}
               onChange={(e) => setSelectedRegion(e.target.value)}
               className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
             >
-              <option value="all">Все регионы</option>
-              <option value="Алматы">Алматы</option>
-              <option value="Астана">Астана</option>
-              <option value="Шымкент">Шымкент</option>
-              <option value="Алматинская область">Алматинская область</option>
+              <option value="all">{language === 'ru' ? 'Все регионы' : 'All Regions'}</option>
+              <option value="Алматы">{language === 'ru' ? 'Алматы' : 'Almaty'}</option>
+              <option value="Астана">{language === 'ru' ? 'Астана' : 'Astana'}</option>
+              <option value="Шымкент">{language === 'ru' ? 'Шымкент' : 'Shymkent'}</option>
+              <option value="Алматинская область">{language === 'ru' ? 'Алматинская область' : 'Almaty Region'}</option>
             </select>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Сортировка</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">{language === 'ru' ? 'Сортировка' : 'Sorting'}</label>
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
               className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
             >
-              <option value="priority">По приоритету</option>
-              <option value="funding">По финансированию</option>
-              <option value="rating">По эко-рейтингу</option>
-              <option value="impact">По влиянию</option>
+              <option value="priority">{language === 'ru' ? 'По приоритету' : 'By Priority'}</option>
+              <option value="funding">{language === 'ru' ? 'По финансированию' : 'By Funding'}</option>
+              <option value="rating">{language === 'ru' ? 'По эко-рейтингу' : 'By Eco-rating'}</option>
+              <option value="impact">{language === 'ru' ? 'По влиянию' : 'By Impact'}</option>
             </select>
           </div>
         </div>
@@ -319,21 +319,21 @@ export default function AccommodationFundingList({
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <div className="bg-blue-50 p-4 rounded-lg">
             <div className="text-2xl font-bold text-blue-600">{sortedAccommodations.length}</div>
-            <div className="text-sm text-gray-600">Точек размещения</div>
+            <div className="text-sm text-gray-600">{language === 'ru' ? 'Точек размещения' : 'Accommodation Points'}</div>
           </div>
           <div className="bg-green-50 p-4 rounded-lg">
             <div className="text-2xl font-bold text-green-600">{formatCurrency(totalFundingNeeded)}</div>
-            <div className="text-sm text-gray-600">Потребность в финансировании</div>
+            <div className="text-sm text-gray-600">{language === 'ru' ? 'Потребность в финансировании' : 'Funding Need'}</div>
           </div>
           <div className="bg-purple-50 p-4 rounded-lg">
             <div className="text-2xl font-bold text-purple-600">{Math.round(totalImpact)}%</div>
-            <div className="text-sm text-gray-600">Снижение выбросов</div>
+            <div className="text-sm text-gray-600">{language === 'ru' ? 'Снижение выбросов' : 'Emissions Reduction'}</div>
           </div>
           <div className="bg-orange-50 p-4 rounded-lg">
             <div className="text-2xl font-bold text-orange-600">
               {Math.round(sortedAccommodations.reduce((sum, acc) => sum + acc.estimatedImpact.ecoRatingImprovement, 0) * 10) / 10}
             </div>
-            <div className="text-sm text-gray-600">Улучшение эко-рейтинга</div>
+            <div className="text-sm text-gray-600">{language === 'ru' ? 'Улучшение эко-рейтинга' : 'Eco-rating Improvement'}</div>
           </div>
         </div>
       </div>
@@ -374,7 +374,7 @@ export default function AccommodationFundingList({
               {/* Детали финансирования */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <h5 className="font-semibold text-gray-700 mb-3">Эко-улучшения:</h5>
+                  <h5 className="font-semibold text-gray-700 mb-3">{language === 'ru' ? 'Эко-улучшения:' : 'Eco-improvements:'}</h5>
                   <div className="space-y-2">
                     {Object.entries(accommodation.ecoImprovements).map(([category, data]) => {
                       const Icon = categoryIcons[category as keyof typeof categoryIcons];
@@ -401,28 +401,28 @@ export default function AccommodationFundingList({
                 </div>
 
                 <div>
-                  <h5 className="font-semibold text-gray-700 mb-3">Ожидаемый эффект:</h5>
+                  <h5 className="font-semibold text-gray-700 mb-3">{language === 'ru' ? 'Ожидаемый эффект:' : 'Expected Effect:'}</h5>
                   <div className="space-y-3">
                     <div className="flex justify-between items-center p-2 bg-blue-50 rounded">
-                      <span className="text-sm text-gray-600">Снижение выбросов:</span>
+                      <span className="text-sm text-gray-600">{language === 'ru' ? 'Снижение выбросов:' : 'Emissions Reduction:'}</span>
                       <span className="font-semibold text-blue-600">
                         {accommodation.estimatedImpact.emissionsReduction}%
                       </span>
                     </div>
                     <div className="flex justify-between items-center p-2 bg-green-50 rounded">
-                      <span className="text-sm text-gray-600">Улучшение эко-рейтинга:</span>
+                      <span className="text-sm text-gray-600">{language === 'ru' ? 'Улучшение эко-рейтинга:' : 'Eco-rating Improvement:'}</span>
                       <span className="font-semibold text-green-600">
                         +{accommodation.estimatedImpact.ecoRatingImprovement}
                       </span>
                     </div>
                     <div className="flex justify-between items-center p-2 bg-purple-50 rounded">
-                      <span className="text-sm text-gray-600">Дополнительная вместимость:</span>
+                      <span className="text-sm text-gray-600">{language === 'ru' ? 'Дополнительная вместимость:' : 'Additional Capacity:'}</span>
                       <span className="font-semibold text-purple-600">
                         +{accommodation.estimatedImpact.additionalCapacity}
                       </span>
                     </div>
                     <div className="flex justify-between items-center p-2 bg-orange-50 rounded">
-                      <span className="text-sm text-gray-600">Текущая загрузка:</span>
+                      <span className="text-sm text-gray-600">{language === 'ru' ? 'Текущая загрузка:' : 'Current Load:'}</span>
                       <span className="font-semibold text-orange-600">
                         {accommodation.currentCapacity}/{accommodation.maxCapacity}
                       </span>
@@ -438,7 +438,7 @@ export default function AccommodationFundingList({
                   className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors flex items-center space-x-2"
                 >
                   <CheckCircleIcon className="w-4 h-4" />
-                  <span>Выбрать для финансирования</span>
+                  <span>{language === 'ru' ? 'Выбрать для финансирования' : 'Select for Funding'}</span>
                 </button>
               </div>
             </div>

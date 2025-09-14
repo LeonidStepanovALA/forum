@@ -255,7 +255,7 @@ export default function AutoFundingDistribution({
       <div className="flex justify-between items-center">
         <div>
           <h3 className="text-xl font-semibold text-green-800">
-            🎯 Автоматическое распределение финансирования
+            🎯 {language === 'ru' ? 'Автоматическое распределение финансирования' : 'Automatic Funding Distribution'}
           </h3>
           <p className="text-sm text-gray-600 mt-1">
             Общий бюджет: {formatCurrency(totalBudget)}
@@ -286,7 +286,7 @@ export default function AutoFundingDistribution({
             <div className="flex items-center space-x-2">
               <CheckCircleIcon className="w-6 h-6 text-green-600" />
               <h4 className="text-lg font-semibold text-green-800">
-                ✅ Распределение финансирования завершено
+                ✅ {language === 'ru' ? 'Распределение финансирования завершено' : 'Funding Distribution Completed'}
               </h4>
             </div>
             <p className="text-sm text-green-700 mt-2">
@@ -345,7 +345,7 @@ export default function AutoFundingDistribution({
                   <div className="flex justify-between items-start mb-4">
                     <h5 className="text-lg font-semibold text-gray-800">{allocation.region}</h5>
                     <div className="text-right">
-                      <div className="text-sm text-gray-600">Выделено</div>
+                      <div className="text-sm text-gray-600">{language === 'ru' ? 'Выделено' : 'Allocated'}</div>
                       <div className="text-lg font-bold text-green-600">
                         {formatCurrency(allocation.totalAllocated)}
                       </div>
@@ -379,25 +379,25 @@ export default function AutoFundingDistribution({
 
                   {/* Ожидаемый эффект */}
                   <div className="border-t border-gray-200 pt-4">
-                    <h6 className="font-semibold text-gray-700 mb-3">Ожидаемый эффект:</h6>
+                    <h6 className="font-semibold text-gray-700 mb-3">{language === 'ru' ? 'Ожидаемый эффект:' : 'Expected Effect:'}</h6>
                     <div className="grid grid-cols-3 gap-3 text-sm">
                       <div className="text-center">
                         <div className="text-lg font-bold text-blue-600">
                           {allocation.impact.emissionsReduction.toFixed(1)}%
                         </div>
-                        <div className="text-xs text-gray-500">Снижение выбросов</div>
+                        <div className="text-xs text-gray-500">{language === 'ru' ? 'Снижение выбросов' : 'Emissions Reduction'}</div>
                       </div>
                       <div className="text-center">
                         <div className="text-lg font-bold text-green-600">
                           {allocation.impact.ecoRatingImprovement.toFixed(1)}/10
                         </div>
-                        <div className="text-xs text-gray-500">Эко-рейтинг</div>
+                        <div className="text-xs text-gray-500">{language === 'ru' ? 'Эко-рейтинг' : 'Eco-rating'}</div>
                       </div>
                       <div className="text-center">
                         <div className="text-lg font-bold text-purple-600">
                           {allocation.impact.projectsCount}
                         </div>
-                        <div className="text-xs text-gray-500">Проектов</div>
+                        <div className="text-xs text-gray-500">{language === 'ru' ? 'Проектов' : 'Projects'}</div>
                       </div>
                     </div>
                   </div>
@@ -432,25 +432,25 @@ export default function AutoFundingDistribution({
                 <div className="text-2xl font-bold text-blue-600">
                   {formatCurrency(allocations.reduce((sum, alloc) => sum + alloc.totalAllocated, 0))}
                 </div>
-                <div className="text-sm text-gray-600">Общий бюджет</div>
+                <div className="text-sm text-gray-600">{language === 'ru' ? 'Общий бюджет' : 'Total Budget'}</div>
               </div>
               <div className="text-center p-4 bg-green-50 rounded-lg">
                 <div className="text-2xl font-bold text-green-600">
                   {allocations.length}
                 </div>
-                <div className="text-sm text-gray-600">Регионов</div>
+                <div className="text-sm text-gray-600">{language === 'ru' ? 'Регионов' : 'Regions'}</div>
               </div>
               <div className="text-center p-4 bg-purple-50 rounded-lg">
                 <div className="text-2xl font-bold text-purple-600">
                   {allocations.reduce((sum, alloc) => sum + alloc.impact.projectsCount, 0)}
                 </div>
-                <div className="text-sm text-gray-600">Проектов</div>
+                <div className="text-sm text-gray-600">{language === 'ru' ? 'Проектов' : 'Projects'}</div>
               </div>
               <div className="text-center p-4 bg-orange-50 rounded-lg">
                 <div className="text-2xl font-bold text-orange-600">
                   {Math.round(allocations.reduce((sum, alloc) => sum + alloc.impact.emissionsReduction, 0) / allocations.length)}%
                 </div>
-                <div className="text-sm text-gray-600">Среднее снижение выбросов</div>
+                <div className="text-sm text-gray-600">{language === 'ru' ? 'Среднее снижение выбросов' : 'Average Emissions Reduction'}</div>
               </div>
             </div>
           </div>

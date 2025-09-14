@@ -207,7 +207,7 @@ const menuItems = [
     icon: ChartBarIcon,
     items: [
         { 
-          name: 'Статистика бронирований', 
+          name: language === 'ru' ? 'Статистика бронирований' : 'Booking Statistics', 
           action: 'booking-stats',
           subItems: [
             { name: t.monthlyOccupancy, action: 'monthly-occupancy' },
@@ -216,7 +216,7 @@ const menuItems = [
           ]
         },
         { 
-          name: 'Отзывы гостей', 
+          name: language === 'ru' ? 'Отзывы гостей' : 'Guest Reviews', 
           action: 'guest-reviews',
           subItems: [
             { name: t.ratingByCategory, action: 'rating-by-category' },
@@ -225,12 +225,42 @@ const menuItems = [
           ]
         },
         { 
-          name: 'Эко-метрики', 
+          name: language === 'ru' ? 'Эко-метрики' : 'Eco Metrics', 
           action: 'eco-metrics',
           subItems: [
             { name: t.energySavings, action: 'energy-savings' },
             { name: t.wasteReduction, action: 'waste-reduction' },
             { name: t.ecoRating, action: 'eco-rating' }
+          ]
+        },
+        { 
+          name: language === 'ru' ? 'Маркетинговый отчет' : 'Marketing Report', 
+          action: 'marketing-report',
+          subItems: [
+            { name: language === 'ru' ? 'Анализ конкурентов' : 'Competitor Analysis', action: 'competitor-analysis' },
+            { name: language === 'ru' ? 'Ценовая стратегия' : 'Pricing Strategy', action: 'pricing-strategy' },
+            { name: language === 'ru' ? 'Рыночная доля' : 'Market Share', action: 'market-share' },
+            { name: language === 'ru' ? 'Тренды бронирований' : 'Booking Trends', action: 'booking-trends' }
+          ]
+        },
+        { 
+          name: language === 'ru' ? 'Маркетинговые рекомендации' : 'Marketing Recommendations', 
+          action: 'marketing-recommendations',
+          subItems: [
+            { name: language === 'ru' ? 'Улучшение видимости' : 'Improve Visibility', action: 'improve-visibility' },
+            { name: language === 'ru' ? 'Оптимизация цен' : 'Price Optimization', action: 'price-optimization' },
+            { name: language === 'ru' ? 'Продвижение услуг' : 'Service Promotion', action: 'service-promotion' },
+            { name: language === 'ru' ? 'Целевая аудитория' : 'Target Audience', action: 'target-audience' }
+          ]
+        },
+        { 
+          name: language === 'ru' ? 'Сформировать сводный отчет' : 'Generate Summary Report', 
+          action: 'summary-report',
+          subItems: [
+            { name: language === 'ru' ? 'Полная сводка по отелю' : 'Complete Hotel Summary', action: 'complete-summary' },
+            { name: language === 'ru' ? 'Анализ эко-потенциала' : 'Eco Potential Analysis', action: 'eco-potential' },
+            { name: language === 'ru' ? 'Рекомендации по улучшению' : 'Improvement Recommendations', action: 'improvement-recommendations' },
+            { name: language === 'ru' ? 'Подать заявку на финансирование' : 'Apply for Green Financing', action: 'green-financing' }
           ]
         }
       ]
@@ -261,6 +291,1379 @@ const menuItems = [
       newExpanded.add(itemName);
     }
     setExpandedItems(newExpanded);
+  };
+
+  const renderModalContent = () => {
+    if (!selectedAction) return null;
+
+    // Маркетинговый отчет
+    if (selectedAction === 'competitor-analysis') {
+      return (
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold text-green-800">
+            {language === 'ru' ? 'Анализ конкурентов' : 'Competitor Analysis'}
+          </h4>
+          <div className="space-y-3">
+            <div className="bg-blue-50 p-3 rounded-lg">
+              <h5 className="font-medium text-blue-800">
+                {language === 'ru' ? 'Топ-5 конкурентов в регионе:' : 'Top 5 competitors in the region:'}
+              </h5>
+              <ul className="text-sm text-blue-700 mt-2 space-y-1">
+                <li>• {language === 'ru' ? 'Eco Hotel Almaty - 4.8★' : 'Eco Hotel Almaty - 4.8★'}</li>
+                <li>• {language === 'ru' ? 'Green Resort Astana - 4.7★' : 'Green Resort Astana - 4.7★'}</li>
+                <li>• {language === 'ru' ? 'Nature Lodge Shymkent - 4.6★' : 'Nature Lodge Shymkent - 4.6★'}</li>
+                <li>• {language === 'ru' ? 'Sustainable Inn Aktobe - 4.5★' : 'Sustainable Inn Aktobe - 4.5★'}</li>
+                <li>• {language === 'ru' ? 'Eco Villa Taraz - 4.4★' : 'Eco Villa Taraz - 4.4★'}</li>
+              </ul>
+            </div>
+            <div className="bg-green-50 p-3 rounded-lg">
+              <h5 className="font-medium text-green-800">
+                {language === 'ru' ? 'Ваши преимущества:' : 'Your advantages:'}
+              </h5>
+              <p className="text-sm text-green-700 mt-1">
+                {language === 'ru' ? 'Выше средний рейтинг на 0.3★, лучшие эко-услуги' : 'Above average rating by 0.3★, best eco-services'}
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (selectedAction === 'pricing-strategy') {
+      return (
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold text-green-800">
+            {language === 'ru' ? 'Ценовая стратегия' : 'Pricing Strategy'}
+          </h4>
+          <div className="space-y-3">
+            <div className="bg-yellow-50 p-3 rounded-lg">
+              <h5 className="font-medium text-yellow-800">
+                {language === 'ru' ? 'Рекомендуемые цены:' : 'Recommended prices:'}
+              </h5>
+              <ul className="text-sm text-yellow-700 mt-2 space-y-1">
+                <li>• {language === 'ru' ? 'Стандарт: 15,000-18,000 тенге' : 'Standard: 15,000-18,000 tenge'}</li>
+                <li>• {language === 'ru' ? 'Премиум: 22,000-25,000 тенге' : 'Premium: 22,000-25,000 tenge'}</li>
+                <li>• {language === 'ru' ? 'Люкс: 30,000-35,000 тенге' : 'Luxury: 30,000-35,000 tenge'}</li>
+              </ul>
+            </div>
+            <div className="bg-blue-50 p-3 rounded-lg">
+              <h5 className="font-medium text-blue-800">
+                {language === 'ru' ? 'Динамическое ценообразование:' : 'Dynamic pricing:'}
+              </h5>
+              <p className="text-sm text-blue-700 mt-1">
+                {language === 'ru' ? '+15% в выходные, +25% в праздники, -10% в будни' : '+15% on weekends, +25% on holidays, -10% on weekdays'}
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (selectedAction === 'market-share') {
+      return (
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold text-green-800">
+            {language === 'ru' ? 'Рыночная доля' : 'Market Share'}
+          </h4>
+          <div className="space-y-3">
+            <div className="bg-purple-50 p-3 rounded-lg">
+              <h5 className="font-medium text-purple-800">
+                {language === 'ru' ? 'Ваша доля рынка:' : 'Your market share:'}
+              </h5>
+              <div className="text-2xl font-bold text-purple-600 mt-2">
+                {language === 'ru' ? '12.5%' : '12.5%'}
+              </div>
+              <p className="text-sm text-purple-700 mt-1">
+                {language === 'ru' ? 'Эко-отели в регионе' : 'Eco-hotels in the region'}
+              </p>
+            </div>
+            <div className="bg-green-50 p-3 rounded-lg">
+              <h5 className="font-medium text-green-800">
+                {language === 'ru' ? 'Потенциал роста:' : 'Growth potential:'}
+              </h5>
+              <p className="text-sm text-green-700 mt-1">
+                {language === 'ru' ? 'Можно увеличить до 18% за 6 месяцев' : 'Can increase to 18% in 6 months'}
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (selectedAction === 'booking-trends') {
+      return (
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold text-green-800">
+            {language === 'ru' ? 'Тренды бронирований' : 'Booking Trends'}
+          </h4>
+          <div className="space-y-3">
+            <div className="bg-indigo-50 p-3 rounded-lg">
+              <h5 className="font-medium text-indigo-800">
+                {language === 'ru' ? 'Популярные периоды:' : 'Popular periods:'}
+              </h5>
+              <ul className="text-sm text-indigo-700 mt-2 space-y-1">
+                <li>• {language === 'ru' ? 'Май-сентябрь: +40% бронирований' : 'May-September: +40% bookings'}</li>
+                <li>• {language === 'ru' ? 'Выходные: +25% загрузка' : 'Weekends: +25% occupancy'}</li>
+                <li>• {language === 'ru' ? 'Праздники: +60% спрос' : 'Holidays: +60% demand'}</li>
+              </ul>
+            </div>
+            <div className="bg-orange-50 p-3 rounded-lg">
+              <h5 className="font-medium text-orange-800">
+                {language === 'ru' ? 'Средний срок бронирования:' : 'Average booking lead time:'}
+              </h5>
+              <p className="text-sm text-orange-700 mt-1">
+                {language === 'ru' ? '14 дней (рост на 3 дня за год)' : '14 days (increased by 3 days this year)'}
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // Маркетинговые рекомендации
+    if (selectedAction === 'improve-visibility') {
+      return (
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold text-green-800">
+            {language === 'ru' ? 'Улучшение видимости' : 'Improve Visibility'}
+          </h4>
+          <div className="space-y-3">
+            <div className="bg-blue-50 p-3 rounded-lg">
+              <h5 className="font-medium text-blue-800">
+                {language === 'ru' ? 'SEO оптимизация:' : 'SEO optimization:'}
+              </h5>
+              <ul className="text-sm text-blue-700 mt-2 space-y-1">
+                <li>• {language === 'ru' ? 'Добавить ключевые слова: "эко-отель", "устойчивый туризм"' : 'Add keywords: "eco-hotel", "sustainable tourism"'}</li>
+                <li>• {language === 'ru' ? 'Улучшить описания на 3 языках' : 'Improve descriptions in 3 languages'}</li>
+                <li>• {language === 'ru' ? 'Добавить больше фото и видео' : 'Add more photos and videos'}</li>
+              </ul>
+            </div>
+            <div className="bg-green-50 p-3 rounded-lg">
+              <h5 className="font-medium text-green-800">
+                {language === 'ru' ? 'Социальные сети:' : 'Social media:'}
+              </h5>
+              <p className="text-sm text-green-700 mt-1">
+                {language === 'ru' ? 'Активность в Instagram и Facebook увеличит видимость на 35%' : 'Activity on Instagram and Facebook will increase visibility by 35%'}
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (selectedAction === 'price-optimization') {
+      return (
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold text-green-800">
+            {language === 'ru' ? 'Оптимизация цен' : 'Price Optimization'}
+          </h4>
+          <div className="space-y-3">
+            <div className="bg-yellow-50 p-3 rounded-lg">
+              <h5 className="font-medium text-yellow-800">
+                {language === 'ru' ? 'Рекомендации по ценам:' : 'Price recommendations:'}
+              </h5>
+              <ul className="text-sm text-yellow-700 mt-2 space-y-1">
+                <li>• {language === 'ru' ? 'Снизить цены на 5% в низкий сезон' : 'Reduce prices by 5% in low season'}</li>
+                <li>• {language === 'ru' ? 'Добавить пакетные предложения' : 'Add package deals'}</li>
+                <li>• {language === 'ru' ? 'Внедрить раннее бронирование со скидкой' : 'Implement early booking discounts'}</li>
+              </ul>
+            </div>
+            <div className="bg-green-50 p-3 rounded-lg">
+              <h5 className="font-medium text-green-800">
+                {language === 'ru' ? 'Ожидаемый эффект:' : 'Expected effect:'}
+              </h5>
+              <p className="text-sm text-green-700 mt-1">
+                {language === 'ru' ? 'Увеличение загрузки на 20% и выручки на 15%' : 'Increase occupancy by 20% and revenue by 15%'}
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (selectedAction === 'service-promotion') {
+      return (
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold text-green-800">
+            {language === 'ru' ? 'Продвижение услуг' : 'Service Promotion'}
+          </h4>
+          <div className="space-y-3">
+            <div className="bg-purple-50 p-3 rounded-lg">
+              <h5 className="font-medium text-purple-800">
+                {language === 'ru' ? 'Уникальные услуги:' : 'Unique services:'}
+              </h5>
+              <ul className="text-sm text-purple-700 mt-2 space-y-1">
+                <li>• {language === 'ru' ? 'Эко-туры и экскурсии' : 'Eco-tours and excursions'}</li>
+                <li>• {language === 'ru' ? 'Органическое питание' : 'Organic dining'}</li>
+                <li>• {language === 'ru' ? 'Йога и медитация на природе' : 'Yoga and meditation in nature'}</li>
+                <li>• {language === 'ru' ? 'Мастер-классы по экологии' : 'Ecology workshops'}</li>
+              </ul>
+            </div>
+            <div className="bg-blue-50 p-3 rounded-lg">
+              <h5 className="font-medium text-blue-800">
+                {language === 'ru' ? 'Маркетинговые каналы:' : 'Marketing channels:'}
+              </h5>
+              <p className="text-sm text-blue-700 mt-1">
+                {language === 'ru' ? 'Партнерство с туроператорами, блогерами, эко-сообществами' : 'Partnership with tour operators, bloggers, eco-communities'}
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (selectedAction === 'target-audience') {
+      return (
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold text-green-800">
+            {language === 'ru' ? 'Целевая аудитория' : 'Target Audience'}
+          </h4>
+          <div className="space-y-3">
+            <div className="bg-green-50 p-3 rounded-lg">
+              <h5 className="font-medium text-green-800">
+                {language === 'ru' ? 'Основная аудитория:' : 'Primary audience:'}
+              </h5>
+              <ul className="text-sm text-green-700 mt-2 space-y-1">
+                <li>• {language === 'ru' ? 'Эко-туристы (35-45 лет)' : 'Eco-tourists (35-45 years)'}</li>
+                <li>• {language === 'ru' ? 'Семьи с детьми (30-40 лет)' : 'Families with children (30-40 years)'}</li>
+                <li>• {language === 'ru' ? 'Корпоративные клиенты' : 'Corporate clients'}</li>
+                <li>• {language === 'ru' ? 'Международные туристы' : 'International tourists'}</li>
+              </ul>
+            </div>
+            <div className="bg-orange-50 p-3 rounded-lg">
+              <h5 className="font-medium text-orange-800">
+                {language === 'ru' ? 'Стратегия привлечения:' : 'Attraction strategy:'}
+              </h5>
+              <p className="text-sm text-orange-700 mt-1">
+                {language === 'ru' ? 'Фокус на экологичности, семейности и уникальном опыте' : 'Focus on sustainability, family-friendliness and unique experience'}
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // Статистика бронирований
+    if (selectedAction === 'monthly-occupancy') {
+      return (
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold text-green-800">
+            {language === 'ru' ? 'Месячная загрузка' : 'Monthly Occupancy'}
+          </h4>
+          <div className="space-y-3">
+            <div className="bg-blue-50 p-3 rounded-lg">
+              <h5 className="font-medium text-blue-800">
+                {language === 'ru' ? 'Текущий месяц:' : 'Current month:'}
+              </h5>
+              <div className="text-2xl font-bold text-blue-600 mt-2">
+                {language === 'ru' ? '78%' : '78%'}
+              </div>
+              <p className="text-sm text-blue-700 mt-1">
+                {language === 'ru' ? 'Загрузка отеля' : 'Hotel occupancy'}
+              </p>
+            </div>
+            <div className="bg-green-50 p-3 rounded-lg">
+              <h5 className="font-medium text-green-800">
+                {language === 'ru' ? 'Сравнение с прошлым годом:' : 'Comparison with last year:'}
+              </h5>
+              <p className="text-sm text-green-700 mt-1">
+                {language === 'ru' ? '+12% рост загрузки' : '+12% occupancy growth'}
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (selectedAction === 'average-bill') {
+      return (
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold text-green-800">
+            {language === 'ru' ? 'Средний чек' : 'Average Bill'}
+          </h4>
+          <div className="space-y-3">
+            <div className="bg-purple-50 p-3 rounded-lg">
+              <h5 className="font-medium text-purple-800">
+                {language === 'ru' ? 'Текущий средний чек:' : 'Current average bill:'}
+              </h5>
+              <div className="text-2xl font-bold text-purple-600 mt-2">
+                {language === 'ru' ? '24,500 тенге' : '24,500 tenge'}
+              </div>
+              <p className="text-sm text-purple-700 mt-1">
+                {language === 'ru' ? 'За ночь проживания' : 'Per night stay'}
+              </p>
+            </div>
+            <div className="bg-orange-50 p-3 rounded-lg">
+              <h5 className="font-medium text-orange-800">
+                {language === 'ru' ? 'Дополнительные услуги:' : 'Additional services:'}
+              </h5>
+              <ul className="text-sm text-orange-700 mt-2 space-y-1">
+                <li>• {language === 'ru' ? 'Эко-туры: +8,000 тенге' : 'Eco-tours: +8,000 tenge'}</li>
+                <li>• {language === 'ru' ? 'Органическое питание: +3,500 тенге' : 'Organic dining: +3,500 tenge'}</li>
+                <li>• {language === 'ru' ? 'Спа-услуги: +5,000 тенге' : 'Spa services: +5,000 tenge'}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (selectedAction === 'popular-dates') {
+      return (
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold text-green-800">
+            {language === 'ru' ? 'Популярные даты' : 'Popular Dates'}
+          </h4>
+          <div className="space-y-3">
+            <div className="bg-green-50 p-3 rounded-lg">
+              <h5 className="font-medium text-green-800">
+                {language === 'ru' ? 'Самые загруженные периоды:' : 'Most busy periods:'}
+              </h5>
+              <ul className="text-sm text-green-700 mt-2 space-y-1">
+                <li>• {language === 'ru' ? 'Май-июнь: 95% загрузка' : 'May-June: 95% occupancy'}</li>
+                <li>• {language === 'ru' ? 'Сентябрь: 88% загрузка' : 'September: 88% occupancy'}</li>
+                <li>• {language === 'ru' ? 'Новогодние праздники: 100%' : 'New Year holidays: 100%'}</li>
+                <li>• {language === 'ru' ? 'Выходные: 85% загрузка' : 'Weekends: 85% occupancy'}</li>
+              </ul>
+            </div>
+            <div className="bg-blue-50 p-3 rounded-lg">
+              <h5 className="font-medium text-blue-800">
+                {language === 'ru' ? 'Рекомендации:' : 'Recommendations:'}
+              </h5>
+              <p className="text-sm text-blue-700 mt-1">
+                {language === 'ru' ? 'Увеличить цены на 15% в пиковые периоды' : 'Increase prices by 15% during peak periods'}
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // Отзывы гостей
+    if (selectedAction === 'rating-by-category') {
+      return (
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold text-green-800">
+            {language === 'ru' ? 'Рейтинг по категориям' : 'Rating by Category'}
+          </h4>
+          <div className="space-y-3">
+            <div className="bg-yellow-50 p-3 rounded-lg">
+              <h5 className="font-medium text-yellow-800">
+                {language === 'ru' ? 'Общий рейтинг:' : 'Overall rating:'}
+              </h5>
+              <div className="text-3xl font-bold text-yellow-600 mt-2">
+                {language === 'ru' ? '4.8/5.0' : '4.8/5.0'}
+              </div>
+            </div>
+            <div className="bg-green-50 p-3 rounded-lg">
+              <h5 className="font-medium text-green-800">
+                {language === 'ru' ? 'Детализация по категориям:' : 'Breakdown by categories:'}
+              </h5>
+              <ul className="text-sm text-green-700 mt-2 space-y-1">
+                <li>• {language === 'ru' ? 'Чистота: 4.9/5' : 'Cleanliness: 4.9/5'}</li>
+                <li>• {language === 'ru' ? 'Удобства: 4.7/5' : 'Amenities: 4.7/5'}</li>
+                <li>• {language === 'ru' ? 'Персонал: 4.8/5' : 'Staff: 4.8/5'}</li>
+                <li>• {language === 'ru' ? 'Расположение: 4.6/5' : 'Location: 4.6/5'}</li>
+                <li>• {language === 'ru' ? 'Эко-услуги: 4.9/5' : 'Eco-services: 4.9/5'}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (selectedAction === 'text-reviews') {
+      return (
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold text-green-800">
+            {language === 'ru' ? 'Текстовые отзывы' : 'Text Reviews'}
+          </h4>
+          <div className="space-y-3">
+            <div className="bg-blue-50 p-3 rounded-lg">
+              <h5 className="font-medium text-blue-800">
+                {language === 'ru' ? 'Последние отзывы:' : 'Recent reviews:'}
+              </h5>
+              <div className="text-sm text-blue-700 mt-2 space-y-2">
+                <p>"{language === 'ru' ? 'Потрясающий эко-отель! Очень чистый и экологичный.' : 'Amazing eco-hotel! Very clean and environmentally friendly.'}" - 5★</p>
+                <p>"{language === 'ru' ? 'Отличное расположение и дружелюбный персонал.' : 'Great location and friendly staff.'}" - 4★</p>
+                <p>"{language === 'ru' ? 'Эко-туры были незабываемыми!' : 'Eco-tours were unforgettable!'}" - 5★</p>
+              </div>
+            </div>
+            <div className="bg-green-50 p-3 rounded-lg">
+              <h5 className="font-medium text-green-800">
+                {language === 'ru' ? 'Статистика отзывов:' : 'Review statistics:'}
+              </h5>
+              <ul className="text-sm text-green-700 mt-2 space-y-1">
+                <li>• {language === 'ru' ? 'Всего отзывов: 247' : 'Total reviews: 247'}</li>
+                <li>• {language === 'ru' ? 'Положительных: 94%' : 'Positive: 94%'}</li>
+                <li>• {language === 'ru' ? 'Средняя длина отзыва: 85 слов' : 'Average review length: 85 words'}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (selectedAction === 'review-responses') {
+      return (
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold text-green-800">
+            {language === 'ru' ? 'Ответы на отзывы' : 'Review Responses'}
+          </h4>
+          <div className="space-y-3">
+            <div className="bg-purple-50 p-3 rounded-lg">
+              <h5 className="font-medium text-purple-800">
+                {language === 'ru' ? 'Статистика ответов:' : 'Response statistics:'}
+              </h5>
+              <ul className="text-sm text-purple-700 mt-2 space-y-1">
+                <li>• {language === 'ru' ? 'Ответили на 89% отзывов' : 'Responded to 89% of reviews'}</li>
+                <li>• {language === 'ru' ? 'Среднее время ответа: 4 часа' : 'Average response time: 4 hours'}</li>
+                <li>• {language === 'ru' ? 'Рейтинг ответов: 4.9/5' : 'Response rating: 4.9/5'}</li>
+              </ul>
+            </div>
+            <div className="bg-orange-50 p-3 rounded-lg">
+              <h5 className="font-medium text-orange-800">
+                {language === 'ru' ? 'Рекомендации:' : 'Recommendations:'}
+              </h5>
+              <p className="text-sm text-orange-700 mt-1">
+                {language === 'ru' ? 'Увеличить скорость ответов на негативные отзывы' : 'Increase response speed to negative reviews'}
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // Эко-метрики
+    if (selectedAction === 'energy-savings') {
+      return (
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold text-green-800">
+            {language === 'ru' ? 'Энергосбережение' : 'Energy Savings'}
+          </h4>
+          <div className="space-y-3">
+            <div className="bg-green-50 p-3 rounded-lg">
+              <h5 className="font-medium text-green-800">
+                {language === 'ru' ? 'Текущие показатели:' : 'Current indicators:'}
+              </h5>
+              <ul className="text-sm text-green-700 mt-2 space-y-1">
+                <li>• {language === 'ru' ? 'Экономия электроэнергии: 35%' : 'Electricity savings: 35%'}</li>
+                <li>• {language === 'ru' ? 'Солнечные панели: 80% потребления' : 'Solar panels: 80% of consumption'}</li>
+                <li>• {language === 'ru' ? 'LED освещение: 100% помещений' : 'LED lighting: 100% of rooms'}</li>
+                <li>• {language === 'ru' ? 'Умные системы: 25% экономии' : 'Smart systems: 25% savings'}</li>
+              </ul>
+            </div>
+            <div className="bg-blue-50 p-3 rounded-lg">
+              <h5 className="font-medium text-blue-800">
+                {language === 'ru' ? 'Потенциал улучшения:' : 'Improvement potential:'}
+              </h5>
+              <p className="text-sm text-blue-700 mt-1">
+                {language === 'ru' ? 'Можно увеличить экономию до 45% с помощью дополнительных мер' : 'Can increase savings to 45% with additional measures'}
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (selectedAction === 'waste-reduction') {
+      return (
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold text-green-800">
+            {language === 'ru' ? 'Сокращение отходов' : 'Waste Reduction'}
+          </h4>
+          <div className="space-y-3">
+            <div className="bg-orange-50 p-3 rounded-lg">
+              <h5 className="font-medium text-orange-800">
+                {language === 'ru' ? 'Достижения:' : 'Achievements:'}
+              </h5>
+              <ul className="text-sm text-orange-700 mt-2 space-y-1">
+                <li>• {language === 'ru' ? 'Переработка отходов: 85%' : 'Waste recycling: 85%'}</li>
+                <li>• {language === 'ru' ? 'Компостирование: 60% органических отходов' : 'Composting: 60% of organic waste'}</li>
+                <li>• {language === 'ru' ? 'Сортировка: 100% помещений' : 'Sorting: 100% of rooms'}</li>
+                <li>• {language === 'ru' ? 'Многоразовые материалы: 90%' : 'Reusable materials: 90%'}</li>
+              </ul>
+            </div>
+            <div className="bg-green-50 p-3 rounded-lg">
+              <h5 className="font-medium text-green-800">
+                {language === 'ru' ? 'Экологический эффект:' : 'Environmental impact:'}
+              </h5>
+              <p className="text-sm text-green-700 mt-1">
+                {language === 'ru' ? 'Сокращение выбросов CO2 на 2.5 тонны в месяц' : 'CO2 emissions reduction by 2.5 tons per month'}
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (selectedAction === 'eco-rating') {
+      return (
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold text-green-800">
+            {language === 'ru' ? 'Эко-рейтинг' : 'Eco Rating'}
+          </h4>
+          <div className="space-y-3">
+            <div className="bg-green-50 p-3 rounded-lg">
+              <h5 className="font-medium text-green-800">
+                {language === 'ru' ? 'Текущий рейтинг:' : 'Current rating:'}
+              </h5>
+              <div className="text-3xl font-bold text-green-600 mt-2">
+                {language === 'ru' ? '4.7/5.0' : '4.7/5.0'}
+              </div>
+              <p className="text-sm text-green-700 mt-1">
+                {language === 'ru' ? 'Очень высокий уровень экологичности' : 'Very high level of environmental friendliness'}
+              </p>
+            </div>
+            <div className="bg-blue-50 p-3 rounded-lg">
+              <h5 className="font-medium text-blue-800">
+                {language === 'ru' ? 'Критерии оценки:' : 'Evaluation criteria:'}
+              </h5>
+              <ul className="text-sm text-blue-700 mt-2 space-y-1">
+                <li>• {language === 'ru' ? 'Энергоэффективность: 4.8/5' : 'Energy efficiency: 4.8/5'}</li>
+                <li>• {language === 'ru' ? 'Управление отходами: 4.6/5' : 'Waste management: 4.6/5'}</li>
+                <li>• {language === 'ru' ? 'Водосбережение: 4.7/5' : 'Water conservation: 4.7/5'}</li>
+                <li>• {language === 'ru' ? 'Эко-услуги: 4.8/5' : 'Eco-services: 4.8/5'}</li>
+              </ul>
+            </div>
+            <div className="bg-yellow-50 p-3 rounded-lg">
+              <h5 className="font-medium text-yellow-800">
+                {language === 'ru' ? 'Следующие шаги:' : 'Next steps:'}
+              </h5>
+              <p className="text-sm text-yellow-700 mt-1">
+                {language === 'ru' ? 'Для достижения рейтинга 5.0 необходимо улучшить водосбережение' : 'To achieve 5.0 rating, water conservation needs improvement'}
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // Eco Measures - Energy
+    if (selectedAction === 'solar-panels') {
+      return (
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold text-green-800">
+            {language === 'ru' ? 'Солнечные панели' : 'Solar Panels'}
+          </h4>
+          <div className="space-y-3">
+            <div className="bg-yellow-50 p-3 rounded-lg">
+              <h5 className="font-medium text-yellow-800">
+                {language === 'ru' ? 'Текущая установка:' : 'Current installation:'}
+              </h5>
+              <ul className="text-sm text-yellow-700 mt-2 space-y-1">
+                <li>• {language === 'ru' ? 'Мощность: 50 кВт' : 'Power: 50 kW'}</li>
+                <li>• {language === 'ru' ? 'Покрытие: 80% потребления' : 'Coverage: 80% of consumption'}</li>
+                <li>• {language === 'ru' ? 'Экономия: 2,500 тенге/день' : 'Savings: 2,500 tenge/day'}</li>
+                <li>• {language === 'ru' ? 'Окупаемость: 3.5 года' : 'Payback period: 3.5 years'}</li>
+              </ul>
+            </div>
+            <div className="bg-green-50 p-3 rounded-lg">
+              <h5 className="font-medium text-green-800">
+                {language === 'ru' ? 'Рекомендации по расширению:' : 'Expansion recommendations:'}
+              </h5>
+              <p className="text-sm text-green-700 mt-1">
+                {language === 'ru' ? 'Добавить 20 кВт для 100% покрытия потребления' : 'Add 20 kW for 100% consumption coverage'}
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (selectedAction === 'energy-saving') {
+      return (
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold text-green-800">
+            {language === 'ru' ? 'Энергосбережение' : 'Energy Saving'}
+          </h4>
+          <div className="space-y-3">
+            <div className="bg-blue-50 p-3 rounded-lg">
+              <h5 className="font-medium text-blue-800">
+                {language === 'ru' ? 'Реализованные меры:' : 'Implemented measures:'}
+              </h5>
+              <ul className="text-sm text-blue-700 mt-2 space-y-1">
+                <li>• {language === 'ru' ? 'LED освещение: 100%' : 'LED lighting: 100%'}</li>
+                <li>• {language === 'ru' ? 'Умные термостаты: 90%' : 'Smart thermostats: 90%'}</li>
+                <li>• {language === 'ru' ? 'Энергоэффективные приборы: 85%' : 'Energy-efficient appliances: 85%'}</li>
+                <li>• {language === 'ru' ? 'Автоматическое управление: 75%' : 'Automatic control: 75%'}</li>
+              </ul>
+            </div>
+            <div className="bg-orange-50 p-3 rounded-lg">
+              <h5 className="font-medium text-orange-800">
+                {language === 'ru' ? 'Экономический эффект:' : 'Economic impact:'}
+              </h5>
+              <p className="text-sm text-orange-700 mt-1">
+                {language === 'ru' ? 'Экономия 35% на счетах за электроэнергию' : '35% savings on electricity bills'}
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (selectedAction === 'smart-systems') {
+      return (
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold text-green-800">
+            {language === 'ru' ? 'Умные системы' : 'Smart Systems'}
+          </h4>
+          <div className="space-y-3">
+            <div className="bg-purple-50 p-3 rounded-lg">
+              <h5 className="font-medium text-purple-800">
+                {language === 'ru' ? 'Установленные системы:' : 'Installed systems:'}
+              </h5>
+              <ul className="text-sm text-purple-700 mt-2 space-y-1">
+                <li>• {language === 'ru' ? 'Умное освещение: 100%' : 'Smart lighting: 100%'}</li>
+                <li>• {language === 'ru' ? 'Климат-контроль: 90%' : 'Climate control: 90%'}</li>
+                <li>• {language === 'ru' ? 'Управление водой: 80%' : 'Water management: 80%'}</li>
+                <li>• {language === 'ru' ? 'Мониторинг энергии: 100%' : 'Energy monitoring: 100%'}</li>
+              </ul>
+            </div>
+            <div className="bg-green-50 p-3 rounded-lg">
+              <h5 className="font-medium text-green-800">
+                {language === 'ru' ? 'Преимущества:' : 'Benefits:'}
+              </h5>
+              <p className="text-sm text-green-700 mt-1">
+                {language === 'ru' ? 'Автоматическая оптимизация потребления энергии' : 'Automatic energy consumption optimization'}
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // Eco Measures - Water
+    if (selectedAction === 'water-purification') {
+      return (
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold text-green-800">
+            {language === 'ru' ? 'Очистка воды' : 'Water Purification'}
+          </h4>
+          <div className="space-y-3">
+            <div className="bg-blue-50 p-3 rounded-lg">
+              <h5 className="font-medium text-blue-800">
+                {language === 'ru' ? 'Системы очистки:' : 'Purification systems:'}
+              </h5>
+              <ul className="text-sm text-blue-700 mt-2 space-y-1">
+                <li>• {language === 'ru' ? 'Обратный осмос: 100%' : 'Reverse osmosis: 100%'}</li>
+                <li>• {language === 'ru' ? 'УФ-стерилизация: 100%' : 'UV sterilization: 100%'}</li>
+                <li>• {language === 'ru' ? 'Угольная фильтрация: 100%' : 'Carbon filtration: 100%'}</li>
+                <li>• {language === 'ru' ? 'Минерализация: 90%' : 'Mineralization: 90%'}</li>
+              </ul>
+            </div>
+            <div className="bg-green-50 p-3 rounded-lg">
+              <h5 className="font-medium text-green-800">
+                {language === 'ru' ? 'Качество воды:' : 'Water quality:'}
+              </h5>
+              <p className="text-sm text-green-700 mt-1">
+                {language === 'ru' ? '99.9% чистота, соответствует стандартам ВОЗ' : '99.9% purity, meets WHO standards'}
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (selectedAction === 'rainwater-harvesting') {
+      return (
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold text-green-800">
+            {language === 'ru' ? 'Сбор дождевой воды' : 'Rainwater Harvesting'}
+          </h4>
+          <div className="space-y-3">
+            <div className="bg-cyan-50 p-3 rounded-lg">
+              <h5 className="font-medium text-cyan-800">
+                {language === 'ru' ? 'Система сбора:' : 'Harvesting system:'}
+              </h5>
+              <ul className="text-sm text-cyan-700 mt-2 space-y-1">
+                <li>• {language === 'ru' ? 'Емкость хранения: 50,000 л' : 'Storage capacity: 50,000 L'}</li>
+                <li>• {language === 'ru' ? 'Площадь сбора: 2,000 м²' : 'Collection area: 2,000 m²'}</li>
+                <li>• {language === 'ru' ? 'Использование: 60% полив' : 'Usage: 60% irrigation'}</li>
+                <li>• {language === 'ru' ? 'Экономия: 40% водопотребления' : 'Savings: 40% water consumption'}</li>
+              </ul>
+            </div>
+            <div className="bg-green-50 p-3 rounded-lg">
+              <h5 className="font-medium text-green-800">
+                {language === 'ru' ? 'Экологический эффект:' : 'Environmental impact:'}
+              </h5>
+              <p className="text-sm text-green-700 mt-1">
+                {language === 'ru' ? 'Снижение нагрузки на городскую систему водоснабжения' : 'Reduced load on municipal water system'}
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (selectedAction === 'water-conservation') {
+      return (
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold text-green-800">
+            {language === 'ru' ? 'Водосбережение' : 'Water Conservation'}
+          </h4>
+          <div className="space-y-3">
+            <div className="bg-blue-50 p-3 rounded-lg">
+              <h5 className="font-medium text-blue-800">
+                {language === 'ru' ? 'Меры водосбережения:' : 'Water conservation measures:'}
+              </h5>
+              <ul className="text-sm text-blue-700 mt-2 space-y-1">
+                <li>• {language === 'ru' ? 'Экономичные душевые: 100%' : 'Water-saving showers: 100%'}</li>
+                <li>• {language === 'ru' ? 'Двойные сливы: 100%' : 'Dual-flush toilets: 100%'}</li>
+                <li>• {language === 'ru' ? 'Сенсорные краны: 90%' : 'Sensor faucets: 90%'}</li>
+                <li>• {language === 'ru' ? 'Система рециркуляции: 80%' : 'Recirculation system: 80%'}</li>
+              </ul>
+            </div>
+            <div className="bg-green-50 p-3 rounded-lg">
+              <h5 className="font-medium text-green-800">
+                {language === 'ru' ? 'Результаты:' : 'Results:'}
+              </h5>
+              <p className="text-sm text-green-700 mt-1">
+                {language === 'ru' ? 'Сокращение водопотребления на 45%' : '45% reduction in water consumption'}
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // Eco Measures - Waste
+    if (selectedAction === 'recycling') {
+      return (
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold text-green-800">
+            {language === 'ru' ? 'Переработка' : 'Recycling'}
+          </h4>
+          <div className="space-y-3">
+            <div className="bg-green-50 p-3 rounded-lg">
+              <h5 className="font-medium text-green-800">
+                {language === 'ru' ? 'Программа переработки:' : 'Recycling program:'}
+              </h5>
+              <ul className="text-sm text-green-700 mt-2 space-y-1">
+                <li>• {language === 'ru' ? 'Пластик: 85% переработка' : 'Plastic: 85% recycling'}</li>
+                <li>• {language === 'ru' ? 'Бумага: 95% переработка' : 'Paper: 95% recycling'}</li>
+                <li>• {language === 'ru' ? 'Стекло: 90% переработка' : 'Glass: 90% recycling'}</li>
+                <li>• {language === 'ru' ? 'Металл: 80% переработка' : 'Metal: 80% recycling'}</li>
+              </ul>
+            </div>
+            <div className="bg-blue-50 p-3 rounded-lg">
+              <h5 className="font-medium text-blue-800">
+                {language === 'ru' ? 'Партнеры по переработке:' : 'Recycling partners:'}
+              </h5>
+              <p className="text-sm text-blue-700 mt-1">
+                {language === 'ru' ? '3 сертифицированных перерабатывающих предприятия' : '3 certified recycling facilities'}
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (selectedAction === 'composting') {
+      return (
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold text-green-800">
+            {language === 'ru' ? 'Компостирование' : 'Composting'}
+          </h4>
+          <div className="space-y-3">
+            <div className="bg-orange-50 p-3 rounded-lg">
+              <h5 className="font-medium text-orange-800">
+                {language === 'ru' ? 'Система компостирования:' : 'Composting system:'}
+              </h5>
+              <ul className="text-sm text-orange-700 mt-2 space-y-1">
+                <li>• {language === 'ru' ? 'Органические отходы: 60%' : 'Organic waste: 60%'}</li>
+                <li>• {language === 'ru' ? 'Вермикомпостирование: 40%' : 'Vermicomposting: 40%'}</li>
+                <li>• {language === 'ru' ? 'Термокомпостирование: 60%' : 'Thermal composting: 60%'}</li>
+                <li>• {language === 'ru' ? 'Использование компоста: 100%' : 'Compost usage: 100%'}</li>
+              </ul>
+            </div>
+            <div className="bg-green-50 p-3 rounded-lg">
+              <h5 className="font-medium text-green-800">
+                {language === 'ru' ? 'Преимущества:' : 'Benefits:'}
+              </h5>
+              <p className="text-sm text-green-700 mt-1">
+                {language === 'ru' ? 'Удобрение для сада, сокращение отходов на 60%' : 'Garden fertilizer, 60% waste reduction'}
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (selectedAction === 'waste-sorting') {
+      return (
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold text-green-800">
+            {language === 'ru' ? 'Сортировка отходов' : 'Waste Sorting'}
+          </h4>
+          <div className="space-y-3">
+            <div className="bg-purple-50 p-3 rounded-lg">
+              <h5 className="font-medium text-purple-800">
+                {language === 'ru' ? 'Система сортировки:' : 'Sorting system:'}
+              </h5>
+              <ul className="text-sm text-purple-700 mt-2 space-y-1">
+                <li>• {language === 'ru' ? 'Цветные контейнеры: 100%' : 'Color-coded bins: 100%'}</li>
+                <li>• {language === 'ru' ? 'Обучение персонала: 100%' : 'Staff training: 100%'}</li>
+                <li>• {language === 'ru' ? 'Информационные таблички: 100%' : 'Information signs: 100%'}</li>
+                <li>• {language === 'ru' ? 'Мониторинг: 100%' : 'Monitoring: 100%'}</li>
+              </ul>
+            </div>
+            <div className="bg-green-50 p-3 rounded-lg">
+              <h5 className="font-medium text-green-800">
+                {language === 'ru' ? 'Эффективность:' : 'Efficiency:'}
+              </h5>
+              <p className="text-sm text-green-700 mt-1">
+                {language === 'ru' ? '95% правильной сортировки отходов' : '95% correct waste sorting'}
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // Eco Measures - Food
+    if (selectedAction === 'organic-food') {
+      return (
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold text-green-800">
+            {language === 'ru' ? 'Органическое питание' : 'Organic Food'}
+          </h4>
+          <div className="space-y-3">
+            <div className="bg-green-50 p-3 rounded-lg">
+              <h5 className="font-medium text-green-800">
+                {language === 'ru' ? 'Органические продукты:' : 'Organic products:'}
+              </h5>
+              <ul className="text-sm text-green-700 mt-2 space-y-1">
+                <li>• {language === 'ru' ? 'Овощи и фрукты: 90%' : 'Vegetables and fruits: 90%'}</li>
+                <li>• {language === 'ru' ? 'Молочные продукты: 85%' : 'Dairy products: 85%'}</li>
+                <li>• {language === 'ru' ? 'Мясо и птица: 80%' : 'Meat and poultry: 80%'}</li>
+                <li>• {language === 'ru' ? 'Зерновые: 95%' : 'Grains: 95%'}</li>
+              </ul>
+            </div>
+            <div className="bg-blue-50 p-3 rounded-lg">
+              <h5 className="font-medium text-blue-800">
+                {language === 'ru' ? 'Сертификация:' : 'Certification:'}
+              </h5>
+              <p className="text-sm text-blue-700 mt-1">
+                {language === 'ru' ? 'Сертификат органического производства' : 'Organic production certificate'}
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (selectedAction === 'local-suppliers') {
+      return (
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold text-green-800">
+            {language === 'ru' ? 'Местные поставщики' : 'Local Suppliers'}
+          </h4>
+          <div className="space-y-3">
+            <div className="bg-yellow-50 p-3 rounded-lg">
+              <h5 className="font-medium text-yellow-800">
+                {language === 'ru' ? 'Сеть поставщиков:' : 'Supplier network:'}
+              </h5>
+              <ul className="text-sm text-yellow-700 mt-2 space-y-1">
+                <li>• {language === 'ru' ? 'Местные фермы: 15 партнеров' : 'Local farms: 15 partners'}</li>
+                <li>• {language === 'ru' ? 'Радиус поставок: 50 км' : 'Supply radius: 50 km'}</li>
+                <li>• {language === 'ru' ? 'Сезонные продукты: 80%' : 'Seasonal products: 80%'}</li>
+                <li>• {language === 'ru' ? 'Справедливая торговля: 100%' : 'Fair trade: 100%'}</li>
+              </ul>
+            </div>
+            <div className="bg-green-50 p-3 rounded-lg">
+              <h5 className="font-medium text-green-800">
+                {language === 'ru' ? 'Преимущества:' : 'Benefits:'}
+              </h5>
+              <p className="text-sm text-green-700 mt-1">
+                {language === 'ru' ? 'Свежесть продуктов, поддержка местной экономики' : 'Fresh products, local economy support'}
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (selectedAction === 'zero-waste-kitchen') {
+      return (
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold text-green-800">
+            {language === 'ru' ? 'Кухня без отходов' : 'Zero Waste Kitchen'}
+          </h4>
+          <div className="space-y-3">
+            <div className="bg-orange-50 p-3 rounded-lg">
+              <h5 className="font-medium text-orange-800">
+                {language === 'ru' ? 'Принципы безотходности:' : 'Zero waste principles:'}
+              </h5>
+              <ul className="text-sm text-orange-700 mt-2 space-y-1">
+                <li>• {language === 'ru' ? 'Планирование меню: 100%' : 'Menu planning: 100%'}</li>
+                <li>• {language === 'ru' ? 'Использование остатков: 95%' : 'Leftover usage: 95%'}</li>
+                <li>• {language === 'ru' ? 'Компостирование: 100%' : 'Composting: 100%'}</li>
+                <li>• {language === 'ru' ? 'Многоразовая упаковка: 90%' : 'Reusable packaging: 90%'}</li>
+              </ul>
+            </div>
+            <div className="bg-green-50 p-3 rounded-lg">
+              <h5 className="font-medium text-green-800">
+                {language === 'ru' ? 'Результаты:' : 'Results:'}
+              </h5>
+              <p className="text-sm text-green-700 mt-1">
+                {language === 'ru' ? 'Сокращение пищевых отходов на 85%' : '85% reduction in food waste'}
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // Eco Measures - Transport
+    if (selectedAction === 'electric-cars') {
+      return (
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold text-green-800">
+            {language === 'ru' ? 'Электромобили' : 'Electric Cars'}
+          </h4>
+          <div className="space-y-3">
+            <div className="bg-blue-50 p-3 rounded-lg">
+              <h5 className="font-medium text-blue-800">
+                {language === 'ru' ? 'Электропарк:' : 'Electric fleet:'}
+              </h5>
+              <ul className="text-sm text-blue-700 mt-2 space-y-1">
+                <li>• {language === 'ru' ? 'Электромобили: 3 единицы' : 'Electric cars: 3 units'}</li>
+                <li>• {language === 'ru' ? 'Зарядные станции: 4 точки' : 'Charging stations: 4 points'}</li>
+                <li>• {language === 'ru' ? 'Солнечная зарядка: 100%' : 'Solar charging: 100%'}</li>
+                <li>• {language === 'ru' ? 'Экономия топлива: 100%' : 'Fuel savings: 100%'}</li>
+              </ul>
+            </div>
+            <div className="bg-green-50 p-3 rounded-lg">
+              <h5 className="font-medium text-green-800">
+                {language === 'ru' ? 'Экологический эффект:' : 'Environmental impact:'}
+              </h5>
+              <p className="text-sm text-green-700 mt-1">
+                {language === 'ru' ? 'Нулевые выбросы CO2, тихая работа' : 'Zero CO2 emissions, quiet operation'}
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (selectedAction === 'bicycles') {
+      return (
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold text-green-800">
+            {language === 'ru' ? 'Велосипеды' : 'Bicycles'}
+          </h4>
+          <div className="space-y-3">
+            <div className="bg-green-50 p-3 rounded-lg">
+              <h5 className="font-medium text-green-800">
+                {language === 'ru' ? 'Велосипедная инфраструктура:' : 'Bicycle infrastructure:'}
+              </h5>
+              <ul className="text-sm text-green-700 mt-2 space-y-1">
+                <li>• {language === 'ru' ? 'Аренда велосипедов: 20 единиц' : 'Bike rental: 20 units'}</li>
+                <li>• {language === 'ru' ? 'Электровелосипеды: 10 единиц' : 'E-bikes: 10 units'}</li>
+                <li>• {language === 'ru' ? 'Велосипедные маршруты: 5 маршрутов' : 'Bike routes: 5 routes'}</li>
+                <li>• {language === 'ru' ? 'Парковка: 50 мест' : 'Parking: 50 spots'}</li>
+              </ul>
+            </div>
+            <div className="bg-blue-50 p-3 rounded-lg">
+              <h5 className="font-medium text-blue-800">
+                {language === 'ru' ? 'Популярность:' : 'Popularity:'}
+              </h5>
+              <p className="text-sm text-blue-700 mt-1">
+                {language === 'ru' ? '70% гостей используют велосипеды' : '70% of guests use bicycles'}
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (selectedAction === 'eco-transfer') {
+      return (
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold text-green-800">
+            {language === 'ru' ? 'Эко-трансфер' : 'Eco Transfer'}
+          </h4>
+          <div className="space-y-3">
+            <div className="bg-purple-50 p-3 rounded-lg">
+              <h5 className="font-medium text-purple-800">
+                {language === 'ru' ? 'Эко-трансфер услуги:' : 'Eco transfer services:'}
+              </h5>
+              <ul className="text-sm text-purple-700 mt-2 space-y-1">
+                <li>• {language === 'ru' ? 'Электромобили: 100%' : 'Electric vehicles: 100%'}</li>
+                <li>• {language === 'ru' ? 'Гибридные автомобили: 50%' : 'Hybrid vehicles: 50%'}</li>
+                <li>• {language === 'ru' ? 'Маршрутная оптимизация: 100%' : 'Route optimization: 100%'}</li>
+                <li>• {language === 'ru' ? 'Совместные поездки: 80%' : 'Shared rides: 80%'}</li>
+              </ul>
+            </div>
+            <div className="bg-green-50 p-3 rounded-lg">
+              <h5 className="font-medium text-green-800">
+                {language === 'ru' ? 'Преимущества:' : 'Benefits:'}
+              </h5>
+              <p className="text-sm text-green-700 mt-1">
+                {language === 'ru' ? 'Снижение выбросов на 90%, комфорт для гостей' : '90% emission reduction, guest comfort'}
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // Сводный отчет
+    if (selectedAction === 'complete-summary') {
+      return (
+        <div className="space-y-6">
+          <h4 className="text-xl font-semibold text-green-800 text-center">
+            {language === 'ru' ? 'Полная сводка по отелю' : 'Complete Hotel Summary'}
+          </h4>
+          
+          {/* Общая статистика */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="bg-blue-50 p-4 rounded-lg">
+              <h5 className="font-medium text-blue-800 mb-2">
+                {language === 'ru' ? 'Общие показатели:' : 'General indicators:'}
+              </h5>
+              <ul className="text-sm text-blue-700 space-y-1">
+                <li>• {language === 'ru' ? 'Загрузка: 78%' : 'Occupancy: 78%'}</li>
+                <li>• {language === 'ru' ? 'Средний чек: 24,500 тенге' : 'Average bill: 24,500 tenge'}</li>
+                <li>• {language === 'ru' ? 'Рейтинг: 4.8/5.0' : 'Rating: 4.8/5.0'}</li>
+                <li>• {language === 'ru' ? 'Эко-рейтинг: 4.7/5.0' : 'Eco-rating: 4.7/5.0'}</li>
+              </ul>
+            </div>
+            
+            <div className="bg-green-50 p-4 rounded-lg">
+              <h5 className="font-medium text-green-800 mb-2">
+                {language === 'ru' ? 'Эко-достижения:' : 'Eco achievements:'}
+              </h5>
+              <ul className="text-sm text-green-700 space-y-1">
+                <li>• {language === 'ru' ? 'Экономия энергии: 35%' : 'Energy savings: 35%'}</li>
+                <li>• {language === 'ru' ? 'Переработка отходов: 85%' : 'Waste recycling: 85%'}</li>
+                <li>• {language === 'ru' ? 'Водосбережение: 45%' : 'Water conservation: 45%'}</li>
+                <li>• {language === 'ru' ? 'Органические продукты: 90%' : 'Organic products: 90%'}</li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Финансовые показатели */}
+          <div className="bg-yellow-50 p-4 rounded-lg">
+            <h5 className="font-medium text-yellow-800 mb-2">
+              {language === 'ru' ? 'Финансовые показатели:' : 'Financial indicators:'}
+            </h5>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-yellow-700">
+              <div>
+                <strong>{language === 'ru' ? 'Месячная выручка:' : 'Monthly revenue:'}</strong><br/>
+                {language === 'ru' ? '2,450,000 тенге' : '2,450,000 tenge'}
+              </div>
+              <div>
+                <strong>{language === 'ru' ? 'Экономия на коммунальных:' : 'Utility savings:'}</strong><br/>
+                {language === 'ru' ? '75,000 тенге/месяц' : '75,000 tenge/month'}
+              </div>
+              <div>
+                <strong>{language === 'ru' ? 'ROI эко-мер:' : 'Eco measures ROI:'}</strong><br/>
+                {language === 'ru' ? '15.2%' : '15.2%'}
+              </div>
+            </div>
+          </div>
+
+          {/* Кнопка подачи заявки */}
+          <div className="text-center pt-4">
+            <button
+              onClick={() => {
+                setSelectedAction('green-financing');
+              }}
+              className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-200"
+            >
+              {language === 'ru' ? 'Подать заявку на зеленое финансирование' : 'Apply for Green Financing'}
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    if (selectedAction === 'eco-potential') {
+      return (
+        <div className="space-y-6">
+          <h4 className="text-xl font-semibold text-green-800 text-center">
+            {language === 'ru' ? 'Анализ эко-потенциала' : 'Eco Potential Analysis'}
+          </h4>
+          
+          {/* Текущий потенциал */}
+          <div className="bg-green-50 p-4 rounded-lg">
+            <h5 className="font-medium text-green-800 mb-3">
+              {language === 'ru' ? 'Текущий эко-потенциал:' : 'Current eco potential:'}
+            </h5>
+            <div className="space-y-2">
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-green-700">
+                  {language === 'ru' ? 'Энергоэффективность' : 'Energy efficiency'}
+                </span>
+                <span className="text-sm font-medium text-green-800">85%</span>
+              </div>
+              <div className="w-full bg-green-200 rounded-full h-2">
+                <div className="bg-green-600 h-2 rounded-full" style={{width: '85%'}}></div>
+              </div>
+            </div>
+            
+            <div className="space-y-2 mt-3">
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-green-700">
+                  {language === 'ru' ? 'Управление отходами' : 'Waste management'}
+                </span>
+                <span className="text-sm font-medium text-green-800">90%</span>
+              </div>
+              <div className="w-full bg-green-200 rounded-full h-2">
+                <div className="bg-green-600 h-2 rounded-full" style={{width: '90%'}}></div>
+              </div>
+            </div>
+            
+            <div className="space-y-2 mt-3">
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-green-700">
+                  {language === 'ru' ? 'Водосбережение' : 'Water conservation'}
+                </span>
+                <span className="text-sm font-medium text-green-800">75%</span>
+              </div>
+              <div className="w-full bg-green-200 rounded-full h-2">
+                <div className="bg-green-600 h-2 rounded-full" style={{width: '75%'}}></div>
+              </div>
+            </div>
+          </div>
+
+          {/* Потенциал улучшения */}
+          <div className="bg-blue-50 p-4 rounded-lg">
+            <h5 className="font-medium text-blue-800 mb-3">
+              {language === 'ru' ? 'Потенциал улучшения:' : 'Improvement potential:'}
+            </h5>
+            <ul className="text-sm text-blue-700 space-y-2">
+              <li>• {language === 'ru' ? 'Добавить 20 кВт солнечных панелей (+15% эффективности)' : 'Add 20 kW solar panels (+15% efficiency)'}</li>
+              <li>• {language === 'ru' ? 'Внедрить систему умного орошения (+10% водосбережения)' : 'Implement smart irrigation system (+10% water savings)'}</li>
+              <li>• {language === 'ru' ? 'Установить систему рекуперации тепла (+8% энергоэффективности)' : 'Install heat recovery system (+8% energy efficiency)'}</li>
+              <li>• {language === 'ru' ? 'Расширить программу компостирования (+5% переработки)' : 'Expand composting program (+5% recycling)'}</li>
+            </ul>
+          </div>
+
+          {/* Ожидаемые результаты */}
+          <div className="bg-purple-50 p-4 rounded-lg">
+            <h5 className="font-medium text-purple-800 mb-2">
+              {language === 'ru' ? 'Ожидаемые результаты после улучшений:' : 'Expected results after improvements:'}
+            </h5>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-purple-700">
+              <div>
+                <strong>{language === 'ru' ? 'Эко-рейтинг:' : 'Eco-rating:'}</strong><br/>
+                {language === 'ru' ? '4.7 → 5.0' : '4.7 → 5.0'}
+              </div>
+              <div>
+                <strong>{language === 'ru' ? 'Экономия:' : 'Savings:'}</strong><br/>
+                {language === 'ru' ? '+40% на коммунальных' : '+40% on utilities'}
+              </div>
+              <div>
+                <strong>{language === 'ru' ? 'Выбросы CO2:' : 'CO2 emissions:'}</strong><br/>
+                {language === 'ru' ? '-60% сокращение' : '-60% reduction'}
+              </div>
+              <div>
+                <strong>{language === 'ru' ? 'ROI:' : 'ROI:'}</strong><br/>
+                {language === 'ru' ? '15.2% → 22.8%' : '15.2% → 22.8%'}
+              </div>
+            </div>
+          </div>
+
+          {/* Кнопка подачи заявки */}
+          <div className="text-center pt-4">
+            <button
+              onClick={() => {
+                setSelectedAction('green-financing');
+              }}
+              className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-200"
+            >
+              {language === 'ru' ? 'Подать заявку на зеленое финансирование' : 'Apply for Green Financing'}
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    if (selectedAction === 'improvement-recommendations') {
+      return (
+        <div className="space-y-6">
+          <h4 className="text-xl font-semibold text-green-800 text-center">
+            {language === 'ru' ? 'Рекомендации по улучшению' : 'Improvement Recommendations'}
+          </h4>
+          
+          {/* Приоритетные меры */}
+          <div className="bg-red-50 p-4 rounded-lg">
+            <h5 className="font-medium text-red-800 mb-3">
+              {language === 'ru' ? 'Высокий приоритет:' : 'High priority:'}
+            </h5>
+            <ul className="text-sm text-red-700 space-y-2">
+              <li>• {language === 'ru' ? 'Установка дополнительных солнечных панелей (20 кВт) - ROI: 18%' : 'Install additional solar panels (20 kW) - ROI: 18%'}</li>
+              <li>• {language === 'ru' ? 'Система умного орошения - экономия воды 30%' : 'Smart irrigation system - 30% water savings'}</li>
+              <li>• {language === 'ru' ? 'Рекуперация тепла от вентиляции - экономия энергии 25%' : 'Heat recovery from ventilation - 25% energy savings'}</li>
+            </ul>
+          </div>
+
+          {/* Средний приоритет */}
+          <div className="bg-yellow-50 p-4 rounded-lg">
+            <h5 className="font-medium text-yellow-800 mb-3">
+              {language === 'ru' ? 'Средний приоритет:' : 'Medium priority:'}
+            </h5>
+            <ul className="text-sm text-yellow-700 space-y-2">
+              <li>• {language === 'ru' ? 'Расширение программы компостирования - ROI: 12%' : 'Expand composting program - ROI: 12%'}</li>
+              <li>• {language === 'ru' ? 'Установка датчиков движения для освещения - экономия 15%' : 'Install motion sensors for lighting - 15% savings'}</li>
+              <li>• {language === 'ru' ? 'Система сбора дождевой воды - экономия воды 20%' : 'Rainwater collection system - 20% water savings'}</li>
+            </ul>
+          </div>
+
+          {/* Низкий приоритет */}
+          <div className="bg-green-50 p-4 rounded-lg">
+            <h5 className="font-medium text-green-800 mb-3">
+              {language === 'ru' ? 'Низкий приоритет:' : 'Low priority:'}
+            </h5>
+            <ul className="text-sm text-green-700 space-y-2">
+              <li>• {language === 'ru' ? 'Зеленая крыша - улучшение изоляции 10%' : 'Green roof - 10% insulation improvement'}</li>
+              <li>• {language === 'ru' ? 'Вертикальные сады - улучшение качества воздуха' : 'Vertical gardens - air quality improvement'}</li>
+              <li>• {language === 'ru' ? 'Система очистки сточных вод - переработка 100%' : 'Wastewater treatment system - 100% recycling'}</li>
+            </ul>
+          </div>
+
+          {/* Инвестиционный план */}
+          <div className="bg-blue-50 p-4 rounded-lg">
+            <h5 className="font-medium text-blue-800 mb-3">
+              {language === 'ru' ? 'Инвестиционный план (3 года):' : 'Investment plan (3 years):'}
+            </h5>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-blue-700">
+              <div>
+                <strong>{language === 'ru' ? 'Год 1:' : 'Year 1:'}</strong><br/>
+                {language === 'ru' ? '5,000,000 тенге' : '5,000,000 tenge'}<br/>
+                <span className="text-xs">{language === 'ru' ? 'Солнечные панели, умное орошение' : 'Solar panels, smart irrigation'}</span>
+              </div>
+              <div>
+                <strong>{language === 'ru' ? 'Год 2:' : 'Year 2:'}</strong><br/>
+                {language === 'ru' ? '3,500,000 тенге' : '3,500,000 tenge'}<br/>
+                <span className="text-xs">{language === 'ru' ? 'Рекуперация тепла, компостирование' : 'Heat recovery, composting'}</span>
+              </div>
+              <div>
+                <strong>{language === 'ru' ? 'Год 3:' : 'Year 3:'}</strong><br/>
+                {language === 'ru' ? '2,000,000 тенге' : '2,000,000 tenge'}<br/>
+                <span className="text-xs">{language === 'ru' ? 'Зеленая крыша, датчики' : 'Green roof, sensors'}</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Кнопка подачи заявки */}
+          <div className="text-center pt-4">
+            <button
+              onClick={() => {
+                setSelectedAction('green-financing');
+              }}
+              className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-200"
+            >
+              {language === 'ru' ? 'Подать заявку на зеленое финансирование' : 'Apply for Green Financing'}
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    if (selectedAction === 'green-financing') {
+      return (
+        <div className="space-y-6">
+          <h4 className="text-xl font-semibold text-green-800 text-center">
+            {language === 'ru' ? 'Заявка на зеленое финансирование' : 'Green Financing Application'}
+          </h4>
+          
+          {/* Форма заявки */}
+          <div className="space-y-4">
+            <div className="bg-green-50 p-4 rounded-lg">
+              <h5 className="font-medium text-green-800 mb-3">
+                {language === 'ru' ? 'Информация о проекте:' : 'Project information:'}
+              </h5>
+              <div className="space-y-3">
+                <div>
+                  <label className="block text-sm font-medium text-green-700 mb-1">
+                    {language === 'ru' ? 'Название отеля:' : 'Hotel name:'}
+                  </label>
+                  <input 
+                    type="text" 
+                    className="w-full p-2 border border-green-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                    placeholder={language === 'ru' ? 'Эко-отель "Зеленый Алматы"' : 'Eco Hotel "Green Almaty"'}
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium text-green-700 mb-1">
+                    {language === 'ru' ? 'Запрашиваемая сумма:' : 'Requested amount:'}
+                  </label>
+                  <input 
+                    type="text" 
+                    className="w-full p-2 border border-green-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                    placeholder={language === 'ru' ? '10,500,000 тенге' : '10,500,000 tenge'}
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium text-green-700 mb-1">
+                    {language === 'ru' ? 'Срок реализации:' : 'Implementation period:'}
+                  </label>
+                  <select className="w-full p-2 border border-green-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500">
+                    <option>{language === 'ru' ? '1 год' : '1 year'}</option>
+                    <option>{language === 'ru' ? '2 года' : '2 years'}</option>
+                    <option>{language === 'ru' ? '3 года' : '3 years'}</option>
+                  </select>
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium text-green-700 mb-1">
+                    {language === 'ru' ? 'Описание проекта:' : 'Project description:'}
+                  </label>
+                  <textarea 
+                    rows={4}
+                    className="w-full p-2 border border-green-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                    placeholder={language === 'ru' ? 'Описание планируемых эко-мероприятий...' : 'Description of planned eco-measures...'}
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+
+            {/* Преимущества финансирования */}
+            <div className="bg-blue-50 p-4 rounded-lg">
+              <h5 className="font-medium text-blue-800 mb-3">
+                {language === 'ru' ? 'Преимущества зеленого финансирования:' : 'Green financing benefits:'}
+              </h5>
+              <ul className="text-sm text-blue-700 space-y-1">
+                <li>• {language === 'ru' ? 'Ставка от 3.5% годовых' : 'Interest rate from 3.5% per annum'}</li>
+                <li>• {language === 'ru' ? 'Льготный период до 6 месяцев' : 'Grace period up to 6 months'}</li>
+                <li>• {language === 'ru' ? 'Срок кредитования до 10 лет' : 'Loan term up to 10 years'}</li>
+                <li>• {language === 'ru' ? 'Техническая поддержка проекта' : 'Technical project support'}</li>
+                <li>• {language === 'ru' ? 'Сертификация эко-стандартов' : 'Eco-standards certification'}</li>
+              </ul>
+            </div>
+
+            {/* Кнопки действий */}
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <button
+                onClick={closeModal}
+                className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-200"
+              >
+                {language === 'ru' ? 'Отправить заявку' : 'Submit Application'}
+              </button>
+              <button
+                onClick={closeModal}
+                className="bg-gray-500 hover:bg-gray-600 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-200"
+              >
+                {language === 'ru' ? 'Сохранить черновик' : 'Save Draft'}
+              </button>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // Для остальных действий показываем стандартное сообщение
+    return (
+      <div className="text-green-600">
+        {t.functionInDevelopment}
+      </div>
+    );
   };
 
   const renderContent = () => {
@@ -383,7 +1786,7 @@ const menuItems = [
       {/* Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg p-6 max-w-md w-full">
+          <div className="bg-white rounded-lg p-6 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-xl font-semibold text-green-800">
                 {selectedAction}
@@ -395,8 +1798,8 @@ const menuItems = [
                 <XMarkIcon className="w-6 h-6" />
               </button>
             </div>
-            <div className="text-green-600 mb-4">
-              {t.functionInDevelopment}
+            <div className="mb-4">
+              {renderModalContent()}
             </div>
             <div className="flex justify-end">
               <button
@@ -405,7 +1808,7 @@ const menuItems = [
               >
                 {t.close}
               </button>
-                </div>
+            </div>
           </div>
         </div>
       )}

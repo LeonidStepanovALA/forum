@@ -115,7 +115,7 @@ export default function FundingMapVisualization({
         {/* Карта Казахстана с регионами */}
         <div className="relative bg-gray-100 rounded-lg p-8 min-h-[400px] mb-6">
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="text-gray-400 text-sm">Карта Казахстана</div>
+            <div className="text-gray-400 text-sm">{language === 'ru' ? 'Карта Казахстана' : 'Kazakhstan Map'}</div>
           </div>
           
           {/* Регионы на карте */}
@@ -141,27 +141,27 @@ export default function FundingMapVisualization({
 
         {/* Легенда */}
         <div className="bg-gray-50 p-4 rounded-lg">
-          <h5 className="font-semibold text-gray-800 mb-3">Легенда:</h5>
+          <h5 className="font-semibold text-gray-800 mb-3">{language === 'ru' ? 'Легенда:' : 'Legend:'}</h5>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             <div className="flex items-center space-x-2">
               <div className="w-4 h-4 bg-red-500 rounded-full"></div>
-              <span className="text-sm text-gray-600">Высокое финансирование</span>
+              <span className="text-sm text-gray-600">{language === 'ru' ? 'Высокое финансирование' : 'High Funding'}</span>
             </div>
             <div className="flex items-center space-x-2">
               <div className="w-4 h-4 bg-orange-500 rounded-full"></div>
-              <span className="text-sm text-gray-600">Среднее финансирование</span>
+              <span className="text-sm text-gray-600">{language === 'ru' ? 'Среднее финансирование' : 'Medium Funding'}</span>
             </div>
             <div className="flex items-center space-x-2">
               <div className="w-4 h-4 bg-yellow-500 rounded-full"></div>
-              <span className="text-sm text-gray-600">Умеренное финансирование</span>
+              <span className="text-sm text-gray-600">{language === 'ru' ? 'Умеренное финансирование' : 'Moderate Funding'}</span>
             </div>
             <div className="flex items-center space-x-2">
               <div className="w-4 h-4 bg-green-500 rounded-full"></div>
-              <span className="text-sm text-gray-600">Низкое финансирование</span>
+              <span className="text-sm text-gray-600">{language === 'ru' ? 'Низкое финансирование' : 'Low Funding'}</span>
             </div>
             <div className="flex items-center space-x-2">
               <div className="w-4 h-4 bg-blue-500 rounded-full"></div>
-              <span className="text-sm text-gray-600">Минимальное финансирование</span>
+              <span className="text-sm text-gray-600">{language === 'ru' ? 'Минимальное финансирование' : 'Minimal Funding'}</span>
             </div>
           </div>
         </div>
@@ -192,14 +192,14 @@ export default function FundingMapVisualization({
                 
                 <div className="space-y-2">
                   <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-600">Общая сумма:</span>
+                    <span className="text-sm text-gray-600">{language === 'ru' ? 'Общая сумма:' : 'Total Amount:'}</span>
                     <span className="font-semibold text-green-600">
                       {formatCurrency(totalAmount)}
                     </span>
                   </div>
                   
                   <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-600">Средний %:</span>
+                    <span className="text-sm text-gray-600">{language === 'ru' ? 'Средний %:' : 'Average %:'}</span>
                     <span className="font-semibold text-blue-600">
                       {averagePercentage.toFixed(1)}%
                     </span>

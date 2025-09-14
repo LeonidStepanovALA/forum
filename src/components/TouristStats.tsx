@@ -46,7 +46,7 @@ export default function TouristStats({ className = '' }: TouristStatsProps) {
   if (!isInitialized) {
     return (
       <div className={`p-4 bg-blue-50 border border-blue-200 rounded-lg ${className}`}>
-        <p className="text-blue-800">Загрузка...</p>
+        <p className="text-blue-800">{language === 'ru' ? 'Загрузка...' : 'Loading...'}</p>
       </div>
     );
   }
@@ -56,7 +56,7 @@ export default function TouristStats({ className = '' }: TouristStatsProps) {
     console.warn('Переводы недоступны для языка:', language);
     return (
       <div className={`p-4 bg-yellow-50 border border-yellow-200 rounded-lg ${className}`}>
-        <p className="text-yellow-800">Загрузка переводов...</p>
+        <p className="text-yellow-800">{language === 'ru' ? 'Загрузка переводов...' : 'Loading translations...'}</p>
       </div>
     );
   }

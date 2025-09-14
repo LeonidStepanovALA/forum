@@ -873,19 +873,19 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
                                 
                                 <div className="grid grid-cols-2 gap-4 text-sm text-gray-600 mb-3">
                                   <div>
-                                    <span className="font-medium">Цена:</span>
+                                    <span className="font-medium">{language === 'ru' ? 'Цена:' : 'Price:'}</span>
                                     <div className="text-green-600 font-semibold">{hotel.priceRange}</div>
                                   </div>
                                   <div>
-                                    <span className="font-medium">Рейтинг:</span>
+                                    <span className="font-medium">{language === 'ru' ? 'Рейтинг:' : 'Rating:'}</span>
                                     <div>⭐ {hotel.rating}</div>
                                   </div>
                                   <div>
-                                    <span className="font-medium">Эко-рейтинг:</span>
+                                    <span className="font-medium">{language === 'ru' ? 'Эко-рейтинг:' : 'Eco-rating:'}</span>
                                     <div>🌱 {hotel.ecoRating}</div>
                                   </div>
                                   <div>
-                                    <span className="font-medium">Отзывы:</span>
+                                    <span className="font-medium">{language === 'ru' ? 'Отзывы:' : 'Reviews:'}</span>
                                     <div>{hotel.reviews}</div>
                 </div>
               </div>
@@ -995,19 +995,19 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
 
                               <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-3 gap-y-2 text-xs sm:text-sm text-gray-600 mb-3">
                                 <div className="flex justify-between sm:block">
-                                  <span className="font-medium text-xs text-gray-500 sm:block">Продолжительность:</span>
+                                  <span className="font-medium text-xs text-gray-500 sm:block">{language === 'ru' ? 'Продолжительность:' : 'Duration:'}</span>
                                   <span className="text-sm">{tour.duration}</span>
                   </div>
                                 <div className="flex justify-between sm:block">
-                                  <span className="font-medium text-xs text-gray-500 sm:block">Цена:</span>
+                                  <span className="font-medium text-xs text-gray-500 sm:block">{language === 'ru' ? 'Цена:' : 'Price:'}</span>
                                   <span className="text-sm text-green-600 font-semibold">{formatPrice(tour.price)} ₸</span>
                                 </div>
                                 <div className="flex justify-between sm:block">
-                                  <span className="font-medium text-xs text-gray-500 sm:block">Участники:</span>
+                                  <span className="font-medium text-xs text-gray-500 sm:block">{language === 'ru' ? 'Участники:' : 'Participants:'}</span>
                                   <span className="text-sm">{tour.currentParticipants}/{tour.maxParticipants}</span>
                                 </div>
                                 <div className="flex justify-between sm:block">
-                                  <span className="font-medium text-xs text-gray-500 sm:block">Рейтинг:</span>
+                                  <span className="font-medium text-xs text-gray-500 sm:block">{language === 'ru' ? 'Рейтинг:' : 'Rating:'}</span>
                                   <span className="text-sm">⭐ {tour.rating}</span>
                                 </div>
                               </div>
@@ -1020,7 +1020,7 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
                                   >
                                     {tour.guide.name.charAt(0)}
                                   </div>
-                                  <span>Гид: {tour.guide.name}</span>
+                                  <span>{language === 'ru' ? 'Гид:' : 'Guide:'} {tour.guide.name}</span>
                                   <span>⭐ {tour.guide.rating}</span>
                                 </div>
                               )}
@@ -1417,7 +1417,7 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
                   ) : (
                     <div className="flex items-center justify-center h-48">
                       <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-                      <span className="ml-2 text-gray-600">Генерация QR-кода...</span>
+                      <span className="ml-2 text-gray-600">{language === 'ru' ? 'Генерация QR-кода...' : 'Generating QR code...'}</span>
                     </div>
                   )}
                   

@@ -130,7 +130,7 @@ export default function AISearch({ onSearch, onSuggestionSelect, isLoading = fal
                   {aiThinking && (
                     <div className="flex items-center gap-1">
                       <div className="animate-spin rounded-full h-3 w-3 border-b-2 border-blue-500"></div>
-                      <span className="text-xs text-gray-500">Анализ...</span>
+                      <span className="text-xs text-gray-500">{language === 'ru' ? 'Анализ...' : 'Analyzing...'}</span>
                     </div>
                   )}
                 </div>
@@ -176,7 +176,7 @@ export default function AISearch({ onSearch, onSuggestionSelect, isLoading = fal
               <div className="p-3 border-t border-gray-100">
                 <div className="flex items-center gap-2 mb-2">
                   <span className="text-lg">🔧</span>
-                  <span className="text-sm font-medium text-gray-700">Умные фильтры</span>
+                  <span className="text-sm font-medium text-gray-700">{language === 'ru' ? 'Умные фильтры' : 'Smart Filters'}</span>
                 </div>
                 {aiResponse.filters.map((filter) => (
                   <div
@@ -219,7 +219,7 @@ export default function AISearch({ onSearch, onSuggestionSelect, isLoading = fal
         <div className="bg-gray-50 rounded-lg p-3">
           <div className="flex items-center gap-2 mb-2">
             <span className="text-lg">📚</span>
-            <span className="text-sm font-medium text-gray-700">История поиска</span>
+            <span className="text-sm font-medium text-gray-700">{language === 'ru' ? 'История поиска' : 'Search History'}</span>
           </div>
           <div className="flex flex-wrap gap-2">
             {searchHistory.slice(-5).map((item, index) => (

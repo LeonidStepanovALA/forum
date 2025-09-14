@@ -110,22 +110,22 @@ export default function FinancingStatusReport() {
         {/* Общая статистика */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-6 md:mb-8">
           <div className="bg-blue-50 p-4 md:p-6 rounded-lg">
-            <h3 className="text-base md:text-lg font-semibold text-blue-800 mb-2">Всего проектов</h3>
+            <h3 className="text-base md:text-lg font-semibold text-blue-800 mb-2">{language === 'ru' ? 'Всего проектов' : 'Total Projects'}</h3>
             <p className="text-2xl md:text-3xl font-bold text-blue-600">{mockFinancingData.totalProjects}</p>
           </div>
           <div className="bg-green-50 p-4 md:p-6 rounded-lg">
-            <h3 className="text-base md:text-lg font-semibold text-green-800 mb-2">Общая сумма финансирования</h3>
+            <h3 className="text-base md:text-lg font-semibold text-green-800 mb-2">{language === 'ru' ? 'Общая сумма финансирования' : 'Total Funding Amount'}</h3>
             <p className="text-lg md:text-2xl font-bold text-green-600">{formatCurrency(mockFinancingData.totalFunding)}</p>
           </div>
           <div className="bg-purple-50 p-4 md:p-6 rounded-lg sm:col-span-2 lg:col-span-1">
-            <h3 className="text-base md:text-lg font-semibold text-purple-800 mb-2">Среднее финансирование</h3>
+            <h3 className="text-base md:text-lg font-semibold text-purple-800 mb-2">{language === 'ru' ? 'Среднее финансирование' : 'Average Funding'}</h3>
             <p className="text-lg md:text-2xl font-bold text-purple-600">{formatCurrency(mockFinancingData.averageFunding)}</p>
           </div>
         </div>
 
         {/* Распределение финансирования */}
         <div className="mb-6 md:mb-8">
-          <h3 className="text-lg md:text-xl font-semibold text-gray-800 mb-4">Распределение финансирования по статусам</h3>
+          <h3 className="text-lg md:text-xl font-semibold text-gray-800 mb-4">{language === 'ru' ? 'Распределение финансирования по статусам' : 'Funding Distribution by Status'}</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
             <div className="bg-yellow-50 p-3 md:p-4 rounded-lg">
               <div className="flex justify-between items-center mb-2">
@@ -167,7 +167,7 @@ export default function FinancingStatusReport() {
 
         {/* Топ проектов по финансированию */}
         <div>
-          <h3 className="text-lg md:text-xl font-semibold text-gray-800 mb-4">Топ проектов по объему финансирования</h3>
+          <h3 className="text-lg md:text-xl font-semibold text-gray-800 mb-4">{language === 'ru' ? 'Топ проектов по объему финансирования' : 'Top Projects by Funding Volume'}</h3>
           <div className="space-y-3">
             {mockFinancingData.topFundedProjects.map((project, index) => (
               <div key={index} className="border border-gray-200 rounded-lg p-3 md:p-4 hover:shadow-md transition-shadow">

@@ -19,6 +19,7 @@ import LanguageSwitcher from '@/components/LanguageSwitcher';
 import EcoProjectsReport from '@/components/EcoProjectsReport';
 import FinancingStatusReport from '@/components/FinancingStatusReport';
 import AutoFundingDistribution from '@/components/AutoFundingDistribution';
+import GreenFinancingApplications from '@/components/GreenFinancingApplications';
 
 interface Course {
   id: number;
@@ -51,7 +52,7 @@ export default function AdminDashboard() {
   const [selectedStatAction, setSelectedStatAction] = useState<string | null>(null);
   const [showStatModal, setShowStatModal] = useState(false);
 
-  // Состояние для формы курса
+  // Course form state
   const [courseForm, setCourseForm] = useState({
     title: '',
     description: '',
@@ -61,7 +62,7 @@ export default function AdminDashboard() {
     status: 'active' as 'active' | 'inactive'
   });
   
-  // Состояние для формы события
+  // Event form state
   const [eventForm, setEventForm] = useState({
     title: '',
     description: '',
@@ -71,7 +72,7 @@ export default function AdminDashboard() {
     status: 'active' as 'active' | 'inactive'
   });
 
-  // Моковые данные
+  // Mock data
   const mockCourses: Course[] = [
     {
       id: 1,
@@ -168,7 +169,7 @@ export default function AdminDashboard() {
     }
   ];
 
-  // Моковые данные для дашборда
+  // Mock data для дашборда
   const dashboardData = {
     totalTourists: 15420,
     activeTourists: 8920,
@@ -237,7 +238,7 @@ export default function AdminDashboard() {
     ]
   };
 
-  // Моковые данные для тепловой карты Казахстана
+  // Mock data для тепловой карты Казахстана
   const heatMapData = {
     regions: {
       [language === 'ru' ? 'Алматы' : 'Almaty']: {
@@ -339,7 +340,7 @@ export default function AdminDashboard() {
     }
   };
 
-  // Моковые данные для отчетов по регионам
+  // Mock data для отчетов по регионам
   const regionsData = {
     activityMap: {
       [language === 'ru' ? 'Алматы' : 'Almaty']: { tourists: 4500, bookings: 3200, ecoRating: 8.5 },
@@ -399,7 +400,7 @@ export default function AdminDashboard() {
     }
   };
 
-  // Моковые данные для статистики гидов
+  // Mock data для статистики гидов
   const guidesData = {
     totalGuides: 156,
     activeGuides: 142,
@@ -463,7 +464,7 @@ export default function AdminDashboard() {
     }
   };
 
-  // Моковые данные для статистики
+  // Mock data для статистики
   const menuItems = [
     {
       id: 'dashboard',
@@ -648,7 +649,7 @@ export default function AdminDashboard() {
   const closeModal = () => {
     setShowModal(false);
     setModalType(null);
-    // Сброс форм
+    // Reset forms
     setCourseForm({
       title: '',
       description: '',
@@ -1011,79 +1012,79 @@ export default function AdminDashboard() {
         return (
           <div className="space-y-6">
             <div className="bg-white p-6 rounded-lg shadow-md">
-              <h4 className="text-lg font-semibold text-gray-800 mb-4">Отчет портрет туриста</h4>
+              <h4 className="text-lg font-semibold text-gray-800 mb-4">{language === 'ru' ? 'Отчет портрет туриста' : 'Tourist Profile Report'}</h4>
               
               {/* Демографический анализ */}
               <div className="mb-8">
-                <h5 className="text-lg font-semibold text-blue-800 mb-4">Демографический анализ</h5>
+                <h5 className="text-lg font-semibold text-blue-800 mb-4">{language === 'ru' ? 'Демографический анализ' : 'Demographic Analysis'}</h5>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                   <div className="bg-blue-50 p-4 rounded-lg">
-                    <h6 className="font-semibold text-blue-800 mb-2">Возрастные группы</h6>
+                    <h6 className="font-semibold text-blue-800 mb-2">{language === 'ru' ? 'Возрастные группы' : 'Age Groups'}</h6>
                     <div className="space-y-2 text-sm">
                       <div className="flex justify-between">
-                        <span>18-25 лет</span>
+                        <span>{language === 'ru' ? '18-25 лет' : '18-25 years'}</span>
                         <span className="font-bold text-blue-600">25%</span>
                       </div>
                       <div className="flex justify-between">
-                        <span>26-35 лет</span>
+                        <span>{language === 'ru' ? '26-35 лет' : '26-35 years'}</span>
                         <span className="font-bold text-blue-600">35%</span>
                       </div>
                       <div className="flex justify-between">
-                        <span>36-45 лет</span>
+                        <span>{language === 'ru' ? '36-45 лет' : '36-45 years'}</span>
                         <span className="font-bold text-blue-600">28%</span>
                       </div>
                       <div className="flex justify-between">
-                        <span>46+ лет</span>
+                        <span>{language === 'ru' ? '46+ лет' : '46+ years'}</span>
                         <span className="font-bold text-blue-600">12%</span>
                       </div>
                     </div>
                   </div>
                   
                   <div className="bg-green-50 p-4 rounded-lg">
-                    <h6 className="font-semibold text-green-800 mb-2">Пол</h6>
+                    <h6 className="font-semibold text-green-800 mb-2">{language === 'ru' ? 'Пол' : 'Gender'}</h6>
                     <div className="space-y-2 text-sm">
                       <div className="flex justify-between">
-                        <span>Женщины</span>
+                        <span>{language === 'ru' ? 'Женщины' : 'Women'}</span>
                         <span className="font-bold text-green-600">58%</span>
                       </div>
                       <div className="flex justify-between">
-                        <span>Мужчины</span>
+                        <span>{language === 'ru' ? 'Мужчины' : 'Men'}</span>
                         <span className="font-bold text-green-600">42%</span>
                       </div>
                     </div>
                   </div>
                   
                   <div className="bg-purple-50 p-4 rounded-lg">
-                    <h6 className="font-semibold text-purple-800 mb-2">Образование</h6>
+                    <h6 className="font-semibold text-purple-800 mb-2">{language === 'ru' ? 'Образование' : 'Education'}</h6>
                     <div className="space-y-2 text-sm">
                       <div className="flex justify-between">
-                        <span>Высшее</span>
+                        <span>{language === 'ru' ? 'Высшее' : 'Higher'}</span>
                         <span className="font-bold text-purple-600">65%</span>
                       </div>
                       <div className="flex justify-between">
-                        <span>Среднее</span>
+                        <span>{language === 'ru' ? 'Среднее' : 'Secondary'}</span>
                         <span className="font-bold text-purple-600">25%</span>
                       </div>
                       <div className="flex justify-between">
-                        <span>Другое</span>
+                        <span>{language === 'ru' ? 'Другое' : 'Other'}</span>
                         <span className="font-bold text-purple-600">10%</span>
                       </div>
                     </div>
                   </div>
                   
                   <div className="bg-orange-50 p-4 rounded-lg">
-                    <h6 className="font-semibold text-orange-800 mb-2">Доход</h6>
+                    <h6 className="font-semibold text-orange-800 mb-2">{language === 'ru' ? 'Доход' : 'Income'}</h6>
                     <div className="space-y-2 text-sm">
                       <div className="flex justify-between">
-                        <span>Высокий</span>
+                        <span>{language === 'ru' ? 'Высокий' : 'High'}</span>
                         <span className="font-bold text-orange-600">45%</span>
                       </div>
                       <div className="flex justify-between">
-                        <span>Средний</span>
+                        <span>{language === 'ru' ? 'Средний' : 'Medium'}</span>
                         <span className="font-bold text-orange-600">40%</span>
                       </div>
                       <div className="flex justify-between">
-                        <span>Низкий</span>
+                        <span>{language === 'ru' ? 'Низкий' : 'Low'}</span>
                         <span className="font-bold text-orange-600">15%</span>
                       </div>
                     </div>
@@ -1093,13 +1094,13 @@ export default function AdminDashboard() {
               
               {/* Поведенческие паттерны */}
               <div className="mb-8">
-                <h5 className="text-lg font-semibold text-green-800 mb-4">Поведенческие паттерны</h5>
+                <h5 className="text-lg font-semibold text-green-800 mb-4">{language === 'ru' ? 'Поведенческие паттерны' : 'Behavioral Patterns'}</h5>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="bg-gray-50 p-4 rounded-lg">
-                    <h6 className="font-semibold text-gray-800 mb-3">Частота путешествий</h6>
+                    <h6 className="font-semibold text-gray-800 mb-3">{language === 'ru' ? 'Частота путешествий' : 'Travel Frequency'}</h6>
                     <div className="space-y-3">
                       <div className="flex justify-between items-center">
-                        <span className="text-sm text-gray-600">1-2 раза в год</span>
+                        <span className="text-sm text-gray-600">{language === 'ru' ? '1-2 раза в год' : '1-2 times a year'}</span>
                         <div className="flex items-center space-x-3">
                           <div className="w-32 bg-gray-200 rounded-full h-2">
                             <div className="bg-blue-500 h-2 rounded-full" style={{ width: '45%' }}></div>
@@ -1108,7 +1109,7 @@ export default function AdminDashboard() {
                         </div>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-sm text-gray-600">3-5 раз в год</span>
+                        <span className="text-sm text-gray-600">{language === 'ru' ? '3-5 раз в год' : '3-5 times a year'}</span>
                         <div className="flex items-center space-x-3">
                           <div className="w-32 bg-gray-200 rounded-full h-2">
                             <div className="bg-green-500 h-2 rounded-full" style={{ width: '35%' }}></div>
@@ -1117,7 +1118,7 @@ export default function AdminDashboard() {
                         </div>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-sm text-gray-600">6+ раз в год</span>
+                        <span className="text-sm text-gray-600">{language === 'ru' ? '6+ раз в год' : '6+ times a year'}</span>
                         <div className="flex items-center space-x-3">
                           <div className="w-32 bg-gray-200 rounded-full h-2">
                             <div className="bg-purple-500 h-2 rounded-full" style={{ width: '20%' }}></div>
@@ -1129,10 +1130,10 @@ export default function AdminDashboard() {
                   </div>
                   
                   <div className="bg-gray-50 p-4 rounded-lg">
-                    <h6 className="font-semibold text-gray-800 mb-3">Сезонность</h6>
+                    <h6 className="font-semibold text-gray-800 mb-3">{language === 'ru' ? 'Сезонность' : 'Seasonality'}</h6>
                     <div className="space-y-3">
                       <div className="flex justify-between items-center">
-                        <span className="text-sm text-gray-600">Лето</span>
+                        <span className="text-sm text-gray-600">{language === 'ru' ? 'Лето' : 'Summer'}</span>
                         <div className="flex items-center space-x-3">
                           <div className="w-32 bg-gray-200 rounded-full h-2">
                             <div className="bg-orange-500 h-2 rounded-full" style={{ width: '40%' }}></div>
@@ -1141,7 +1142,7 @@ export default function AdminDashboard() {
                         </div>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-sm text-gray-600">Весна</span>
+                        <span className="text-sm text-gray-600">{language === 'ru' ? 'Весна' : 'Spring'}</span>
                         <div className="flex items-center space-x-3">
                           <div className="w-32 bg-gray-200 rounded-full h-2">
                             <div className="bg-green-500 h-2 rounded-full" style={{ width: '25%' }}></div>
@@ -1150,7 +1151,7 @@ export default function AdminDashboard() {
                         </div>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-sm text-gray-600">Осень</span>
+                        <span className="text-sm text-gray-600">{language === 'ru' ? 'Осень' : 'Autumn'}</span>
                         <div className="flex items-center space-x-3">
                           <div className="w-32 bg-gray-200 rounded-full h-2">
                             <div className="bg-yellow-500 h-2 rounded-full" style={{ width: '20%' }}></div>
@@ -1159,7 +1160,7 @@ export default function AdminDashboard() {
                         </div>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-sm text-gray-600">Зима</span>
+                        <span className="text-sm text-gray-600">{language === 'ru' ? 'Зима' : 'Winter'}</span>
                         <div className="flex items-center space-x-3">
                           <div className="w-32 bg-gray-200 rounded-full h-2">
                             <div className="bg-blue-500 h-2 rounded-full" style={{ width: '15%' }}></div>
@@ -1174,69 +1175,69 @@ export default function AdminDashboard() {
               
               {/* Предпочтения в турах */}
               <div className="mb-8">
-                <h5 className="text-lg font-semibold text-purple-800 mb-4">Предпочтения в турах</h5>
+                <h5 className="text-lg font-semibold text-purple-800 mb-4">{language === 'ru' ? 'Предпочтения в турах' : 'Tour Preferences'}</h5>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                   <div className="bg-blue-50 p-4 rounded-lg">
-                    <h6 className="font-semibold text-blue-800 mb-2">Типы туров</h6>
+                    <h6 className="font-semibold text-blue-800 mb-2">{language === 'ru' ? 'Типы туров' : 'Tour Types'}</h6>
                     <div className="space-y-2 text-sm">
                       <div className="flex justify-between">
-                        <span>Эко-туры</span>
+                        <span>{language === 'ru' ? 'Эко-туры' : 'Eco Tours'}</span>
                         <span className="font-bold text-blue-600">35%</span>
                       </div>
                       <div className="flex justify-between">
-                        <span>Горные походы</span>
+                        <span>{language === 'ru' ? 'Горные походы' : 'Mountain Hiking'}</span>
                         <span className="font-bold text-blue-600">28%</span>
                       </div>
                       <div className="flex justify-between">
-                        <span>Культурные туры</span>
+                        <span>{language === 'ru' ? 'Культурные туры' : 'Cultural Tours'}</span>
                         <span className="font-bold text-blue-600">22%</span>
                       </div>
                       <div className="flex justify-between">
-                        <span>Приключенческие</span>
+                        <span>{language === 'ru' ? 'Приключенческие' : 'Adventure'}</span>
                         <span className="font-bold text-blue-600">15%</span>
                       </div>
                     </div>
                   </div>
                   
                   <div className="bg-green-50 p-4 rounded-lg">
-                    <h6 className="font-semibold text-green-800 mb-2">Продолжительность</h6>
+                    <h6 className="font-semibold text-green-800 mb-2">{language === 'ru' ? 'Продолжительность' : 'Duration'}</h6>
                     <div className="space-y-2 text-sm">
                       <div className="flex justify-between">
-                        <span>1-3 дня</span>
+                        <span>{language === 'ru' ? '1-3 дня' : '1-3 days'}</span>
                         <span className="font-bold text-green-600">30%</span>
                       </div>
                       <div className="flex justify-between">
-                        <span>4-7 дней</span>
+                        <span>{language === 'ru' ? '4-7 дней' : '4-7 days'}</span>
                         <span className="font-bold text-green-600">45%</span>
                       </div>
                       <div className="flex justify-between">
-                        <span>8-14 дней</span>
+                        <span>{language === 'ru' ? '8-14 дней' : '8-14 days'}</span>
                         <span className="font-bold text-green-600">20%</span>
                       </div>
                       <div className="flex justify-between">
-                        <span>15+ дней</span>
+                        <span>{language === 'ru' ? '15+ дней' : '15+ days'}</span>
                         <span className="font-bold text-green-600">5%</span>
                       </div>
                     </div>
                   </div>
                   
                   <div className="bg-purple-50 p-4 rounded-lg">
-                    <h6 className="font-semibold text-purple-800 mb-2">Бюджет</h6>
+                    <h6 className="font-semibold text-purple-800 mb-2">{language === 'ru' ? 'Бюджет' : 'Budget'}</h6>
                     <div className="space-y-2 text-sm">
                       <div className="flex justify-between">
-                        <span>До 50,000 ₸</span>
+                        <span>{language === 'ru' ? 'До 50,000 ₸' : 'Up to 50,000 ₸'}</span>
                         <span className="font-bold text-purple-600">25%</span>
                       </div>
                       <div className="flex justify-between">
-                        <span>50,000-100,000 ₸</span>
+                        <span>{language === 'ru' ? '50,000-100,000 ₸' : '50,000-100,000 ₸'}</span>
                         <span className="font-bold text-purple-600">40%</span>
                       </div>
                       <div className="flex justify-between">
-                        <span>100,000-200,000 ₸</span>
+                        <span>{language === 'ru' ? '100,000-200,000 ₸' : '100,000-200,000 ₸'}</span>
                         <span className="font-bold text-purple-600">25%</span>
                       </div>
                       <div className="flex justify-between">
-                        <span>200,000+ ₸</span>
+                        <span>{language === 'ru' ? '200,000+ ₸' : '200,000+ ₸'}</span>
                         <span className="font-bold text-purple-600">10%</span>
                       </div>
                     </div>
@@ -1246,13 +1247,13 @@ export default function AdminDashboard() {
               
               {/* Экологические интересы */}
               <div className="mb-8">
-                <h5 className="text-lg font-semibold text-green-800 mb-4">Экологические интересы</h5>
+                <h5 className="text-lg font-semibold text-green-800 mb-4">{language === 'ru' ? 'Экологические интересы' : 'Environmental Interests'}</h5>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="bg-gray-50 p-4 rounded-lg">
-                    <h6 className="font-semibold text-gray-800 mb-3">Уровень экосознания</h6>
+                    <h6 className="font-semibold text-gray-800 mb-3">{language === 'ru' ? 'Уровень экосознания' : 'Eco-awareness Level'}</h6>
                     <div className="space-y-3">
                       <div className="flex justify-between items-center">
-                        <span className="text-sm text-gray-600">Высокий</span>
+                        <span className="text-sm text-gray-600">{language === 'ru' ? 'Высокий' : 'High'}</span>
                         <div className="flex items-center space-x-3">
                           <div className="w-32 bg-gray-200 rounded-full h-2">
                             <div className="bg-green-500 h-2 rounded-full" style={{ width: '45%' }}></div>
@@ -1261,7 +1262,7 @@ export default function AdminDashboard() {
                         </div>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-sm text-gray-600">Средний</span>
+                        <span className="text-sm text-gray-600">{language === 'ru' ? 'Средний' : 'Medium'}</span>
                         <div className="flex items-center space-x-3">
                           <div className="w-32 bg-gray-200 rounded-full h-2">
                             <div className="bg-blue-500 h-2 rounded-full" style={{ width: '35%' }}></div>
@@ -1270,7 +1271,7 @@ export default function AdminDashboard() {
                         </div>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-sm text-gray-600">Низкий</span>
+                        <span className="text-sm text-gray-600">{language === 'ru' ? 'Низкий' : 'Low'}</span>
                         <div className="flex items-center space-x-3">
                           <div className="w-32 bg-gray-200 rounded-full h-2">
                             <div className="bg-yellow-500 h-2 rounded-full" style={{ width: '20%' }}></div>
@@ -1282,10 +1283,10 @@ export default function AdminDashboard() {
                   </div>
                   
                   <div className="bg-gray-50 p-4 rounded-lg">
-                    <h6 className="font-semibold text-gray-800 mb-3">Эко-активности</h6>
+                    <h6 className="font-semibold text-gray-800 mb-3">{language === 'ru' ? 'Эко-активности' : 'Eco-activities'}</h6>
                     <div className="space-y-3">
                       <div className="flex justify-between items-center">
-                        <span className="text-sm text-gray-600">Посадка деревьев</span>
+                        <span className="text-sm text-gray-600">{language === 'ru' ? 'Посадка деревьев' : 'Tree Planting'}</span>
                         <div className="flex items-center space-x-3">
                           <div className="w-32 bg-gray-200 rounded-full h-2">
                             <div className="bg-green-500 h-2 rounded-full" style={{ width: '60%' }}></div>
@@ -1294,7 +1295,7 @@ export default function AdminDashboard() {
                         </div>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-sm text-gray-600">Уборка мусора</span>
+                        <span className="text-sm text-gray-600">{language === 'ru' ? 'Уборка мусора' : 'Waste Cleanup'}</span>
                         <div className="flex items-center space-x-3">
                           <div className="w-32 bg-gray-200 rounded-full h-2">
                             <div className="bg-blue-500 h-2 rounded-full" style={{ width: '45%' }}></div>
@@ -1303,7 +1304,7 @@ export default function AdminDashboard() {
                         </div>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-sm text-gray-600">Эко-образование</span>
+                        <span className="text-sm text-gray-600">{language === 'ru' ? 'Эко-образование' : 'Eco-education'}</span>
                         <div className="flex items-center space-x-3">
                           <div className="w-32 bg-gray-200 rounded-full h-2">
                             <div className="bg-purple-500 h-2 rounded-full" style={{ width: '35%' }}></div>
@@ -1312,7 +1313,7 @@ export default function AdminDashboard() {
                         </div>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-sm text-gray-600">Эко-волонтерство</span>
+                        <span className="text-sm text-gray-600">{language === 'ru' ? 'Эко-волонтерство' : 'Eco-volunteering'}</span>
                         <div className="flex items-center space-x-3">
                           <div className="w-32 bg-gray-200 rounded-full h-2">
                             <div className="bg-orange-500 h-2 rounded-full" style={{ width: '25%' }}></div>
@@ -1334,7 +1335,7 @@ export default function AdminDashboard() {
                   className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition-colors duration-200 flex items-center space-x-2"
                 >
                   <ChartBarIcon className="w-5 h-5" />
-                  <span>Сгенерировать отчет &quot;Портрет туриста&quot;</span>
+                  <span>{language === 'ru' ? 'Сгенерировать отчет "Портрет туриста"' : 'Generate "Tourist Profile" Report'}</span>
                 </button>
               </div>
             </div>
@@ -1345,7 +1346,7 @@ export default function AdminDashboard() {
         return (
           <div className="space-y-6">
             <div className="bg-white p-6 rounded-lg shadow-md">
-              <h4 className="text-lg font-semibold text-gray-800 mb-4">Обзор дашборда</h4>
+              <h4 className="text-lg font-semibold text-gray-800 mb-4">{language === 'ru' ? 'Обзор дашборда' : 'Dashboard Overview'}</h4>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 <div className="bg-blue-50 p-4 rounded-lg">
                   <h5 className="font-semibold text-blue-800 mb-2">{t.totalTourists}</h5>
@@ -1356,39 +1357,39 @@ export default function AdminDashboard() {
                   <p className="text-2xl font-bold text-green-600">8,920</p>
                 </div>
                 <div className="bg-purple-50 p-4 rounded-lg">
-                  <h5 className="font-semibold text-purple-800 mb-2">Новые регистрации</h5>
+                  <h5 className="font-semibold text-purple-800 mb-2">{language === 'ru' ? 'Новые регистрации' : 'New Registrations'}</h5>
                   <p className="text-2xl font-bold text-purple-600">2,340</p>
                 </div>
                 <div className="bg-orange-50 p-4 rounded-lg">
-                  <h5 className="font-semibold text-orange-800 mb-2">Средний углеродный след</h5>
+                  <h5 className="font-semibold text-orange-800 mb-2">{language === 'ru' ? 'Средний углеродный след' : 'Average Carbon Footprint'}</h5>
                   <p className="text-2xl font-bold text-orange-600">2.4 т CO2</p>
                 </div>
               </div>
             </div>
             
             <div className="bg-white p-6 rounded-lg shadow-md">
-              <h4 className="text-lg font-semibold text-gray-800 mb-4">Топ регионов по активности</h4>
+              <h4 className="text-lg font-semibold text-gray-800 mb-4">{language === 'ru' ? 'Топ регионов по активности' : 'Top Regions by Activity'}</h4>
               <div className="space-y-3">
                 <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-                  <span className="font-medium text-gray-700">Алматы</span>
-                  <span className="text-lg font-bold text-blue-600">4,500 туристов</span>
+                  <span className="font-medium text-gray-700">{language === 'ru' ? 'Алматы' : 'Almaty'}</span>
+                  <span className="text-lg font-bold text-blue-600">{language === 'ru' ? '4,500 туристов' : '4,500 tourists'}</span>
                 </div>
                 <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-                  <span className="font-medium text-gray-700">Астана</span>
-                  <span className="text-lg font-bold text-blue-600">3,200 туристов</span>
+                  <span className="font-medium text-gray-700">{language === 'ru' ? 'Астана' : 'Astana'}</span>
+                  <span className="text-lg font-bold text-blue-600">{language === 'ru' ? '3,200 туристов' : '3,200 tourists'}</span>
                 </div>
                 <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-                  <span className="font-medium text-gray-700">Шымкент</span>
-                  <span className="text-lg font-bold text-blue-600">2,100 туристов</span>
+                  <span className="font-medium text-gray-700">{language === 'ru' ? 'Шымкент' : 'Shymkent'}</span>
+                  <span className="text-lg font-bold text-blue-600">{language === 'ru' ? '2,100 туристов' : '2,100 tourists'}</span>
                 </div>
               </div>
             </div>
             
             <div className="bg-white p-6 rounded-lg shadow-md">
-              <h4 className="text-lg font-semibold text-gray-800 mb-4">Экологические показатели</h4>
+              <h4 className="text-lg font-semibold text-gray-800 mb-4">{language === 'ru' ? 'Экологические показатели' : 'Environmental Indicators'}</h4>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <h5 className="font-semibold text-gray-700 mb-3">Компенсация CO2</h5>
+                  <h5 className="font-semibold text-gray-700 mb-3">{language === 'ru' ? 'Компенсация CO2' : 'CO2 Compensation'}</h5>
                   <div className="flex items-center space-x-3">
                     <div className="w-32 bg-gray-200 rounded-full h-2">
                       <div className="bg-green-500 h-2 rounded-full" style={{ width: '78.5%' }}></div>
@@ -1397,7 +1398,7 @@ export default function AdminDashboard() {
                   </div>
                 </div>
                 <div>
-                  <h5 className="font-semibold text-gray-700 mb-3">Эффективность компенсации</h5>
+                  <h5 className="font-semibold text-gray-700 mb-3">{language === 'ru' ? 'Эффективность компенсации' : 'Compensation Effectiveness'}</h5>
                   <div className="flex items-center space-x-3">
                     <div className="w-32 bg-gray-200 rounded-full h-2">
                       <div className="bg-blue-500 h-2 rounded-full" style={{ width: '85.2%' }}></div>
@@ -1418,7 +1419,7 @@ export default function AdminDashboard() {
         return (
           <div className="space-y-6">
             <div className="bg-white p-6 rounded-lg shadow-md">
-              <h4 className="text-lg font-semibold text-gray-800 mb-4">Карта активности регионов</h4>
+              <h4 className="text-lg font-semibold text-gray-800 mb-4">{language === 'ru' ? 'Карта активности регионов' : 'Regional Activity Map'}</h4>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 {Object.entries(regionsData.activityMap).map(([region, data]) => (
                   <div key={region} className="bg-gray-50 p-4 rounded-lg">
@@ -1429,11 +1430,11 @@ export default function AdminDashboard() {
                         <span className="font-semibold text-blue-600">{data.tourists.toLocaleString()}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-gray-600">Бронирования:</span>
+                        <span className="text-gray-600">{language === 'ru' ? 'Бронирования:' : 'Bookings:'}</span>
                         <span className="font-semibold text-green-600">{data.bookings.toLocaleString()}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-gray-600">Эко-рейтинг:</span>
+                        <span className="text-gray-600">{language === 'ru' ? 'Эко-рейтинг:' : 'Eco-rating:'}</span>
                         <span className="font-semibold text-purple-600">{data.ecoRating}/10</span>
                       </div>
                     </div>
@@ -1473,9 +1474,9 @@ export default function AdminDashboard() {
               {/* Подкрашенный список регионов */}
               <div className="space-y-3">
                 {Object.entries(heatMapData.regions)
-                  .sort(([,a], [,b]) => b.intensity - a.intensity) // Сортировка по интенсивности
+                  .sort(([,a], [,b]) => b.intensity - a.intensity) // Sort by intensity
                   .map(([region, data]) => {
-                    // Определяем цветовую схему на основе интенсивности
+                    // Determine color scheme based on intensity
                     let bgColor, borderColor, textColor;
                     if (data.intensity >= 70) {
                       bgColor = 'bg-green-50';
@@ -1578,7 +1579,7 @@ export default function AdminDashboard() {
         return (
           <div className="space-y-6">
             <div className="bg-white p-6 rounded-lg shadow-md">
-              <h4 className="text-lg font-semibold text-gray-800 mb-4">Топ-5 направлений по популярности</h4>
+              <h4 className="text-lg font-semibold text-gray-800 mb-4">{language === 'ru' ? 'Топ-5 направлений по популярности' : 'Top 5 Destinations by Popularity'}</h4>
               <div className="space-y-3">
                 {regionsData.topDirections.popularity.map((direction, index) => (
                   <div key={index} className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
@@ -1586,7 +1587,7 @@ export default function AdminDashboard() {
                       <span className="text-lg font-bold text-gray-500">#{index + 1}</span>
                       <div>
                         <h5 className="font-semibold text-gray-800">{direction.name}</h5>
-                        <p className="text-sm text-gray-600">Рейтинг: {direction.rating}/10</p>
+                        <p className="text-sm text-gray-600">{language === 'ru' ? 'Рейтинг:' : 'Rating:'} {direction.rating}/10</p>
                       </div>
                     </div>
                     <span className="text-lg font-bold text-blue-600">{direction.tourists.toLocaleString()}</span>
@@ -1596,7 +1597,7 @@ export default function AdminDashboard() {
             </div>
             
             <div className="bg-white p-6 rounded-lg shadow-md">
-              <h4 className="text-lg font-semibold text-gray-800 mb-4">Топ-5 направлений по доходам</h4>
+              <h4 className="text-lg font-semibold text-gray-800 mb-4">{language === 'ru' ? 'Топ-5 направлений по доходам' : 'Top 5 Destinations by Revenue'}</h4>
               <div className="space-y-3">
                 {regionsData.topDirections.revenue.map((direction, index) => (
                   <div key={index} className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
@@ -1604,7 +1605,7 @@ export default function AdminDashboard() {
                       <span className="text-lg font-bold text-gray-500">#{index + 1}</span>
                       <div>
                         <h5 className="font-semibold text-gray-800">{direction.name}</h5>
-                        <p className="text-sm text-gray-600">Рейтинг: {direction.rating}/10</p>
+                        <p className="text-sm text-gray-600">{language === 'ru' ? 'Рейтинг:' : 'Rating:'} {direction.rating}/10</p>
                       </div>
                     </div>
                     <span className="text-lg font-bold text-green-600">{direction.revenue.toLocaleString()} ₸</span>
@@ -1614,7 +1615,7 @@ export default function AdminDashboard() {
             </div>
             
             <div className="bg-white p-6 rounded-lg shadow-md">
-              <h4 className="text-lg font-semibold text-gray-800 mb-4">Топ-5 направлений по эко-рейтингу</h4>
+              <h4 className="text-lg font-semibold text-gray-800 mb-4">{language === 'ru' ? 'Топ-5 направлений по эко-рейтингу' : 'Top 5 Destinations by Eco-rating'}</h4>
               <div className="space-y-3">
                 {regionsData.topDirections.ecoRating.map((direction, index) => (
                   <div key={index} className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
@@ -1637,7 +1638,7 @@ export default function AdminDashboard() {
         return (
           <div className="space-y-6">
             <div className="bg-white p-6 rounded-lg shadow-md">
-              <h4 className="text-lg font-semibold text-gray-800 mb-4">Эко-инфраструктура по регионам</h4>
+              <h4 className="text-lg font-semibold text-gray-800 mb-4">{language === 'ru' ? 'Эко-инфраструктура по регионам' : 'Eco-infrastructure by Regions'}</h4>
               <div className="space-y-3">
                 {regionsData.greenRegions.ecoInfrastructure.map((region, index) => (
                   <div key={index} className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
@@ -1655,7 +1656,7 @@ export default function AdminDashboard() {
             </div>
             
             <div className="bg-white p-6 rounded-lg shadow-md">
-              <h4 className="text-lg font-semibold text-gray-800 mb-4">Эко-активности по регионам</h4>
+              <h4 className="text-lg font-semibold text-gray-800 mb-4">{language === 'ru' ? 'Эко-активности по регионам' : 'Eco-activities by Regions'}</h4>
               <div className="space-y-3">
                 {regionsData.greenRegions.ecoActivities.map((region, index) => (
                   <div key={index} className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
@@ -1673,7 +1674,7 @@ export default function AdminDashboard() {
             </div>
             
             <div className="bg-white p-6 rounded-lg shadow-md">
-              <h4 className="text-lg font-semibold text-gray-800 mb-4">Эко-сертификаты по регионам</h4>
+              <h4 className="text-lg font-semibold text-gray-800 mb-4">{language === 'ru' ? 'Эко-сертификаты по регионам' : 'Eco-certificates by Regions'}</h4>
               <div className="space-y-3">
                 {regionsData.greenRegions.ecoCertificates.map((region, index) => (
                   <div key={index} className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
@@ -1696,52 +1697,52 @@ export default function AdminDashboard() {
         return (
           <div className="space-y-6">
             <div className="bg-white p-6 rounded-lg shadow-md">
-              <h4 className="text-lg font-semibold text-gray-800 mb-4">Обзор региональной активности</h4>
+              <h4 className="text-lg font-semibold text-gray-800 mb-4">{language === 'ru' ? 'Обзор региональной активности' : 'Regional Activity Overview'}</h4>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 <div className="bg-blue-50 p-4 rounded-lg">
-                  <h5 className="font-semibold text-blue-800 mb-2">Алматы</h5>
-                  <p className="text-lg font-bold text-blue-600">4,500 туристов</p>
-                  <p className="text-sm text-gray-600">Эко-рейтинг: 8.5/10</p>
+                  <h5 className="font-semibold text-blue-800 mb-2">{language === 'ru' ? 'Алматы' : 'Almaty'}</h5>
+                  <p className="text-lg font-bold text-blue-600">{language === 'ru' ? '4,500 туристов' : '4,500 tourists'}</p>
+                  <p className="text-sm text-gray-600">{language === 'ru' ? 'Эко-рейтинг:' : 'Eco-rating:'} 8.5/10</p>
                 </div>
                 <div className="bg-green-50 p-4 rounded-lg">
-                  <h5 className="font-semibold text-green-800 mb-2">Астана</h5>
-                  <p className="text-lg font-bold text-green-600">3,200 туристов</p>
-                  <p className="text-sm text-gray-600">Эко-рейтинг: 7.8/10</p>
+                  <h5 className="font-semibold text-green-800 mb-2">{language === 'ru' ? 'Астана' : 'Astana'}</h5>
+                  <p className="text-lg font-bold text-green-600">{language === 'ru' ? '3,200 туристов' : '3,200 tourists'}</p>
+                  <p className="text-sm text-gray-600">{language === 'ru' ? 'Эко-рейтинг:' : 'Eco-rating:'} 7.8/10</p>
                 </div>
                 <div className="bg-purple-50 p-4 rounded-lg">
-                  <h5 className="font-semibold text-purple-800 mb-2">Шымкент</h5>
-                  <p className="text-lg font-bold text-purple-600">2,100 туристов</p>
-                  <p className="text-sm text-gray-600">Эко-рейтинг: 6.9/10</p>
+                  <h5 className="font-semibold text-purple-800 mb-2">{language === 'ru' ? 'Шымкент' : 'Shymkent'}</h5>
+                  <p className="text-lg font-bold text-purple-600">{language === 'ru' ? '2,100 туристов' : '2,100 tourists'}</p>
+                  <p className="text-sm text-gray-600">{language === 'ru' ? 'Эко-рейтинг:' : 'Eco-rating:'} 6.9/10</p>
                 </div>
                 <div className="bg-orange-50 p-4 rounded-lg">
-                  <h5 className="font-semibold text-orange-800 mb-2">Алматинская область</h5>
-                  <p className="text-lg font-bold text-orange-600">2,800 туристов</p>
-                  <p className="text-sm text-gray-600">Эко-рейтинг: 9.2/10</p>
+                  <h5 className="font-semibold text-orange-800 mb-2">{language === 'ru' ? 'Алматинская область' : 'Almaty Region'}</h5>
+                  <p className="text-lg font-bold text-orange-600">{language === 'ru' ? '2,800 туристов' : '2,800 tourists'}</p>
+                  <p className="text-sm text-gray-600">{language === 'ru' ? 'Эко-рейтинг:' : 'Eco-rating:'} 9.2/10</p>
                 </div>
               </div>
             </div>
             
             <div className="bg-white p-6 rounded-lg shadow-md">
-              <h4 className="text-lg font-semibold text-gray-800 mb-4">Топ направлений</h4>
+              <h4 className="text-lg font-semibold text-gray-800 mb-4">{language === 'ru' ? 'Топ направлений' : 'Top Destinations'}</h4>
               <div className="space-y-3">
                 <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
                   <div>
-                    <h5 className="font-semibold text-gray-800">Алматы - Чимбулак</h5>
-                    <p className="text-sm text-gray-600">Рейтинг: 9.1/10</p>
+                    <h5 className="font-semibold text-gray-800">{language === 'ru' ? 'Алматы - Чимбулак' : 'Almaty - Chimbulak'}</h5>
+                    <p className="text-sm text-gray-600">{language === 'ru' ? 'Рейтинг:' : 'Rating:'} 9.1/10</p>
                   </div>
                   <span className="text-lg font-bold text-blue-600">3,200 туристов</span>
                 </div>
                 <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
                   <div>
-                    <h5 className="font-semibold text-gray-800">Астана - Бурабай</h5>
-                    <p className="text-sm text-gray-600">Рейтинг: 8.7/10</p>
+                    <h5 className="font-semibold text-gray-800">{language === 'ru' ? 'Астана - Бурабай' : 'Astana - Burabay'}</h5>
+                    <p className="text-sm text-gray-600">{language === 'ru' ? 'Рейтинг:' : 'Rating:'} 8.7/10</p>
                   </div>
                   <span className="text-lg font-bold text-blue-600">2,800 туристов</span>
                 </div>
                 <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
                   <div>
-                    <h5 className="font-semibold text-gray-800">Алматы - Балхаш</h5>
-                    <p className="text-sm text-gray-600">Рейтинг: 8.3/10</p>
+                    <h5 className="font-semibold text-gray-800">{language === 'ru' ? 'Алматы - Балхаш' : 'Almaty - Balkhash'}</h5>
+                    <p className="text-sm text-gray-600">{language === 'ru' ? 'Рейтинг:' : 'Rating:'} 8.3/10</p>
                   </div>
                   <span className="text-lg font-bold text-blue-600">2,100 туристов</span>
                 </div>
@@ -1749,38 +1750,38 @@ export default function AdminDashboard() {
             </div>
             
             <div className="bg-white p-6 rounded-lg shadow-md">
-              <h4 className="text-lg font-semibold text-gray-800 mb-4">Эко-инфраструктура</h4>
+              <h4 className="text-lg font-semibold text-gray-800 mb-4">{language === 'ru' ? 'Эко-инфраструктура' : 'Eco-infrastructure'}</h4>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <h5 className="font-semibold text-gray-700 mb-3">Лучшие регионы</h5>
+                  <h5 className="font-semibold text-gray-700 mb-3">{language === 'ru' ? 'Лучшие регионы' : 'Best Regions'}</h5>
                   <div className="space-y-2">
                     <div className="flex justify-between items-center p-2 bg-gray-50 rounded">
-                      <span className="text-sm text-gray-600">Алматинская область</span>
+                      <span className="text-sm text-gray-600">{language === 'ru' ? 'Алматинская область' : 'Almaty Region'}</span>
                       <span className="font-semibold text-green-600">9.2/10</span>
                     </div>
                     <div className="flex justify-between items-center p-2 bg-gray-50 rounded">
-                      <span className="text-sm text-gray-600">Алматы</span>
+                      <span className="text-sm text-gray-600">{language === 'ru' ? 'Алматы' : 'Almaty'}</span>
                       <span className="font-semibold text-green-600">8.5/10</span>
                     </div>
                     <div className="flex justify-between items-center p-2 bg-gray-50 rounded">
-                      <span className="text-sm text-gray-600">Астана</span>
+                      <span className="text-sm text-gray-600">{language === 'ru' ? 'Астана' : 'Astana'}</span>
                       <span className="font-semibold text-green-600">7.8/10</span>
                     </div>
                   </div>
                 </div>
                 <div>
-                  <h5 className="font-semibold text-gray-700 mb-3">Эко-активности</h5>
+                  <h5 className="font-semibold text-gray-700 mb-3">{language === 'ru' ? 'Эко-активности' : 'Eco-activities'}</h5>
                   <div className="space-y-2">
                     <div className="flex justify-between items-center p-2 bg-gray-50 rounded">
-                      <span className="text-sm text-gray-600">Алматинская область</span>
+                      <span className="text-sm text-gray-600">{language === 'ru' ? 'Алматинская область' : 'Almaty Region'}</span>
                       <span className="font-semibold text-blue-600">25 активностей</span>
                     </div>
                     <div className="flex justify-between items-center p-2 bg-gray-50 rounded">
-                      <span className="text-sm text-gray-600">Алматы</span>
+                      <span className="text-sm text-gray-600">{language === 'ru' ? 'Алматы' : 'Almaty'}</span>
                       <span className="font-semibold text-blue-600">18 активностей</span>
                     </div>
                     <div className="flex justify-between items-center p-2 bg-gray-50 rounded">
-                      <span className="text-sm text-gray-600">Астана</span>
+                      <span className="text-sm text-gray-600">{language === 'ru' ? 'Астана' : 'Astana'}</span>
                       <span className="font-semibold text-blue-600">12 активностей</span>
                     </div>
                   </div>
@@ -1799,22 +1800,22 @@ export default function AdminDashboard() {
           <div className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="bg-blue-50 p-6 rounded-lg">
-                <h4 className="text-lg font-semibold text-blue-800 mb-2">Всего гидов</h4>
+                <h4 className="text-lg font-semibold text-blue-800 mb-2">{language === 'ru' ? 'Всего гидов' : 'Total Guides'}</h4>
                 <p className="text-3xl font-bold text-blue-600">{guidesData.totalGuides.toLocaleString()}</p>
               </div>
               <div className="bg-green-50 p-6 rounded-lg">
-                <h4 className="text-lg font-semibold text-green-800 mb-2">Активные гиды</h4>
+                <h4 className="text-lg font-semibold text-green-800 mb-2">{language === 'ru' ? 'Активные гиды' : 'Active Guides'}</h4>
                 <p className="text-3xl font-bold text-green-600">{guidesData.activeGuides.toLocaleString()}</p>
               </div>
               <div className="bg-purple-50 p-6 rounded-lg">
-                <h4 className="text-lg font-semibold text-purple-800 mb-2">Новые гиды</h4>
+                <h4 className="text-lg font-semibold text-purple-800 mb-2">{language === 'ru' ? 'Новые гиды' : 'New Guides'}</h4>
                 <p className="text-3xl font-bold text-purple-600">{guidesData.newGuides.toLocaleString()}</p>
               </div>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="bg-white p-6 rounded-lg shadow-md">
-                <h4 className="text-lg font-semibold text-gray-800 mb-4">Гиды по регионам</h4>
+                <h4 className="text-lg font-semibold text-gray-800 mb-4">{language === 'ru' ? 'Гиды по регионам' : 'Guides by Region'}</h4>
                 <div className="space-y-3">
                   {Object.entries(guidesData.guidesByRegion).map(([region, count]) => (
                     <div key={region} className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
@@ -1826,7 +1827,7 @@ export default function AdminDashboard() {
               </div>
               
               <div className="bg-white p-6 rounded-lg shadow-md">
-                <h4 className="text-lg font-semibold text-gray-800 mb-4">Гиды по уровням</h4>
+                <h4 className="text-lg font-semibold text-gray-800 mb-4">{language === 'ru' ? 'Гиды по уровням' : 'Guides by Level'}</h4>
                 <div className="space-y-3">
                   {Object.entries(guidesData.guidesByLevel).map(([level, count]) => (
                     <div key={level} className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
@@ -1844,7 +1845,7 @@ export default function AdminDashboard() {
         return (
           <div className="space-y-6">
             <div className="bg-white p-6 rounded-lg shadow-md">
-              <h4 className="text-lg font-semibold text-gray-800 mb-4">Распределение рейтингов</h4>
+              <h4 className="text-lg font-semibold text-gray-800 mb-4">{language === 'ru' ? 'Распределение рейтингов' : 'Rating Distribution'}</h4>
               <div className="space-y-3">
                 {Object.entries(guidesData.ratingDistribution).map(([rating, count]) => (
                   <div key={rating} className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
@@ -1861,7 +1862,7 @@ export default function AdminDashboard() {
             </div>
             
             <div className="bg-white p-6 rounded-lg shadow-md">
-              <h4 className="text-lg font-semibold text-gray-800 mb-4">Топ гиды</h4>
+              <h4 className="text-lg font-semibold text-gray-800 mb-4">{language === 'ru' ? 'Топ гиды' : 'Top Guides'}</h4>
               <div className="space-y-3">
                 {guidesData.topGuides.map((guide, index) => (
                   <div key={index} className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
@@ -1881,10 +1882,10 @@ export default function AdminDashboard() {
             </div>
             
             <div className="bg-white p-6 rounded-lg shadow-md">
-              <h4 className="text-lg font-semibold text-gray-800 mb-4">Удовлетворенность клиентов</h4>
+              <h4 className="text-lg font-semibold text-gray-800 mb-4">{language === 'ru' ? 'Удовлетворенность клиентов' : 'Customer Satisfaction'}</h4>
               <div className="text-center">
                 <p className="text-4xl font-bold text-green-600">{guidesData.performanceMetrics.customerSatisfaction}%</p>
-                <p className="text-gray-600 mt-2">Средний показатель удовлетворенности</p>
+                <p className="text-gray-600 mt-2">{language === 'ru' ? 'Средний показатель удовлетворенности' : 'Average satisfaction rate'}</p>
               </div>
             </div>
           </div>
@@ -1894,7 +1895,7 @@ export default function AdminDashboard() {
         return (
           <div className="space-y-6">
             <div className="bg-white p-6 rounded-lg shadow-md">
-              <h4 className="text-lg font-semibold text-gray-800 mb-4">Завершенные курсы</h4>
+              <h4 className="text-lg font-semibold text-gray-800 mb-4">{language === 'ru' ? 'Завершенные курсы' : 'Completed Courses'}</h4>
               <div className="space-y-3">
                 {Object.entries(guidesData.coursesCompleted).map(([course, count]) => (
                   <div key={course} className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
@@ -1911,7 +1912,7 @@ export default function AdminDashboard() {
             </div>
             
             <div className="bg-white p-6 rounded-lg shadow-md">
-              <h4 className="text-lg font-semibold text-gray-800 mb-4">Статус сертификации</h4>
+              <h4 className="text-lg font-semibold text-gray-800 mb-4">{language === 'ru' ? 'Статус сертификации' : 'Certification Status'}</h4>
               <div className="space-y-3">
                 {Object.entries(guidesData.certificationStatus).map(([status, count]) => (
                   <div key={status} className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
@@ -1928,7 +1929,7 @@ export default function AdminDashboard() {
             </div>
             
             <div className="bg-white p-6 rounded-lg shadow-md">
-              <h4 className="text-lg font-semibold text-gray-800 mb-4">Прогресс обучения</h4>
+              <h4 className="text-lg font-semibold text-gray-800 mb-4">{language === 'ru' ? 'Прогресс обучения' : 'Training Progress'}</h4>
               <div className="space-y-3">
                 {Object.entries(guidesData.trainingProgress).map(([progress, count]) => (
                   <div key={progress} className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
@@ -1951,25 +1952,25 @@ export default function AdminDashboard() {
           <div className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
               <div className="bg-blue-50 p-6 rounded-lg">
-                <h4 className="text-lg font-semibold text-blue-800 mb-2">Средний рейтинг</h4>
+                <h4 className="text-lg font-semibold text-blue-800 mb-2">{language === 'ru' ? 'Средний рейтинг' : 'Average Rating'}</h4>
                 <p className="text-3xl font-bold text-blue-600">{guidesData.performanceMetrics.averageRating}</p>
               </div>
               <div className="bg-green-50 p-6 rounded-lg">
-                <h4 className="text-lg font-semibold text-green-800 mb-2">Всего туров</h4>
+                <h4 className="text-lg font-semibold text-green-800 mb-2">{language === 'ru' ? 'Всего туров' : 'Total Tours'}</h4>
                 <p className="text-3xl font-bold text-green-600">{guidesData.performanceMetrics.totalTours.toLocaleString()}</p>
               </div>
               <div className="bg-purple-50 p-6 rounded-lg">
-                <h4 className="text-lg font-semibold text-purple-800 mb-2">Среднее туров на гида</h4>
+                <h4 className="text-lg font-semibold text-purple-800 mb-2">{language === 'ru' ? 'Среднее туров на гида' : 'Average Tours per Guide'}</h4>
                 <p className="text-3xl font-bold text-purple-600">{guidesData.performanceMetrics.averageToursPerGuide}</p>
               </div>
               <div className="bg-yellow-50 p-6 rounded-lg">
-                <h4 className="text-lg font-semibold text-yellow-800 mb-2">Удовлетворенность</h4>
+                <h4 className="text-lg font-semibold text-yellow-800 mb-2">{language === 'ru' ? 'Удовлетворенность' : 'Satisfaction'}</h4>
                 <p className="text-3xl font-bold text-yellow-600">{guidesData.performanceMetrics.customerSatisfaction}%</p>
               </div>
             </div>
             
             <div className="bg-white p-6 rounded-lg shadow-md">
-              <h4 className="text-lg font-semibold text-gray-800 mb-4">Специализации гидов</h4>
+              <h4 className="text-lg font-semibold text-gray-800 mb-4">{language === 'ru' ? 'Специализации гидов' : 'Guide Specializations'}</h4>
               <div className="space-y-3">
                 {Object.entries(guidesData.specializations).map(([specialization, count]) => (
                   <div key={specialization} className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
@@ -1994,26 +1995,26 @@ export default function AdminDashboard() {
               <h4 className="text-lg font-semibold text-gray-800 mb-4">{t.guidesOverview}</h4>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 <div className="bg-blue-50 p-4 rounded-lg">
-                  <h5 className="font-semibold text-blue-800 mb-2">Всего гидов</h5>
+                  <h5 className="font-semibold text-blue-800 mb-2">{language === 'ru' ? 'Всего гидов' : 'Total Guides'}</h5>
                   <p className="text-lg font-bold text-blue-600">{guidesData.totalGuides}</p>
                 </div>
                 <div className="bg-green-50 p-4 rounded-lg">
-                  <h5 className="font-semibold text-green-800 mb-2">Активные гиды</h5>
+                  <h5 className="font-semibold text-green-800 mb-2">{language === 'ru' ? 'Активные гиды' : 'Active Guides'}</h5>
                   <p className="text-lg font-bold text-green-600">{guidesData.activeGuides}</p>
                 </div>
                 <div className="bg-purple-50 p-4 rounded-lg">
-                  <h5 className="font-semibold text-purple-800 mb-2">Средний рейтинг</h5>
+                  <h5 className="font-semibold text-purple-800 mb-2">{language === 'ru' ? 'Средний рейтинг' : 'Average Rating'}</h5>
                   <p className="text-lg font-bold text-purple-600">{guidesData.performanceMetrics.averageRating}</p>
                 </div>
                 <div className="bg-yellow-50 p-4 rounded-lg">
-                  <h5 className="font-semibold text-yellow-800 mb-2">Удовлетворенность</h5>
+                  <h5 className="font-semibold text-yellow-800 mb-2">{language === 'ru' ? 'Удовлетворенность' : 'Satisfaction'}</h5>
                   <p className="text-lg font-bold text-yellow-600">{guidesData.performanceMetrics.customerSatisfaction}%</p>
                 </div>
               </div>
             </div>
             
             <div className="bg-white p-6 rounded-lg shadow-md">
-              <h4 className="text-lg font-semibold text-gray-800 mb-4">Топ гиды по рейтингу</h4>
+              <h4 className="text-lg font-semibold text-gray-800 mb-4">{language === 'ru' ? 'Топ гиды по рейтингу' : 'Top Guides by Rating'}</h4>
               <div className="space-y-3">
                 {guidesData.topGuides.slice(0, 3).map((guide, index) => (
                   <div key={index} className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
@@ -2031,10 +2032,10 @@ export default function AdminDashboard() {
             </div>
             
             <div className="bg-white p-6 rounded-lg shadow-md">
-              <h4 className="text-lg font-semibold text-gray-800 mb-4">Обучение и сертификация</h4>
+              <h4 className="text-lg font-semibold text-gray-800 mb-4">{language === 'ru' ? 'Обучение и сертификация' : 'Training and Certification'}</h4>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <h5 className="font-semibold text-gray-700 mb-3">Статус сертификации</h5>
+                  <h5 className="font-semibold text-gray-700 mb-3">{language === 'ru' ? 'Статус сертификации' : 'Certification Status'}</h5>
                   <div className="space-y-2">
                     {Object.entries(guidesData.certificationStatus).map(([status, count]) => (
                       <div key={status} className="flex justify-between items-center p-2 bg-gray-50 rounded">
@@ -2045,7 +2046,7 @@ export default function AdminDashboard() {
                   </div>
                 </div>
                 <div>
-                  <h5 className="font-semibold text-gray-700 mb-3">Прогресс обучения</h5>
+                  <h5 className="font-semibold text-gray-700 mb-3">{language === 'ru' ? 'Прогресс обучения' : 'Training Progress'}</h5>
                   <div className="space-y-2">
                     {Object.entries(guidesData.trainingProgress).map(([progress, count]) => (
                       <div key={progress} className="flex justify-between items-center p-2 bg-gray-50 rounded">
@@ -2071,7 +2072,12 @@ export default function AdminDashboard() {
       case 'statistics':
         return renderStatistics();
       case 'auto-funding':
-        return <AutoFundingDistribution />;
+        return (
+          <div className="space-y-8">
+            <AutoFundingDistribution />
+            <GreenFinancingApplications />
+          </div>
+        );
       default:
         return renderCourses();
     }
@@ -2103,14 +2109,14 @@ export default function AdminDashboard() {
       //   status: courseForm.status
       // };
       
-      // В реальном приложении здесь был бы API вызов
+      // In a real application, there would be an API call here
       // mockCourses.push(newCourse);
       
-      // Показываем уведомление об успешном добавлении
-      alert(t.courseAddedSuccessfully || 'Курс успешно добавлен!');
+      // Show success notification
+      alert(t.courseAddedSuccessfully || (language === 'ru' ? 'Курс успешно добавлен!' : 'Course added successfully!'));
       closeModal();
     } else {
-      alert(t.pleaseFillAllFields || 'Пожалуйста, заполните все поля!');
+      alert(t.pleaseFillAllFields || (language === 'ru' ? 'Пожалуйста, заполните все поля!' : 'Please fill in all fields!'));
     }
   };
 
@@ -2126,14 +2132,14 @@ export default function AdminDashboard() {
       //   status: eventForm.status
       // };
       
-      // В реальном приложении здесь был бы API вызов
+      // In a real application, there would be an API call here
       // mockEvents.push(newEvent);
       
-      // Показываем уведомление об успешном добавлении
-      alert(t.eventAddedSuccessfully || 'Событие успешно добавлено!');
+      // Show success notification
+      alert(t.eventAddedSuccessfully || (language === 'ru' ? 'Событие успешно добавлено!' : 'Event added successfully!'));
       closeModal();
     } else {
-      alert(t.pleaseFillAllFields || 'Пожалуйста, заполните все поля!');
+      alert(t.pleaseFillAllFields || (language === 'ru' ? 'Пожалуйста, заполните все поля!' : 'Please fill in all fields!'));
     }
   };
 
@@ -2198,7 +2204,7 @@ export default function AdminDashboard() {
               }`}
             >
               <CurrencyDollarIcon className="w-5 h-5" />
-              <span>Финансирование</span>
+              <span>{language === 'ru' ? 'Финансирование' : 'Financing'}</span>
             </button>
           </div>
         </div>
@@ -2348,10 +2354,10 @@ export default function AdminDashboard() {
                     className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
                   >
                     <option value="Все регионы">{t.allRegions}</option>
-                    <option value="Алматы">Алматы</option>
-                    <option value="Астана">Астана</option>
-                    <option value="Шымкент">Шымкент</option>
-                    <option value="Алматинская область">Алматинская область</option>
+                    <option value="Алматы">{language === 'ru' ? 'Алматы' : 'Almaty'}</option>
+                    <option value="Астана">{language === 'ru' ? 'Астана' : 'Astana'}</option>
+                    <option value="Шымкент">{language === 'ru' ? 'Шымкент' : 'Shymkent'}</option>
+                    <option value="Алматинская область">{language === 'ru' ? 'Алматинская область' : 'Almaty Region'}</option>
                   </select>
                 </div>
                 <div>
