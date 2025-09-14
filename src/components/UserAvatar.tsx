@@ -151,57 +151,7 @@ export default function UserAvatar({ className = '', onWalletClick, onSearchClic
               {language === 'ru' ? 'Онлайн' : 'Online'}
             </span>
           </div>
-          <div className="flex items-center space-x-1 flex-wrap gap-1">
-            <Link
-              href="/tourist/news"
-              className="p-2 text-blue-500 hover:text-blue-700 hover:bg-blue-50 rounded-full transition-colors duration-200 relative"
-              title={language === 'ru' ? 'Сообщения' : 'Messages'}
-            >
-              <EnvelopeIcon className="w-5 h-5" />
-              {/* Индикатор новых уведомлений */}
-              <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full flex items-center justify-center">
-                <span className="text-xs text-white font-bold">3</span>
-              </div>
-            </Link>
-            <button
-              onClick={onSearchClick}
-              className="p-2 text-purple-500 hover:text-purple-700 hover:bg-purple-50 rounded-full transition-colors duration-200"
-              title={language === 'ru' ? 'Поиск' : 'Search'}
-            >
-              <MagnifyingGlassIcon className="w-5 h-5" />
-            </button>
-            <button
-              onClick={onRouteManagementClick}
-              className="p-2 text-indigo-500 hover:text-indigo-700 hover:bg-indigo-50 rounded-full transition-colors duration-200"
-              title={language === 'ru' ? 'Управление маршрутами' : 'Route Management'}
-            >
-              <MapIcon className="w-5 h-5" />
-            </button>
-            <button
-              onClick={onBookingCalendarClick}
-              className="p-2 text-orange-500 hover:text-orange-700 hover:bg-orange-50 rounded-full transition-colors duration-200"
-              title={language === 'ru' ? 'Календарь бронирования' : 'Booking Calendar'}
-            >
-              <CalendarIcon className="w-5 h-5" />
-            </button>
-            <button
-              onClick={onPhotoGalleryClick}
-              className="p-2 text-pink-500 hover:text-pink-700 hover:bg-pink-50 rounded-full transition-colors duration-200"
-              title={language === 'ru' ? 'Фотогалерея' : 'Photo Gallery'}
-            >
-              <PhotoIcon className="w-5 h-5" />
-            </button>
-            <button
-              onClick={onWalletClick}
-              className="p-2 text-emerald-500 hover:text-emerald-700 hover:bg-emerald-50 rounded-full transition-colors duration-200 relative"
-              title={language === 'ru' ? 'Мой кошелек' : 'My Wallet'}
-            >
-              <WalletIcon className="w-5 h-5" />
-              {/* Индикатор AirCoin */}
-              <div className="absolute -top-1 -right-1 w-3 h-3 bg-emerald-500 rounded-full flex items-center justify-center">
-                <span className="text-xs text-white font-bold">🌱</span>
-              </div>
-            </button>
+          <div className="flex items-center space-x-1">
             <Link
               href="/settings/account"
               className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-full transition-colors duration-200"
@@ -281,6 +231,68 @@ export default function UserAvatar({ className = '', onWalletClick, onSearchClic
                 {mockUserData.ecoTours}
               </p>
             </div>
+          </button>
+        </div>
+      </div>
+
+      {/* Дополнительные кнопки навигации */}
+      <div className="mt-4 pt-4 border-t border-gray-100">
+        <div className="grid grid-cols-2 gap-2">
+          <button
+            onClick={onSearchClick}
+            className="flex items-center justify-center space-x-2 bg-purple-500 hover:bg-purple-600 text-white rounded-lg p-3 transition-colors duration-200"
+            title={language === 'ru' ? 'Поиск' : 'Search'}
+          >
+            <MagnifyingGlassIcon className="w-4 h-4" />
+            <span className="text-sm font-medium">{language === 'ru' ? 'Поиск' : 'Search'}</span>
+          </button>
+          <button
+            onClick={onRouteManagementClick}
+            className="flex items-center justify-center space-x-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg p-3 transition-colors duration-200"
+            title={language === 'ru' ? 'Управление маршрутами' : 'Route Management'}
+          >
+            <MapIcon className="w-4 h-4" />
+            <span className="text-sm font-medium">{language === 'ru' ? 'Маршруты' : 'Routes'}</span>
+          </button>
+          <button
+            onClick={onBookingCalendarClick}
+            className="flex items-center justify-center space-x-2 bg-orange-500 hover:bg-orange-600 text-white rounded-lg p-3 transition-colors duration-200"
+            title={language === 'ru' ? 'Календарь бронирования' : 'Booking Calendar'}
+          >
+            <CalendarIcon className="w-4 h-4" />
+            <span className="text-sm font-medium">{language === 'ru' ? 'Календарь' : 'Calendar'}</span>
+          </button>
+          <button
+            onClick={onWalletClick}
+            className="flex items-center justify-center space-x-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg p-3 transition-colors duration-200 relative"
+            title={language === 'ru' ? 'Мой кошелек' : 'My Wallet'}
+          >
+            <WalletIcon className="w-4 h-4" />
+            <span className="text-sm font-medium">{language === 'ru' ? 'Кошелек' : 'Wallet'}</span>
+            {/* Индикатор AirCoin */}
+            <div className="absolute -top-1 -right-1 w-3 h-3 bg-emerald-600 rounded-full flex items-center justify-center">
+              <span className="text-xs text-white font-bold">🌱</span>
+            </div>
+          </button>
+          <Link
+            href="/tourist/news"
+            className="flex items-center justify-center space-x-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg p-3 transition-colors duration-200 relative"
+            title={language === 'ru' ? 'Сообщения' : 'Messages'}
+          >
+            <EnvelopeIcon className="w-4 h-4" />
+            <span className="text-sm font-medium">{language === 'ru' ? 'Сообщения' : 'Messages'}</span>
+            {/* Индикатор новых уведомлений */}
+            <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full flex items-center justify-center">
+              <span className="text-xs text-white font-bold">3</span>
+            </div>
+          </Link>
+          <button
+            onClick={onPhotoGalleryClick}
+            className="flex items-center justify-center space-x-2 bg-pink-500 hover:bg-pink-600 text-white rounded-lg p-3 transition-colors duration-200"
+            title={language === 'ru' ? 'Фотогалерея' : 'Photo Gallery'}
+          >
+            <PhotoIcon className="w-4 h-4" />
+            <span className="text-sm font-medium">{language === 'ru' ? 'Галерея' : 'Gallery'}</span>
           </button>
         </div>
       </div>
