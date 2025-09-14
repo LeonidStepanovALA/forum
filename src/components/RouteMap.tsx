@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { MapPinIcon, ArrowRightIcon, CalendarIcon, ClockIcon } from '@heroicons/react/24/outline';
+import { useLanguage } from '@/hooks/useLanguage';
 
 interface RoutePoint {
   id: string;
@@ -39,6 +40,7 @@ export default function RouteMap({
   duration,
   selectedHotels = []
 }: RouteMapProps) {
+  const { language } = useLanguage();
   const [selectedPoint, setSelectedPoint] = useState<string | null>(null);
   const [showTreePlantingModal, setShowTreePlantingModal] = useState(false);
   const [selectedTreeOption, setSelectedTreeOption] = useState<string | null>(null);
@@ -82,20 +84,20 @@ export default function RouteMap({
 
   // Функция для расчета углеродного следа
   const calculateCarbonFootprint = () => {
-    const baseTransportEmissions = 45; // кг CO2 на человека для стандартного транспорта
-    const ecoTransportReduction = 0.6; // 60% снижение для эко-транспорта
+    const baseTransportEmissions = 45; // kg CO2 per person for standard transport
+    const ecoTransportReduction = 0.6; // 60% reduction for eco transport
     const ecoTransportEmissions = baseTransportEmissions * ecoTransportReduction;
     
     const averageEcoRating = selectedHotels.length > 0 
       ? selectedHotels.reduce((sum, hotel) => sum + hotel.ecoRating, 0) / selectedHotels.length 
       : 0;
     
-    const hotelEmissionReduction = averageEcoRating >= 4.5 ? 0.3 : 0.1; // 30% или 10% снижение
+    const hotelEmissionReduction = averageEcoRating >= 4.5 ? 0.3 : 0.1; // 30% or 10% reduction
     const totalEmissions = ecoTransportEmissions * (1 - hotelEmissionReduction);
     
     const emissionsSaved = baseTransportEmissions - totalEmissions;
     
-    // Учитываем компенсацию через высадку деревьев
+    // Consider compensation through tree planting
     const remainingEmissions = Math.max(0, totalEmissions - compensatedEmissions);
     
     return {
@@ -112,37 +114,43 @@ export default function RouteMap({
 
   const carbonData = calculateCarbonFootprint();
 
-  // Варианты высадки деревьев для компенсации углеродного следа
+  // Tree planting options for carbon footprint compensation
   const treePlantingOptions = [
     {
       id: 'local',
-      name: 'Местная высадка',
-      description: 'Высадка деревьев в регионе тура',
-      treesNeeded: Math.ceil(carbonData.totalEmissions / 22), // 22 кг CO2 поглощает одно дерево в год
-      cost: Math.ceil(carbonData.totalEmissions / 22) * 25, // 25 AIRCOIN за дерево
-      timeToCompensate: '1 год',
+      name: language === 'ru' ? 'Местная высадка' : 'Local Planting',
+      description: language === 'ru' ? 'Высадка деревьев в регионе тура' : 'Planting trees in the tour region',
+      treesNeeded: Math.ceil(carbonData.totalEmissions / 22), // 22 kg CO2 absorbed by one tree per year
+      cost: Math.ceil(carbonData.totalEmissions / 22) * 25, // 25 AIRCOIN per tree
+      timeToCompensate: language === 'ru' ? '1 год' : '1 year',
       icon: '🌳',
-      benefits: ['Поддержка местных экосистем', 'Участие в местных проектах', 'Видимый результат']
+      benefits: language === 'ru' 
+        ? ['Поддержка местных экосистем', 'Участие в местных проектах', 'Видимый результат']
+        : ['Support local ecosystems', 'Participation in local projects', 'Visible results']
     },
     {
       id: 'global',
-      name: 'Глобальная компенсация',
-      description: 'Высадка деревьев в тропических лесах',
-      treesNeeded: Math.ceil(carbonData.totalEmissions / 30), // 30 кг CO2 поглощает одно тропическое дерево в год
-      cost: Math.ceil(carbonData.totalEmissions / 30) * 15, // 15 AIRCOIN за дерево
-      timeToCompensate: '8 месяцев',
+      name: language === 'ru' ? 'Глобальная компенсация' : 'Global Compensation',
+      description: language === 'ru' ? 'Высадка деревьев в тропических лесах' : 'Planting trees in tropical forests',
+      treesNeeded: Math.ceil(carbonData.totalEmissions / 30), // 30 kg CO2 absorbed by one tropical tree per year
+      cost: Math.ceil(carbonData.totalEmissions / 30) * 15, // 15 AIRCOIN per tree
+      timeToCompensate: language === 'ru' ? '8 месяцев' : '8 months',
       icon: '🌴',
-      benefits: ['Высокая эффективность поглощения CO2', 'Быстрая компенсация', 'Глобальное воздействие']
+      benefits: language === 'ru'
+        ? ['Высокая эффективность поглощения CO2', 'Быстрая компенсация', 'Глобальное воздействие']
+        : ['High CO2 absorption efficiency', 'Fast compensation', 'Global impact']
     },
     {
       id: 'mixed',
-      name: 'Смешанный подход',
-      description: 'Комбинация местной и глобальной высадки',
-      treesNeeded: Math.ceil(carbonData.totalEmissions / 25), // 25 кг CO2 в среднем
-      cost: Math.ceil(carbonData.totalEmissions / 25) * 20, // 20 AIRCOIN за дерево
-      timeToCompensate: '10 месяцев',
+      name: language === 'ru' ? 'Смешанный подход' : 'Mixed Approach',
+      description: language === 'ru' ? 'Комбинация местной и глобальной высадки' : 'Combination of local and global planting',
+      treesNeeded: Math.ceil(carbonData.totalEmissions / 25), // 25 kg CO2 on average
+      cost: Math.ceil(carbonData.totalEmissions / 25) * 20, // 20 AIRCOIN per tree
+      timeToCompensate: language === 'ru' ? '10 месяцев' : '10 months',
       icon: '🌲',
-      benefits: ['Баланс местного и глобального воздействия', 'Оптимальная стоимость', 'Максимальная эффективность']
+      benefits: language === 'ru'
+        ? ['Баланс местного и глобального воздействия', 'Оптимальная стоимость', 'Максимальная эффективность']
+        : ['Balance of local and global impact', 'Optimal cost', 'Maximum efficiency']
     }
   ];
 
@@ -155,11 +163,14 @@ export default function RouteMap({
     if (selectedTreeOption) {
       const option = treePlantingOptions.find(opt => opt.id === selectedTreeOption);
       
-      // Устанавливаем компенсацию
+      // Set compensation
       setCompensatedEmissions(carbonData.totalEmissions);
       setIsCompensated(true);
       
-      alert(`🌱 Спасибо за ваш вклад в экологию!\n\nВы выбрали: ${option?.name}\nКоличество деревьев: ${option?.treesNeeded}\nСтоимость: ${option?.cost} AIRCOIN\nВремя компенсации: ${option?.timeToCompensate}\n\nВаш углеродный след будет полностью компенсирован!`);
+      const message = language === 'ru' 
+        ? `🌱 Спасибо за ваш вклад в экологию!\n\nВы выбрали: ${option?.name}\nКоличество деревьев: ${option?.treesNeeded}\nСтоимость: ${option?.cost} AIRCOIN\nВремя компенсации: ${option?.timeToCompensate}\n\nВаш углеродный след будет полностью компенсирован!`
+        : `🌱 Thank you for your contribution to ecology!\n\nYou chose: ${option?.name}\nNumber of trees: ${option?.treesNeeded}\nCost: ${option?.cost} AIRCOIN\nCompensation time: ${option?.timeToCompensate}\n\nYour carbon footprint will be fully compensated!`;
+      alert(message);
       setShowTreePlantingModal(false);
       setSelectedTreeOption(null);
     }
@@ -172,7 +183,7 @@ export default function RouteMap({
         <h3 className="text-lg font-semibold text-gray-800">{language === 'ru' ? 'Маршрут тура' : 'Tour Route'}</h3>
       </div>
 
-      {/* Даты и продолжительность */}
+      {/* Dates and duration */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
         <div className="flex items-center gap-2 p-3 bg-blue-50 rounded-lg">
           <CalendarIcon className="w-4 h-4 text-blue-500" />
@@ -199,9 +210,9 @@ export default function RouteMap({
         </div>
       </div>
 
-      {/* Карта маршрута */}
+      {/* Route map */}
       <div className="relative">
-        {/* Заглушка для карты */}
+        {/* Map placeholder */}
         <div className="bg-gray-100 rounded-lg h-64 mb-4 flex items-center justify-center">
           <div className="text-center">
             <div className="text-4xl mb-2">🗺️</div>
@@ -210,9 +221,9 @@ export default function RouteMap({
           </div>
         </div>
 
-        {/* Точки маршрута */}
+        {/* Route points */}
         <div className="space-y-3">
-          {/* Начальная точка */}
+          {/* Start point */}
           <div 
             className={`flex items-center gap-3 p-3 rounded-lg border-2 cursor-pointer transition-colors ${getPointColor('start')} ${selectedPoint === 'start' ? 'ring-2 ring-blue-300' : ''}`}
             onClick={() => setSelectedPoint(selectedPoint === 'start' ? null : 'start')}
@@ -225,7 +236,7 @@ export default function RouteMap({
             <ArrowRightIcon className="w-4 h-4 text-gray-400" />
           </div>
 
-          {/* Промежуточные точки */}
+          {/* Waypoints */}
           {waypoints.map((point) => (
             <div 
               key={point.id}
@@ -238,7 +249,7 @@ export default function RouteMap({
                 <div className="text-sm text-gray-600">{point.description}</div>
                 {point.arrivalTime && (
                   <div className="text-xs text-gray-500">
-                    Прибытие: {point.arrivalTime}
+                    {language === 'ru' ? 'Прибытие:' : 'Arrival:'} {point.arrivalTime}
                   </div>
                 )}
               </div>
@@ -246,7 +257,7 @@ export default function RouteMap({
             </div>
           ))}
 
-          {/* Конечная точка */}
+          {/* End point */}
           <div 
             className={`flex items-center gap-3 p-3 rounded-lg border-2 cursor-pointer transition-colors ${getPointColor('end')} ${selectedPoint === 'end' ? 'ring-2 ring-blue-300' : ''}`}
             onClick={() => setSelectedPoint(selectedPoint === 'end' ? null : 'end')}
@@ -259,7 +270,7 @@ export default function RouteMap({
           </div>
         </div>
 
-        {/* Детали выбранной точки */}
+        {/* Selected point details */}
         {selectedPoint && (
           <div className="mt-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
             <h4 className="font-medium text-gray-800 mb-2">{language === 'ru' ? 'Детали точки маршрута' : 'Route Point Details'}</h4>
@@ -294,13 +305,13 @@ export default function RouteMap({
         )}
       </div>
 
-      {/* Отчет о углеродном следе */}
+      {/* Carbon footprint report */}
       <div className="mt-6 p-4 bg-green-50 rounded-lg border border-green-200">
         <h4 className="font-medium text-gray-800 mb-3 flex items-center gap-2">
-          🌱 Отчет о углеродном следе
+          🌱 {language === 'ru' ? 'Отчет о углеродном следе' : 'Carbon Footprint Report'}
           {carbonData.hasHighEcoHotels && (
             <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">
-              Эко-преимущество
+              {language === 'ru' ? 'Эко-преимущество' : 'Eco-advantage'}
             </span>
           )}
         </h4>
@@ -308,33 +319,42 @@ export default function RouteMap({
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
           <div className="bg-white p-3 rounded-lg border border-green-200">
             <div className="text-gray-600 text-xs">
-              {isCompensated ? 'Оставшийся углеродный след' : 'Общий углеродный след'}
+              {isCompensated 
+                ? (language === 'ru' ? 'Оставшийся углеродный след' : 'Remaining carbon footprint')
+                : (language === 'ru' ? 'Общий углеродный след' : 'Total carbon footprint')
+              }
             </div>
             <div className={`font-bold text-lg ${isCompensated ? 'text-green-600' : 'text-gray-800'}`}>
-              {isCompensated ? carbonData.remainingEmissions : carbonData.totalEmissions} кг CO₂
+              {isCompensated ? carbonData.remainingEmissions : carbonData.totalEmissions} {language === 'ru' ? 'кг CO₂' : 'kg CO₂'}
             </div>
             <div className="text-xs text-green-600">{language === 'ru' ? 'на человека' : 'per person'}</div>
             {isCompensated && carbonData.remainingEmissions === 0 && (
-              <div className="text-xs text-green-600 font-medium mt-1">✅ Полностью компенсирован</div>
+              <div className="text-xs text-green-600 font-medium mt-1">✅ {language === 'ru' ? 'Полностью компенсирован' : 'Fully compensated'}</div>
             )}
           </div>
           
           <div className="bg-white p-3 rounded-lg border border-green-200">
             <div className="text-gray-600 text-xs">{language === 'ru' ? 'Сэкономлено выбросов' : 'Emissions Saved'}</div>
-            <div className="font-bold text-lg text-green-600">-{carbonData.emissionsSaved} кг CO₂</div>
+            <div className="font-bold text-lg text-green-600">-{carbonData.emissionsSaved} {language === 'ru' ? 'кг CO₂' : 'kg CO₂'}</div>
             <div className="text-xs text-green-600">{language === 'ru' ? 'по сравнению со стандартным туром' : 'compared to standard tour'}</div>
           </div>
           
           <div className="bg-white p-3 rounded-lg border border-green-200">
             <div className="text-gray-600 text-xs">
-              {isCompensated ? 'Компенсировано деревьями' : 'Снижение выбросов'}
+              {isCompensated 
+                ? (language === 'ru' ? 'Компенсировано деревьями' : 'Compensated by trees')
+                : (language === 'ru' ? 'Снижение выбросов' : 'Emissions reduction')
+              }
             </div>
             <div className="font-bold text-lg text-green-600">
               {isCompensated ? carbonData.compensatedEmissions : carbonData.reductionPercentage}
-              {isCompensated ? ' кг CO₂' : '%'}
+              {isCompensated ? (language === 'ru' ? ' кг CO₂' : ' kg CO₂') : '%'}
             </div>
             <div className="text-xs text-green-600">
-              {isCompensated ? 'через высадку деревьев' : 'благодаря эко-выбору'}
+              {isCompensated 
+                ? (language === 'ru' ? 'через высадку деревьев' : 'through tree planting')
+                : (language === 'ru' ? 'благодаря эко-выбору' : 'thanks to eco choice')
+              }
             </div>
           </div>
           
@@ -440,9 +460,9 @@ export default function RouteMap({
             
             <div className="mb-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
               <div className="text-sm text-blue-800">
-                <strong>{language === 'ru' ? 'Ваш углеродный след:' : 'Your carbon footprint:'}</strong> {carbonData.totalEmissions} кг CO₂
+                <strong>{language === 'ru' ? 'Ваш углеродный след:' : 'Your carbon footprint:'}</strong> {carbonData.totalEmissions} {language === 'ru' ? 'кг CO₂' : 'kg CO₂'}
                 <br />
-                <strong>{language === 'ru' ? 'Рекомендуемое количество деревьев:' : 'Recommended number of trees:'}</strong> {treePlantingOptions[2].treesNeeded} шт.
+                <strong>{language === 'ru' ? 'Рекомендуемое количество деревьев:' : 'Recommended number of trees:'}</strong> {treePlantingOptions[2].treesNeeded} {language === 'ru' ? 'шт.' : 'pcs.'}
               </div>
             </div>
 

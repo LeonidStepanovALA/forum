@@ -30,7 +30,7 @@ const TypeIcon = ({ type }: { type: string }) => {
   }
 };
 
-const PlaceholderImage = ({ type }: { type: string }) => {
+const PlaceholderImage = ({ type, language }: { type: string; language: string }) => {
   const getImageContent = () => {
     switch (type) {
       case 'location':
@@ -168,7 +168,7 @@ export default function PersonalizedRecommendations() {
               <div className="absolute top-2 right-2 bg-white rounded-full p-2">
                 <TypeIcon type={rec.type} />
               </div>
-              <PlaceholderImage type={rec.type} />
+              <PlaceholderImage type={rec.type} language={language} />
             </div>
             <div className="p-4 md:p-6">
               <h4 className="text-lg md:text-xl font-semibold text-green-800 mb-2 md:mb-3">
