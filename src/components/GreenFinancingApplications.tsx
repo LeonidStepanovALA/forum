@@ -35,68 +35,70 @@ export default function GreenFinancingApplications() {
   const [showModal, setShowModal] = useState(false);
 
   // Mock data for green financing applications
-  const applications: GreenFinancingApplication[] = [
+  const getApplications = (lang: string): GreenFinancingApplication[] => [
     {
       id: 'GF-001',
-      hotelName: language === 'ru' ? 'Эко-отель "Зеленый Алматы"' : 'Eco Hotel "Green Almaty"',
+      hotelName: lang === 'ru' ? 'Эко-отель "Зеленый Алматы"' : 'Eco Hotel "Green Almaty"',
       amount: 10500000,
-      currency: language === 'ru' ? 'тенге' : 'tenge',
+      currency: lang === 'ru' ? 'тенге' : 'tenge',
       status: 'pending',
       submissionDate: '2024-01-15',
-      implementationPeriod: language === 'ru' ? '2 года' : '2 years',
-      description: language === 'ru' ? 'Установка солнечных панелей, система умного орошения, рекуперация тепла' : 'Solar panel installation, smart irrigation system, heat recovery',
+      implementationPeriod: lang === 'ru' ? '2 года' : '2 years',
+      description: lang === 'ru' ? 'Установка солнечных панелей, система умного орошения, рекуперация тепла' : 'Solar panel installation, smart irrigation system, heat recovery',
       ecoRating: 4.7,
       expectedROI: 18.5,
-      contactPerson: language === 'ru' ? 'Анна Петрова' : 'Anna Petrova',
+      contactPerson: lang === 'ru' ? 'Анна Петрова' : 'Anna Petrova',
       email: 'anna.petrova@greenalmaty.kz',
       phone: '+7 777 123 4567'
     },
     {
       id: 'GF-002',
-      hotelName: language === 'ru' ? 'Горный курорт "Эко-Лодж"' : 'Mountain Resort "Eco-Lodge"',
+      hotelName: lang === 'ru' ? 'Горный курорт "Эко-Лодж"' : 'Mountain Resort "Eco-Lodge"',
       amount: 8500000,
-      currency: language === 'ru' ? 'тенге' : 'tenge',
+      currency: lang === 'ru' ? 'тенге' : 'tenge',
       status: 'under-review',
       submissionDate: '2024-01-12',
-      implementationPeriod: language === 'ru' ? '1 год' : '1 year',
-      description: language === 'ru' ? 'Система очистки сточных вод, компостирование, зеленая крыша' : 'Wastewater treatment system, composting, green roof',
+      implementationPeriod: lang === 'ru' ? '1 год' : '1 year',
+      description: lang === 'ru' ? 'Система очистки сточных вод, компостирование, зеленая крыша' : 'Wastewater treatment system, composting, green roof',
       ecoRating: 4.5,
       expectedROI: 15.2,
-      contactPerson: language === 'ru' ? 'Максим Козлов' : 'Maxim Kozlov',
+      contactPerson: lang === 'ru' ? 'Максим Козлов' : 'Maxim Kozlov',
       email: 'maxim.kozlov@ecolodge.kz',
       phone: '+7 777 234 5678'
     },
     {
       id: 'GF-003',
-      hotelName: language === 'ru' ? 'Семейный отель "Природа"' : 'Family Hotel "Nature"',
+      hotelName: lang === 'ru' ? 'Семейный отель "Природа"' : 'Family Hotel "Nature"',
       amount: 6200000,
-      currency: language === 'ru' ? 'тенге' : 'tenge',
+      currency: lang === 'ru' ? 'тенге' : 'tenge',
       status: 'approved',
       submissionDate: '2024-01-08',
-      implementationPeriod: language === 'ru' ? '1.5 года' : '1.5 years',
-      description: language === 'ru' ? 'LED освещение, датчики движения, система сбора дождевой воды' : 'LED lighting, motion sensors, rainwater collection system',
+      implementationPeriod: lang === 'ru' ? '1.5 года' : '1.5 years',
+      description: lang === 'ru' ? 'LED освещение, датчики движения, система сбора дождевой воды' : 'LED lighting, motion sensors, rainwater collection system',
       ecoRating: 4.3,
       expectedROI: 12.8,
-      contactPerson: language === 'ru' ? 'Елена Смирнова' : 'Elena Smirnova',
+      contactPerson: lang === 'ru' ? 'Елена Смирнова' : 'Elena Smirnova',
       email: 'elena.smirnova@naturehotel.kz',
       phone: '+7 777 345 6789'
     },
     {
       id: 'GF-004',
-      hotelName: language === 'ru' ? 'Бизнес-отель "Эко-Стиль"' : 'Business Hotel "Eco-Style"',
+      hotelName: lang === 'ru' ? 'Бизнес-отель "Эко-Стиль"' : 'Business Hotel "Eco-Style"',
       amount: 12800000,
-      currency: language === 'ru' ? 'тенге' : 'tenge',
+      currency: lang === 'ru' ? 'тенге' : 'tenge',
       status: 'rejected',
       submissionDate: '2024-01-05',
-      implementationPeriod: language === 'ru' ? '3 года' : '3 years',
-      description: language === 'ru' ? 'Полная модернизация энергосистемы, умное управление зданием' : 'Complete energy system modernization, smart building management',
+      implementationPeriod: lang === 'ru' ? '3 года' : '3 years',
+      description: lang === 'ru' ? 'Полная модернизация энергосистемы, умное управление зданием' : 'Complete energy system modernization, smart building management',
       ecoRating: 4.1,
       expectedROI: 8.5,
-      contactPerson: language === 'ru' ? 'Дмитрий Волков' : 'Dmitry Volkov',
+      contactPerson: lang === 'ru' ? 'Дмитрий Волков' : 'Dmitry Volkov',
       email: 'dmitry.volkov@ecostyle.kz',
       phone: '+7 777 456 7890'
     }
   ];
+
+  const applications = getApplications(language);
 
 
   const getStatusText = (status: string) => {
