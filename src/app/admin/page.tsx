@@ -11,7 +11,10 @@ import {
   ChevronRightIcon,
   ChevronDownIcon,
   ChartBarIcon,
-  CurrencyDollarIcon
+  CurrencyDollarIcon,
+  ChatBubbleLeftRightIcon,
+  ExclamationTriangleIcon,
+  InformationCircleIcon
 } from '@heroicons/react/24/outline';
 import { useLanguage } from '@/hooks/useLanguage';
 import { translations } from '@/translations';
@@ -51,6 +54,7 @@ export default function AdminDashboard() {
   const [expandedItems, setExpandedItems] = useState<Set<string>>(new Set());
   const [selectedStatAction, setSelectedStatAction] = useState<string | null>(null);
   const [showStatModal, setShowStatModal] = useState(false);
+  const [showMessages, setShowMessages] = useState(false);
 
   // Course form state
   const [courseForm, setCourseForm] = useState({
@@ -2206,6 +2210,16 @@ export default function AdminDashboard() {
               <CurrencyDollarIcon className="w-5 h-5" />
               <span>{language === 'ru' ? 'Финансирование' : 'Financing'}</span>
             </button>
+            <button
+              onClick={() => setShowMessages(true)}
+              className="flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors text-gray-600 hover:bg-gray-100 relative"
+            >
+              <ChatBubbleLeftRightIcon className="w-5 h-5" />
+              <span>{language === 'ru' ? 'Сообщения' : 'Messages'}</span>
+              <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                3
+              </span>
+            </button>
           </div>
         </div>
 
@@ -2609,6 +2623,146 @@ export default function AdminDashboard() {
                 className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700"
               >
                 {t.close}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Messages Modal */}
+      {showMessages && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg p-6 max-w-4xl w-full max-h-[80vh] overflow-y-auto">
+            <div className="flex justify-between items-center mb-6">
+              <h3 className="text-2xl font-semibold text-green-800 flex items-center gap-2">
+                <ChatBubbleLeftRightIcon className="w-6 h-6" />
+                {language === 'ru' ? 'Сообщения системы' : 'System Messages'}
+              </h3>
+              <button
+                onClick={() => setShowMessages(false)}
+                className="text-gray-500 hover:text-gray-700"
+              >
+                <XMarkIcon className="w-6 h-6" />
+              </button>
+            </div>
+
+            <div className="space-y-4">
+              {/* High Traffic Alert */}
+              <div className="border-l-4 border-red-500 bg-red-50 p-4 rounded-r-lg">
+                <div className="flex items-start gap-3">
+                  <ExclamationTriangleIcon className="w-6 h-6 text-red-500 mt-1" />
+                  <div className="flex-1">
+                    <h4 className="font-semibold text-red-800 mb-2">
+                      {language === 'ru' ? '⚠️ Повышенный поток на маршруте' : '⚠️ High Traffic on Route'}
+                    </h4>
+                    <p className="text-red-700 mb-3">
+                      {language === 'ru' 
+                        ? 'Маршрут "Алматы - Чимбулак" показывает аномально высокую загрузку: 95% от максимальной вместимости. Рекомендуется принять меры.'
+                        : 'Route "Almaty - Chimbulak" shows abnormally high load: 95% of maximum capacity. Action recommended.'
+                      }
+                    </p>
+                    <div className="bg-white p-3 rounded border border-red-200">
+                      <h5 className="font-medium text-red-800 mb-2">
+                        {language === 'ru' ? 'Рекомендуемые действия:' : 'Recommended Actions:'}
+                      </h5>
+                      <ul className="text-sm text-red-700 space-y-1">
+                        <li>• {language === 'ru' ? 'Добавить дополнительные автобусы на маршрут' : 'Add additional buses to the route'}</li>
+                        <li>• {language === 'ru' ? 'Увеличить интервалы между отправлениями' : 'Increase intervals between departures'}</li>
+                        <li>• {language === 'ru' ? 'Предложить альтернативные маршруты туристам' : 'Suggest alternative routes to tourists'}</li>
+                        <li>• {language === 'ru' ? 'Уведомить гидов о повышенной нагрузке' : 'Notify guides about increased workload'}</li>
+                      </ul>
+                    </div>
+                    <div className="mt-3 flex gap-2">
+                      <button className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 text-sm">
+                        {language === 'ru' ? 'Принять меры' : 'Take Action'}
+                      </button>
+                      <button className="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300 text-sm">
+                        {language === 'ru' ? 'Отложить' : 'Postpone'}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Weather Alert */}
+              <div className="border-l-4 border-yellow-500 bg-yellow-50 p-4 rounded-r-lg">
+                <div className="flex items-start gap-3">
+                  <InformationCircleIcon className="w-6 h-6 text-yellow-500 mt-1" />
+                  <div className="flex-1">
+                    <h4 className="font-semibold text-yellow-800 mb-2">
+                      {language === 'ru' ? '🌤️ Погодное предупреждение' : '🌤️ Weather Warning'}
+                    </h4>
+                    <p className="text-yellow-700 mb-3">
+                      {language === 'ru' 
+                        ? 'Ожидается ухудшение погодных условий в регионе Алматинской области на 15-17 января. Возможны осадки и снижение видимости.'
+                        : 'Deteriorating weather conditions expected in Almaty Region on January 15-17. Possible precipitation and reduced visibility.'
+                      }
+                    </p>
+                    <div className="bg-white p-3 rounded border border-yellow-200">
+                      <h5 className="font-medium text-yellow-800 mb-2">
+                        {language === 'ru' ? 'Рекомендации:' : 'Recommendations:'}
+                      </h5>
+                      <ul className="text-sm text-yellow-700 space-y-1">
+                        <li>• {language === 'ru' ? 'Уведомить туристов о погодных условиях' : 'Notify tourists about weather conditions'}</li>
+                        <li>• {language === 'ru' ? 'Проверить готовность экипировки' : 'Check equipment readiness'}</li>
+                        <li>• {language === 'ru' ? 'Рассмотреть перенос туров при необходимости' : 'Consider postponing tours if necessary'}</li>
+                      </ul>
+                    </div>
+                    <div className="mt-3 flex gap-2">
+                      <button className="bg-yellow-600 text-white px-4 py-2 rounded hover:bg-yellow-700 text-sm">
+                        {language === 'ru' ? 'Уведомить туристов' : 'Notify Tourists'}
+                      </button>
+                      <button className="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300 text-sm">
+                        {language === 'ru' ? 'Просмотрено' : 'Mark as Read'}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Eco Rating Alert */}
+              <div className="border-l-4 border-green-500 bg-green-50 p-4 rounded-r-lg">
+                <div className="flex items-start gap-3">
+                  <InformationCircleIcon className="w-6 h-6 text-green-500 mt-1" />
+                  <div className="flex-1">
+                    <h4 className="font-semibold text-green-800 mb-2">
+                      {language === 'ru' ? '🌱 Возможность улучшения эко-рейтинга' : '🌱 Eco-Rating Improvement Opportunity'}
+                    </h4>
+                    <p className="text-green-700 mb-3">
+                      {language === 'ru' 
+                        ? 'Отель "Горный приют" имеет потенциал для повышения эко-рейтинга с 7.2 до 8.5 при внедрении солнечных панелей.'
+                        : 'Hotel "Mountain Shelter" has potential to improve eco-rating from 7.2 to 8.5 with solar panel implementation.'
+                      }
+                    </p>
+                    <div className="bg-white p-3 rounded border border-green-200">
+                      <h5 className="font-medium text-green-800 mb-2">
+                        {language === 'ru' ? 'Преимущества:' : 'Benefits:'}
+                      </h5>
+                      <ul className="text-sm text-green-700 space-y-1">
+                        <li>• {language === 'ru' ? 'Снижение энергопотребления на 40%' : '40% reduction in energy consumption'}</li>
+                        <li>• {language === 'ru' ? 'Увеличение привлекательности для эко-туристов' : 'Increased appeal to eco-tourists'}</li>
+                        <li>• {language === 'ru' ? 'Доступно зеленое финансирование' : 'Green financing available'}</li>
+                      </ul>
+                    </div>
+                    <div className="mt-3 flex gap-2">
+                      <button className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 text-sm">
+                        {language === 'ru' ? 'Подать заявку на финансирование' : 'Apply for Financing'}
+                      </button>
+                      <button className="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300 text-sm">
+                        {language === 'ru' ? 'Подробнее' : 'Learn More'}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-6 flex justify-end">
+              <button
+                onClick={() => setShowMessages(false)}
+                className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700"
+              >
+                {language === 'ru' ? 'Закрыть' : 'Close'}
               </button>
             </div>
           </div>
