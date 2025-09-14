@@ -2217,7 +2217,7 @@ export default function AdminDashboard() {
               <ChatBubbleLeftRightIcon className="w-5 h-5" />
               <span>{language === 'ru' ? 'Сообщения' : 'Messages'}</span>
               <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                3
+                8
               </span>
             </button>
           </div>
@@ -2750,6 +2750,188 @@ export default function AdminDashboard() {
                       </button>
                       <button className="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300 text-sm">
                         {language === 'ru' ? 'Подробнее' : 'Learn More'}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Guide Certification Alert */}
+              <div className="border-l-4 border-blue-500 bg-blue-50 p-4 rounded-r-lg">
+                <div className="flex items-start gap-3">
+                  <InformationCircleIcon className="w-6 h-6 text-blue-500 mt-1" />
+                  <div className="flex-1">
+                    <h4 className="font-semibold text-blue-800 mb-2">
+                      {language === 'ru' ? '📚 Сертификация гидов' : '📚 Guide Certification'}
+                    </h4>
+                    <p className="text-blue-700 mb-3">
+                      {language === 'ru' 
+                        ? 'У 12 гидов истекает срок сертификации в течение следующих 30 дней. Требуется обновление документов.'
+                        : '12 guides have expiring certifications within the next 30 days. Document renewal required.'
+                      }
+                    </p>
+                    <div className="bg-white p-3 rounded border border-blue-200">
+                      <h5 className="font-medium text-blue-800 mb-2">
+                        {language === 'ru' ? 'Действия:' : 'Actions:'}
+                      </h5>
+                      <ul className="text-sm text-blue-700 space-y-1">
+                        <li>• {language === 'ru' ? 'Отправить уведомления о необходимости продления' : 'Send renewal notifications'}</li>
+                        <li>• {language === 'ru' ? 'Запланировать курсы повышения квалификации' : 'Schedule refresher courses'}</li>
+                        <li>• {language === 'ru' ? 'Временно ограничить доступ к турам' : 'Temporarily restrict tour access'}</li>
+                      </ul>
+                    </div>
+                    <div className="mt-3 flex gap-2">
+                      <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm">
+                        {language === 'ru' ? 'Отправить уведомления' : 'Send Notifications'}
+                      </button>
+                      <button className="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300 text-sm">
+                        {language === 'ru' ? 'Просмотрено' : 'Mark as Read'}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Equipment Maintenance Alert */}
+              <div className="border-l-4 border-orange-500 bg-orange-50 p-4 rounded-r-lg">
+                <div className="flex items-start gap-3">
+                  <ExclamationTriangleIcon className="w-6 h-6 text-orange-500 mt-1" />
+                  <div className="flex-1">
+                    <h4 className="font-semibold text-orange-800 mb-2">
+                      {language === 'ru' ? '🔧 Техническое обслуживание' : '🔧 Equipment Maintenance'}
+                    </h4>
+                    <p className="text-orange-700 mb-3">
+                      {language === 'ru' 
+                        ? 'Эко-автобус #E-003 требует планового технического обслуживания. Последний сервис был 3 месяца назад.'
+                        : 'Eco-bus #E-003 requires scheduled maintenance. Last service was 3 months ago.'
+                      }
+                    </p>
+                    <div className="bg-white p-3 rounded border border-orange-200">
+                      <h5 className="font-medium text-orange-800 mb-2">
+                        {language === 'ru' ? 'Рекомендации:' : 'Recommendations:'}
+                      </h5>
+                      <ul className="text-sm text-orange-700 space-y-1">
+                        <li>• {language === 'ru' ? 'Запланировать ТО на ближайшие выходные' : 'Schedule maintenance for next weekend'}</li>
+                        <li>• {language === 'ru' ? 'Проверить запасные части' : 'Check spare parts availability'}</li>
+                        <li>• {language === 'ru' ? 'Уведомить водителей о временной недоступности' : 'Notify drivers about temporary unavailability'}</li>
+                      </ul>
+                    </div>
+                    <div className="mt-3 flex gap-2">
+                      <button className="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700 text-sm">
+                        {language === 'ru' ? 'Запланировать ТО' : 'Schedule Maintenance'}
+                      </button>
+                      <button className="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300 text-sm">
+                        {language === 'ru' ? 'Отложить' : 'Postpone'}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Revenue Optimization Alert */}
+              <div className="border-l-4 border-purple-500 bg-purple-50 p-4 rounded-r-lg">
+                <div className="flex items-start gap-3">
+                  <InformationCircleIcon className="w-6 h-6 text-purple-500 mt-1" />
+                  <div className="flex-1">
+                    <h4 className="font-semibold text-purple-800 mb-2">
+                      {language === 'ru' ? '💰 Оптимизация доходов' : '💰 Revenue Optimization'}
+                    </h4>
+                    <p className="text-purple-700 mb-3">
+                      {language === 'ru' 
+                        ? 'Маршрут "Астана - Бурабай" показывает низкую загрузку (45%). Рекомендуется снизить цены или улучшить маркетинг.'
+                        : 'Route "Astana - Burabay" shows low occupancy (45%). Consider price reduction or marketing improvement.'
+                      }
+                    </p>
+                    <div className="bg-white p-3 rounded border border-purple-200">
+                      <h5 className="font-medium text-purple-800 mb-2">
+                        {language === 'ru' ? 'Варианты действий:' : 'Action Options:'}
+                      </h5>
+                      <ul className="text-sm text-purple-700 space-y-1">
+                        <li>• {language === 'ru' ? 'Снизить цены на 15% для привлечения туристов' : 'Reduce prices by 15% to attract tourists'}</li>
+                        <li>• {language === 'ru' ? 'Запустить рекламную кампанию в соцсетях' : 'Launch social media advertising campaign'}</li>
+                        <li>• {language === 'ru' ? 'Добавить новые активности в программу тура' : 'Add new activities to tour program'}</li>
+                        <li>• {language === 'ru' ? 'Создать пакетные предложения' : 'Create package deals'}</li>
+                      </ul>
+                    </div>
+                    <div className="mt-3 flex gap-2">
+                      <button className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 text-sm">
+                        {language === 'ru' ? 'Применить стратегию' : 'Apply Strategy'}
+                      </button>
+                      <button className="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300 text-sm">
+                        {language === 'ru' ? 'Анализировать дальше' : 'Analyze Further'}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Customer Feedback Alert */}
+              <div className="border-l-4 border-indigo-500 bg-indigo-50 p-4 rounded-r-lg">
+                <div className="flex items-start gap-3">
+                  <InformationCircleIcon className="w-6 h-6 text-indigo-500 mt-1" />
+                  <div className="flex-1">
+                    <h4 className="font-semibold text-indigo-800 mb-2">
+                      {language === 'ru' ? '⭐ Обратная связь клиентов' : '⭐ Customer Feedback'}
+                    </h4>
+                    <p className="text-indigo-700 mb-3">
+                      {language === 'ru' 
+                        ? 'Получено 8 новых отзывов с оценкой ниже 4.0. Основные жалобы касаются качества питания и комфорта транспорта.'
+                        : 'Received 8 new reviews with rating below 4.0. Main complaints about food quality and transport comfort.'
+                      }
+                    </p>
+                    <div className="bg-white p-3 rounded border border-indigo-200">
+                      <h5 className="font-medium text-indigo-800 mb-2">
+                        {language === 'ru' ? 'Проблемы:' : 'Issues:'}
+                      </h5>
+                      <ul className="text-sm text-indigo-700 space-y-1">
+                        <li>• {language === 'ru' ? 'Недостаточное разнообразие меню' : 'Insufficient menu variety'}</li>
+                        <li>• {language === 'ru' ? 'Старые автобусы без кондиционера' : 'Old buses without air conditioning'}</li>
+                        <li>• {language === 'ru' ? 'Долгое ожидание в ресторанах' : 'Long waiting times at restaurants'}</li>
+                      </ul>
+                    </div>
+                    <div className="mt-3 flex gap-2">
+                      <button className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 text-sm">
+                        {language === 'ru' ? 'Принять меры' : 'Take Action'}
+                      </button>
+                      <button className="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300 text-sm">
+                        {language === 'ru' ? 'Ответить клиентам' : 'Respond to Customers'}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Seasonal Demand Alert */}
+              <div className="border-l-4 border-teal-500 bg-teal-50 p-4 rounded-r-lg">
+                <div className="flex items-start gap-3">
+                  <InformationCircleIcon className="w-6 h-6 text-teal-500 mt-1" />
+                  <div className="flex-1">
+                    <h4 className="font-semibold text-teal-800 mb-2">
+                      {language === 'ru' ? '📅 Сезонный спрос' : '📅 Seasonal Demand'}
+                    </h4>
+                    <p className="text-teal-700 mb-3">
+                      {language === 'ru' 
+                        ? 'Приближается пиковый сезон (май-сентябрь). Ожидается увеличение спроса на 60%. Рекомендуется подготовить дополнительные ресурсы.'
+                        : 'Peak season approaching (May-September). Expected 60% demand increase. Recommend preparing additional resources.'
+                      }
+                    </p>
+                    <div className="bg-white p-3 rounded border border-teal-200">
+                      <h5 className="font-medium text-teal-800 mb-2">
+                        {language === 'ru' ? 'Подготовка к сезону:' : 'Season Preparation:'}
+                      </h5>
+                      <ul className="text-sm text-teal-700 space-y-1">
+                        <li>• {language === 'ru' ? 'Нанять дополнительных гидов' : 'Hire additional guides'}</li>
+                        <li>• {language === 'ru' ? 'Увеличить автопарк на 40%' : 'Increase vehicle fleet by 40%'}</li>
+                        <li>• {language === 'ru' ? 'Заключить договоры с новыми отелями' : 'Sign contracts with new hotels'}</li>
+                        <li>• {language === 'ru' ? 'Подготовить маркетинговые материалы' : 'Prepare marketing materials'}</li>
+                      </ul>
+                    </div>
+                    <div className="mt-3 flex gap-2">
+                      <button className="bg-teal-600 text-white px-4 py-2 rounded hover:bg-teal-700 text-sm">
+                        {language === 'ru' ? 'Начать подготовку' : 'Start Preparation'}
+                      </button>
+                      <button className="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300 text-sm">
+                        {language === 'ru' ? 'Создать план' : 'Create Plan'}
                       </button>
                     </div>
                   </div>
