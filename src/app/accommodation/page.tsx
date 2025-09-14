@@ -684,9 +684,9 @@ const menuItems = [
                 {language === 'ru' ? 'Последние отзывы:' : 'Recent reviews:'}
               </h5>
               <div className="text-sm text-blue-700 mt-2 space-y-2">
-                <p>"{language === 'ru' ? 'Потрясающий эко-отель! Очень чистый и экологичный.' : 'Amazing eco-hotel! Very clean and environmentally friendly.'}" - 5★</p>
-                <p>"{language === 'ru' ? 'Отличное расположение и дружелюбный персонал.' : 'Great location and friendly staff.'}" - 4★</p>
-                <p>"{language === 'ru' ? 'Эко-туры были незабываемыми!' : 'Eco-tours were unforgettable!'}" - 5★</p>
+                <p>&ldquo;{language === 'ru' ? 'Потрясающий эко-отель! Очень чистый и экологичный.' : 'Amazing eco-hotel! Very clean and environmentally friendly.'}&rdquo; - 5★</p>
+                <p>&ldquo;{language === 'ru' ? 'Отличное расположение и дружелюбный персонал.' : 'Great location and friendly staff.'}&rdquo; - 4★</p>
+                <p>&ldquo;{language === 'ru' ? 'Эко-туры были незабываемыми!' : 'Eco-tours were unforgettable!'}&rdquo; - 5★</p>
               </div>
             </div>
             <div className="bg-green-50 p-3 rounded-lg">
