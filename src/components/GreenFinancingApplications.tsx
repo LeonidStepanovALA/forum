@@ -100,18 +100,6 @@ export default function GreenFinancingApplications() {
     }
   ];
 
-  const getStatusIcon = (status: string) => {
-    switch (status) {
-      case 'approved':
-        return <CheckCircleIcon className="w-5 h-5 text-green-500" />;
-      case 'rejected':
-        return <XCircleIcon className="w-5 h-5 text-red-500" />;
-      case 'under-review':
-        return <EyeIcon className="w-5 h-5 text-blue-500" />;
-      default:
-        return <ClockIcon className="w-5 h-5 text-yellow-500" />;
-    }
-  };
 
   const getStatusText = (status: string) => {
     switch (status) {
