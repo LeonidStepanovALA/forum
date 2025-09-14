@@ -3,13 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { 
-  MagnifyingGlassIcon, 
-  PhoneIcon,
-  CalendarIcon,
-  MapIcon,
-  WalletIcon,
-  XMarkIcon,
-  PhotoIcon
+  XMarkIcon
 } from '@heroicons/react/24/outline';
 
 import TouristStats from '@/components/TouristStats';
