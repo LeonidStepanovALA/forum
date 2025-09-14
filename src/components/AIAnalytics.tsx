@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { useLanguage } from '@/hooks/useLanguage';
 
 interface AIAnalyticsProps {
   searchQuery?: string;
@@ -9,6 +10,7 @@ interface AIAnalyticsProps {
 }
 
 export default function AIAnalytics({ searchQuery, onInsightClick }: AIAnalyticsProps) {
+  const { language } = useLanguage();
   const [isAnalyzing, setIsAnalyzing] = React.useState(false);
 
   // Имитация AI-анализа поискового запроса
