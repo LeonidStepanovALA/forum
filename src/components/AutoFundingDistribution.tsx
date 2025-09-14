@@ -258,7 +258,7 @@ export default function AutoFundingDistribution({
             🎯 {language === 'ru' ? 'Автоматическое распределение финансирования' : 'Automatic Funding Distribution'}
           </h3>
           <p className="text-sm text-gray-600 mt-1">
-            Общий бюджет: {formatCurrency(totalBudget)}
+            {language === 'ru' ? 'Общий бюджет:' : 'Total Budget:'} {formatCurrency(totalBudget)}
           </p>
         </div>
         <button
@@ -272,7 +272,10 @@ export default function AutoFundingDistribution({
         >
           <CalculatorIcon className="w-5 h-5" />
           <span>
-            {isCalculating ? 'Рассчитываем...' : 'Рассчитать распределение'}
+            {isCalculating 
+              ? (language === 'ru' ? 'Рассчитываем...' : 'Calculating...') 
+              : (language === 'ru' ? 'Рассчитать распределение' : 'Calculate Distribution')
+            }
           </span>
         </button>
       </div>
@@ -290,7 +293,7 @@ export default function AutoFundingDistribution({
               </h4>
             </div>
             <p className="text-sm text-green-700 mt-2">
-              Общая сумма распределена: {formatCurrency(allocations.reduce((sum, alloc) => sum + alloc.totalAllocated, 0))}
+              {language === 'ru' ? 'Общая сумма распределена:' : 'Total Amount Distributed:'} {formatCurrency(allocations.reduce((sum, alloc) => sum + alloc.totalAllocated, 0))}
             </p>
             
             {/* Кнопки переключения */}
@@ -306,7 +309,7 @@ export default function AutoFundingDistribution({
                     : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
                 }`}
               >
-                📊 Детальные результаты
+                📊 {language === 'ru' ? 'Детальные результаты' : 'Detailed Results'}
               </button>
               <button
                 onClick={() => {
@@ -319,7 +322,7 @@ export default function AutoFundingDistribution({
                     : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
                 }`}
               >
-                🗺️ Карта распределения
+                🗺️ {language === 'ru' ? 'Карта распределения' : 'Distribution Map'}
               </button>
               <button
                 onClick={() => {
@@ -332,7 +335,7 @@ export default function AutoFundingDistribution({
                     : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
                 }`}
               >
-                Необходимо финансирование
+                {language === 'ru' ? 'Необходимо финансирование' : 'Funding Required'}
               </button>
             </div>
           </div>
@@ -369,7 +372,7 @@ export default function AutoFundingDistribution({
                               {formatCurrency(data.amount)}
                             </div>
                             <div className="text-xs text-gray-500">
-                              {data.percentage}% от бюджета региона
+                              {data.percentage}% {language === 'ru' ? 'от бюджета региона' : 'of regional budget'}
                             </div>
                           </div>
                         </div>
@@ -425,7 +428,7 @@ export default function AutoFundingDistribution({
           {/* Общая статистика */}
           <div className="bg-white p-6 rounded-lg shadow-md">
             <h4 className="text-lg font-semibold text-gray-800 mb-4">
-              📈 Общая статистика распределения
+              📈 {language === 'ru' ? 'Общая статистика распределения' : 'Overall Distribution Statistics'}
             </h4>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               <div className="text-center p-4 bg-blue-50 rounded-lg">
