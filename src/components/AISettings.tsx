@@ -3,12 +3,14 @@
 import React, { useState } from 'react';
 import { CogIcon, SparklesIcon, ServerIcon, CloudIcon } from '@heroicons/react/24/outline';
 import { aiSearchService } from '@/services/aiSearchService';
+import { useLanguage } from '@/hooks/useLanguage';
 
 interface AISettingsProps {
   onSettingsChange?: (settings: unknown) => void;
 }
 
 export default function AISettings({ onSettingsChange }: AISettingsProps) {
+  const { language } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [settings, setSettings] = useState({
     useInternalAPI: true,
