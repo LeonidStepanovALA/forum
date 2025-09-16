@@ -1658,6 +1658,384 @@ const menuItems = [
       );
     }
 
+    // Сертификаты - LEED
+    if (selectedAction === 'apply-leed') {
+      return (
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold text-green-800">
+            {language === 'ru' ? 'Подача заявки на LEED' : 'LEED Application'}
+          </h4>
+          <div className="space-y-3">
+            <div className="bg-blue-50 p-3 rounded-lg">
+              <h5 className="font-medium text-blue-800">
+                {language === 'ru' ? 'Требования для LEED:' : 'LEED Requirements:'}
+              </h5>
+              <ul className="text-sm text-blue-700 mt-2 space-y-1">
+                <li>• {language === 'ru' ? 'Энергоэффективность: минимум 20% экономии' : 'Energy efficiency: minimum 20% savings'}</li>
+                <li>• {language === 'ru' ? 'Водосбережение: минимум 30% экономии' : 'Water conservation: minimum 30% savings'}</li>
+                <li>• {language === 'ru' ? 'Экологические материалы: 50% переработанных' : 'Eco materials: 50% recycled'}</li>
+                <li>• {language === 'ru' ? 'Качество воздуха: система вентиляции' : 'Air quality: ventilation system'}</li>
+              </ul>
+            </div>
+            <div className="bg-green-50 p-3 rounded-lg">
+              <h5 className="font-medium text-green-800">
+                {language === 'ru' ? 'Ваш статус:' : 'Your status:'}
+              </h5>
+              <p className="text-sm text-green-700 mt-1">
+                {language === 'ru' ? 'Готовы к подаче заявки - все требования выполнены' : 'Ready to apply - all requirements met'}
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (selectedAction === 'prepare-leed-docs') {
+      return (
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold text-green-800">
+            {language === 'ru' ? 'Подготовка документов LEED' : 'LEED Documentation'}
+          </h4>
+          <div className="space-y-3">
+            <div className="bg-yellow-50 p-3 rounded-lg">
+              <h5 className="font-medium text-yellow-800">
+                {language === 'ru' ? 'Необходимые документы:' : 'Required documents:'}
+              </h5>
+              <ul className="text-sm text-yellow-700 mt-2 space-y-1">
+                <li>• {language === 'ru' ? 'Энергетический аудит' : 'Energy audit'}</li>
+                <li>• {language === 'ru' ? 'Сертификаты материалов' : 'Material certificates'}</li>
+                <li>• {language === 'ru' ? 'План управления отходами' : 'Waste management plan'}</li>
+                <li>• {language === 'ru' ? 'Фотографии эко-мер' : 'Eco-measures photos'}</li>
+              </ul>
+            </div>
+            <div className="bg-green-50 p-3 rounded-lg">
+              <h5 className="font-medium text-green-800">
+                {language === 'ru' ? 'Прогресс:' : 'Progress:'}
+              </h5>
+              <p className="text-sm text-green-700 mt-1">
+                {language === 'ru' ? '85% документов готовы' : '85% of documents ready'}
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (selectedAction === 'leed-audit') {
+      return (
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold text-green-800">
+            {language === 'ru' ? 'LEED Аудит' : 'LEED Audit'}
+          </h4>
+          <div className="space-y-3">
+            <div className="bg-purple-50 p-3 rounded-lg">
+              <h5 className="font-medium text-purple-800">
+                {language === 'ru' ? 'Результаты аудита:' : 'Audit results:'}
+              </h5>
+              <ul className="text-sm text-purple-700 mt-2 space-y-1">
+                <li>• {language === 'ru' ? 'Энергоэффективность: 4.2/5' : 'Energy efficiency: 4.2/5'}</li>
+                <li>• {language === 'ru' ? 'Водосбережение: 4.5/5' : 'Water conservation: 4.5/5'}</li>
+                <li>• {language === 'ru' ? 'Материалы: 4.0/5' : 'Materials: 4.0/5'}</li>
+                <li>• {language === 'ru' ? 'Качество воздуха: 4.3/5' : 'Air quality: 4.3/5'}</li>
+              </ul>
+            </div>
+            <div className="bg-green-50 p-3 rounded-lg">
+              <h5 className="font-medium text-green-800">
+                {language === 'ru' ? 'Рекомендации:' : 'Recommendations:'}
+              </h5>
+              <p className="text-sm text-green-700 mt-1">
+                {language === 'ru' ? 'Улучшить изоляцию для повышения энергоэффективности' : 'Improve insulation to increase energy efficiency'}
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // Сертификаты - Green Key
+    if (selectedAction === 'register-green-key') {
+      return (
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold text-green-800">
+            {language === 'ru' ? 'Регистрация Green Key' : 'Green Key Registration'}
+          </h4>
+          <div className="space-y-3">
+            <div className="bg-green-50 p-3 rounded-lg">
+              <h5 className="font-medium text-green-800">
+                {language === 'ru' ? 'Преимущества Green Key:' : 'Green Key benefits:'}
+              </h5>
+              <ul className="text-sm text-green-700 mt-2 space-y-1">
+                <li>• {language === 'ru' ? 'Международное признание' : 'International recognition'}</li>
+                <li>• {language === 'ru' ? 'Повышение рейтинга' : 'Rating improvement'}</li>
+                <li>• {language === 'ru' ? 'Привлечение эко-туристов' : 'Eco-tourist attraction'}</li>
+                <li>• {language === 'ru' ? 'Снижение операционных расходов' : 'Reduced operational costs'}</li>
+              </ul>
+            </div>
+            <div className="bg-blue-50 p-3 rounded-lg">
+              <h5 className="font-medium text-blue-800">
+                {language === 'ru' ? 'Стоимость сертификации:' : 'Certification cost:'}
+              </h5>
+              <p className="text-sm text-blue-700 mt-1">
+                {language === 'ru' ? '2,500 евро + ежегодный взнос 800 евро' : '2,500 euros + annual fee 800 euros'}
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (selectedAction === 'fill-green-key-form') {
+      return (
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold text-green-800">
+            {language === 'ru' ? 'Заполнение формы Green Key' : 'Green Key Form'}
+          </h4>
+          <div className="space-y-3">
+            <div className="bg-yellow-50 p-3 rounded-lg">
+              <h5 className="font-medium text-yellow-800">
+                {language === 'ru' ? 'Разделы формы:' : 'Form sections:'}
+              </h5>
+              <ul className="text-sm text-yellow-700 mt-2 space-y-1">
+                <li>• {language === 'ru' ? 'Управление окружающей средой' : 'Environmental management'}</li>
+                <li>• {language === 'ru' ? 'Энергосбережение' : 'Energy conservation'}</li>
+                <li>• {language === 'ru' ? 'Водосбережение' : 'Water conservation'}</li>
+                <li>• {language === 'ru' ? 'Управление отходами' : 'Waste management'}</li>
+                <li>• {language === 'ru' ? 'Обучение персонала' : 'Staff training'}</li>
+              </ul>
+            </div>
+            <div className="bg-green-50 p-3 rounded-lg">
+              <h5 className="font-medium text-green-800">
+                {language === 'ru' ? 'Прогресс заполнения:' : 'Completion progress:'}
+              </h5>
+              <p className="text-sm text-green-700 mt-1">
+                {language === 'ru' ? '70% формы заполнено' : '70% of form completed'}
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (selectedAction === 'get-green-key-assessment') {
+      return (
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold text-green-800">
+            {language === 'ru' ? 'Оценка Green Key' : 'Green Key Assessment'}
+          </h4>
+          <div className="space-y-3">
+            <div className="bg-blue-50 p-3 rounded-lg">
+              <h5 className="font-medium text-blue-800">
+                {language === 'ru' ? 'Критерии оценки:' : 'Assessment criteria:'}
+              </h5>
+              <ul className="text-sm text-blue-700 mt-2 space-y-1">
+                <li>• {language === 'ru' ? 'Экологическая политика: 4.5/5' : 'Environmental policy: 4.5/5'}</li>
+                <li>• {language === 'ru' ? 'Энергоэффективность: 4.2/5' : 'Energy efficiency: 4.2/5'}</li>
+                <li>• {language === 'ru' ? 'Водосбережение: 4.3/5' : 'Water conservation: 4.3/5'}</li>
+                <li>• {language === 'ru' ? 'Управление отходами: 4.4/5' : 'Waste management: 4.4/5'}</li>
+              </ul>
+            </div>
+            <div className="bg-green-50 p-3 rounded-lg">
+              <h5 className="font-medium text-green-800">
+                {language === 'ru' ? 'Общий балл:' : 'Overall score:'}
+              </h5>
+              <p className="text-sm text-green-700 mt-1">
+                {language === 'ru' ? '4.35/5 - Готов к сертификации' : '4.35/5 - Ready for certification'}
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // Сертификаты - Biosphere
+    if (selectedAction === 'apply-biosphere') {
+      return (
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold text-green-800">
+            {language === 'ru' ? 'Заявка на Biosphere' : 'Biosphere Application'}
+          </h4>
+          <div className="space-y-3">
+            <div className="bg-green-50 p-3 rounded-lg">
+              <h5 className="font-medium text-green-800">
+                {language === 'ru' ? 'Требования Biosphere:' : 'Biosphere requirements:'}
+              </h5>
+              <ul className="text-sm text-green-700 mt-2 space-y-1">
+                <li>• {language === 'ru' ? 'Устойчивое развитие' : 'Sustainable development'}</li>
+                <li>• {language === 'ru' ? 'Сохранение биоразнообразия' : 'Biodiversity conservation'}</li>
+                <li>• {language === 'ru' ? 'Социальная ответственность' : 'Social responsibility'}</li>
+                <li>• {language === 'ru' ? 'Экономическая устойчивость' : 'Economic sustainability'}</li>
+              </ul>
+            </div>
+            <div className="bg-blue-50 p-3 rounded-lg">
+              <h5 className="font-medium text-blue-800">
+                {language === 'ru' ? 'Сроки сертификации:' : 'Certification timeline:'}
+              </h5>
+              <p className="text-sm text-blue-700 mt-1">
+                {language === 'ru' ? '6-12 месяцев с момента подачи заявки' : '6-12 months from application date'}
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (selectedAction === 'prepare-biosphere-report') {
+      return (
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold text-green-800">
+            {language === 'ru' ? 'Подготовка отчета Biosphere' : 'Biosphere Report'}
+          </h4>
+          <div className="space-y-3">
+            <div className="bg-purple-50 p-3 rounded-lg">
+              <h5 className="font-medium text-purple-800">
+                {language === 'ru' ? 'Разделы отчета:' : 'Report sections:'}
+              </h5>
+              <ul className="text-sm text-purple-700 mt-2 space-y-1">
+                <li>• {language === 'ru' ? 'Экологический след' : 'Environmental footprint'}</li>
+                <li>• {language === 'ru' ? 'Социальное воздействие' : 'Social impact'}</li>
+                <li>• {language === 'ru' ? 'Экономические показатели' : 'Economic indicators'}</li>
+                <li>• {language === 'ru' ? 'Планы улучшения' : 'Improvement plans'}</li>
+              </ul>
+            </div>
+            <div className="bg-green-50 p-3 rounded-lg">
+              <h5 className="font-medium text-green-800">
+                {language === 'ru' ? 'Статус отчета:' : 'Report status:'}
+              </h5>
+              <p className="text-sm text-green-700 mt-1">
+                {language === 'ru' ? 'В процессе подготовки - 60% готово' : 'In preparation - 60% complete'}
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (selectedAction === 'biosphere-inspection') {
+      return (
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold text-green-800">
+            {language === 'ru' ? 'Инспекция Biosphere' : 'Biosphere Inspection'}
+          </h4>
+          <div className="space-y-3">
+            <div className="bg-orange-50 p-3 rounded-lg">
+              <h5 className="font-medium text-orange-800">
+                {language === 'ru' ? 'План инспекции:' : 'Inspection plan:'}
+              </h5>
+              <ul className="text-sm text-orange-700 mt-2 space-y-1">
+                <li>• {language === 'ru' ? 'Проверка документов' : 'Document review'}</li>
+                <li>• {language === 'ru' ? 'Осмотр объекта' : 'Site inspection'}</li>
+                <li>• {language === 'ru' ? 'Интервью с персоналом' : 'Staff interviews'}</li>
+                <li>• {language === 'ru' ? 'Анализ процессов' : 'Process analysis'}</li>
+              </ul>
+            </div>
+            <div className="bg-green-50 p-3 rounded-lg">
+              <h5 className="font-medium text-green-800">
+                {language === 'ru' ? 'Дата инспекции:' : 'Inspection date:'}
+              </h5>
+              <p className="text-sm text-green-700 mt-1">
+                {language === 'ru' ? '15 марта 2024 года' : 'March 15, 2024'}
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // Загрузка документов
+    if (selectedAction === 'upload-certificates') {
+      return (
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold text-green-800">
+            {language === 'ru' ? 'Загрузка сертификатов' : 'Upload Certificates'}
+          </h4>
+          <div className="space-y-3">
+            <div className="bg-blue-50 p-3 rounded-lg">
+              <h5 className="font-medium text-blue-800">
+                {language === 'ru' ? 'Поддерживаемые форматы:' : 'Supported formats:'}
+              </h5>
+              <ul className="text-sm text-blue-700 mt-2 space-y-1">
+                <li>• PDF (до 10 МБ)</li>
+                <li>• JPG, PNG (до 5 МБ)</li>
+                <li>• DOC, DOCX (до 10 МБ)</li>
+              </ul>
+            </div>
+            <div className="bg-green-50 p-3 rounded-lg">
+              <h5 className="font-medium text-green-800">
+                {language === 'ru' ? 'Загруженные сертификаты:' : 'Uploaded certificates:'}
+              </h5>
+              <ul className="text-sm text-green-700 mt-2 space-y-1">
+                <li>• {language === 'ru' ? 'LEED Gold - 2023' : 'LEED Gold - 2023'}</li>
+                <li>• {language === 'ru' ? 'ISO 14001 - 2023' : 'ISO 14001 - 2023'}</li>
+                <li>• {language === 'ru' ? 'Green Key - 2022' : 'Green Key - 2022'}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (selectedAction === 'add-reports') {
+      return (
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold text-green-800">
+            {language === 'ru' ? 'Добавление отчетов' : 'Add Reports'}
+          </h4>
+          <div className="space-y-3">
+            <div className="bg-yellow-50 p-3 rounded-lg">
+              <h5 className="font-medium text-yellow-800">
+                {language === 'ru' ? 'Типы отчетов:' : 'Report types:'}
+              </h5>
+              <ul className="text-sm text-yellow-700 mt-2 space-y-1">
+                <li>• {language === 'ru' ? 'Экологический отчет' : 'Environmental report'}</li>
+                <li>• {language === 'ru' ? 'Отчет по энергопотреблению' : 'Energy consumption report'}</li>
+                <li>• {language === 'ru' ? 'Отчет по отходам' : 'Waste report'}</li>
+                <li>• {language === 'ru' ? 'Социальный отчет' : 'Social report'}</li>
+              </ul>
+            </div>
+            <div className="bg-green-50 p-3 rounded-lg">
+              <h5 className="font-medium text-green-800">
+                {language === 'ru' ? 'Последние отчеты:' : 'Recent reports:'}
+              </h5>
+              <p className="text-sm text-green-700 mt-1">
+                {language === 'ru' ? '12 отчетов за 2023 год' : '12 reports for 2023'}
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (selectedAction === 'manage-files') {
+      return (
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold text-green-800">
+            {language === 'ru' ? 'Управление файлами' : 'File Management'}
+          </h4>
+          <div className="space-y-3">
+            <div className="bg-purple-50 p-3 rounded-lg">
+              <h5 className="font-medium text-purple-800">
+                {language === 'ru' ? 'Действия с файлами:' : 'File actions:'}
+              </h5>
+              <ul className="text-sm text-purple-700 mt-2 space-y-1">
+                <li>• {language === 'ru' ? 'Просмотр и скачивание' : 'View and download'}</li>
+                <li>• {language === 'ru' ? 'Редактирование метаданных' : 'Edit metadata'}</li>
+                <li>• {language === 'ru' ? 'Архивирование старых файлов' : 'Archive old files'}</li>
+                <li>• {language === 'ru' ? 'Синхронизация с облаком' : 'Cloud synchronization'}</li>
+              </ul>
+            </div>
+            <div className="bg-green-50 p-3 rounded-lg">
+              <h5 className="font-medium text-green-800">
+                {language === 'ru' ? 'Статистика файлов:' : 'File statistics:'}
+              </h5>
+              <p className="text-sm text-green-700 mt-1">
+                {language === 'ru' ? '47 файлов, 2.3 ГБ общий размер' : '47 files, 2.3 GB total size'}
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
     // Для остальных действий показываем стандартное сообщение
     return (
       <div className="text-green-600">
