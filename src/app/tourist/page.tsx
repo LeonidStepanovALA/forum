@@ -35,14 +35,21 @@ export default function TouristPage() {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ 
         video: { 
-          facingMode: 'environment' // Используем заднюю камеру для лучшего сканирования QR
+          facingMode: 'environment', // Используем заднюю камеру для лучшего сканирования QR
+          width: { ideal: 1280 },
+          height: { ideal: 720 }
         } 
       });
       
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
         streamRef.current = stream;
-        setCameraActive(true);
+        
+        // Ждем загрузки метаданных видео
+        videoRef.current.onloadedmetadata = () => {
+          videoRef.current?.play();
+          setCameraActive(true);
+        };
       }
     } catch (error) {
       console.error('Ошибка доступа к камере:', error);
@@ -206,6 +213,7 @@ export default function TouristPage() {
                         playsInline
                         muted
                         className="w-full h-full object-cover"
+                        style={{ transform: 'scaleX(-1)' }} // Зеркальное отображение для лучшего UX
                       />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center">
