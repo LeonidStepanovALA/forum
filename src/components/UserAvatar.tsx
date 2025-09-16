@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { CameraIcon, UserIcon, Cog6ToothIcon, EnvelopeIcon, StarIcon, TrophyIcon, MapIcon, WalletIcon, MagnifyingGlassIcon, CalendarIcon, PhotoIcon, PhoneIcon } from '@heroicons/react/24/outline';
+import { CameraIcon, UserIcon, Cog6ToothIcon, EnvelopeIcon, StarIcon, TrophyIcon, MapIcon, WalletIcon, MagnifyingGlassIcon, CalendarIcon, PhotoIcon, PhoneIcon, QrCodeIcon } from '@heroicons/react/24/outline';
 import { useLanguage } from '@/hooks/useLanguage';
 
 interface UserAvatarProps {
@@ -14,9 +14,10 @@ interface UserAvatarProps {
   onBookingCalendarClick?: () => void;
   onPhotoGalleryClick?: () => void;
   onEmergencyClick?: () => void;
+  onQRScanClick?: () => void;
 }
 
-export default function UserAvatar({ className = '', onWalletClick, onSearchClick, onRouteManagementClick, onBookingCalendarClick, onPhotoGalleryClick, onEmergencyClick }: UserAvatarProps) {
+export default function UserAvatar({ className = '', onWalletClick, onSearchClick, onRouteManagementClick, onBookingCalendarClick, onPhotoGalleryClick, onEmergencyClick, onQRScanClick }: UserAvatarProps) {
   const { language } = useLanguage();
   const [avatar, setAvatar] = useState<string | null>(null);
   const [isEditing, setIsEditing] = useState(false);
@@ -172,6 +173,19 @@ export default function UserAvatar({ className = '', onWalletClick, onSearchClic
           <PhoneIcon className="w-5 h-5" />
           <span className="font-semibold">
             {language === 'ru' ? '🚨 Экстренная связь' : '🚨 Emergency Contact'}
+          </span>
+        </button>
+      </div>
+
+      {/* Кнопка QR-сканера */}
+      <div className="mt-3">
+        <button
+          onClick={onQRScanClick}
+          className="w-full bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg p-3 transition-colors duration-200 flex items-center justify-center space-x-2"
+        >
+          <QrCodeIcon className="w-5 h-5" />
+          <span className="font-semibold">
+            {language === 'ru' ? '📱 Сканировать QR' : '📱 Scan QR Code'}
           </span>
         </button>
       </div>
