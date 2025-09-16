@@ -152,23 +152,19 @@ export default function TouristPage() {
             <div className="p-4 sm:p-6">
               <div className="text-center">
                 <div className="bg-gray-100 rounded-lg p-8 mb-6">
-                  <div className="w-32 h-32 mx-auto bg-gray-200 rounded-lg flex items-center justify-center mb-4">
+                  <div className="w-32 h-32 mx-auto bg-gray-200 rounded-lg flex items-center justify-center mb-4 relative overflow-hidden">
                     <svg className="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
                     </svg>
+                    {/* Индикатор активности камеры */}
+                    <div className="absolute top-2 right-2 w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
                   </div>
-                  <p className="text-gray-600 mb-4">
-                    {language === 'ru' ? 'Наведите камеру на QR-код для сканирования' : 'Point your camera at the QR code to scan'}
+                  <p className="text-gray-600 mb-2">
+                    {language === 'ru' ? 'Камера активна - наведите на QR-код' : 'Camera active - point at QR code'}
                   </p>
-                  <button
-                    onClick={() => {
-                      // Здесь будет логика активации камеры
-                      alert(language === 'ru' ? 'Активация камеры...' : 'Activating camera...');
-                    }}
-                    className="bg-indigo-500 hover:bg-indigo-600 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-200"
-                  >
-                    {language === 'ru' ? 'Активировать камеру' : 'Activate Camera'}
-                  </button>
+                  <p className="text-sm text-gray-500">
+                    {language === 'ru' ? 'Автоматическое сканирование...' : 'Automatic scanning...'}
+                  </p>
                 </div>
                 
                 <div className="bg-blue-50 rounded-lg p-4 mb-4">
@@ -190,15 +186,23 @@ export default function TouristPage() {
                   </h4>
                   <div className="space-y-2 text-sm text-green-700">
                     <div className="flex justify-between">
-                      <span>{language === 'ru' ? 'Парк имени Абая' : 'Abay Park'}</span>
+                      <span>{language === 'ru' ? '🚌 Оплата автобуса - 150 тенге' : '🚌 Bus payment - 150 tenge'}</span>
+                      <span className="text-xs text-gray-500">30 мин назад</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>{language === 'ru' ? '🚲 Аренда велосипеда - 1 час' : '🚲 Bike rental - 1 hour'}</span>
                       <span className="text-xs text-gray-500">2 часа назад</span>
                     </div>
                     <div className="flex justify-between">
-                      <span>{language === 'ru' ? 'Скидка 15% в кафе' : '15% discount at cafe'}</span>
+                      <span>{language === 'ru' ? '🏛️ Парк имени Абая - информация' : '🏛️ Abay Park - information'}</span>
                       <span className="text-xs text-gray-500">1 день назад</span>
                     </div>
                     <div className="flex justify-between">
-                      <span>{language === 'ru' ? 'Эко-баллы +50' : 'Eco points +50'}</span>
+                      <span>{language === 'ru' ? '🌱 Эко-баллы +75' : '🌱 Eco points +75'}</span>
+                      <span className="text-xs text-gray-500">2 дня назад</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>{language === 'ru' ? '🚗 Аренда электрокара - 2 часа' : '🚗 Electric car rental - 2 hours'}</span>
                       <span className="text-xs text-gray-500">3 дня назад</span>
                     </div>
                   </div>
