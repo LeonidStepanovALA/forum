@@ -33,6 +33,7 @@ export default function TouristPage() {
   // Функция для активации камеры
   const startCamera = async () => {
     try {
+      console.log('Запрос доступа к камере...');
       const stream = await navigator.mediaDevices.getUserMedia({ 
         video: { 
           facingMode: 'environment', // Используем заднюю камеру для лучшего сканирования QR
@@ -41,14 +42,30 @@ export default function TouristPage() {
         } 
       });
       
+      console.log('Поток камеры получен:', stream);
+      
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
         streamRef.current = stream;
         
-        // Ждем загрузки метаданных видео
+        // Обработчики событий видео
         videoRef.current.onloadedmetadata = () => {
-          videoRef.current?.play();
+          console.log('Метаданные видео загружены');
+          videoRef.current?.play().then(() => {
+            console.log('Видео запущено');
+            setCameraActive(true);
+          }).catch(err => {
+            console.error('Ошибка воспроизведения видео:', err);
+          });
+        };
+        
+        videoRef.current.oncanplay = () => {
+          console.log('Видео готово к воспроизведению');
           setCameraActive(true);
+        };
+        
+        videoRef.current.onerror = (error) => {
+          console.error('Ошибка видео элемента:', error);
         };
       }
     } catch (error) {
@@ -69,7 +86,12 @@ export default function TouristPage() {
   // Автоматически запускаем камеру при открытии QR-сканера
   useEffect(() => {
     if (isQRScannerOpen) {
-      startCamera();
+      // Небольшая задержка для корректной инициализации
+      const timer = setTimeout(() => {
+        startCamera();
+      }, 100);
+      
+      return () => clearTimeout(timer);
     } else {
       stopCamera();
     }
@@ -251,9 +273,18 @@ export default function TouristPage() {
                         : (language === 'ru' ? 'Активация камеры...' : 'Activating camera...')
                       }
                     </p>
-                    <p className="text-sm text-gray-500">
+                    <p className="text-sm text-gray-500 mb-3">
                       {language === 'ru' ? 'Автоматическое сканирование...' : 'Automatic scanning...'}
                     </p>
+                    
+                    {!cameraActive && (
+                      <button
+                        onClick={startCamera}
+                        className="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm transition-colors duration-200"
+                      >
+                        {language === 'ru' ? 'Повторить активацию камеры' : 'Retry camera activation'}
+                      </button>
+                    )}
                   </div>
                 </div>
                 
