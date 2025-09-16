@@ -177,7 +177,8 @@ export default function TouristPage() {
                   </h4>
                   <ul className="text-sm text-blue-700 space-y-1 text-left">
                     <li>• {language === 'ru' ? 'QR-коды достопримечательностей' : 'Landmark QR codes'}</li>
-                    <li>• {language === 'ru' ? 'Коды для получения скидок' : 'Discount codes'}</li>
+                    <li>• {language === 'ru' ? 'Оплатить проезд' : 'Pay for transport'}</li>
+                    <li>• {language === 'ru' ? 'Взять в аренду транспорт' : 'Rent transport'}</li>
                     <li>• {language === 'ru' ? 'Информационные коды' : 'Information codes'}</li>
                     <li>• {language === 'ru' ? 'Коды для эко-баллов' : 'Eco points codes'}</li>
                   </ul>
