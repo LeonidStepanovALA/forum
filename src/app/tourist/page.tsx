@@ -273,18 +273,9 @@ export default function TouristPage() {
                         : (language === 'ru' ? 'Активация камеры...' : 'Activating camera...')
                       }
                     </p>
-                    <p className="text-sm text-gray-500 mb-3">
+                    <p className="text-sm text-gray-500">
                       {language === 'ru' ? 'Автоматическое сканирование...' : 'Automatic scanning...'}
                     </p>
-                    
-                    {!cameraActive && (
-                      <button
-                        onClick={startCamera}
-                        className="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm transition-colors duration-200"
-                      >
-                        {language === 'ru' ? 'Повторить активацию камеры' : 'Retry camera activation'}
-                      </button>
-                    )}
                   </div>
                 </div>
                 
@@ -296,6 +287,7 @@ export default function TouristPage() {
                     <li>• {language === 'ru' ? 'QR-коды достопримечательностей' : 'Landmark QR codes'}</li>
                     <li>• {language === 'ru' ? 'Оплатить проезд' : 'Pay for transport'}</li>
                     <li>• {language === 'ru' ? 'Взять в аренду транспорт' : 'Rent transport'}</li>
+                    <li>• {language === 'ru' ? 'Произвести оплату на кассе' : 'Pay at checkout'}</li>
                     <li>• {language === 'ru' ? 'Информационные коды' : 'Information codes'}</li>
                     <li>• {language === 'ru' ? 'Коды для эко-баллов' : 'Eco points codes'}</li>
                   </ul>
@@ -307,12 +299,16 @@ export default function TouristPage() {
                   </h4>
                   <div className="space-y-2 text-sm text-green-700">
                     <div className="flex justify-between">
+                      <span>{language === 'ru' ? '🛒 Оплата в кафе - 2,500 тенге' : '🛒 Cafe payment - 2,500 tenge'}</span>
+                      <span className="text-xs text-gray-500">15 мин назад</span>
+                    </div>
+                    <div className="flex justify-between">
                       <span>{language === 'ru' ? '🚌 Оплата автобуса - 150 тенге' : '🚌 Bus payment - 150 tenge'}</span>
-                      <span className="text-xs text-gray-500">30 мин назад</span>
+                      <span className="text-xs text-gray-500">1 час назад</span>
                     </div>
                     <div className="flex justify-between">
                       <span>{language === 'ru' ? '🚲 Аренда велосипеда - 1 час' : '🚲 Bike rental - 1 hour'}</span>
-                      <span className="text-xs text-gray-500">2 часа назад</span>
+                      <span className="text-xs text-gray-500">3 часа назад</span>
                     </div>
                     <div className="flex justify-between">
                       <span>{language === 'ru' ? '🏛️ Парк имени Абая - информация' : '🏛️ Abay Park - information'}</span>

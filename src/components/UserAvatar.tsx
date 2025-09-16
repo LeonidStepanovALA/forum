@@ -192,7 +192,7 @@ export default function UserAvatar({ className = '', onWalletClick, onSearchClic
 
       {/* Эко-статистика */}
       <div className="mt-4 pt-4 border-t border-gray-100">
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+        <div className="grid grid-cols-3 gap-2 sm:gap-4">
           {/* Эко-рейтинг */}
           <Link
             href="/tourist/carbon-report"
