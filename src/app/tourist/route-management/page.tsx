@@ -12,7 +12,8 @@ import {
   StarIcon,
   MapPinIcon,
   ClockIcon,
-  UserIcon
+  UserIcon,
+  CheckIcon
 } from '@heroicons/react/24/outline';
 import { useLanguage } from '@/hooks/useLanguage';
 import { translations } from '@/translations';
@@ -37,6 +38,7 @@ export default function RouteManagementPage() {
   const { language, changeLanguage } = useLanguage();
   const t = translations[language];
   const [showAddModal, setShowAddModal] = useState(false);
+  const [showSelectModal, setShowSelectModal] = useState(false);
   const [selectedRoute, setSelectedRoute] = useState<Route | null>(null);
   const [filterType, setFilterType] = useState<string>('all');
   const [filterDifficulty, setFilterDifficulty] = useState<string>('all');
@@ -208,14 +210,21 @@ export default function RouteManagementPage() {
         </div>
       </div>
 
-      {/* Add Route Button */}
-      <div className="mb-6">
+      {/* Action Buttons */}
+      <div className="mb-6 flex flex-wrap gap-4">
         <button
           onClick={() => setShowAddModal(true)}
           className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
         >
           <PlusIcon className="w-5 h-5" />
           {t.createRoute}
+        </button>
+        <button
+          onClick={() => setShowSelectModal(true)}
+          className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
+        >
+          <CheckIcon className="w-5 h-5" />
+          {language === 'ru' ? 'Выбрать маршрут' : 'Select Route'}
         </button>
       </div>
 
@@ -413,6 +422,80 @@ export default function RouteManagementPage() {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* Select Route Modal */}
+      {showSelectModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-lg p-6 w-full max-w-2xl max-h-[80vh] overflow-y-auto">
+            <h3 className="text-lg font-semibold mb-4">
+              {language === 'ru' ? 'Выбрать маршрут' : 'Select Route'}
+            </h3>
+            <div className="space-y-4">
+              {mockRoutes.map((route) => (
+                <div 
+                  key={route.id}
+                  className="border border-gray-200 rounded-lg p-4 hover:border-blue-300 hover:bg-blue-50 transition-colors cursor-pointer"
+                  onClick={() => {
+                    setSelectedRoute(route);
+                    setShowSelectModal(false);
+                    // Здесь можно добавить логику выбора маршрута
+                    alert(language === 'ru' 
+                      ? `Выбран маршрут: ${route.name}` 
+                      : `Selected route: ${route.name}`
+                    );
+                  }}
+                >
+                  <div className="flex items-start gap-3">
+                    <div className="text-2xl">
+                      {getTypeIcon(route.type)}
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-2">
+                        <h4 className="text-lg font-semibold text-gray-800">
+                          {route.name}
+                        </h4>
+                        {route.isFavorite && (
+                          <StarIcon className="w-4 h-4 text-yellow-500 fill-current" />
+                        )}
+                      </div>
+                      <p className="text-gray-600 mb-2">
+                        {route.description}
+                      </p>
+                      <div className="flex items-center gap-4 text-sm text-gray-500">
+                        <div className="flex items-center gap-1">
+                          <ClockIcon className="w-4 h-4" />
+                          <span>{route.duration}</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <MapPinIcon className="w-4 h-4" />
+                          <span>{route.distance}</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <StarIcon className="w-4 h-4 text-yellow-500 fill-current" />
+                          <span>{route.rating}</span>
+                        </div>
+                      </div>
+                      <div className="mt-2">
+                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${getDifficultyColor(route.difficulty)}`}>
+                          {getDifficultyText(route.difficulty)}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="flex justify-end mt-6">
+              <button
+                onClick={() => setShowSelectModal(false)}
+                className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+              >
+                {t.cancel}
+              </button>
+            </div>
           </div>
         </div>
       )}
