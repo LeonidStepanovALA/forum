@@ -554,7 +554,7 @@ export default function GuideDashboard() {
                     </div>
                     
                     <div className="space-y-2 mb-4">
-                      <div className="flex justify-between items-center">
+            <div className="flex justify-between items-center">
                         <span className="text-sm text-gray-600">{t.duration}</span>
                         <span className="text-sm font-medium text-green-700">{course.duration}</span>
                       </div>
@@ -599,85 +599,85 @@ export default function GuideDashboard() {
                 <div className="bg-green-100 text-green-800 px-4 py-2 rounded-lg text-sm font-medium">
                   {courses.filter(c => c.status === 'enrolled' || c.status === 'completed').length} {language === 'ru' ? 'активных' : 'active'}
                 </div>
-              </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {courses.map((course) => (
-                  <div key={course.id} className="bg-white p-6 rounded-lg shadow-md border-2 border-green-100 flex flex-col h-full">
-                    <div className="flex justify-between items-start mb-4">
-                      <h4 className="text-lg font-semibold text-green-800">{course.title}</h4>
-                      <span className={`px-2 py-1 rounded-full text-xs ${
-                        course.status === 'completed' ? 'bg-green-100 text-green-800' :
-                        course.status === 'enrolled' ? 'bg-blue-100 text-blue-800' :
-                        course.status === 'available' ? 'bg-gray-100 text-gray-800' :
-                        'bg-yellow-100 text-yellow-800'
-                      }`}>
-                        {course.status === 'completed' ? t.completed :
-                         course.status === 'enrolled' ? t.inProgress :
-                         course.status === 'available' ? t.available :
-                         t.pending}
-                      </span>
-                    </div>
-                    <p className="text-gray-600 mb-4 flex-grow">{course.description}</p>
-                    <div className="space-y-2 mb-4">
-                      <p className="text-sm text-gray-600"><strong>{t.duration}:</strong> {course.duration}</p>
-                      <p className="text-sm text-gray-600"><strong>{t.level}:</strong> {course.level}</p>
-                      <p className="text-sm text-gray-600"><strong>{t.instructor}:</strong> {course.instructor}</p>
-                      {course.status === 'enrolled' && (
-                        <div className="mt-3">
-                          <div className="flex justify-between text-xs text-gray-600 mb-1">
-                            <span>{t.progress}</span>
-                            <span>{course.progress}%</span>
-                          </div>
-                          <div className="w-full bg-gray-200 rounded-full h-2">
-                            <div className="bg-green-500 h-2 rounded-full" style={{ width: `${course.progress}%` }}></div>
-                          </div>
+            </div>
+            
+                                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+               {courses.map((course) => (
+                 <div key={course.id} className="bg-white p-6 rounded-lg shadow-md border-2 border-green-100 flex flex-col h-full">
+                  <div className="flex justify-between items-start mb-4">
+                    <h4 className="text-lg font-semibold text-green-800">{course.title}</h4>
+                    <span className={`px-2 py-1 rounded-full text-xs ${
+                      course.status === 'completed' ? 'bg-green-100 text-green-800' :
+                      course.status === 'enrolled' ? 'bg-blue-100 text-blue-800' :
+                      course.status === 'available' ? 'bg-gray-100 text-gray-800' :
+                      'bg-yellow-100 text-yellow-800'
+                    }`}>
+                      {course.status === 'completed' ? t.completed :
+                       course.status === 'enrolled' ? t.inProgress :
+                       course.status === 'available' ? t.available :
+                       t.pending}
+                    </span>
+                  </div>
+                  <p className="text-gray-600 mb-4 flex-grow">{course.description}</p>
+                  <div className="space-y-2 mb-4">
+                    <p className="text-sm text-gray-600"><strong>{t.duration}:</strong> {course.duration}</p>
+                    <p className="text-sm text-gray-600"><strong>{t.level}:</strong> {course.level}</p>
+                    <p className="text-sm text-gray-600"><strong>{t.instructor}:</strong> {course.instructor}</p>
+                    {course.status === 'enrolled' && (
+                      <div className="mt-3">
+                        <div className="flex justify-between text-xs text-gray-600 mb-1">
+                          <span>{t.progress}</span>
+                          <span>{course.progress}%</span>
                         </div>
-                      )}
-                      {course.status === 'completed' && course.completionDate && (
-                        <p className="text-sm text-green-600">
-                          <strong>{t.completed}:</strong> {new Date(course.completionDate).toLocaleDateString(language === 'ru' ? 'ru-RU' : 'en-US')}
-                        </p>
-                      )}
-                    </div>
-                    <div className="flex flex-col sm:flex-row gap-2 mt-4">
-                      {course.status === 'available' && (
-                        <button 
-                          onClick={() => handleCourseAction(course, 'enroll')}
-                          className="flex-1 bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 flex items-center justify-center space-x-2 min-h-[40px]"
-                        >
-                          <AcademicCapIcon className="w-4 h-4" />
-                          <span className="text-sm font-medium">{t.enroll}</span>
-                        </button>
-                      )}
-                      {course.status === 'enrolled' && (
-                        <button 
-                          onClick={() => handleCourseAction(course, 'continue')}
-                          className="flex-1 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 flex items-center justify-center space-x-2 min-h-[40px]"
-                        >
-                          <EyeIcon className="w-4 h-4" />
-                          <span className="text-sm font-medium">{t.continue}</span>
-                        </button>
-                      )}
-                      {course.status === 'completed' && (
-                        <button 
-                          onClick={() => handleCourseAction(course, 'certificate')}
-                          className="flex-1 bg-green-100 text-green-800 py-2 px-4 rounded-lg hover:bg-green-200 flex items-center justify-center space-x-2 min-h-[40px]"
-                        >
-                          <EyeIcon className="w-4 h-4" />
-                          <span className="text-sm font-medium">{t.viewCertificate}</span>
-                        </button>
-                      )}
+                        <div className="w-full bg-gray-200 rounded-full h-2">
+                          <div className="bg-green-500 h-2 rounded-full" style={{ width: `${course.progress}%` }}></div>
+                        </div>
+                      </div>
+                    )}
+                    {course.status === 'completed' && course.completionDate && (
+                      <p className="text-sm text-green-600">
+                        <strong>{t.completed}:</strong> {new Date(course.completionDate).toLocaleDateString(language === 'ru' ? 'ru-RU' : 'en-US')}
+                      </p>
+                    )}
+                  </div>
+                  <div className="flex flex-col sm:flex-row gap-2 mt-4">
+                    {course.status === 'available' && (
                       <button 
-                        onClick={() => handleCourseAction(course, 'view')}
-                        className="flex-1 bg-gray-100 text-gray-800 py-2 px-4 rounded-lg hover:bg-gray-200 flex items-center justify-center space-x-2 min-h-[40px]"
+                        onClick={() => handleCourseAction(course, 'enroll')}
+                        className="flex-1 bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 flex items-center justify-center space-x-2 min-h-[40px]"
+                      >
+                        <AcademicCapIcon className="w-4 h-4" />
+                        <span className="text-sm font-medium">{t.enroll}</span>
+                      </button>
+                    )}
+                    {course.status === 'enrolled' && (
+                      <button 
+                        onClick={() => handleCourseAction(course, 'continue')}
+                        className="flex-1 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 flex items-center justify-center space-x-2 min-h-[40px]"
                       >
                         <EyeIcon className="w-4 h-4" />
-                        <span className="text-sm font-medium">{t.view}</span>
+                        <span className="text-sm font-medium">{t.continue}</span>
                       </button>
-                    </div>
+                    )}
+                    {course.status === 'completed' && (
+                      <button 
+                        onClick={() => handleCourseAction(course, 'certificate')}
+                        className="flex-1 bg-green-100 text-green-800 py-2 px-4 rounded-lg hover:bg-green-200 flex items-center justify-center space-x-2 min-h-[40px]"
+                      >
+                        <EyeIcon className="w-4 h-4" />
+                        <span className="text-sm font-medium">{t.viewCertificate}</span>
+                      </button>
+                    )}
+                    <button 
+                      onClick={() => handleCourseAction(course, 'view')}
+                      className="flex-1 bg-gray-100 text-gray-800 py-2 px-4 rounded-lg hover:bg-gray-200 flex items-center justify-center space-x-2 min-h-[40px]"
+                    >
+                      <EyeIcon className="w-4 h-4" />
+                      <span className="text-sm font-medium">{t.view}</span>
+                    </button>
                   </div>
-                ))}
+                </div>
+              ))}
               </div>
             </div>
           </div>
@@ -1149,7 +1149,7 @@ export default function GuideDashboard() {
                 </p>
               </div>
             </div>
-
+            
             {/* Детальная финансовая аналитика */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Баланс */}
@@ -1360,7 +1360,10 @@ export default function GuideDashboard() {
           <div className="space-y-6">
             {/* Общая эко-статистика */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="bg-white p-6 rounded-lg shadow-md border-2 border-green-100">
+              <button 
+                onClick={() => handleAction('eco-rating-details')}
+                className="bg-white p-6 rounded-lg shadow-md border-2 border-green-100 hover:border-green-300 hover:shadow-lg transition-all duration-200 text-left w-full"
+              >
                 <h3 className="text-lg font-semibold text-green-800 mb-2">
                   {language === 'ru' ? '🌱 Эко-рейтинг' : '🌱 Eco Rating'}
                 </h3>
@@ -1368,8 +1371,14 @@ export default function GuideDashboard() {
                 <p className="text-sm text-gray-600 mt-2">
                   {language === 'ru' ? 'Отличный результат!' : 'Excellent result!'}
                 </p>
-              </div>
-              <div className="bg-white p-6 rounded-lg shadow-md border-2 border-green-100">
+                <div className="mt-3 text-xs text-green-500">
+                  {language === 'ru' ? 'Нажмите для деталей' : 'Click for details'}
+                </div>
+              </button>
+              <button 
+                onClick={() => handleAction('eco-points-details')}
+                className="bg-white p-6 rounded-lg shadow-md border-2 border-green-100 hover:border-green-300 hover:shadow-lg transition-all duration-200 text-left w-full"
+              >
                 <h3 className="text-lg font-semibold text-green-800 mb-2">
                   {language === 'ru' ? '🏆 Эко-баллы' : '🏆 Eco Points'}
                 </h3>
@@ -1377,8 +1386,14 @@ export default function GuideDashboard() {
                 <p className="text-sm text-gray-600 mt-2">
                   {language === 'ru' ? 'За все время' : 'All time'}
                 </p>
-              </div>
-              <div className="bg-white p-6 rounded-lg shadow-md border-2 border-green-100">
+                <div className="mt-3 text-xs text-green-500">
+                  {language === 'ru' ? 'Нажмите для аналитики' : 'Click for analytics'}
+                </div>
+              </button>
+              <button 
+                onClick={() => handleAction('eco-tours-details')}
+                className="bg-white p-6 rounded-lg shadow-md border-2 border-green-100 hover:border-green-300 hover:shadow-lg transition-all duration-200 text-left w-full"
+              >
                 <h3 className="text-lg font-semibold text-green-800 mb-2">
                   {language === 'ru' ? '🌿 Эко-туры' : '🌿 Eco Tours'}
                 </h3>
@@ -1386,7 +1401,10 @@ export default function GuideDashboard() {
                 <p className="text-sm text-gray-600 mt-2">
                   {language === 'ru' ? 'Проведено туров' : 'Tours conducted'}
                 </p>
-              </div>
+                <div className="mt-3 text-xs text-green-500">
+                  {language === 'ru' ? 'Нажмите для статистики' : 'Click for statistics'}
+                </div>
+              </button>
             </div>
 
             {/* Детальная эко-аналитика */}
@@ -1422,7 +1440,10 @@ export default function GuideDashboard() {
                     </div>
                   </div>
                   
-                  <button className="w-full bg-green-600 text-white py-3 px-4 rounded-lg hover:bg-green-700 font-medium">
+                <button
+                    onClick={() => handleAction('eco-points-history')}
+                    className="w-full bg-green-600 text-white py-3 px-4 rounded-lg hover:bg-green-700 font-medium"
+                  >
                     {language === 'ru' ? '📈 История эко-баллов' : '📈 Eco Points History'}
                   </button>
                 </div>
@@ -1433,7 +1454,7 @@ export default function GuideDashboard() {
                 <h3 className="text-xl font-semibold text-green-700 mb-4 flex items-center">
                   <StarIcon className="w-6 h-6 mr-2" />
                   {t.ecoBadges}
-                </h3>
+                  </h3>
                 <div className="space-y-4">
                   <div className="grid grid-cols-2 gap-3">
                     <div className="bg-yellow-50 p-3 rounded-lg border border-yellow-200 text-center">
@@ -1473,9 +1494,12 @@ export default function GuideDashboard() {
                     </ul>
                   </div>
                   
-                  <button className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 font-medium">
+                  <button 
+                    onClick={() => handleAction('all-achievements')}
+                    className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 font-medium"
+                  >
                     {language === 'ru' ? '🏅 Все достижения' : '🏅 All Achievements'}
-                  </button>
+                </button>
                 </div>
               </div>
 
@@ -1534,10 +1558,16 @@ export default function GuideDashboard() {
                 </div>
                 
                 <div className="mt-6 flex gap-3">
-                  <button className="flex-1 bg-green-600 text-white py-3 px-4 rounded-lg hover:bg-green-700 font-medium">
+                  <button 
+                    onClick={() => handleAction('calculate-co2')}
+                    className="flex-1 bg-green-600 text-white py-3 px-4 rounded-lg hover:bg-green-700 font-medium"
+                  >
                     {language === 'ru' ? '🧮 Рассчитать CO2' : '🧮 Calculate CO2'}
                   </button>
-                  <button className="flex-1 bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 font-medium">
+                  <button 
+                    onClick={() => handleAction('detailed-statistics')}
+                    className="flex-1 bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 font-medium"
+                  >
                     {language === 'ru' ? '📊 Детальная статистика' : '📊 Detailed Statistics'}
                   </button>
                 </div>
@@ -1686,6 +1716,245 @@ export default function GuideDashboard() {
                     <li>• {t.enrollInNewCourse}</li>
                     <li>• {t.earnCertification}</li>
                   </ul>
+                </div>
+              </div>
+            ) : selectedAction === 'eco-points-history' ? (
+              <div className="space-y-4">
+                <div className="bg-green-50 p-4 rounded-lg">
+                  <h4 className="font-semibold text-green-800 mb-2">
+                    {language === 'ru' ? '📈 История эко-баллов' : '📈 Eco Points History'}
+                  </h4>
+                  <p className="text-green-700 text-sm">
+                    {language === 'ru' ? 'Детальная история начисления эко-баллов' : 'Detailed history of eco points accrual'}
+                  </p>
+                </div>
+                
+                <div className="space-y-3">
+                  <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                    <span className="text-sm text-gray-600">{language === 'ru' ? 'Эко-туры' : 'Eco tours'}</span>
+                    <span className="text-green-600 font-semibold">+1,200</span>
+                  </div>
+                  <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                    <span className="text-sm text-gray-600">{language === 'ru' ? 'Обучение' : 'Education'}</span>
+                    <span className="text-blue-600 font-semibold">+800</span>
+                  </div>
+                  <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                    <span className="text-sm text-gray-600">{language === 'ru' ? 'Волонтерство' : 'Volunteering'}</span>
+                    <span className="text-purple-600 font-semibold">+600</span>
+                  </div>
+                </div>
+              </div>
+            ) : selectedAction === 'all-achievements' ? (
+              <div className="space-y-4">
+                <div className="bg-blue-50 p-4 rounded-lg">
+                  <h4 className="font-semibold text-blue-800 mb-2">
+                    {language === 'ru' ? '🏅 Все достижения' : '🏅 All Achievements'}
+                  </h4>
+                  <p className="text-blue-700 text-sm">
+                    {language === 'ru' ? 'Полный список ваших достижений и наград' : 'Complete list of your achievements and awards'}
+                  </p>
+                </div>
+                
+                <div className="space-y-3">
+                  <div className="flex justify-between items-center p-3 bg-yellow-50 rounded-lg">
+                    <span className="text-sm text-yellow-800">{language === 'ru' ? '🌱 Эко-Новичок' : '🌱 Eco Beginner'}</span>
+                    <span className="text-yellow-600 font-semibold">{language === 'ru' ? 'Получено' : 'Earned'}</span>
+                  </div>
+                  <div className="flex justify-between items-center p-3 bg-green-50 rounded-lg">
+                    <span className="text-sm text-green-800">{language === 'ru' ? '🌿 Эко-Гид' : '🌿 Eco Guide'}</span>
+                    <span className="text-green-600 font-semibold">{language === 'ru' ? 'Получено' : 'Earned'}</span>
+                  </div>
+                  <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
+                    <span className="text-sm text-blue-800">{language === 'ru' ? '🌳 Эко-Эксперт' : '🌳 Eco Expert'}</span>
+                    <span className="text-blue-600 font-semibold">{language === 'ru' ? 'Получено' : 'Earned'}</span>
+                  </div>
+                </div>
+              </div>
+            ) : selectedAction === 'calculate-co2' ? (
+              <div className="space-y-4">
+                <div className="bg-green-50 p-4 rounded-lg">
+                  <h4 className="font-semibold text-green-800 mb-2">
+                    {language === 'ru' ? '🧮 Рассчитать CO2' : '🧮 Calculate CO2'}
+                  </h4>
+                  <p className="text-green-700 text-sm">
+                    {language === 'ru' ? 'Калькулятор выбросов CO2 для ваших туров' : 'CO2 emissions calculator for your tours'}
+                  </p>
+                </div>
+                
+                <div className="space-y-3">
+                  <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                    <span className="text-sm text-gray-600">{language === 'ru' ? 'Текущие выбросы' : 'Current emissions'}</span>
+                    <span className="text-red-600 font-semibold">-2.3 тонны</span>
+                  </div>
+                  <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                    <span className="text-sm text-gray-600">{language === 'ru' ? 'Эквивалент деревьев' : 'Tree equivalent'}</span>
+                    <span className="text-green-600 font-semibold">47 деревьев</span>
+                  </div>
+                </div>
+              </div>
+            ) : selectedAction === 'detailed-statistics' ? (
+              <div className="space-y-4">
+                <div className="bg-blue-50 p-4 rounded-lg">
+                  <h4 className="font-semibold text-blue-800 mb-2">
+                    {language === 'ru' ? '📊 Детальная статистика' : '📊 Detailed Statistics'}
+                  </h4>
+                  <p className="text-blue-700 text-sm">
+                    {language === 'ru' ? 'Подробная аналитика по эко-показателям' : 'Detailed analytics on eco indicators'}
+                  </p>
+                </div>
+                
+                <div className="space-y-3">
+                  <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                    <span className="text-sm text-gray-600">{language === 'ru' ? 'Пешие туры' : 'Walking tours'}</span>
+                    <span className="text-blue-600 font-semibold">85%</span>
+                  </div>
+                  <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                    <span className="text-sm text-gray-600">{language === 'ru' ? 'Велосипедные туры' : 'Bicycle tours'}</span>
+                    <span className="text-green-600 font-semibold">10%</span>
+                  </div>
+                  <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                    <span className="text-sm text-gray-600">{language === 'ru' ? 'Эко-транспорт' : 'Eco transport'}</span>
+                    <span className="text-purple-600 font-semibold">5%</span>
+                  </div>
+                </div>
+              </div>
+            ) : selectedAction === 'eco-rating-details' ? (
+              <div className="space-y-4">
+                <div className="bg-green-50 p-4 rounded-lg">
+                  <h4 className="font-semibold text-green-800 mb-2">
+                    {language === 'ru' ? '🌱 Детали эко-рейтинга' : '🌱 Eco Rating Details'}
+                  </h4>
+                  <p className="text-green-700 text-sm">
+                    {language === 'ru' ? 'Подробная аналитика вашего эко-рейтинга' : 'Detailed analytics of your eco rating'}
+                  </p>
+                </div>
+                
+                <div className="space-y-3">
+                  <div className="flex justify-between items-center p-3 bg-yellow-50 rounded-lg">
+                    <span className="text-sm text-yellow-800">{language === 'ru' ? 'Общий рейтинг' : 'Overall Rating'}</span>
+                    <span className="text-yellow-600 font-semibold">4.8/5.0</span>
+                  </div>
+                  <div className="flex justify-between items-center p-3 bg-green-50 rounded-lg">
+                    <span className="text-sm text-green-800">{language === 'ru' ? 'Эко-практики' : 'Eco Practices'}</span>
+                    <span className="text-green-600 font-semibold">4.9/5.0</span>
+                  </div>
+                  <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
+                    <span className="text-sm text-blue-800">{language === 'ru' ? 'Обучение туристов' : 'Tourist Education'}</span>
+                    <span className="text-blue-600 font-semibold">4.7/5.0</span>
+                  </div>
+                  <div className="flex justify-between items-center p-3 bg-purple-50 rounded-lg">
+                    <span className="text-sm text-purple-800">{language === 'ru' ? 'Инновации' : 'Innovations'}</span>
+                    <span className="text-purple-600 font-semibold">4.6/5.0</span>
+                  </div>
+                </div>
+                
+                <div className="bg-orange-50 p-4 rounded-lg">
+                  <h4 className="font-semibold text-orange-800 mb-2">
+                    {language === 'ru' ? '🎯 Геймификация' : '🎯 Gamification'}
+                  </h4>
+                  <div className="space-y-2">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-orange-700">{language === 'ru' ? 'Уровень: Эко-Эксперт' : 'Level: Eco Expert'}</span>
+                      <span className="text-orange-600 font-semibold">85%</span>
+                    </div>
+                    <div className="w-full bg-gray-200 rounded-full h-2">
+                      <div className="bg-orange-500 h-2 rounded-full" style={{ width: '85%' }}></div>
+                    </div>
+                    <p className="text-xs text-orange-600">
+                      {language === 'ru' ? 'До следующего уровня: 15%' : 'To next level: 15%'}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ) : selectedAction === 'eco-points-details' ? (
+              <div className="space-y-4">
+                <div className="bg-green-50 p-4 rounded-lg">
+                  <h4 className="font-semibold text-green-800 mb-2">
+                    {language === 'ru' ? '🏆 Аналитика эко-баллов' : '🏆 Eco Points Analytics'}
+                  </h4>
+                  <p className="text-green-700 text-sm">
+                    {language === 'ru' ? 'Детальная аналитика накопления эко-баллов' : 'Detailed analytics of eco points accumulation'}
+                  </p>
+                </div>
+                
+                <div className="space-y-3">
+                  <div className="flex justify-between items-center p-3 bg-green-50 rounded-lg">
+                    <span className="text-sm text-green-800">{language === 'ru' ? 'Всего баллов' : 'Total Points'}</span>
+                    <span className="text-green-600 font-semibold">2,847</span>
+                  </div>
+                  <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
+                    <span className="text-sm text-blue-800">{language === 'ru' ? 'За этот месяц' : 'This Month'}</span>
+                    <span className="text-blue-600 font-semibold">+245</span>
+                  </div>
+                  <div className="flex justify-between items-center p-3 bg-purple-50 rounded-lg">
+                    <span className="text-sm text-purple-800">{language === 'ru' ? 'Среднее в день' : 'Daily Average'}</span>
+                    <span className="text-purple-600 font-semibold">8.2</span>
+                  </div>
+                </div>
+                
+                <div className="bg-yellow-50 p-4 rounded-lg">
+                  <h4 className="font-semibold text-yellow-800 mb-2">
+                    {language === 'ru' ? '🎮 Геймификация' : '🎮 Gamification'}
+                  </h4>
+                  <div className="space-y-2">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-yellow-700">{language === 'ru' ? 'Текущий уровень' : 'Current Level'}</span>
+                      <span className="text-yellow-600 font-semibold">{language === 'ru' ? 'Эко-Мастер' : 'Eco Master'}</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-yellow-700">{language === 'ru' ? 'До следующего уровня' : 'To Next Level'}</span>
+                      <span className="text-yellow-600 font-semibold">153 балла</span>
+                    </div>
+                    <div className="w-full bg-gray-200 rounded-full h-2">
+                      <div className="bg-yellow-500 h-2 rounded-full" style={{ width: '95%' }}></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ) : selectedAction === 'eco-tours-details' ? (
+              <div className="space-y-4">
+                <div className="bg-green-50 p-4 rounded-lg">
+                  <h4 className="font-semibold text-green-800 mb-2">
+                    {language === 'ru' ? '🌿 Статистика эко-туров' : '🌿 Eco Tours Statistics'}
+                  </h4>
+                  <p className="text-green-700 text-sm">
+                    {language === 'ru' ? 'Подробная статистика проведенных эко-туров' : 'Detailed statistics of conducted eco tours'}
+                  </p>
+                </div>
+                
+                <div className="space-y-3">
+                  <div className="flex justify-between items-center p-3 bg-green-50 rounded-lg">
+                    <span className="text-sm text-green-800">{language === 'ru' ? 'Всего туров' : 'Total Tours'}</span>
+                    <span className="text-green-600 font-semibold">127</span>
+                  </div>
+                  <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
+                    <span className="text-sm text-blue-800">{language === 'ru' ? 'В этом месяце' : 'This Month'}</span>
+                    <span className="text-blue-600 font-semibold">12</span>
+                  </div>
+                  <div className="flex justify-between items-center p-3 bg-purple-50 rounded-lg">
+                    <span className="text-sm text-purple-800">{language === 'ru' ? 'Средняя оценка' : 'Average Rating'}</span>
+                    <span className="text-purple-600 font-semibold">4.8/5.0</span>
+                  </div>
+                  <div className="flex justify-between items-center p-3 bg-orange-50 rounded-lg">
+                    <span className="text-sm text-orange-800">{language === 'ru' ? 'Участников' : 'Participants'}</span>
+                    <span className="text-orange-600 font-semibold">1,247</span>
+                  </div>
+                </div>
+                
+                <div className="bg-red-50 p-4 rounded-lg">
+                  <h4 className="font-semibold text-red-800 mb-2">
+                    {language === 'ru' ? '🌍 Эко-влияние' : '🌍 Eco Impact'}
+                  </h4>
+                  <div className="space-y-2">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-red-700">{language === 'ru' ? 'Сэкономлено CO2' : 'CO2 Saved'}</span>
+                      <span className="text-red-600 font-semibold">-2.3 тонны</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-red-700">{language === 'ru' ? 'Эквивалент деревьев' : 'Tree Equivalent'}</span>
+                      <span className="text-red-600 font-semibold">47 деревьев</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             ) : (
