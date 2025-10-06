@@ -428,7 +428,7 @@ const menuItems = [
               <div className="text-xs text-blue-700 mt-1">{language === 'ru' ? 'Сроки, статусы' : 'Timelines, statuses'}</div>
             </button>
             <button onClick={() => setSelectedAction('cancellation-notifications')} className="bg-yellow-50 hover:bg-yellow-100 p-4 rounded-lg border border-yellow-200 text-left">
-              <div className="font-medium text-yellow-800">{language === 'ру' ? 'Уведомления' : 'Notifications'}</div>
+              <div className="font-medium text-yellow-800">{language === 'ru' ? 'Уведомления' : 'Notifications'}</div>
               <div className="text-xs text-yellow-700 mt-1">{language === 'ru' ? 'Шаблоны писем' : 'Email templates'}</div>
             </button>
           </div>
