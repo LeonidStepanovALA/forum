@@ -40,7 +40,7 @@ export default function RouteManagementPage() {
   const t = translations[language];
   const [showAddModal, setShowAddModal] = useState(false);
   const [showSelectModal, setShowSelectModal] = useState(false);
-  const [selectedRoute, setSelectedRoute] = useState<Route | null>(null);
+  const [, setSelectedRoute] = useState<Route | null>(null);
   const [filterType, setFilterType] = useState<string>('all');
   const [filterDifficulty, setFilterDifficulty] = useState<string>('all');
   const [routeCreationStep, setRouteCreationStep] = useState<'start' | 'points' | 'photos' | 'finish'>('start');
@@ -151,21 +151,7 @@ export default function RouteManagementPage() {
     return typeMatch && difficultyMatch;
   });
 
-  const addRoutePoint = (point: {name: string, lat: number, lng: number, description: string}) => {
-    const newPoint = {
-      id: Date.now().toString(),
-      ...point
-    };
-    setRoutePoints([...routePoints, newPoint]);
-  };
 
-  const addRoutePhoto = (photo: {url: string, description: string, pointId?: string}) => {
-    const newPhoto = {
-      id: Date.now().toString(),
-      ...photo
-    };
-    setRoutePhotos([...routePhotos, newPhoto]);
-  };
 
   const removeRoutePoint = (pointId: string) => {
     setRoutePoints(routePoints.filter(point => point.id !== pointId));

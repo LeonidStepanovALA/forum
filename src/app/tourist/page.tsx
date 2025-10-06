@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import { 
   XMarkIcon
@@ -31,7 +31,7 @@ export default function TouristPage() {
   const streamRef = useRef<MediaStream | null>(null);
 
   // Функция для активации камеры
-  const startCamera = async () => {
+  const startCamera = useCallback(async () => {
     try {
       console.log('Запрос доступа к камере...');
       const stream = await navigator.mediaDevices.getUserMedia({ 
@@ -72,7 +72,7 @@ export default function TouristPage() {
       console.error('Ошибка доступа к камере:', error);
       alert(language === 'ru' ? 'Не удалось получить доступ к камере. Проверьте разрешения.' : 'Could not access camera. Check permissions.');
     }
-  };
+  }, [language]);
 
   // Функция для остановки камеры
   const stopCamera = () => {
@@ -100,7 +100,7 @@ export default function TouristPage() {
     return () => {
       stopCamera();
     };
-  }, [isQRScannerOpen]);
+  }, [isQRScannerOpen, startCamera]);
   
   // Показываем загрузку, пока хук не инициализирован
   if (!isInitialized) {
