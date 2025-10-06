@@ -64,6 +64,124 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
     timelineFilter
   });
 
+  // Дополнительные туры для маршрута Алматы → Ашхабад
+  const ashgabatTours: SearchResult[] = [
+    {
+      id: 7,
+      type: 'tour',
+      title: language === 'ru' ? 'Великий Шелковый путь: Алматы → Ашхабад' : 'Great Silk Road: Almaty → Ashgabat',
+      description: language === 'ru' ? 'Семидневное путешествие по древнему Шелковому пути с посещением исторических городов и культурных достопримечательностей' : 'Seven-day journey along the ancient Silk Road visiting historical cities and cultural attractions',
+      image: '/next.svg',
+      price: 120000,
+      rating: 4.8,
+      reviews: 32,
+      ecoRating: 4.6,
+      startPoint: language === 'ru' ? 'Алматы' : 'Almaty',
+      endPoint: language === 'ru' ? 'Ашхабад' : 'Ashgabat',
+      startDate: '2024-09-10',
+      endDate: '2024-09-16',
+      duration: language === 'ru' ? '7 дней' : '7 days',
+      difficulty: language === 'ru' ? 'Средняя' : 'Medium',
+      guide: {
+        name: language === 'ru' ? 'Александр Нурмагамбетов' : 'Alexander Nurmagambetov',
+        rating: 4.9,
+        experience: language === 'ru' ? '12 лет' : '12 years',
+        languages: language === 'ru' ? ['Русский', 'Английский', 'Туркменский'] : ['Russian', 'English', 'Turkmen'],
+        avatar: '/next.svg'
+      },
+      status: 'available',
+      confirmationDate: null,
+      maxParticipants: 15,
+      currentParticipants: 8,
+      transport: language === 'ru' ? 'Комфортабельный автобус' : 'Comfortable bus',
+      accommodation: language === 'ru' ? 'Отели 4-5 звезд' : '4-5 star hotels',
+      meals: language === 'ru' ? 'Полный пансион' : 'Full board',
+      highlights: language === 'ru' ? [
+        'Древний город Мерв',
+        'Кратер Дарваза',
+        'Столица Ашхабад',
+        'Музей ковров',
+        'Национальный музей'
+      ] : [
+        'Ancient city of Merv',
+        'Darvaza Crater',
+        'Capital Ashgabat',
+        'Carpet Museum',
+        'National Museum'
+      ]
+    },
+    {
+      id: 8,
+      type: 'tour',
+      title: language === 'ru' ? 'Экспедиция по пустыне: Алматы → Ашхабад' : 'Desert Expedition: Almaty → Ashgabat',
+      description: language === 'ru' ? 'Экстремальное путешествие через пустыни и горы с акцентом на приключения и экстремальные виды спорта' : 'Extreme journey through deserts and mountains focusing on adventure and extreme sports',
+      image: '/next.svg',
+      price: 150000,
+      rating: 4.7,
+      reviews: 18,
+      ecoRating: 4.4,
+      startPoint: language === 'ru' ? 'Алматы' : 'Almaty',
+      endPoint: language === 'ru' ? 'Ашхабад' : 'Ashgabat',
+      startDate: '2024-09-10',
+      endDate: '2024-09-16',
+      duration: language === 'ru' ? '7 дней' : '7 days',
+      difficulty: language === 'ru' ? 'Сложная' : 'Hard',
+      guide: {
+        name: language === 'ru' ? 'Дмитрий Каракулов' : 'Dmitry Karakulov',
+        rating: 4.8,
+        experience: language === 'ru' ? '15 лет' : '15 years',
+        languages: language === 'ru' ? ['Русский', 'Английский', 'Казахский'] : ['Russian', 'English', 'Kazakh'],
+        avatar: '/next.svg'
+      },
+      status: 'pending',
+      confirmationDate: null,
+      maxParticipants: 10,
+      currentParticipants: 6,
+      transport: language === 'ru' ? 'Внедорожники' : 'Off-road vehicles',
+      accommodation: language === 'ru' ? 'Палатки и базовые лагеря' : 'Tents and base camps',
+      meals: language === 'ru' ? 'Полевая кухня' : 'Field kitchen',
+      highlights: language === 'ru' ? [
+        'Пустыня Каракумы',
+        'Кратер Дарваза',
+        'Джип-сафари',
+        'Ночлег в пустыне',
+        'Экстремальные виды спорта'
+      ] : [
+        'Karakum Desert',
+        'Darvaza Crater',
+        'Jeep safari',
+        'Desert camping',
+        'Extreme sports'
+      ]
+    }
+  ];
+
+  // Дополнительные отели для маршрута Алматы → Ашхабад
+  const ashgabatHotels = [
+    {
+      id: 201,
+      name: 'Отель "Шелковый путь"',
+      location: 'Ашхабад, пр. Махтумкули, 45',
+      description: 'Роскошный отель в центре столицы с видом на мраморные здания и золотые статуи.',
+      priceRange: '25 000 - 40 000 ₸',
+      rating: 4.9,
+      ecoRating: 4.5,
+      reviews: 234,
+      amenities: ['Wi-Fi', 'Парковка', 'Ресторан', 'Спа', 'Консьерж', 'Трансфер']
+    },
+    {
+      id: 202,
+      name: 'Гостиница "Пустынный оазис"',
+      location: 'Ашхабад, ул. Азади, 12',
+      description: 'Уютная гостиница с садом и бассейном, идеальная для отдыха после путешествия.',
+      priceRange: '18 000 - 30 000 ₸',
+      rating: 4.6,
+      ecoRating: 4.7,
+      reviews: 156,
+      amenities: ['Wi-Fi', 'Бассейн', 'Ресторан', 'Сад', 'Экскурсии']
+    }
+  ];
+
   // Перемещаем mockResults внутрь компонента
   const mockResults: SearchResult[] = [
     {
@@ -306,7 +424,7 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
   const mockHotels = [
     {
       id: 101,
-      name: 'Эко-отель &quot;Зеленые горы&quot;',
+      name: 'Эко-отель "Зеленые горы"',
       location: 'Чолпон-Ата, ул. Озерная, 15',
       description: 'Современный эко-отель с видом на озеро Иссык-Куль. Все номера оборудованы экологичными материалами.',
       priceRange: '15 000 - 25 000 ₸',
@@ -317,7 +435,7 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
     },
     {
       id: 102,
-      name: 'Гостиница &quot;Озерный берег&quot;',
+      name: 'Гостиница "Озерный берег"',
       location: 'Чолпон-Ата, ул. Пляжная, 8',
       description: 'Уютная гостиница в центре города с собственным пляжем и рестораном местной кухни.',
       priceRange: '12 000 - 20 000 ₸',
@@ -403,8 +521,13 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
     return !selectedForDate || selectedForDate === hotelId;
   };
 
-  // Используем mockResults для демонстрации всех туров
-  const displayResults = mockResults;
+  // Определяем маршрут на основе поискового запроса
+  const isAshgabatRoute = searchQuery?.toLowerCase().includes('ашхабад') || 
+                         searchQuery?.toLowerCase().includes('ashgabat');
+
+  // Используем соответствующие результаты в зависимости от маршрута
+  const displayResults = isAshgabatRoute ? [...mockResults, ...ashgabatTours] : mockResults;
+  const displayHotels = isAshgabatRoute ? [...mockHotels, ...ashgabatHotels] : mockHotels;
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -583,7 +706,7 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
 
   const generateHotelQR = async (hotelId: number) => {
     try {
-      const hotel = mockHotels.find(h => h.id === hotelId);
+      const hotel = displayHotels.find(h => h.id === hotelId);
       if (!hotel) return;
 
       const qrData = {
@@ -793,7 +916,9 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
     return (
       <div className="col-span-full mb-6">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 gap-4">
-          <h3 className="text-base sm:text-lg font-semibold text-gray-800">🗓️ Таймлайн туров и отелей по маршруту Алматы → Чолпон-Ата</h3>
+          <h3 className="text-base sm:text-lg font-semibold text-gray-800">
+            🗓️ Таймлайн туров и отелей по маршруту {isAshgabatRoute ? 'Алматы → Ашхабад' : 'Алматы → Чолпон-Ата'}
+          </h3>
           
           {/* Фильтры */}
           <div className="flex flex-wrap gap-2">
@@ -856,7 +981,7 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
                       
                       {/* Отели */}
                       <div className="ml-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
-                        {mockHotels.filter(hotel => shouldShowHotel(hotel.id, hotelDate)).map((hotel) => (
+                        {displayHotels.filter(hotel => shouldShowHotel(hotel.id, hotelDate)).map((hotel) => (
                           <div 
                             key={hotel.id} 
                             className={`bg-white rounded-lg border border-gray-200 p-4 hover:shadow-md transition-all duration-300 ease-in-out ${
@@ -1339,18 +1464,22 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
         {/* {selectedTour && ( */}
           <div className="col-span-full">
             <RouteMap 
-              startPoint="Алматы"
-              endPoint="Чолпон-Ата"
-              waypoints={[
+              startPoint={isAshgabatRoute ? "Алматы" : "Алматы"}
+              endPoint={isAshgabatRoute ? "Ашхабад" : "Чолпон-Ата"}
+              waypoints={isAshgabatRoute ? [
+                { id: '1', name: 'Ташкент', description: 'Столица Узбекистана', coordinates: [41.2995, 69.2401], type: 'waypoint' },
+                { id: '2', name: 'Самарканд', description: 'Древний город Шелкового пути', coordinates: [39.6547, 66.9597], type: 'waypoint' },
+                { id: '3', name: 'Бухара', description: 'Исторический центр', coordinates: [39.7756, 64.4286], type: 'waypoint' }
+              ] : [
                 { id: '1', name: 'Бишкек', description: 'Столица Кыргызстана', coordinates: [42.8746, 74.5698], type: 'waypoint' },
                 { id: '2', name: 'Балыкчи', description: 'Город на берегу озера', coordinates: [42.4608, 76.1872], type: 'waypoint' }
               ]}
-              startDate="2024-08-15"
-              endDate="2024-08-20"
-              duration={language === 'ru' ? '5 дней' : '5 days'}
+              startDate={isAshgabatRoute ? "2024-09-10" : "2024-08-15"}
+              endDate={isAshgabatRoute ? "2024-09-16" : "2024-08-20"}
+              duration={isAshgabatRoute ? (language === 'ru' ? '7 дней' : '7 days') : (language === 'ru' ? '5 дней' : '5 days')}
               selectedHotels={Object.entries(selectedHotelsByDate)
                 .map(([, hotelId]) => {
-                  const hotel = mockHotels.find(h => h.id === hotelId);
+                  const hotel = displayHotels.find(h => h.id === hotelId);
                   return hotel ? {
                     id: hotel.id,
                     name: hotel.name,
@@ -1377,7 +1506,7 @@ export default function SearchResults({ results, searchQuery }: SearchResultsPro
       {/* Модальные окна для QR-кодов отелей */}
       {Object.entries(showQRModal).map(([hotelId, isVisible]) => {
         if (!isVisible) return null;
-        const hotel = mockHotels.find(h => h.id === parseInt(hotelId));
+        const hotel = displayHotels.find(h => h.id === parseInt(hotelId));
         const qrCode = hotelQRCodes[parseInt(hotelId)];
         
         return (

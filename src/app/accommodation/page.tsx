@@ -329,6 +329,556 @@ const menuItems = [
       );
     }
 
+    // Управление бронированиями — Календарь доступности
+    if (selectedAction === 'calendar') {
+      return (
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold text-green-800">
+            {language === 'ru' ? 'Календарь доступности' : 'Availability Calendar'}
+          </h4>
+          <p className="text-sm text-gray-700">
+            {language === 'ru' 
+              ? 'Управляйте ценами, блокируйте даты и запускайте спецпредложения.' 
+              : 'Manage prices, block dates and run special offers.'}
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <button onClick={() => setSelectedAction('set-prices')} className="bg-green-50 hover:bg-green-100 p-4 rounded-lg border border-green-200 text-left">
+              <div className="font-medium text-green-800">{language === 'ru' ? 'Установить цены' : 'Set prices'}</div>
+              <div className="text-xs text-green-700 mt-1">{language === 'ru' ? 'По дням/категориям' : 'By day/category'}</div>
+            </button>
+            <button onClick={() => setSelectedAction('block-dates')} className="bg-yellow-50 hover:bg-yellow-100 p-4 rounded-lg border border-yellow-200 text-left">
+              <div className="font-medium text-yellow-800">{language === 'ru' ? 'Блокировать даты' : 'Block dates'}</div>
+              <div className="text-xs text-yellow-700 mt-1">{language === 'ru' ? 'Ремонт/выходные' : 'Maintenance/holidays'}</div>
+            </button>
+            <button onClick={() => setSelectedAction('special-offers')} className="bg-blue-50 hover:bg-blue-100 p-4 rounded-lg border border-blue-200 text-left">
+              <div className="font-medium text-blue-800">{language === 'ru' ? 'Спецпредложения' : 'Special offers'}</div>
+              <div className="text-xs text-blue-700 mt-1">{language === 'ru' ? 'Акции/промо' : 'Sales/Promos'}</div>
+            </button>
+          </div>
+          <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+            <div className="text-sm text-gray-700 mb-2">{language === 'ru' ? 'Пример (макет) календаря:' : 'Calendar mockup:'}</div>
+            <div className="grid grid-cols-7 gap-2 text-center">
+              {Array.from({ length: 14 }).map((_, i) => (
+                <div key={i} className="h-10 rounded-md flex items-center justify-center text-xs bg-white border">
+                  {i + 1}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // Управление бронированиями — Подтверждение заказов
+    if (selectedAction === 'confirm-bookings') {
+      return (
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold text-green-800">
+            {language === 'ru' ? 'Подтверждение заказов' : 'Confirm Orders'}
+          </h4>
+          <p className="text-sm text-gray-700">
+            {language === 'ru' 
+              ? 'Выберите автоматическое или ручное подтверждение. Настройте правила.' 
+              : 'Choose automatic or manual confirmation. Configure rules.'}
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <button onClick={() => setSelectedAction('auto-confirm')} className="bg-green-50 hover:bg-green-100 p-4 rounded-lg border border-green-200 text-left">
+              <div className="font-medium text-green-800">{language === 'ru' ? 'Автоподтверждение' : 'Auto confirm'}</div>
+              <div className="text-xs text-green-700 mt-1">{language === 'ru' ? 'Моментальное подтверждение' : 'Instant approval'}</div>
+            </button>
+            <button onClick={() => setSelectedAction('manual-confirm')} className="bg-blue-50 hover:bg-blue-100 p-4 rounded-lg border border-blue-200 text-left">
+              <div className="font-medium text-blue-800">{language === 'ru' ? 'Ручное подтверждение' : 'Manual confirm'}</div>
+              <div className="text-xs text-blue-700 mt-1">{language === 'ru' ? 'После проверки заявки' : 'After review'}</div>
+            </button>
+            <button onClick={() => setSelectedAction('booking-rules')} className="bg-yellow-50 hover:bg-yellow-100 p-4 rounded-lg border border-yellow-200 text-left">
+              <div className="font-medium text-yellow-800">{language === 'ru' ? 'Правила бронирования' : 'Booking rules'}</div>
+              <div className="text-xs text-yellow-700 mt-1">{language === 'ru' ? 'Часы заезда, предоплата' : 'Check-in time, prepayment'}</div>
+            </button>
+          </div>
+          <div className="bg-white border border-gray-200 rounded-lg p-4">
+            <div className="font-medium text-gray-800 mb-2">{language === 'ru' ? 'Последние заявки:' : 'Recent requests:'}</div>
+            <ul className="text-sm text-gray-700 space-y-1">
+              <li>• {language === 'ru' ? 'Номер 203 — 2 ночи — требуется подтверждение' : 'Room 203 — 2 nights — awaiting confirmation'}</li>
+              <li>• {language === 'ru' ? 'Коттедж A — 3 ночи — оплата получена' : 'Cottage A — 3 nights — payment received'}</li>
+            </ul>
+          </div>
+        </div>
+      );
+    }
+
+    // Управление бронированиями — Отмена заказов
+    if (selectedAction === 'cancel-bookings') {
+      return (
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold text-green-800">
+            {language === 'ru' ? 'Отмена заказов' : 'Cancel Orders'}
+          </h4>
+          <p className="text-sm text-gray-700">
+            {language === 'ru' 
+              ? 'Настройте политику отмен, возвраты и уведомления для гостей.' 
+              : 'Configure cancellation policy, refunds and notifications.'}
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <button onClick={() => setSelectedAction('cancellation-policy')} className="bg-red-50 hover:bg-red-100 p-4 rounded-lg border border-red-200 text-left">
+              <div className="font-medium text-red-800">{language === 'ru' ? 'Политика отмен' : 'Cancellation policy'}</div>
+              <div className="text-xs text-red-700 mt-1">{language === 'ru' ? 'Гибкая/строгая' : 'Flexible/strict'}</div>
+            </button>
+            <button onClick={() => setSelectedAction('refund-process')} className="bg-blue-50 hover:bg-blue-100 p-4 rounded-lg border border-blue-200 text-left">
+              <div className="font-medium text-blue-800">{language === 'ru' ? 'Процесс возврата' : 'Refund process'}</div>
+              <div className="text-xs text-blue-700 mt-1">{language === 'ru' ? 'Сроки, статусы' : 'Timelines, statuses'}</div>
+            </button>
+            <button onClick={() => setSelectedAction('cancellation-notifications')} className="bg-yellow-50 hover:bg-yellow-100 p-4 rounded-lg border border-yellow-200 text-left">
+              <div className="font-medium text-yellow-800">{language === 'ру' ? 'Уведомления' : 'Notifications'}</div>
+              <div className="text-xs text-yellow-700 mt-1">{language === 'ru' ? 'Шаблоны писем' : 'Email templates'}</div>
+            </button>
+          </div>
+          <div className="bg-white border border-gray-200 rounded-lg p-4">
+            <div className="font-medium text-gray-800 mb-2">{language === 'ru' ? 'Последние отмены:' : 'Recent cancellations:'}</div>
+            <ul className="text-sm text-gray-700 space-y-1">
+              <li>• {language === 'ru' ? 'Стандартный номер — возврат 100%' : 'Standard room — 100% refund'}</li>
+              <li>• {language === 'ru' ? 'Люкс — удержано 10% комиссии' : 'Suite — 10% fee retained'}</li>
+            </ul>
+          </div>
+        </div>
+      );
+    }
+
+    // Управление бронированиями — Чат с гостями
+    if (selectedAction === 'guest-chat') {
+      return (
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold text-green-800">
+            {language === 'ru' ? 'Чат с гостями' : 'Guest Chat'}
+          </h4>
+          <p className="text-sm text-gray-700">
+            {language === 'ru' 
+              ? 'Отвечайте на вопросы, отправляйте шаблоны, просматривайте историю переписки.' 
+              : 'Answer questions, use templates, view conversation history.'}
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <button onClick={() => setSelectedAction('open-chat')} className="bg-green-50 hover:bg-green-100 p-4 rounded-lg border border-green-200 text-left">
+              <div className="font-medium text-green-800">{language === 'ru' ? 'Открыть чат' : 'Open chat'}</div>
+              <div className="text-xs text-green-700 mt-1">{language === 'ru' ? 'Новый диалог' : 'New dialog'}</div>
+            </button>
+            <button onClick={() => setSelectedAction('message-templates')} className="bg-blue-50 hover:bg-blue-100 p-4 rounded-lg border border-blue-200 text-left">
+              <div className="font-medium text-blue-800">{language === 'ru' ? 'Шаблоны сообщений' : 'Message templates'}</div>
+              <div className="text-xs text-blue-700 mt-1">{language === 'ru' ? 'Быстрые ответы' : 'Quick replies'}</div>
+            </button>
+            <button onClick={() => setSelectedAction('chat-history')} className="bg-yellow-50 hover:bg-yellow-100 p-4 rounded-lg border border-yellow-200 text-left">
+              <div className="font-medium text-yellow-800">{language === 'ru' ? 'История чатов' : 'Chat history'}</div>
+              <div className="text-xs text-yellow-700 mt-1">{language === 'ru' ? 'Последние диалоги' : 'Recent dialogs'}</div>
+            </button>
+          </div>
+          <div className="space-y-3">
+            <div className="bg-white border border-gray-200 rounded-lg p-4">
+              <div className="flex items-center justify-between mb-2">
+                <div className="font-medium text-gray-800">{language === 'ru' ? 'Иван С.' : 'Ivan S.'}</div>
+                <span className="px-2 py-1 rounded-full text-xs bg-green-100 text-green-800">{language === 'ru' ? 'Новое' : 'New'}</span>
+              </div>
+              <div className="text-sm text-gray-700">{language === 'ru' ? 'Здравствуйте! Есть ли парковка?' : 'Hello! Is there parking?'}</div>
+            </div>
+            <div className="bg-white border border-gray-200 rounded-lg p-4">
+              <div className="flex items-center justify-between mb-2">
+                <div className="font-medium text-gray-800">{language === 'ru' ? 'Анна П.' : 'Anna P.'}</div>
+                <span className="px-2 py-1 rounded-full text-xs bg-gray-100 text-gray-700">{language === 'ru' ? 'Прочитано' : 'Read'}</span>
+              </div>
+              <div className="text-sm text-gray-700">{language === 'ru' ? 'Спасибо за заселение, все понравилось!' : 'Thanks for the stay, everything was great!'}</div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // Подкнопки для Календаря доступности
+    if (selectedAction === 'set-prices') {
+      return (
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold text-green-800">
+            {language === 'ru' ? 'Установить цены' : 'Set prices'}
+          </h4>
+          <div className="space-y-3">
+            <div className="bg-white border border-gray-200 rounded-lg p-4">
+              <h5 className="font-medium text-gray-800 mb-2">{language === 'ru' ? 'Цены по дням недели:' : 'Prices by day of week:'}</h5>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="flex justify-between">
+                  <span className="text-sm text-gray-600">{language === 'ru' ? 'Пн-Чт:' : 'Mon-Thu:'}</span>
+                  <span className="font-medium">15,000 ₸</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-sm text-gray-600">{language === 'ru' ? 'Пт-Вс:' : 'Fri-Sun:'}</span>
+                  <span className="font-medium">18,000 ₸</span>
+                </div>
+              </div>
+            </div>
+            <div className="bg-white border border-gray-200 rounded-lg p-4">
+              <h5 className="font-medium text-gray-800 mb-2">{language === 'ru' ? 'Сезонные цены:' : 'Seasonal prices:'}</h5>
+              <div className="space-y-2">
+                <div className="flex justify-between">
+                  <span className="text-sm text-gray-600">{language === 'ru' ? 'Низкий сезон:' : 'Low season:'}</span>
+                  <span className="font-medium">12,000 ₸</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-sm text-gray-600">{language === 'ru' ? 'Высокий сезон:' : 'High season:'}</span>
+                  <span className="font-medium">22,000 ₸</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button className="w-full bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-lg">
+            {language === 'ru' ? 'Сохранить цены' : 'Save prices'}
+          </button>
+        </div>
+      );
+    }
+
+    if (selectedAction === 'block-dates') {
+      return (
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold text-green-800">
+            {language === 'ru' ? 'Блокировать даты' : 'Block dates'}
+          </h4>
+          <div className="space-y-3">
+            <div className="bg-white border border-gray-200 rounded-lg p-4">
+              <h5 className="font-medium text-gray-800 mb-2">{language === 'ru' ? 'Заблокированные периоды:' : 'Blocked periods:'}</h5>
+              <div className="space-y-2">
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-gray-600">{language === 'ru' ? 'Ремонт (15-20 янв):' : 'Maintenance (Jan 15-20):'}</span>
+                  <span className="px-2 py-1 bg-red-100 text-red-800 rounded text-xs">{language === 'ru' ? 'Заблокировано' : 'Blocked'}</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-gray-600">{language === 'ru' ? 'Личный отпуск (1-7 фев):' : 'Personal vacation (Feb 1-7):'}</span>
+                  <span className="px-2 py-1 bg-red-100 text-red-800 rounded text-xs">{language === 'ru' ? 'Заблокировано' : 'Blocked'}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button className="w-full bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-lg">
+            {language === 'ru' ? 'Добавить блокировку' : 'Add block'}
+          </button>
+        </div>
+      );
+    }
+
+    if (selectedAction === 'special-offers') {
+      return (
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold text-green-800">
+            {language === 'ru' ? 'Спецпредложения' : 'Special offers'}
+          </h4>
+          <div className="space-y-3">
+            <div className="bg-white border border-gray-200 rounded-lg p-4">
+              <h5 className="font-medium text-gray-800 mb-2">{language === 'ru' ? 'Активные акции:' : 'Active promotions:'}</h5>
+              <div className="space-y-2">
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-gray-600">{language === 'ru' ? 'Раннее бронирование:' : 'Early booking:'}</span>
+                  <span className="px-2 py-1 bg-green-100 text-green-800 rounded text-xs">{language === 'ru' ? '-20%' : '-20%'}</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-gray-600">{language === 'ru' ? 'Длинные выходные:' : 'Long weekends:'}</span>
+                  <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded text-xs">{language === 'ru' ? '-15%' : '-15%'}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg">
+            {language === 'ru' ? 'Создать акцию' : 'Create promotion'}
+          </button>
+        </div>
+      );
+    }
+
+    // Подкнопки для Подтверждения заказов
+    if (selectedAction === 'auto-confirm') {
+      return (
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold text-green-800">
+            {language === 'ru' ? 'Автоподтверждение' : 'Auto confirm'}
+          </h4>
+          <div className="space-y-3">
+            <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+              <h5 className="font-medium text-green-800 mb-2">{language === 'ru' ? 'Настройки автоподтверждения:' : 'Auto-confirm settings:'}</h5>
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-gray-600">{language === 'ru' ? 'Автоподтверждение включено:' : 'Auto-confirm enabled:'}</span>
+                  <span className="px-2 py-1 bg-green-100 text-green-800 rounded text-xs">{language === 'ru' ? 'Да' : 'Yes'}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-gray-600">{language === 'ru' ? 'Время подтверждения:' : 'Confirm time:'}</span>
+                  <span className="text-sm font-medium">{language === 'ru' ? 'Мгновенно' : 'Instant'}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button className="w-full bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-lg">
+            {language === 'ru' ? 'Настроить автоподтверждение' : 'Configure auto-confirm'}
+          </button>
+        </div>
+      );
+    }
+
+    if (selectedAction === 'manual-confirm') {
+      return (
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold text-green-800">
+            {language === 'ru' ? 'Ручное подтверждение' : 'Manual confirm'}
+          </h4>
+          <div className="space-y-3">
+            <div className="bg-white border border-gray-200 rounded-lg p-4">
+              <h5 className="font-medium text-gray-800 mb-2">{language === 'ru' ? 'Ожидающие подтверждения:' : 'Pending confirmations:'}</h5>
+              <div className="space-y-2">
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-gray-600">{language === 'ru' ? 'Номер 203 — 2 ночи:' : 'Room 203 — 2 nights:'}</span>
+                  <button className="px-3 py-1 bg-green-500 text-white rounded text-xs hover:bg-green-600">
+                    {language === 'ru' ? 'Подтвердить' : 'Confirm'}
+                  </button>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-gray-600">{language === 'ru' ? 'Коттедж A — 3 ночи:' : 'Cottage A — 3 nights:'}</span>
+                  <button className="px-3 py-1 bg-green-500 text-white rounded text-xs hover:bg-green-600">
+                    {language === 'ru' ? 'Подтвердить' : 'Confirm'}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (selectedAction === 'booking-rules') {
+      return (
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold text-green-800">
+            {language === 'ru' ? 'Правила бронирования' : 'Booking rules'}
+          </h4>
+          <div className="space-y-3">
+            <div className="bg-white border border-gray-200 rounded-lg p-4">
+              <h5 className="font-medium text-gray-800 mb-2">{language === 'ru' ? 'Текущие правила:' : 'Current rules:'}</h5>
+              <div className="space-y-2">
+                <div className="flex justify-between">
+                  <span className="text-sm text-gray-600">{language === 'ru' ? 'Время заезда:' : 'Check-in time:'}</span>
+                  <span className="text-sm font-medium">{language === 'ru' ? '14:00' : '2:00 PM'}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-sm text-gray-600">{language === 'ru' ? 'Время выезда:' : 'Check-out time:'}</span>
+                  <span className="text-sm font-medium">{language === 'ru' ? '12:00' : '12:00 PM'}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-sm text-gray-600">{language === 'ru' ? 'Предоплата:' : 'Prepayment:'}</span>
+                  <span className="text-sm font-medium">{language === 'ru' ? '30%' : '30%'}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg">
+            {language === 'ru' ? 'Изменить правила' : 'Change rules'}
+          </button>
+        </div>
+      );
+    }
+
+    // Подкнопки для Отмены заказов
+    if (selectedAction === 'cancellation-policy') {
+      return (
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold text-green-800">
+            {language === 'ru' ? 'Политика отмен' : 'Cancellation policy'}
+          </h4>
+          <div className="space-y-3">
+            <div className="bg-white border border-gray-200 rounded-lg p-4">
+              <h5 className="font-medium text-gray-800 mb-2">{language === 'ru' ? 'Текущая политика:' : 'Current policy:'}</h5>
+              <div className="space-y-2">
+                <div className="flex justify-between">
+                  <span className="text-sm text-gray-600">{language === 'ru' ? 'Отмена за 24 часа:' : 'Cancel within 24h:'}</span>
+                  <span className="text-sm font-medium text-green-600">{language === 'ru' ? '100% возврат' : '100% refund'}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-sm text-gray-600">{language === 'ru' ? 'Отмена за 12 часов:' : 'Cancel within 12h:'}</span>
+                  <span className="text-sm font-medium text-yellow-600">{language === 'ru' ? '50% возврат' : '50% refund'}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-sm text-gray-600">{language === 'ru' ? 'Отмена в день заезда:' : 'Cancel on check-in day:'}</span>
+                  <span className="text-sm font-medium text-red-600">{language === 'ru' ? 'Без возврата' : 'No refund'}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button className="w-full bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-lg">
+            {language === 'ru' ? 'Изменить политику' : 'Change policy'}
+          </button>
+        </div>
+      );
+    }
+
+    if (selectedAction === 'refund-process') {
+      return (
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold text-green-800">
+            {language === 'ru' ? 'Процесс возврата' : 'Refund process'}
+          </h4>
+          <div className="space-y-3">
+            <div className="bg-white border border-gray-200 rounded-lg p-4">
+              <h5 className="font-medium text-gray-800 mb-2">{language === 'ru' ? 'Статусы возвратов:' : 'Refund statuses:'}</h5>
+              <div className="space-y-2">
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-gray-600">{language === 'ru' ? 'Заявка на возврат #001:' : 'Refund request #001:'}</span>
+                  <span className="px-2 py-1 bg-yellow-100 text-yellow-800 rounded text-xs">{language === 'ru' ? 'В обработке' : 'Processing'}</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-gray-600">{language === 'ru' ? 'Заявка на возврат #002:' : 'Refund request #002:'}</span>
+                  <span className="px-2 py-1 bg-green-100 text-green-800 rounded text-xs">{language === 'ru' ? 'Выполнен' : 'Completed'}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg">
+            {language === 'ru' ? 'Обработать возвраты' : 'Process refunds'}
+          </button>
+        </div>
+      );
+    }
+
+    if (selectedAction === 'cancellation-notifications') {
+      return (
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold text-green-800">
+            {language === 'ru' ? 'Уведомления об отмене' : 'Cancellation notifications'}
+          </h4>
+          <div className="space-y-3">
+            <div className="bg-white border border-gray-200 rounded-lg p-4">
+              <h5 className="font-medium text-gray-800 mb-2">{language === 'ru' ? 'Шаблоны уведомлений:' : 'Notification templates:'}</h5>
+              <div className="space-y-2">
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-gray-600">{language === 'ru' ? 'Подтверждение отмены:' : 'Cancellation confirmation:'}</span>
+                  <button className="px-3 py-1 bg-blue-500 text-white rounded text-xs hover:bg-blue-600">
+                    {language === 'ru' ? 'Редактировать' : 'Edit'}
+                  </button>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-gray-600">{language === 'ru' ? 'Информация о возврате:' : 'Refund information:'}</span>
+                  <button className="px-3 py-1 bg-blue-500 text-white rounded text-xs hover:bg-blue-600">
+                    {language === 'ru' ? 'Редактировать' : 'Edit'}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button className="w-full bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-4 rounded-lg">
+            {language === 'ru' ? 'Создать шаблон' : 'Create template'}
+          </button>
+        </div>
+      );
+    }
+
+    // Подкнопки для Чата с гостями
+    if (selectedAction === 'open-chat') {
+      return (
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold text-green-800">
+            {language === 'ru' ? 'Открыть чат' : 'Open chat'}
+          </h4>
+          <div className="space-y-3">
+            <div className="bg-white border border-gray-200 rounded-lg p-4">
+              <h5 className="font-medium text-gray-800 mb-2">{language === 'ru' ? 'Активные диалоги:' : 'Active dialogs:'}</h5>
+              <div className="space-y-2">
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-gray-600">{language === 'ru' ? 'Иван С. — Вопрос о парковке' : 'Ivan S. — Parking question'}</span>
+                  <button className="px-3 py-1 bg-green-500 text-white rounded text-xs hover:bg-green-600">
+                    {language === 'ru' ? 'Ответить' : 'Reply'}
+                  </button>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-gray-600">{language === 'ru' ? 'Анна П. — Благодарность' : 'Anna P. — Thank you'}</span>
+                  <button className="px-3 py-1 bg-green-500 text-white rounded text-xs hover:bg-green-600">
+                    {language === 'ru' ? 'Ответить' : 'Reply'}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button className="w-full bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-lg">
+            {language === 'ru' ? 'Начать новый чат' : 'Start new chat'}
+          </button>
+        </div>
+      );
+    }
+
+    if (selectedAction === 'message-templates') {
+      return (
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold text-green-800">
+            {language === 'ru' ? 'Шаблоны сообщений' : 'Message templates'}
+          </h4>
+          <div className="space-y-3">
+            <div className="bg-white border border-gray-200 rounded-lg p-4">
+              <h5 className="font-medium text-gray-800 mb-2">{language === 'ru' ? 'Готовые шаблоны:' : 'Ready templates:'}</h5>
+              <div className="space-y-2">
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-gray-600">{language === 'ru' ? 'Приветствие:' : 'Greeting:'}</span>
+                  <button className="px-3 py-1 bg-blue-500 text-white rounded text-xs hover:bg-blue-600">
+                    {language === 'ru' ? 'Использовать' : 'Use'}
+                  </button>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-gray-600">{language === 'ru' ? 'Информация о заезде:' : 'Check-in info:'}</span>
+                  <button className="px-3 py-1 bg-blue-500 text-white rounded text-xs hover:bg-blue-600">
+                    {language === 'ru' ? 'Использовать' : 'Use'}
+                  </button>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-gray-600">{language === 'ru' ? 'Благодарность:' : 'Thank you:'}</span>
+                  <button className="px-3 py-1 bg-blue-500 text-white rounded text-xs hover:bg-blue-600">
+                    {language === 'ru' ? 'Использовать' : 'Use'}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg">
+            {language === 'ru' ? 'Создать шаблон' : 'Create template'}
+          </button>
+        </div>
+      );
+    }
+
+    if (selectedAction === 'chat-history') {
+      return (
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold text-green-800">
+            {language === 'ru' ? 'История чатов' : 'Chat history'}
+          </h4>
+          <div className="space-y-3">
+            <div className="bg-white border border-gray-200 rounded-lg p-4">
+              <h5 className="font-medium text-gray-800 mb-2">{language === 'ru' ? 'Последние диалоги:' : 'Recent dialogs:'}</h5>
+              <div className="space-y-2">
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-gray-600">{language === 'ru' ? 'Иван С. — 2 часа назад' : 'Ivan S. — 2 hours ago'}</span>
+                  <button className="px-3 py-1 bg-gray-500 text-white rounded text-xs hover:bg-gray-600">
+                    {language === 'ru' ? 'Просмотреть' : 'View'}
+                  </button>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-gray-600">{language === 'ru' ? 'Анна П. — 1 день назад' : 'Anna P. — 1 day ago'}</span>
+                  <button className="px-3 py-1 bg-gray-500 text-white rounded text-xs hover:bg-gray-600">
+                    {language === 'ru' ? 'Просмотреть' : 'View'}
+                  </button>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-gray-600">{language === 'ru' ? 'Михаил К. — 3 дня назад' : 'Mikhail K. — 3 days ago'}</span>
+                  <button className="px-3 py-1 bg-gray-500 text-white rounded text-xs hover:bg-gray-600">
+                    {language === 'ru' ? 'Просмотреть' : 'View'}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button className="w-full bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-4 rounded-lg">
+            {language === 'ru' ? 'Показать всю историю' : 'Show full history'}
+          </button>
+        </div>
+      );
+    }
+
     if (selectedAction === 'pricing-strategy') {
       return (
         <div className="space-y-4">

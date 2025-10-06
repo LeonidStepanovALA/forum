@@ -13,7 +13,8 @@ import {
   MapPinIcon,
   ClockIcon,
   UserIcon,
-  CheckIcon
+  CheckIcon,
+  XMarkIcon
 } from '@heroicons/react/24/outline';
 import { useLanguage } from '@/hooks/useLanguage';
 import { translations } from '@/translations';

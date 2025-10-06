@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { UserIcon, BriefcaseIcon, CalendarIcon, CurrencyDollarIcon, ChartBarIcon, AcademicCapIcon, ChatBubbleLeftIcon, Cog6ToothIcon, StarIcon, XMarkIcon, PlusIcon, PencilIcon, EyeIcon } from '@heroicons/react/24/outline';
+import { UserIcon, BriefcaseIcon, CalendarIcon, CurrencyDollarIcon, ChartBarIcon, AcademicCapIcon, ChatBubbleLeftIcon, Cog6ToothIcon, StarIcon, XMarkIcon, PlusIcon, PencilIcon, EyeIcon, MapIcon } from '@heroicons/react/24/outline';
 import { useLanguage } from '@/hooks/useLanguage';
 import { translations } from '@/translations';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
@@ -179,6 +179,12 @@ export default function GuideDashboard() {
   const [showModal, setShowModal] = useState(false);
   // const [showStatModal, setShowStatModal] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  
+  // Состояния для создания тура
+  const [tourCreationStep, setTourCreationStep] = useState<'basic' | 'points' | 'photos' | 'route' | 'finish'>('basic');
+  const [tourPoints, setTourPoints] = useState<Array<{id: string, name: string, lat: number, lng: number, description: string, type: 'start' | 'checkpoint' | 'end'}>>([]);
+  const [tourPhotos, setTourPhotos] = useState<Array<{id: string, url: string, description: string, pointId?: string}>>([]);
+  const [autoRouteEnabled, setAutoRouteEnabled] = useState(false);
 
   // Моковые данные курсов для гидов
   const mockCourses: Course[] = [
@@ -387,11 +393,67 @@ export default function GuideDashboard() {
   const handleAction = (action: string) => {
     setSelectedAction(action);
     setShowModal(true);
+    if (action === 'create-tour') {
+      setTourCreationStep('basic');
+    }
   };
 
   const closeModal = () => {
     setShowModal(false);
     setSelectedAction(null);
+    setTourCreationStep('basic');
+    setTourPoints([]);
+    setTourPhotos([]);
+    setAutoRouteEnabled(false);
+  };
+
+  // Функции для работы с точками тура
+  const addTourPoint = (point: {name: string, lat: number, lng: number, description: string, type: 'start' | 'checkpoint' | 'end'}) => {
+    const newPoint = {
+      id: Date.now().toString(),
+      ...point
+    };
+    setTourPoints([...tourPoints, newPoint]);
+  };
+
+  const removeTourPoint = (pointId: string) => {
+    setTourPoints(tourPoints.filter(point => point.id !== pointId));
+  };
+
+  const updateTourPoint = (pointId: string, updates: Partial<{name: string, lat: number, lng: number, description: string, type: 'start' | 'checkpoint' | 'end'}>) => {
+    setTourPoints(tourPoints.map(point => 
+      point.id === pointId ? { ...point, ...updates } : point
+    ));
+  };
+
+  // Функции для работы с фотографиями тура
+  const addTourPhoto = (photo: {url: string, description: string, pointId?: string}) => {
+    const newPhoto = {
+      id: Date.now().toString(),
+      ...photo
+    };
+    setTourPhotos([...tourPhotos, newPhoto]);
+  };
+
+  const removeTourPhoto = (photoId: string) => {
+    setTourPhotos(tourPhotos.filter(photo => photo.id !== photoId));
+  };
+
+  // Функция автоматического построения маршрута
+  const generateAutoRoute = () => {
+    if (tourPoints.length < 2) return;
+    
+    // Симуляция автоматического построения маршрута
+    const sortedPoints = [...tourPoints].sort((a, b) => {
+      if (a.type === 'start') return -1;
+      if (b.type === 'start') return 1;
+      if (a.type === 'end') return 1;
+      if (b.type === 'end') return -1;
+      return 0;
+    });
+    
+    setTourPoints(sortedPoints);
+    setAutoRouteEnabled(true);
   };
 
   // Функции для работы с курсами
@@ -1674,7 +1736,11 @@ export default function GuideDashboard() {
       {/* Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg p-6 max-w-md w-full">
+          <div className={`bg-white rounded-lg p-6 w-full ${
+            selectedAction === 'create-tour' 
+              ? 'max-w-4xl max-h-[90vh] overflow-y-auto' 
+              : 'max-w-md'
+          }`}>
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-xl font-semibold text-green-800">
                 {selectedAction === 'courses' ? t.courses : selectedAction}
@@ -1956,6 +2022,895 @@ export default function GuideDashboard() {
                     </div>
                   </div>
                 </div>
+              </div>
+            ) : selectedAction === 'current-bookings' ? (
+              <div className="space-y-4">
+                <div className="bg-green-50 p-4 rounded-lg">
+                  <h4 className="font-semibold text-green-800 mb-2">
+                    {language === 'ru' ? '📅 Текущие бронирования' : '📅 Current Bookings'}
+                  </h4>
+                  <p className="text-green-700 text-sm">
+                    {language === 'ru' ? 'Управление активными бронированиями' : 'Manage active bookings'}
+                  </p>
+                </div>
+                
+                <div className="space-y-3">
+                  {mockData.bookings.map((booking) => (
+                    <div key={booking.id} className="bg-white border border-gray-200 rounded-lg p-4">
+                      <div className="flex items-center justify-between">
+                        <div className="flex-1">
+                          <h5 className="font-semibold text-gray-800">{booking.tourist}</h5>
+                          <p className="text-sm text-gray-600">{booking.tour}</p>
+                          <p className="text-xs text-gray-500">{booking.date}</p>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className={`px-2 py-1 rounded-full text-xs ${
+                            booking.status === 'confirmed' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
+                          }`}>
+                            {booking.status === 'confirmed' ? t.confirmed : t.pending}
+                          </span>
+                          <button className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-xs">
+                            {language === 'ru' ? 'Чат' : 'Chat'}
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : selectedAction === 'completed-bookings' ? (
+              <div className="space-y-4">
+                <div className="bg-blue-50 p-4 rounded-lg">
+                  <h4 className="font-semibold text-blue-800 mb-2">
+                    {language === 'ru' ? '✅ Завершенные бронирования' : '✅ Completed Bookings'}
+                  </h4>
+                  <p className="text-blue-700 text-sm">
+                    {language === 'ru' ? 'История завершенных туров' : 'History of completed tours'}
+                  </p>
+                </div>
+                
+                <div className="space-y-3">
+                  <div className="bg-white border border-gray-200 rounded-lg p-4">
+                    <div className="flex items-center justify-between">
+                      <div className="flex-1">
+                        <h5 className="font-semibold text-gray-800">{language === 'ru' ? 'Анна Петрова' : 'Anna Petrova'}</h5>
+                        <p className="text-sm text-gray-600">{language === 'ru' ? 'Экотропа "Лесные тропинки"' : 'Eco Trail "Forest Paths"'}</p>
+                        <p className="text-xs text-gray-500">2024-01-10</p>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="px-2 py-1 rounded-full text-xs bg-green-100 text-green-800">
+                          {language === 'ru' ? 'Завершен' : 'Completed'}
+                        </span>
+                        <div className="text-right">
+                          <div className="text-sm font-semibold text-green-600">⭐ 4.9</div>
+                          <div className="text-xs text-gray-500">{language === 'ru' ? 'Рейтинг' : 'Rating'}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-white border border-gray-200 rounded-lg p-4">
+                    <div className="flex items-center justify-between">
+                      <div className="flex-1">
+                        <h5 className="font-semibold text-gray-800">{language === 'ru' ? 'Михаил Козлов' : 'Mikhail Kozlov'}</h5>
+                        <p className="text-sm text-gray-600">{language === 'ru' ? 'Велосипедный тур по паркам' : 'Bicycle Tour in Parks'}</p>
+                        <p className="text-xs text-gray-500">2024-01-08</p>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="px-2 py-1 rounded-full text-xs bg-green-100 text-green-800">
+                          {language === 'ru' ? 'Завершен' : 'Completed'}
+                        </span>
+                        <div className="text-right">
+                          <div className="text-sm font-semibold text-green-600">⭐ 4.7</div>
+                          <div className="text-xs text-gray-500">{language === 'ru' ? 'Рейтинг' : 'Rating'}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ) : selectedAction === 'chat' ? (
+              <div className="space-y-4">
+                <div className="bg-purple-50 p-4 rounded-lg">
+                  <h4 className="font-semibold text-purple-800 mb-2">
+                    {language === 'ru' ? '💬 Чат с туристами' : '💬 Chat with Tourists'}
+                  </h4>
+                  <p className="text-purple-700 text-sm">
+                    {language === 'ru' ? 'Общение с туристами и ответы на вопросы' : 'Communication with tourists and answering questions'}
+                  </p>
+                </div>
+                
+                <div className="space-y-3">
+                  <div className="bg-white border border-gray-200 rounded-lg p-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-center gap-2">
+                        <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                          <span className="text-green-600 text-sm font-medium">ИС</span>
+                        </div>
+                        <div>
+                          <h5 className="font-semibold text-gray-800">{language === 'ru' ? 'Иван Смирнов' : 'Ivan Smirnov'}</h5>
+                          <p className="text-xs text-gray-500">{language === 'ru' ? '2 минуты назад' : '2 minutes ago'}</p>
+                        </div>
+                      </div>
+                      <span className="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">
+                        {language === 'ru' ? 'Новое' : 'New'}
+                      </span>
+                    </div>
+                    <p className="text-sm text-gray-700">
+                      {language === 'ru' 
+                        ? 'Здравствуйте! Подскажите, что нужно взять с собой на экотропу?'
+                        : 'Hello! Can you tell me what to bring for the eco trail?'
+                      }
+                    </p>
+                  </div>
+                  
+                  <div className="bg-white border border-gray-200 rounded-lg p-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-center gap-2">
+                        <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                          <span className="text-blue-600 text-sm font-medium">АП</span>
+                        </div>
+                        <div>
+                          <h5 className="font-semibold text-gray-800">{language === 'ru' ? 'Анна Петрова' : 'Anna Petrova'}</h5>
+                          <p className="text-xs text-gray-500">{language === 'ru' ? '1 час назад' : '1 hour ago'}</p>
+                        </div>
+                      </div>
+                      <span className="px-2 py-1 bg-gray-100 text-gray-800 rounded-full text-xs">
+                        {language === 'ru' ? 'Прочитано' : 'Read'}
+                      </span>
+                    </div>
+                    <p className="text-sm text-gray-700">
+                      {language === 'ru' 
+                        ? 'Спасибо за отличный тур! Обязательно приеду еще.'
+                        : 'Thank you for the great tour! I will definitely come again.'
+                      }
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ) : selectedAction === 'emergency' ? (
+              <div className="space-y-4">
+                <div className="bg-red-50 p-4 rounded-lg">
+                  <h4 className="font-semibold text-red-800 mb-2">
+                    {language === 'ru' ? '🚨 Экстренная связь' : '🚨 Emergency Contact'}
+                  </h4>
+                  <p className="text-red-700 text-sm">
+                    {language === 'ru' ? 'Контактная информация для экстренных случаев' : 'Contact information for emergency situations'}
+                  </p>
+                </div>
+                
+                <div className="space-y-3">
+                  <div className="bg-white border border-red-200 rounded-lg p-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h5 className="font-semibold text-red-800">{language === 'ru' ? 'Служба спасения' : 'Rescue Service'}</h5>
+                        <p className="text-sm text-gray-600">112</p>
+                      </div>
+                      <button className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg">
+                        {language === 'ru' ? 'Позвонить' : 'Call'}
+                      </button>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-white border border-red-200 rounded-lg p-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h5 className="font-semibold text-red-800">{language === 'ru' ? 'Медицинская помощь' : 'Medical Help'}</h5>
+                        <p className="text-sm text-gray-600">103</p>
+                      </div>
+                      <button className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg">
+                        {language === 'ru' ? 'Позвонить' : 'Call'}
+                      </button>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-white border border-red-200 rounded-lg p-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h5 className="font-semibold text-red-800">{language === 'ru' ? 'Полиция' : 'Police'}</h5>
+                        <p className="text-sm text-gray-600">102</p>
+                      </div>
+                      <button className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg">
+                        {language === 'ru' ? 'Позвонить' : 'Call'}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ) : selectedAction === 'balance' ? (
+              <div className="space-y-4">
+                <div className="bg-green-50 p-4 rounded-lg">
+                  <h4 className="font-semibold text-green-800 mb-2">
+                    {language === 'ru' ? '💰 Баланс AirCoin' : '💰 AirCoin Balance'}
+                  </h4>
+                  <p className="text-green-700 text-sm">
+                    {language === 'ru' ? 'Управление вашим балансом и средствами' : 'Manage your balance and funds'}
+                  </p>
+                </div>
+                
+                <div className="space-y-3">
+                  <div className="bg-white border border-gray-200 rounded-lg p-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h5 className="font-semibold text-gray-800">{language === 'ru' ? 'Основной баланс' : 'Main Balance'}</h5>
+                        <p className="text-sm text-gray-600">{language === 'ru' ? 'Доступно для вывода' : 'Available for withdrawal'}</p>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-2xl font-bold text-green-600">2,847 🌱</div>
+                        <div className="text-xs text-gray-500">{language === 'ru' ? 'AirCoin' : 'AirCoin'}</div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-white border border-gray-200 rounded-lg p-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h5 className="font-semibold text-gray-800">{language === 'ru' ? 'В обработке' : 'Pending'}</h5>
+                        <p className="text-sm text-gray-600">{language === 'ru' ? 'Ожидает подтверждения' : 'Awaiting confirmation'}</p>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-lg font-bold text-blue-600">+125 🌱</div>
+                        <div className="text-xs text-gray-500">{language === 'ru' ? 'AirCoin' : 'AirCoin'}</div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-white border border-gray-200 rounded-lg p-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h5 className="font-semibold text-gray-800">{language === 'ru' ? 'Заблокировано' : 'Blocked'}</h5>
+                        <p className="text-sm text-gray-600">{language === 'ru' ? 'Временно недоступно' : 'Temporarily unavailable'}</p>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-lg font-bold text-red-600">-50 🌱</div>
+                        <div className="text-xs text-gray-500">{language === 'ru' ? 'AirCoin' : 'AirCoin'}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="flex gap-2">
+                  <button className="flex-1 bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-lg">
+                    {language === 'ru' ? '💸 Вывести' : '💸 Withdraw'}
+                  </button>
+                  <button className="flex-1 bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg">
+                    {language === 'ru' ? '📊 Статистика' : '📊 Statistics'}
+                  </button>
+                </div>
+              </div>
+            ) : selectedAction === 'payment-history' ? (
+              <div className="space-y-4">
+                <div className="bg-blue-50 p-4 rounded-lg">
+                  <h4 className="font-semibold text-blue-800 mb-2">
+                    {language === 'ru' ? '📋 История платежей' : '📋 Payment History'}
+                  </h4>
+                  <p className="text-blue-700 text-sm">
+                    {language === 'ru' ? 'Детальная история всех транзакций' : 'Detailed history of all transactions'}
+                  </p>
+                </div>
+                
+                <div className="space-y-3">
+                  <div className="bg-white border border-gray-200 rounded-lg p-4">
+                    <div className="flex items-center justify-between">
+                      <div className="flex-1">
+                        <h5 className="font-semibold text-gray-800">{language === 'ru' ? 'Эко-тур "Лесные тропинки"' : 'Eco Tour "Forest Paths"'}</h5>
+                        <p className="text-sm text-gray-600">15 января 2024</p>
+                        <p className="text-xs text-gray-500">{language === 'ru' ? 'Завершен' : 'Completed'}</p>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-lg font-bold text-green-600">+85 🌱</div>
+                        <div className="text-xs text-gray-500">{language === 'ru' ? 'Доход' : 'Income'}</div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-white border border-gray-200 rounded-lg p-4">
+                    <div className="flex items-center justify-between">
+                      <div className="flex-1">
+                        <h5 className="font-semibold text-gray-800">{language === 'ru' ? 'Велосипедный тур' : 'Bicycle Tour'}</h5>
+                        <p className="text-sm text-gray-600">12 января 2024</p>
+                        <p className="text-xs text-gray-500">{language === 'ru' ? 'Завершен' : 'Completed'}</p>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-lg font-bold text-green-600">+65 🌱</div>
+                        <div className="text-xs text-gray-500">{language === 'ru' ? 'Доход' : 'Income'}</div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-white border border-gray-200 rounded-lg p-4">
+                    <div className="flex items-center justify-between">
+                      <div className="flex-1">
+                        <h5 className="font-semibold text-gray-800">{language === 'ru' ? 'Эко-курс "Маркетинг"' : 'Eco Course "Marketing"'}</h5>
+                        <p className="text-sm text-gray-600">8 января 2024</p>
+                        <p className="text-xs text-gray-500">{language === 'ru' ? 'Оплачено' : 'Paid'}</p>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-lg font-bold text-red-600">-150 🌱</div>
+                        <div className="text-xs text-gray-500">{language === 'ru' ? 'Расход' : 'Expense'}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <button className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg">
+                  {language === 'ru' ? '📋 Полная история' : '📋 Full History'}
+                </button>
+              </div>
+            ) : selectedAction === 'payment-methods' ? (
+              <div className="space-y-4">
+                <div className="bg-purple-50 p-4 rounded-lg">
+                  <h4 className="font-semibold text-purple-800 mb-2">
+                    {language === 'ru' ? '💳 Способы оплаты' : '💳 Payment Methods'}
+                  </h4>
+                  <p className="text-purple-700 text-sm">
+                    {language === 'ru' ? 'Управление способами получения платежей' : 'Manage payment receiving methods'}
+                  </p>
+                </div>
+                
+                <div className="space-y-3">
+                  <div className="bg-white border border-gray-200 rounded-lg p-4">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                          <span className="text-green-600 text-lg">🌱</span>
+                        </div>
+                        <div>
+                          <h5 className="font-semibold text-gray-800">{language === 'ru' ? 'AirCoin Wallet' : 'AirCoin Wallet'}</h5>
+                          <p className="text-sm text-gray-600">{language === 'ru' ? 'Основной кошелек' : 'Main wallet'}</p>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-lg font-bold text-green-600">2,847 🌱</div>
+                        <div className="text-xs text-gray-500">{language === 'ru' ? 'Активен' : 'Active'}</div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-white border border-gray-200 rounded-lg p-4">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                          <span className="text-blue-600 text-lg">💳</span>
+                        </div>
+                        <div>
+                          <h5 className="font-semibold text-gray-800">{language === 'ru' ? 'Банковская карта' : 'Bank Card'}</h5>
+                          <p className="text-sm text-gray-600">**** 1234</p>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-sm font-bold text-blue-600">{language === 'ru' ? 'Подключена' : 'Connected'}</div>
+                        <div className="text-xs text-gray-500">{language === 'ru' ? 'Активна' : 'Active'}</div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-white border border-gray-200 rounded-lg p-4">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center">
+                          <span className="text-orange-600 text-lg">🏦</span>
+                        </div>
+                        <div>
+                          <h5 className="font-semibold text-gray-800">{language === 'ru' ? 'Банковский перевод' : 'Bank Transfer'}</h5>
+                          <p className="text-sm text-gray-600">{language === 'ru' ? 'Для крупных сумм' : 'For large amounts'}</p>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-sm font-bold text-orange-600">{language === 'ru' ? 'Доступно' : 'Available'}</div>
+                        <div className="text-xs text-gray-500">{language === 'ru' ? 'Настроено' : 'Configured'}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <button className="w-full bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-lg">
+                  {language === 'ru' ? '➕ Добавить способ оплаты' : '➕ Add Payment Method'}
+                </button>
+              </div>
+            ) : selectedAction === 'tax-reports' ? (
+              <div className="space-y-4">
+                <div className="bg-red-50 p-4 rounded-lg">
+                  <h4 className="font-semibold text-red-800 mb-2">
+                    {language === 'ru' ? '📊 Налоговые отчеты' : '📊 Tax Reports'}
+                  </h4>
+                  <p className="text-red-700 text-sm">
+                    {language === 'ru' ? 'Управление налоговой отчетностью' : 'Manage tax reporting'}
+                  </p>
+                </div>
+                
+                <div className="space-y-3">
+                  <div className="bg-white border border-gray-200 rounded-lg p-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h5 className="font-semibold text-gray-800">{language === 'ru' ? 'Доход за 2024' : '2024 Income'}</h5>
+                        <p className="text-sm text-gray-600">{language === 'ru' ? 'Общая сумма доходов' : 'Total income amount'}</p>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-lg font-bold text-green-600">15,234 🌱</div>
+                        <div className="text-xs text-gray-500">{language === 'ru' ? 'AirCoin' : 'AirCoin'}</div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-white border border-gray-200 rounded-lg p-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h5 className="font-semibold text-gray-800">{language === 'ru' ? 'Налог к уплате' : 'Tax to Pay'}</h5>
+                        <p className="text-sm text-gray-600">{language === 'ru' ? '10% от дохода' : '10% of income'}</p>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-lg font-bold text-red-600">1,523 🌱</div>
+                        <div className="text-xs text-gray-500">{language === 'ru' ? 'AirCoin' : 'AirCoin'}</div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-white border border-gray-200 rounded-lg p-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h5 className="font-semibold text-gray-800">{language === 'ru' ? 'Статус отчетности' : 'Reporting Status'}</h5>
+                        <p className="text-sm text-gray-600">{language === 'ru' ? 'Текущий статус' : 'Current status'}</p>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-sm font-bold text-yellow-600">{language === 'ru' ? 'В обработке' : 'Processing'}</div>
+                        <div className="text-xs text-gray-500">{language === 'ru' ? 'До 30 апреля' : 'By April 30'}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="flex gap-2">
+                  <button className="flex-1 bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-lg">
+                    {language === 'ru' ? '📄 Скачать отчет' : '📄 Download Report'}
+                  </button>
+                  <button className="flex-1 bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-4 rounded-lg">
+                    {language === 'ru' ? '📧 Отправить в ФНС' : '📧 Send to Tax Office'}
+                  </button>
+                </div>
+              </div>
+            ) : selectedAction === 'create-tour' ? (
+              <div className="space-y-6">
+                {/* Progress Steps */}
+                <div className="mb-6">
+                  <div className="flex items-center justify-between">
+                    {[
+                      { key: 'basic', label: language === 'ru' ? 'Основное' : 'Basic' },
+                      { key: 'points', label: language === 'ru' ? 'Точки' : 'Points' },
+                      { key: 'photos', label: language === 'ru' ? 'Фото' : 'Photos' },
+                      { key: 'route', label: language === 'ru' ? 'Маршрут' : 'Route' },
+                      { key: 'finish', label: language === 'ru' ? 'Завершить' : 'Finish' }
+                    ].map((step, index) => (
+                      <div key={step.key} className="flex items-center">
+                        <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
+                          tourCreationStep === step.key 
+                            ? 'bg-green-500 text-white' 
+                            : tourCreationStep === 'basic' && index === 0
+                            ? 'bg-green-500 text-white'
+                            : 'bg-gray-200 text-gray-600'
+                        }`}>
+                          {index + 1}
+                        </div>
+                        <span className={`ml-2 text-sm ${
+                          tourCreationStep === step.key ? 'text-green-600 font-medium' : 'text-gray-500'
+                        }`}>
+                          {step.label}
+                        </span>
+                        {index < 4 && (
+                          <div className={`w-8 h-0.5 mx-3 ${
+                            tourCreationStep === step.key ? 'bg-green-500' : 'bg-gray-200'
+                          }`} />
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Step Content */}
+                {tourCreationStep === 'basic' && (
+                  <div className="space-y-4">
+                    <div className="bg-green-50 p-4 rounded-lg">
+                      <h4 className="font-semibold text-green-800 mb-2">
+                        {language === 'ru' ? '🎯 Основная информация' : '🎯 Basic Information'}
+                      </h4>
+                      <p className="text-green-700 text-sm">
+                        {language === 'ru' ? 'Заполните основную информацию о туре' : 'Fill in basic tour information'}
+                      </p>
+                    </div>
+                    
+                    <div className="space-y-4">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                          {language === 'ru' ? 'Название тура' : 'Tour Name'}
+                        </label>
+                        <input
+                          type="text"
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                          placeholder={language === 'ru' ? 'Введите название тура' : 'Enter tour name'}
+                        />
+                      </div>
+                      
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                          {language === 'ru' ? 'Описание тура' : 'Tour Description'}
+                        </label>
+                        <textarea
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                          rows={3}
+                          placeholder={language === 'ru' ? 'Опишите ваш тур' : 'Describe your tour'}
+                        />
+                      </div>
+                      
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">
+                            {language === 'ru' ? 'Тип тура' : 'Tour Type'}
+                          </label>
+                          <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+                            <option value="hiking">{t.hiking}</option>
+                            <option value="cycling">{t.cycling}</option>
+                            <option value="cultural">{t.cultural}</option>
+                            <option value="nature">{t.nature}</option>
+                          </select>
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">
+                            {language === 'ru' ? 'Сложность' : 'Difficulty'}
+                          </label>
+                          <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+                            <option value="easy">{t.easy}</option>
+                            <option value="medium">{t.medium}</option>
+                            <option value="hard">{t.hard}</option>
+                          </select>
+                        </div>
+                      </div>
+                      
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">
+                            {language === 'ru' ? 'Продолжительность' : 'Duration'}
+                          </label>
+                          <input
+                            type="text"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                            placeholder={language === 'ru' ? '2-3 часа' : '2-3 hours'}
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">
+                            {language === 'ru' ? 'Расстояние' : 'Distance'}
+                          </label>
+                          <input
+                            type="text"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                            placeholder={language === 'ru' ? '5 км' : '5 km'}
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">
+                            {language === 'ru' ? 'Цена' : 'Price'}
+                          </label>
+                          <input
+                            type="text"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                            placeholder="🌱 500 AirCoin"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="flex justify-end">
+                      <button
+                        onClick={() => setTourCreationStep('points')}
+                        className="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg transition-colors"
+                      >
+                        {language === 'ru' ? 'Продолжить' : 'Continue'}
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {tourCreationStep === 'points' && (
+                  <div className="space-y-4">
+                    <div className="bg-blue-50 p-4 rounded-lg">
+                      <h4 className="font-semibold text-blue-800 mb-2">
+                        {language === 'ru' ? '📍 Контрольные точки' : '📍 Checkpoints'}
+                      </h4>
+                      <p className="text-blue-700 text-sm">
+                        {language === 'ru' ? 'Добавьте ключевые точки вашего тура' : 'Add key points of your tour'}
+                      </p>
+                    </div>
+                    
+                    {/* Map Placeholder */}
+                    <div className="bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+                      <MapIcon className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+                      <p className="text-gray-500 mb-4">
+                        {language === 'ru' ? 'Интерактивная карта для добавления точек' : 'Interactive map for adding points'}
+                      </p>
+                      <button 
+                        onClick={() => addTourPoint({
+                          name: language === 'ru' ? 'Новая точка' : 'New Point',
+                          lat: 43.2220 + Math.random() * 0.1,
+                          lng: 76.8512 + Math.random() * 0.1,
+                          description: language === 'ru' ? 'Описание точки' : 'Point description',
+                          type: 'checkpoint'
+                        })}
+                        className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg mr-2"
+                      >
+                        {language === 'ru' ? 'Добавить точку' : 'Add Point'}
+                      </button>
+                      <button 
+                        onClick={generateAutoRoute}
+                        className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg"
+                      >
+                        {language === 'ru' ? 'Автомаршрут' : 'Auto Route'}
+                      </button>
+                    </div>
+                    
+                    {/* Points List */}
+                    <div className="space-y-3">
+                      <h5 className="font-semibold text-gray-800">
+                        {language === 'ru' ? 'Точки маршрута' : 'Route Points'} ({tourPoints.length})
+                      </h5>
+                      {tourPoints.map((point, index) => (
+                        <div key={point.id} className="bg-white border border-gray-200 rounded-lg p-4">
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-3">
+                              <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
+                                point.type === 'start' ? 'bg-green-100 text-green-600' :
+                                point.type === 'end' ? 'bg-red-100 text-red-600' :
+                                'bg-blue-100 text-blue-600'
+                              }`}>
+                                {point.type === 'start' ? '🚀' : point.type === 'end' ? '🏁' : index + 1}
+                              </div>
+                              <div>
+                                <h6 className="font-medium text-gray-800">{point.name}</h6>
+                                <p className="text-sm text-gray-600">{point.description}</p>
+                                <p className="text-xs text-gray-500">
+                                  {point.lat.toFixed(4)}, {point.lng.toFixed(4)}
+                                </p>
+                              </div>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <select
+                                value={point.type}
+                                onChange={(e) => updateTourPoint(point.id, { type: e.target.value as 'start' | 'checkpoint' | 'end' })}
+                                className="text-xs px-2 py-1 border border-gray-300 rounded"
+                              >
+                                <option value="start">{language === 'ru' ? 'Старт' : 'Start'}</option>
+                                <option value="checkpoint">{language === 'ru' ? 'Точка' : 'Checkpoint'}</option>
+                                <option value="end">{language === 'ru' ? 'Финиш' : 'End'}</option>
+                              </select>
+                              <button
+                                onClick={() => removeTourPoint(point.id)}
+                                className="text-red-500 hover:text-red-700"
+                              >
+                                <XMarkIcon className="w-4 h-4" />
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                      
+                      {tourPoints.length === 0 && (
+                        <div className="text-center py-8 text-gray-500">
+                          <MapIcon className="w-8 h-8 mx-auto mb-2" />
+                          <p>{language === 'ru' ? 'Пока нет точек маршрута' : 'No route points yet'}</p>
+                        </div>
+                      )}
+                    </div>
+                    
+                    <div className="flex justify-between">
+                      <button
+                        onClick={() => setTourCreationStep('basic')}
+                        className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                      >
+                        {language === 'ru' ? 'Назад' : 'Back'}
+                      </button>
+                      <button
+                        onClick={() => setTourCreationStep('photos')}
+                        className="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg transition-colors"
+                      >
+                        {language === 'ru' ? 'Продолжить' : 'Continue'}
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {tourCreationStep === 'photos' && (
+                  <div className="space-y-4">
+                    <div className="bg-purple-50 p-4 rounded-lg">
+                      <h4 className="font-semibold text-purple-800 mb-2">
+                        {language === 'ru' ? '📸 Фотографии тура' : '📸 Tour Photos'}
+                      </h4>
+                      <p className="text-purple-700 text-sm">
+                        {language === 'ru' ? 'Добавьте фотографии для вашего тура' : 'Add photos for your tour'}
+                      </p>
+                    </div>
+                    
+                    {/* Photo Upload Area */}
+                    <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-purple-400 transition-colors">
+                      <div className="text-4xl mb-4">📸</div>
+                      <p className="text-gray-600 mb-4">
+                        {language === 'ru' ? 'Перетащите фото сюда или нажмите для выбора' : 'Drag photos here or click to select'}
+                      </p>
+                      <button 
+                        onClick={() => addTourPhoto({
+                          url: '/placeholder.jpg',
+                          description: language === 'ru' ? 'Новое фото' : 'New photo'
+                        })}
+                        className="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded-lg"
+                      >
+                        {language === 'ru' ? 'Выбрать файлы' : 'Select Files'}
+                      </button>
+                    </div>
+                    
+                    {/* Photos Grid */}
+                    {tourPhotos.length > 0 && (
+                      <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                        {tourPhotos.map((photo) => (
+                          <div key={photo.id} className="relative bg-gray-100 rounded-lg p-4">
+                            <div className="aspect-square bg-gray-200 rounded-lg mb-2 flex items-center justify-center">
+                              <span className="text-gray-500">📷</span>
+                            </div>
+                            <p className="text-sm text-gray-600 truncate">{photo.description}</p>
+                            <button
+                              onClick={() => removeTourPhoto(photo.id)}
+                              className="absolute top-2 right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs"
+                            >
+                              ×
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                    
+                    <div className="flex justify-between">
+                      <button
+                        onClick={() => setTourCreationStep('points')}
+                        className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                      >
+                        {language === 'ru' ? 'Назад' : 'Back'}
+                      </button>
+                      <button
+                        onClick={() => setTourCreationStep('route')}
+                        className="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg transition-colors"
+                      >
+                        {language === 'ru' ? 'Продолжить' : 'Continue'}
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {tourCreationStep === 'route' && (
+                  <div className="space-y-4">
+                    <div className="bg-orange-50 p-4 rounded-lg">
+                      <h4 className="font-semibold text-orange-800 mb-2">
+                        {language === 'ru' ? '🗺️ Построение маршрута' : '🗺️ Route Building'}
+                      </h4>
+                      <p className="text-orange-700 text-sm">
+                        {language === 'ru' ? 'Настройте автоматическое построение маршрута' : 'Configure automatic route building'}
+                      </p>
+                    </div>
+                    
+                    <div className="bg-white border border-gray-200 rounded-lg p-6">
+                      <div className="flex items-center justify-between mb-4">
+                        <h5 className="font-semibold text-gray-800">
+                          {language === 'ru' ? 'Автоматическое построение' : 'Automatic Building'}
+                        </h5>
+                        <label className="flex items-center">
+                          <input
+                            type="checkbox"
+                            checked={autoRouteEnabled}
+                            onChange={(e) => setAutoRouteEnabled(e.target.checked)}
+                            className="mr-2"
+                          />
+                          <span className="text-sm text-gray-700">
+                            {language === 'ru' ? 'Включить авто-маршрут' : 'Enable auto-route'}
+                          </span>
+                        </label>
+                      </div>
+                      
+                      {autoRouteEnabled && (
+                        <div className="bg-green-50 p-4 rounded-lg">
+                          <h6 className="font-medium text-green-800 mb-2">
+                            {language === 'ru' ? '✅ Автомаршрут активен' : '✅ Auto-route active'}
+                          </h6>
+                          <p className="text-sm text-green-700">
+                            {language === 'ru' 
+                              ? 'Маршрут будет автоматически построен между точками'
+                              : 'Route will be automatically built between points'
+                            }
+                          </p>
+                        </div>
+                      )}
+                      
+                      <div className="mt-4">
+                        <div className="bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+                          <MapIcon className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+                          <p className="text-gray-500 mb-4">
+                            {language === 'ru' ? 'Визуализация маршрута' : 'Route visualization'}
+                          </p>
+                          <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg">
+                            {language === 'ru' ? 'Открыть карту' : 'Open Map'}
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="flex justify-between">
+                      <button
+                        onClick={() => setTourCreationStep('photos')}
+                        className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                      >
+                        {language === 'ru' ? 'Назад' : 'Back'}
+                      </button>
+                      <button
+                        onClick={() => setTourCreationStep('finish')}
+                        className="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg transition-colors"
+                      >
+                        {language === 'ru' ? 'Продолжить' : 'Continue'}
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {tourCreationStep === 'finish' && (
+                  <div className="space-y-4">
+                    <div className="bg-green-50 p-4 rounded-lg">
+                      <h4 className="font-semibold text-green-800 mb-2">
+                        {language === 'ru' ? '🎉 Завершение создания тура' : '🎉 Finish Tour Creation'}
+                      </h4>
+                      <p className="text-green-700 text-sm">
+                        {language === 'ru' ? 'Проверьте информацию и создайте тур' : 'Review information and create tour'}
+                      </p>
+                    </div>
+                    
+                    {/* Tour Summary */}
+                    <div className="bg-gray-50 rounded-lg p-6">
+                      <h5 className="font-semibold text-gray-800 mb-4">
+                        {language === 'ru' ? 'Сводка тура' : 'Tour Summary'}
+                      </h5>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div className="text-center">
+                          <div className="text-2xl font-bold text-green-600">{tourPoints.length}</div>
+                          <div className="text-sm text-gray-600">
+                            {language === 'ru' ? 'Точек маршрута' : 'Route Points'}
+                          </div>
+                        </div>
+                        <div className="text-center">
+                          <div className="text-2xl font-bold text-blue-600">{tourPhotos.length}</div>
+                          <div className="text-sm text-gray-600">
+                            {language === 'ru' ? 'Фотографий' : 'Photos'}
+                          </div>
+                        </div>
+                        <div className="text-center">
+                          <div className="text-2xl font-bold text-purple-600">
+                            {autoRouteEnabled ? '✅' : '❌'}
+                          </div>
+                          <div className="text-sm text-gray-600">
+                            {language === 'ru' ? 'Автомаршрут' : 'Auto Route'}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="flex justify-between">
+                      <button
+                        onClick={() => setTourCreationStep('route')}
+                        className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                      >
+                        {language === 'ru' ? 'Назад' : 'Back'}
+                      </button>
+                      <button
+                        onClick={closeModal}
+                        className="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg transition-colors"
+                      >
+                        {language === 'ru' ? 'Создать тур' : 'Create Tour'}
+                      </button>
+                    </div>
+                  </div>
+                )}
               </div>
             ) : (
               <div className="text-green-600 mb-4">
