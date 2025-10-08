@@ -2217,7 +2217,7 @@ export default function AdminDashboard() {
               <ChatBubbleLeftRightIcon className="w-5 h-5" />
               <span>{language === 'ru' ? 'Сообщения' : 'Messages'}</span>
               <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                8
+                9
               </span>
             </button>
           </div>
@@ -2647,6 +2647,63 @@ export default function AdminDashboard() {
             </div>
 
             <div className="space-y-4">
+              {/* Tourist Safety Alert */}
+              <div className="border-l-4 border-red-600 bg-red-50 p-4 rounded-r-lg">
+                <div className="flex items-start gap-3">
+                  <ExclamationTriangleIcon className="w-6 h-6 text-red-600 mt-1" />
+                  <div className="flex-1">
+                    <h4 className="font-semibold text-red-800 mb-2">
+                      {language === 'ru' ? '🚨 ТРЕВОГА: Турист не завершил маршрут' : '🚨 ALERT: Tourist Failed to Complete Route'}
+                    </h4>
+                    <p className="text-red-700 mb-3">
+                      {language === 'ru' 
+                        ? 'Турист Иван Петров начал однодневный маршрут "Горная тропа Алматы" 2 дня назад, но так и не отметился о завершении. Необходимо срочно принять меры.'
+                        : 'Tourist Ivan Petrov started the one-day route "Almaty Mountain Trail" 2 days ago but has not checked in for completion. Urgent action required.'
+                      }
+                    </p>
+                    <div className="bg-white p-3 rounded border border-red-200">
+                      <h5 className="font-medium text-red-800 mb-2">
+                        {language === 'ru' ? 'Детали:' : 'Details:'}
+                      </h5>
+                      <ul className="text-sm text-red-700 space-y-1">
+                        <li>• {language === 'ru' ? 'Турист: Иван Петров (ID: #12345)' : 'Tourist: Ivan Petrov (ID: #12345)'}</li>
+                        <li>• {language === 'ru' ? 'Маршрут: Горная тропа Алматы (1 день)' : 'Route: Almaty Mountain Trail (1 day)'}</li>
+                        <li>• {language === 'ru' ? 'Дата начала: 4 октября 2024' : 'Start Date: October 4, 2024'}</li>
+                        <li>• {language === 'ru' ? 'Ожидаемое завершение: 4 октября 2024' : 'Expected Completion: October 4, 2024'}</li>
+                        <li>• {language === 'ru' ? 'Прошло времени: 2 дня' : 'Time Elapsed: 2 days'}</li>
+                        <li>• {language === 'ru' ? 'Последний контакт: 4 октября 2024, 08:30' : 'Last Contact: October 4, 2024, 08:30'}</li>
+                      </ul>
+                    </div>
+                    <div className="bg-white p-3 rounded border border-red-200 mt-3">
+                      <h5 className="font-medium text-red-800 mb-2">
+                        {language === 'ru' ? 'Рекомендуемые действия:' : 'Recommended Actions:'}
+                      </h5>
+                      <ul className="text-sm text-red-700 space-y-1">
+                        <li>• {language === 'ru' ? 'Немедленно связаться с туристом по телефону' : 'Immediately contact tourist by phone'}</li>
+                        <li>• {language === 'ru' ? 'Отправить поисковую группу на маршрут' : 'Send search team to the route'}</li>
+                        <li>• {language === 'ru' ? 'Уведомить службы экстренного реагирования' : 'Notify emergency services'}</li>
+                        <li>• {language === 'ru' ? 'Связаться с контактными лицами туриста' : 'Contact tourist emergency contacts'}</li>
+                        <li>• {language === 'ru' ? 'Проверить GPS трекинг (если доступен)' : 'Check GPS tracking (if available)'}</li>
+                      </ul>
+                    </div>
+                    <div className="mt-3 flex gap-2">
+                      <button className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 text-sm font-semibold">
+                        {language === 'ru' ? '🚨 СРОЧНЫЕ МЕРЫ' : '🚨 URGENT ACTION'}
+                      </button>
+                      <button className="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700 text-sm">
+                        {language === 'ru' ? '📞 Связаться с туристом' : '📞 Contact Tourist'}
+                      </button>
+                      <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm">
+                        {language === 'ru' ? '🚁 Отправить поисковую группу' : '🚁 Send Search Team'}
+                      </button>
+                      <button className="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300 text-sm">
+                        {language === 'ru' ? 'Просмотрено' : 'Mark as Read'}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               {/* High Traffic Alert */}
               <div className="border-l-4 border-red-500 bg-red-50 p-4 rounded-r-lg">
                 <div className="flex items-start gap-3">
